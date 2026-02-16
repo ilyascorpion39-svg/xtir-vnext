@@ -3,28 +3,19 @@ dist/
 .astro/
 .next/
 out/
-
 .env
 .env.*
-
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-
 .DS_Store
 Thumbs.db
-
 *.zip
 *.tar
 *.tar.gz
 *.7z
-
 # Netlify local state
 .netlify/
-
 # Local patch files
 *.patch
-node_modules/
-dist/
-.astro/
