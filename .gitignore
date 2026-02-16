@@ -25,3 +25,6 @@ Thumbs.db
 
 # Local patch files
 *.patch
+node_modules/
+dist/
+.astro/
