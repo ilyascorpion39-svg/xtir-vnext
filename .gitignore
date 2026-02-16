@@ -19,3 +19,9 @@ Thumbs.db
 *.tar
 *.tar.gz
 *.7z
+
+# Netlify local state
+.netlify/
+
+# Local patch files
+*.patch
