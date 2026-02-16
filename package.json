@@ -15,12 +15,10 @@
     "type-check": "astro check"
   },
   "dependencies": {
-    "@astrojs/react": "^3.0.9",
+    "@astrojs/react": "4.4.2",
     "@astrojs/tailwind": "^5.1.0",
-    "@astrojs/vercel": "^7.0.4",
     "@react-three/drei": "^9.96.0",
     "@react-three/fiber": "^8.15.15",
-    "astro": "^4.2.1",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.3",
     "gsap": "^3.12.4",
@@ -30,6 +28,8 @@
     "three": "^0.160.1"
   },
   "devDependencies": {
+    "@astrojs/check": "0.9.6",
+    "@astrojs/netlify": "6.6.4",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20.11.5",
     "@types/react": "^18.2.48",
@@ -37,13 +37,16 @@
     "@types/three": "^0.160.0",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
+    "ajv": "8.17.1",
+    "ajv-errors": "3.0.0",
+    "astro": "5.17.2",
     "autoprefixer": "^10.4.17",
     "eslint": "^8.56.0",
     "eslint-plugin-astro": "^0.31.3",
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "prettier": "^3.2.4",
     "prettier-plugin-astro": "^0.13.0",
-    "typescript": "^5.3.3"
+    "typescript": "5.9.3"
   },
   "keywords": [
     "xtir",

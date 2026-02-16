@@ -5,7 +5,9 @@
 export type ArchiveItemType = 'pdf' | 'video' | 'audio' | 'image' | 'other';
 
 export interface ArchiveItem {
-  id: string;
+  
+  createdAt?: string;
+id: string;
   title: string;
   relPath: string;
   folder: string;
@@ -242,3 +244,4 @@ export const archiveItems: ArchiveItem[] = [
   { id: "XTIR_ASSETS_PACK/02_docs/CR-2-Target-Retrieval-System-PDS.pdf", title: "CR 2 Target Retrieval System PDS", relPath: "XTIR_ASSETS_PACK/02_docs/CR-2-Target-Retrieval-System-PDS.pdf", folder: "XTIR_ASSETS_PACK/02_docs", url: "/xtir-archive/XTIR_ASSETS_PACK/02_docs/CR-2-Target-Retrieval-System-PDS.pdf", type: "pdf", size: 289965, updatedAt: "2026-02-01T00:54:22.000Z" },
   { id: "XTIR_ASSETS_PACK/02_docs/CR-2TL-Master-Range-Control-PDS.pdf", title: "CR 2TL Master Range Control PDS", relPath: "XTIR_ASSETS_PACK/02_docs/CR-2TL-Master-Range-Control-PDS.pdf", folder: "XTIR_ASSETS_PACK/02_docs", url: "/xtir-archive/XTIR_ASSETS_PACK/02_docs/CR-2TL-Master-Range-Control-PDS.pdf", type: "pdf", size: 389852, updatedAt: "2026-02-01T00:54:22.000Z" },
 ];
+
