@@ -54,7 +54,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="author" content="XTIR" />
     
     <!-- Структурированные данные -->
-    <script type="application/ld+json">
+    <script is:inline type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Organization",
@@ -277,3 +277,4 @@ ${body}`;
     }
   }
 </style>
+
