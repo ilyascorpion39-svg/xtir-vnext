@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 type AssetType =
   | 'image'
@@ -368,3 +368,4 @@ export default function GalleryApp({ items }: Props) {
     </div>
   );
 }
+

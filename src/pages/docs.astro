@@ -1,14 +1,52 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Header from '@/components/common/Header';
-import Footer from '@/components/common/Footer';
-import { docGroups, type DocGroup } from '@/data/docs';
-import { SITE } from '@/site';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { docGroups } from "@/data/docs";
 
-const ytChannel = SITE.youtubeChannelUrl;
+const groups = (docGroups ?? []).filter(g => (g.items ?? []).some(i => i?.href));
+---
 
-const totalFiles = (docGroups ?? []).reduce((acc, g) => acc + (g.items ?? []).filter((i) => !!i.href).length, 0);
+<BaseLayout title="Документы">
+  <section class="container-custom pt-28 pb-16">
+    <header class="max-w-3xl">
+      <h1 class="text-3xl md:text-4xl font-orbitron font-bold gradient-text">Документы</h1>
+      <p class="mt-3 text-gray-300">
+        Паспорта, инструкции и материалы. Открываются в новой вкладке.
+      </p>
+    </header>
 
-function isPdf(href: string) {
-  return href.toLowerCase().endsWith('.pdf');
-}
+    {groups.length === 0 ? (
+      <div class="mt-10 glass-card p-6">
+        <p class="text-gray-200 font-medium">Пока нет документов для отображения.</p>
+        <p class="text-gray-400 mt-2 text-sm">
+          Проверь <code>src/data/docs.ts</code>: у элементов должны быть <code>href</code>.
+        </p>
+      </div>
+    ) : (
+      <div class="mt-10 space-y-8">
+        {groups.map((g) => (
+          <div class="glass-card p-6">
+            <h2 class="text-xl font-orbitron font-semibold text-light">{g.title}</h2>
+
+            <div class="mt-4 grid gap-3">
+              {(g.items ?? []).filter(i => i?.href).map((i) => (
+                <a
+                  class="block p-4 rounded-xl border border-primary/20 hover:border-primary/50 hover:bg-primary/5 transition"
+                  href={i.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div class="flex items-start justify-between gap-4">
+                    <div class="min-w-0">
+                      <div class="text-light font-medium truncate">{i.title ?? "Материал"}</div>
+                    </div>
+                    <span class="text-primary font-medium whitespace-nowrap">Открыть</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>
