@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/common/Header';
+import Footer from '../components/common/Footer';
+import GalleryApp from '../components/sections/GalleryApp';
+import { archiveItems } from '../data/archive.generated';
+---
+
+<BaseLayout title="Галерея" description="Фотогалерея и материалы XTIR и партнёров">
+  <Header />
+  <main class="mx-auto w-full max-w-7xl px-6 py-14">
+    <div class="mb-8">
+      <h1 class="h1-xtir">Галерея</h1>
+      <p class="mt-3 max-w-3xl text-gray-300">
+        Здесь собраны фотографии и материалы по установкам XTIR, а также материалы партнёров.
+        Всё открывается прямо на сайте — без внешних облаков.
+      </p>
+    </div>
+
+    <GalleryApp client:load items={archiveItems} />
+  </main>
+  <Footer />
+</BaseLayout>

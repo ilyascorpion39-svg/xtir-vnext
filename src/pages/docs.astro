@@ -1,0 +1,14 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/common/Header';
+import Footer from '@/components/common/Footer';
+import { docGroups, type DocGroup } from '@/data/docs';
+import { SITE } from '@/site';
+
+const ytChannel = SITE.youtubeChannelUrl;
+
+const totalFiles = (docGroups ?? []).reduce((acc, g) => acc + (g.items ?? []).filter((i) => !!i.href).length, 0);
+
+function isPdf(href: string) {
+  return href.toLowerCase().endsWith('.pdf');
+}

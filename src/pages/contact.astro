@@ -1,0 +1,286 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/common/Header';
+import Footer from '../components/common/Footer';
+
+const title = 'Контакты';
+const description = 'Свяжитесь с XTIR: запрос цены, КП, документации или консультации.';
+---
+
+<BaseLayout title={title} description={description}>
+  <Header />
+
+  <main class="pt-28 pb-20">
+    <section class="section-xtir">
+      <div class="max-w-6xl mx-auto px-6">
+        <h1 class="text-4xl md:text-5xl font-semibold tracking-tight text-white">Контакты</h1>
+        <p class="mt-4 text-lg text-gray-300 max-w-3xl">
+          Напишите нам — мы подготовим коммерческое предложение, подберём конфигурацию и пришлём документацию.
+        </p>
+
+        <div class="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="panel-xtir p-6 lg:col-span-1">
+            <h2 class="text-xl font-semibold text-white">Связь</h2>
+
+            <div class="mt-4 space-y-3 text-gray-300">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="text-sm text-gray-400">Email</p>
+                  <p class="text-base text-gray-200">info@xtir.ru</p>
+                </div>
+                <button
+                  type="button"
+                  class="btn-secondary px-3 py-2 text-sm"
+                  onclick="navigator.clipboard?.writeText('info@xtir.ru')"
+                >
+                  Скопировать
+                </button>
+              </div>
+
+              <div>
+                <p class="text-sm text-gray-400">Телефон</p>
+                <p class="text-base text-gray-200">+7 (915) 425-00-95</p>
+                <p class="text-base text-gray-200">+7 (916) 296-24-69</p>
+              </div>
+
+              <div class="pt-2">
+                <button
+                  type="button"
+                  class="btn-primary w-full"
+                  data-xtir-request
+                  data-product="Общий запрос"
+                  data-doc="Цена / КП / Документация"
+                >
+                  Скопировать шаблон письма
+                </button>
+                <p class="mt-2 text-xs text-gray-400">
+                  Откроется окно с готовым текстом — останется вставить в любое письмо и отправить на <span class="text-gray-300">info@xtir.ru</span>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-xtir p-6 lg:col-span-2">
+            <h2 class="text-xl font-semibold text-white">Быстрый запрос</h2>
+            <p class="mt-2 text-gray-300">
+              Заполните форму — мы сформируем текст заявки и скопируем его в буфер обмена.
+            </p>
+
+            <form id="contactForm" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm text-gray-300" for="name">Имя</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  class="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-xtir"
+                  placeholder="Как к вам обращаться"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-300" for="company">Компания</label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  class="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-xtir"
+                  placeholder="Тир / клуб / организация"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-300" for="phone">Телефон</label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  class="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-xtir"
+                  placeholder="Для связи"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-300" for="email">Email (ваш)</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  class="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-xtir"
+                  placeholder="Куда отправить ответ"
+                />
+              </div>
+
+              <div class="md:col-span-2">
+                <label class="block text-sm text-gray-300" for="subject">Тема</label>
+                <input
+                  id="subject"
+                  name="subject"
+                  type="text"
+                  class="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-xtir"
+                  placeholder="Например: запрос цены / КП / документации"
+                />
+              </div>
+
+              <div class="md:col-span-2">
+                <label class="block text-sm text-gray-300" for="message">Сообщение</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={7}
+                  class="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-xtir"
+                  placeholder="Опишите задачу, объект, сроки, комплектацию и что нужно прислать"
+                ></textarea>
+              </div>
+
+              <div class="md:col-span-2 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+                <button type="submit" class="btn-primary">
+                  Скопировать заявку
+                </button>
+                <div class="text-sm text-gray-400">
+                  Отправьте скопированный текст на <span class="text-gray-200">info@xtir.ru</span>
+                </div>
+              </div>
+            </form>
+
+            <div id="copyResult" class="mt-6 hidden rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div class="text-sm text-gray-300">
+                  <strong class="text-white">Готово.</strong> Текст заявки скопирован. Ниже — на случай если нужно повторно скопировать.
+                </div>
+                <button id="copyBtn" type="button" class="btn-secondary px-4 py-2">
+                  Скопировать ещё раз
+                </button>
+              </div>
+
+              <textarea
+                id="copyText"
+                rows={8}
+                class="mt-3 w-full rounded-xl bg-black/30 border border-white/10 px-4 py-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-xtir"
+                readonly
+              ></textarea>
+
+              <div id="copyStatus" class="mt-2 text-xs text-gray-400"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <script is:inline>
+    (function () {
+      const targetEmail = 'info@xtir.ru';
+      const qs = new URLSearchParams(window.location.search);
+      const product = qs.get('product') || '';
+      const doc = qs.get('doc') || '';
+      const id = qs.get('id') || '';
+
+      const subjectEl = document.getElementById('subject');
+      const messageEl = document.getElementById('message');
+
+      if (subjectEl && !subjectEl.value.trim()) {
+        const parts = [];
+        if (product) parts.push(product);
+        if (doc) parts.push(doc);
+        subjectEl.value = parts.length
+          ? `XTIR — запрос: ${parts.join(' — ')}`
+          : 'XTIR — запрос цены / КП / документации';
+      }
+
+      if (messageEl && !messageEl.value.trim()) {
+        const lines = [
+          'Здравствуйте!',
+          '',
+          'Коротко опишите задачу и что нужно подготовить.',
+        ];
+        if (product) lines.push(`Изделие: ${product}`);
+        if (id) lines.push(`ID/страница: ${id}`);
+        if (doc) lines.push(`Материалы/документы: ${doc}`);
+        lines.push('', 'Спасибо!');
+        messageEl.value = lines.join('\n');
+      }
+
+      const form = document.getElementById('contactForm');
+      const result = document.getElementById('copyResult');
+      const resultText = document.getElementById('copyText');
+      const copyBtn = document.getElementById('copyBtn');
+      const status = document.getElementById('copyStatus');
+
+      function buildPayload() {
+        const v = (id) => {
+          const el = document.getElementById(id);
+          return el && 'value' in el ? String(el.value || '').trim() : '';
+        };
+
+        const name = v('name');
+        const company = v('company');
+        const phone = v('phone');
+        const email = v('email');
+        const subject = v('subject');
+        const msg = v('message');
+
+        const head = [
+          `Кому: ${targetEmail}`,
+          `Тема: ${subject || 'XTIR — запрос'}`,
+          '',
+        ];
+
+        const meta = [];
+        if (name) meta.push(`Имя: ${name}`);
+        if (company) meta.push(`Компания: ${company}`);
+        if (phone) meta.push(`Телефон: ${phone}`);
+        if (email) meta.push(`Email: ${email}`);
+        if (product) meta.push(`Изделие: ${product}`);
+        if (id) meta.push(`ID/страница: ${id}`);
+        if (doc) meta.push(`Материалы/документы: ${doc}`);
+
+        const body = [
+          msg || 'Опишите задачу и требования.',
+        ];
+
+        return head.concat(meta.length ? meta.concat(['', '---', '']) : []).concat(body).join('\n');
+      }
+
+      async function copy(text) {
+        if (!navigator.clipboard) return false;
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch {
+          return false;
+        }
+      }
+
+      async function handleCopy() {
+        const payload = buildPayload();
+        if (resultText) resultText.value = payload;
+
+        const ok = await copy(payload);
+        if (status) status.textContent = ok ? 'Скопировано ✅' : 'Не удалось скопировать автоматически. Выделите текст и скопируйте вручную.';
+
+        if (result) result.classList.remove('hidden');
+        result?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          handleCopy();
+        });
+      }
+
+      if (copyBtn) {
+        copyBtn.addEventListener('click', function () {
+          if (resultText && resultText.value) {
+            copy(resultText.value).then((ok) => {
+              if (status) status.textContent = ok ? 'Скопировано ✅' : 'Не удалось скопировать. Выделите текст и скопируйте вручную.';
+            });
+          }
+        });
+      }
+    })();
+  </script>
+</BaseLayout>

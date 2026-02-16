@@ -1,0 +1,24 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/common/Header';
+import Footer from '@/components/common/Footer';
+---
+
+<BaseLayout title="Новости" description="Новости и обновления XTIR.">
+  <Header client:load />
+
+  <main class="pt-24">
+    <section class="section">
+      <div class="section-container">
+        <div class="max-w-4xl">
+          <h1 class="h1-xtir">Новости</h1>
+          <div class="prose prose-invert max-w-none mt-8">
+            <p>Раздел в разработке. Если вам нужна информация о последних проектах — напишите нам на <a class="link" href="/contact">info@xtir.ru</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer client:load />
+</BaseLayout>

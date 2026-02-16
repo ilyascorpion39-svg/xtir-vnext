@@ -1,0 +1,474 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/common/Header';
+import Footer from '@/components/common/Footer';
+import ProductGallery from '@/components/sections/ProductGallery';
+import { allProducts, productCategories, getProductById } from '@/data/products';
+import { SITE } from '@/site';
+
+type Tone = 'cold' | 'warm' | 'neutral';
+
+const toneByCategory: Record<string, Tone> = {
+  // Холодный техно-акцент
+  electronic: 'cold',
+  systems: 'cold',
+
+  // Тёплый «металл и механика»
+  moving: 'warm',
+  lifters: 'warm',
+  turners: 'warm',
+  lift_turn: 'warm',
+  ceiling_wall: 'warm',
+  hanging: 'warm',
+
+  // Нейтральный графит
+  accessories: 'neutral',
+  misc: 'neutral',
+  texts: 'neutral',
+};
+
+const toneMeta: Record<
+  Tone,
+  {
+    accent: string;
+    radial: string;
+    chipShadow: string;
+  }
+> = {
+  cold: {
+    accent: '#00d4ff',
+    chipShadow: '0 0 16px rgba(0,212,255,0.22)',
+    radial: 'radial-gradient(90% 80% at 100% 0%, rgba(0,212,255,0.28) 0%, rgba(0,212,255,0) 60%)',
+  },
+  warm: {
+    accent: '#ff6b35',
+    chipShadow: '0 0 16px rgba(255,107,53,0.20)',
+    radial: 'radial-gradient(90% 80% at 0% 100%, rgba(255,107,53,0.26) 0%, rgba(255,107,53,0) 60%)',
+  },
+  neutral: {
+    accent: '#00ff41',
+    chipShadow: '0 0 16px rgba(0,255,65,0.18)',
+    radial: 'radial-gradient(90% 80% at 100% 100%, rgba(0,255,65,0.20) 0%, rgba(0,255,65,0) 60%)',
+  },
+};
+
+function getTone(categoryId: string | undefined): Tone {
+  if (!categoryId) return 'neutral';
+  return toneByCategory[categoryId] ?? 'neutral';
+}
+
+export function getStaticPaths() {
+  return allProducts.map((p) => ({ params: { id: p.id } }));
+}
+
+const { id } = Astro.params;
+const product = getProductById(id);
+const ytChannel = SITE.youtubeChannelUrl;
+
+if (!product) {
+  throw new Error(`Product not found: ${id}`);
+}
+
+const categoryName = productCategories.find((c) => c.id === product.category)?.name ?? 'Каталог';
+const img = product.images?.[0] ?? '/images/products/placeholder.svg';
+
+const rawImages = product.images ?? [];
+const galleryImages = rawImages.filter((src) => !src.endsWith('.svg'));
+const gallery = galleryImages.length ? galleryImages : rawImages;
+const hasGallery = gallery.length > 1;
+
+const tone = getTone(product.category);
+const meta = toneMeta[tone];
+
+const contactHref = `/contact?product=${encodeURIComponent(product.name)}&id=${encodeURIComponent(product.id)}&from=product`;
+const isPdf = (href: string) => href.toLowerCase().endsWith('.pdf');
+
+const relatedCandidates = product.related?.length
+  ? product.related.map((rid) => getProductById(rid)).filter(Boolean)
+  : allProducts.filter((p) => p.category === product.category && p.id !== product.id);
+
+const relatedProducts = relatedCandidates.slice(0, 3);
+
+const hasUse = !!product.useCases?.length;
+const hasHow = !!product.howItWorks?.length;
+const hasCfg = !!product.configurations?.length;
+const hasSpecs = !!product.specs && Object.keys(product.specs).length > 0;
+const hasDocs = !!product.documentation?.length;
+---
+
+<BaseLayout title={product.name} description={product.shortDescription} image={img}>
+  <Header client:load />
+
+  <main class="pt-24">
+    <section class="section">
+      <div class="section-container">
+        <div class="mb-8">
+          <a href="/products" class="text-sm text-gray-400 hover:text-primary-500 transition-colors">
+            ← Назад в каталог
+          </a>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-10 items-start">
+          <!-- Основной контент -->
+          <div class="lg:col-span-8 space-y-8">
+            <!-- HERO -->
+            <div class="card card-glass p-0 border border-dark-700/60 overflow-hidden">
+              <div class="grid md:grid-cols-2">
+                <div class="relative aspect-[16/11] md:aspect-auto md:min-h-[360px] bg-dark-900/70">
+                  <div class="absolute inset-0 opacity-70" style={`background-image: ${meta.radial};`}></div>
+                  <img src={img} alt={product.name} class="absolute inset-0 w-full h-full object-cover opacity-95" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-dark-950/85 via-dark-900/35 to-transparent"></div>
+
+                  <div
+                    class="absolute left-6 top-6 inline-flex items-center gap-2 rounded-full bg-dark-900/80 border border-dark-700 px-3 py-1 text-xs text-gray-200"
+                    style={`box-shadow: ${meta.chipShadow};`}
+                  >
+                    <span
+                      class="w-2 h-2 rounded-full"
+                      style={`background-color: ${meta.accent}; box-shadow: 0 0 18px ${meta.accent}55;`}
+                    ></span>
+                    {categoryName}
+                  </div>
+                </div>
+
+                <div class="p-8">
+                  <h1 class="text-3xl md:text-4xl font-bold text-white">{product.name}</h1>
+                  <p class="mt-3 text-gray-400 leading-relaxed">{product.shortDescription}</p>
+
+                  {product.highlights?.length ? (
+                    <div class="mt-6 grid grid-cols-2 gap-3">
+                      {product.highlights.slice(0, 4).map((h) => (
+                        <div class="rounded-xl bg-dark-900/45 border border-dark-700/60 p-4">
+                          <div class="text-xs text-gray-400">{h.label}</div>
+                          <div class="mt-1 text-sm font-semibold text-gray-100">{h.value}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+
+                  <div class="mt-8 flex flex-col sm:flex-row flex-wrap gap-3">
+                    <a href={contactHref} class="btn btn-primary">Запросить цену / ТЗ</a>
+                    <a href="#order" class="btn btn-outline">Как заказать</a>
+                    <a href={hasDocs ? '#docs' : '/support'} class="btn btn-outline">Документация</a>
+                    <a href="#video" class="btn btn-outline">Видео</a>
+                  </div>
+
+                  <p class="mt-4 text-xs text-gray-500">
+                    Оборудование XTIR изготавливается под задачу. Возможны изменения характеристик и комплектации.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {hasGallery ? (
+              <div class="card card-glass p-8 border border-dark-700/60" id="gallery">
+                <div class="flex items-start justify-between gap-6 flex-col md:flex-row md:items-center">
+                  <div>
+                    <h2 class="text-2xl font-bold text-white">Галерея</h2>
+                    <p class="mt-1 text-sm text-gray-400">Фотографии изделия (листайте или используйте стрелки).</p>
+                  </div>
+                  <a href={contactHref} class="btn btn-outline">Запросить цену</a>
+                </div>
+
+                <div class="mt-6">
+                  <ProductGallery client:load images={gallery} alt={product.name} accent={meta.accent} />
+                </div>
+              </div>
+            ) : null}
+
+
+
+            <!-- Видео -->
+            <div class="card card-glass p-8 border border-dark-700/60" id="video">
+              <div class="flex items-start justify-between gap-6 flex-col md:flex-row md:items-center">
+                <div>
+                  <h2 class="text-2xl font-bold text-white">Видео</h2>
+                  <p class="mt-1 text-sm text-gray-400">
+                    Демонстрации работы и примеры внедрений — на YouTube‑канале XTIR.
+                    Если нужен ролик именно по этому изделию — пришлём ссылку по запросу.
+                  </p>
+                </div>
+
+                <div class="shrink-0">
+                  {
+                    ytChannel ? (
+                      <a class="btn btn-secondary" href={ytChannel} target="_blank" rel="noopener">
+                        Открыть канал
+                      </a>
+                    ) : (
+                      <button
+                        class="btn btn-primary"
+                        data-xtir-request
+                        data-kind="Видео"
+                        data-product={product.name}
+                        data-doc="Ссылка на видеоролик"
+                      >
+                        Запросить видео
+                      </button>
+                    )
+                  }
+                </div>
+              </div>
+            </div>
+
+            <!-- Описание -->
+            <div class="card card-glass p-8 border border-dark-700/60" id="desc">
+              <h2 class="text-2xl font-bold text-white">Описание</h2>
+              <p class="mt-4 text-gray-300 leading-relaxed">{product.description}</p>
+            </div>
+
+            <!-- Назначение -->
+            {hasUse ? (
+              <div class="card card-glass p-8 border border-dark-700/60" id="use">
+                <h2 class="text-2xl font-bold text-white">Назначение и сценарии</h2>
+                <div class="mt-5 grid sm:grid-cols-2 gap-4">
+                  {product.useCases!.map((u) => (
+                    <div class="rounded-2xl bg-dark-900/45 border border-dark-700/60 p-6">
+                      <h3 class="text-lg font-semibold text-white">{u.title}</h3>
+                      <p class="mt-2 text-sm text-gray-300 leading-relaxed">{u.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            <!-- Как работает -->
+            {hasHow ? (
+              <div class="card card-glass p-8 border border-dark-700/60" id="how">
+                <h2 class="text-2xl font-bold text-white">Как работает</h2>
+                <ol class="mt-5 space-y-4">
+                  {product.howItWorks!.map((s, idx) => (
+                    <li class="flex gap-4">
+                      <div
+                        class="mt-0.5 h-7 w-7 shrink-0 rounded-full border border-dark-700/60 bg-dark-900/60 flex items-center justify-center text-xs font-semibold"
+                        style={`color: ${meta.accent};`}
+                      >
+                        {idx + 1}
+                      </div>
+                      <div>
+                        <h3 class="text-lg font-semibold text-white">{s.title}</h3>
+                        <p class="mt-1 text-sm text-gray-300 leading-relaxed">{s.text}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ) : null}
+
+            <!-- Конфигурации -->
+            {hasCfg ? (
+              <div class="card card-glass p-8 border border-dark-700/60" id="cfg">
+                <h2 class="text-2xl font-bold text-white">Конфигурации</h2>
+                <div class="mt-5 grid md:grid-cols-2 gap-4">
+                  {product.configurations!.map((c) => (
+                    <div class="rounded-2xl bg-dark-900/45 border border-dark-700/60 p-6">
+                      <h3 class="text-lg font-semibold text-white">{c.title}</h3>
+                      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+                        {c.points.map((p) => (
+                          <li class="flex gap-2">
+                            <span class="mt-2 inline-block w-1.5 h-1.5 rounded-full" style={`background-color: ${meta.accent}; opacity: 0.75;`}></span>
+                            <span>{p}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            <!-- Характеристики -->
+            {hasSpecs ? (
+              <div class="card card-glass p-8 border border-dark-700/60" id="specs">
+                <h2 class="text-2xl font-bold text-white">Технические характеристики</h2>
+                <dl class="mt-4 divide-y divide-dark-700/60">
+                  {Object.entries(product.specs).map(([k, v]) => (
+                    <div class="py-3 flex items-start justify-between gap-6">
+                      <dt class="text-sm text-gray-400">{k}</dt>
+                      <dd class="text-sm text-gray-200 text-right">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ) : null}
+
+            <!-- Документация -->
+            {hasDocs ? (
+              <div class="card card-glass p-8 border border-dark-700/60" id="docs">
+                <h2 class="text-2xl font-bold text-white">Документация</h2>
+                <ul class="mt-4 space-y-2 text-gray-300">
+                  {product.documentation!.map((d) => (
+                    <li class="flex items-center justify-between gap-4">
+                      <div class="flex items-center gap-3 min-w-0">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={`color: ${meta.accent};`}>
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+
+                        {d.href ? (
+                          isPdf(d.href) ? (
+                            <a
+                              href={d.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="text-sm text-gray-200 hover:text-white underline decoration-white/20 hover:decoration-white/50 underline-offset-4 transition truncate"
+                            >
+                              {d.title}
+                            </a>
+                          ) : (
+                            <a
+                              href={d.href}
+                              download
+                              class="text-sm text-gray-200 hover:text-white underline decoration-white/20 hover:decoration-white/50 underline-offset-4 transition truncate"
+                            >
+                              {d.title}
+                            </a>
+                          )
+                        ) : (
+                          <span class="text-sm text-gray-200 truncate">{d.title}</span>
+                        )}
+                      </div>
+
+                      {d.href ? (
+                        isPdf(d.href) ? (
+                          <a
+                            href={d.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="shrink-0 rounded-lg border border-green-400/30 bg-green-500/10 px-3 py-1.5 text-xs font-medium text-green-200 hover:bg-green-500/15 hover:text-white transition"
+                          >
+                            Открыть
+                          </a>
+                        ) : (
+                          <a
+                            href={d.href}
+                            download
+                            class="shrink-0 rounded-lg border border-green-400/30 bg-green-500/10 px-3 py-1.5 text-xs font-medium text-green-200 hover:bg-green-500/15 hover:text-white transition"
+                          >
+                            Скачать
+                          </a>
+                        )
+                      ) : (
+                        <button
+                          type="button"
+                          data-xtir-request
+                          data-product={product.name}
+                          data-doc={d.title}
+                          class="shrink-0 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-gray-200 hover:bg-white/[0.05] hover:text-white transition"
+                        >
+                          Запросить
+                        </button>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+                <p class="mt-4 text-sm text-gray-400">
+                  По запросу предоставим паспорта, инструкции и материалы по эксплуатации.
+                </p>
+              </div>
+            ) : null}
+
+            <!-- Как заказать -->
+            <div class="card card-glass p-8 border border-dark-700/60" id="order">
+              <h2 class="text-2xl font-bold text-white">Как заказать</h2>
+              {product.orderSteps?.length ? (
+                <div class="mt-5 grid md:grid-cols-3 gap-4">
+                  {product.orderSteps.map((s, idx) => (
+                    <div class="rounded-2xl bg-dark-900/45 border border-dark-700/60 p-6">
+                      <div class="text-xs font-semibold" style={`color: ${meta.accent};`}>
+                        Шаг {idx + 1}
+                      </div>
+                      <h3 class="mt-2 text-lg font-semibold text-white">{s.title}</h3>
+                      <p class="mt-2 text-sm text-gray-300 leading-relaxed">{s.text}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p class="mt-4 text-gray-300 leading-relaxed">
+                  Напишите нам — подберём конфигурацию под вашу задачу и подготовим коммерческое предложение.
+                </p>
+              )}
+
+              <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                <a href={contactHref} class="btn btn-primary">Запросить цену / ТЗ</a>
+                <a href="/contact" class="btn btn-outline">Контакты</a>
+              </div>
+
+              <p class="mt-3 text-xs text-gray-500">Email для запросов: info@xtir.ru</p>
+            </div>
+
+            <!-- Похожие изделия -->
+            {relatedProducts.length ? (
+              <div class="card card-glass p-8 border border-dark-700/60" id="related">
+                <h2 class="text-2xl font-bold text-white">Похожие изделия</h2>
+                <div class="mt-5 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {relatedProducts.map((rp) => (
+                    <a
+                      href={`/products/${rp!.id}`}
+                      class="group rounded-2xl bg-dark-900/45 border border-dark-700/60 p-5 hover:border-primary-500/30 transition-colors"
+                    >
+                      <div class="text-sm font-semibold text-white group-hover:text-primary-400 transition-colors">
+                        {rp!.name}
+                      </div>
+                      <div class="mt-2 text-xs text-gray-400 line-clamp-2">{rp!.shortDescription}</div>
+                      <div class="mt-4 text-xs font-semibold text-gray-200 group-hover:text-white transition-colors">
+                        Подробнее →
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </div>
+
+          <!-- Sticky sidebar -->
+          <aside class="lg:col-span-4 space-y-6 lg:sticky lg:top-28">
+            <div class="card card-glass p-6 border border-dark-700/60">
+              <h3 class="text-lg font-semibold text-white">Навигация</h3>
+              <ul class="mt-4 space-y-2 text-sm">
+                <li><a class="text-gray-300 hover:text-white transition-colors" href="#desc">Описание</a></li>
+                {hasGallery ? (
+                  <li><a class="text-gray-300 hover:text-white transition-colors" href="#gallery">Галерея</a></li>
+                ) : null}
+                <li><a class="text-gray-300 hover:text-white transition-colors" href="#video">Видео</a></li>
+                {hasUse ? (
+                  <li><a class="text-gray-300 hover:text-white transition-colors" href="#use">Назначение</a></li>
+                ) : null}
+                {hasHow ? (
+                  <li><a class="text-gray-300 hover:text-white transition-colors" href="#how">Как работает</a></li>
+                ) : null}
+                {hasCfg ? (
+                  <li><a class="text-gray-300 hover:text-white transition-colors" href="#cfg">Конфигурации</a></li>
+                ) : null}
+                {hasSpecs ? (
+                  <li><a class="text-gray-300 hover:text-white transition-colors" href="#specs">Характеристики</a></li>
+                ) : null}
+                <li><a class="text-gray-300 hover:text-white transition-colors" href="#order">Как заказать</a></li>
+                {hasDocs ? (
+                  <li><a class="text-gray-300 hover:text-white transition-colors" href="#docs">Документация</a></li>
+                ) : null}
+                {relatedProducts.length ? (
+                  <li><a class="text-gray-300 hover:text-white transition-colors" href="#related">Похожие</a></li>
+                ) : null}
+              </ul>
+            </div>
+
+            <div class="card card-glass p-6 border border-dark-700/60">
+              <h3 class="text-lg font-semibold text-white">Быстрый запрос</h3>
+              <p class="mt-2 text-sm text-gray-400">
+                Напишите пару строк о задаче — мы подберём конфигурацию и подготовим КП.
+              </p>
+              <div class="mt-5">
+                <a href={contactHref} class="btn btn-primary w-full">Запросить цену / ТЗ</a>
+              </div>
+              <div class="mt-4 text-xs text-gray-500">
+                Ответим на info@xtir.ru
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer client:load />
+</BaseLayout>

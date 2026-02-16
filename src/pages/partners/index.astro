@@ -1,0 +1,185 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/common/Header';
+import Footer from '@/components/common/Footer';
+import { partners } from '@/data/partners';
+import { archiveItems, ARCHIVE_ASSET_BASE } from '@/data/archive.generated';
+import { SITE } from '@/site';
+
+type AItem = (typeof archiveItems)[number];
+
+const list = [...partners].sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
+const hasRealPartners = list.some((p) => p.slug !== 'example-partner');
+
+const isPartnerFolder = (folder?: string) => {
+  const f = (folder ?? '').toLowerCase();
+  return f.includes('парт') || f.includes('partner');
+};
+
+const partnerMaterials: AItem[] = [...archiveItems]
+  .filter((i) => isPartnerFolder(i.folder))
+  .sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+
+const hasPartnerMaterials = partnerMaterials.length > 0;
+
+const thumbSrc = (item: AItem) => `${ARCHIVE_ASSET_BASE}/${item.relPath}`;
+const typeLabel = (t: string) => {
+  switch (t) {
+    case 'image':
+      return 'Фото';
+    case 'pdf':
+      return 'PDF';
+    case 'video':
+      return 'Видео';
+    case 'audio':
+      return 'Аудио';
+    default:
+      return 'Файл';
+  }
+};
+
+const xtirLinks = [
+  { label: 'YouTube', href: SITE.youtubeChannelUrl },
+  { label: 'RuTube', href: SITE.rutubeChannelUrl },
+  { label: 'VK', href: SITE.vkChannelUrl },
+  { label: 'Telegram', href: SITE.telegramChannelUrl },
+];
+---
+
+<BaseLayout title="Партнёры" description="Партнёры XTIR и совместные проекты">
+  <Header />
+
+  <main class="container mx-auto px-6 py-10">
+    <div class="max-w-4xl">
+      <h1 class="h1-xtir">Партнёры</h1>
+      <p class="mt-4 text-gray-300 leading-relaxed">
+        Здесь мы публикуем информацию о партнёрах XTIR, совместных проектах и материалах,
+        которые партнёры просят разместить на нашем сайте.
+      </p>
+      <p class="mt-3 text-gray-400">
+        Важно: материалы партнёров хранятся <strong>на нашем сайте</strong> (без внешних облаков и без обязательного скачивания)
+        — в разделе <a class="link-xtir" href="/gallery">Галерея</a>.
+      </p>
+
+      <div class="mt-6 flex flex-wrap items-center gap-2">
+        <span class="text-sm text-gray-400">Наши каналы:</span>
+        {xtirLinks.map((l) => (
+          <a class="btn-ghost" href={l.href}>{l.label}</a>
+        ))}
+      </div>
+    </div>
+
+    <section class="mt-10">
+      {hasRealPartners ? (
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {list
+            .filter((p) => p.slug !== 'example-partner')
+            .map((p) => (
+              <article class="card-xtir p-5 flex flex-col" aria-label={p.name}>
+                <div class="flex items-start gap-3">
+                  <div class="h-12 w-12 rounded-xl bg-black/30 ring-1 ring-white/10 flex items-center justify-center overflow-hidden">
+                    {p.logoSrc ? (
+                      <img src={p.logoSrc} alt={`${p.name} — логотип`} class="h-12 w-12 object-contain" loading="lazy" />
+                    ) : (
+                      <div class="h-12 w-12" />
+                    )}
+                  </div>
+                  <div class="min-w-0">
+                    <h2 class="text-lg font-semibold text-white leading-tight">{p.name}</h2>
+                    <p class="mt-1 text-sm text-gray-400 leading-snug">{p.tagline}</p>
+                  </div>
+                </div>
+
+                <div class="mt-4 flex-1">
+                  <p class="text-sm text-gray-300 leading-relaxed line-clamp-5">{p.description}</p>
+                </div>
+
+                <div class="mt-5 flex items-center gap-3">
+                  <a class="btn-secondary" href={`/partners/${p.slug}`}>Подробнее</a>
+                  {p.websiteUrl ? (
+                    <a class="btn-ghost" href={p.websiteUrl}>Сайт</a>
+                  ) : null}
+                </div>
+              </article>
+            ))}
+        </div>
+      ) : (
+        <div class="card-xtir p-6">
+          <p class="text-gray-200">
+            Пока партнёрские карточки не заполнены. Как только вы пришлёте список партнёров и материалы,
+            мы добавим их сюда.
+          </p>
+          <p class="mt-3 text-gray-400">
+            Подсказка: партнёрские данные хранятся в <code class="text-gray-200">src/data/partners.ts</code>.
+            Мы будем заполнять этот файл по мере получения информации.
+          </p>
+        </div>
+      )}
+    </section>
+
+    <section class="mt-12">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-semibold text-white">Материалы партнёров</h2>
+          <p class="mt-2 text-gray-400">
+            Фото, PDF и другие материалы, которые партнёры попросили опубликовать.
+            Открываются прямо на сайте.
+          </p>
+        </div>
+        <a class="btn-secondary" href="/gallery">Открыть галерею</a>
+      </div>
+
+      {hasPartnerMaterials ? (
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {partnerMaterials.slice(0, 18).map((item) => (
+            <a
+              href={`/gallery#asset=${encodeURIComponent(item.id)}`}
+              class="card-xtir p-3 flex items-center gap-3 hover:ring-1 hover:ring-white/15 transition"
+              aria-label={item.title}
+            >
+              <div class="h-14 w-14 rounded-xl bg-black/30 ring-1 ring-white/10 overflow-hidden flex items-center justify-center">
+                {item.type === 'image' ? (
+                  <img src={thumbSrc(item)} alt={item.title} class="h-full w-full object-cover" loading="lazy" />
+                ) : (
+                  <span class="text-xs text-gray-300 uppercase tracking-wide">{typeLabel(item.type)}</span>
+                )}
+              </div>
+              <div class="min-w-0">
+                <div class="text-sm font-medium text-white truncate">{item.title}</div>
+                <div class="mt-1 flex items-center gap-2 text-xs text-gray-400">
+                  <span class="rounded-full bg-white/5 ring-1 ring-white/10 px-2 py-0.5">{typeLabel(item.type)}</span>
+                  {item.createdAt ? <span>{item.createdAt}</span> : null}
+                </div>
+                <div class="mt-1 text-xs text-gray-500 truncate">{item.relPath}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="mt-6 card-xtir p-6">
+          <p class="text-gray-200">
+            Материалы партнёров ещё не подключены.
+          </p>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Как только добавим материалы — они появятся здесь автоматически.
+          </p>
+        </div>
+      )}
+    </section>
+
+    <section class="mt-12">
+      <div class="card-xtir p-6">
+        <h2 class="text-xl font-semibold text-white">Стать партнёром</h2>
+        <p class="mt-3 text-gray-300 leading-relaxed">
+          Если вы хотите партнёрство, размещение информации на сайте или совместный выпуск контента —
+          напишите нам, и мы согласуем формат.
+        </p>
+        <div class="mt-5">
+          <a class="btn-primary" href="/contact">Связаться с нами</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

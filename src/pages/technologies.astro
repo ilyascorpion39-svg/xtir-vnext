@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/common/Header';
+import Footer from '@/components/common/Footer';
+---
+
+<BaseLayout title="Технологии" description="Технологии XTIR: оптика, Wi‑Fi/радиосвязь, микропроцессорное управление, ударная акустика.">
+  <Header client:load />
+
+  <main class="pt-24">
+    <section class="section">
+      <div class="section-container">
+        <div class="max-w-4xl">
+          <h1 class="h1-xtir">Технологии XTIR</h1>
+          <div class="prose prose-invert max-w-none mt-8">
+            
+<p>Мы фокусируемся на точности, надежности и удобстве эксплуатации. Используем оптику, видео, радиосвязь и микропроцессорное управление — так рождаются системы, которые стабильно работают в реальных условиях.</p>
+
+<h2>Ключевые направления</h2>
+<ul>
+  <li><strong>Оптические и видеотехнологии</strong> — фиксация попаданий, обработка изображения, высокая точность измерений.</li>
+  <li><strong>Wi‑Fi и радиосети</strong> — беспроводное управление установками и передача результатов.</li>
+  <li><strong>Микропроцессорное управление</strong> — сценарии тренировок, синхронизация установок, безопасные режимы.</li>
+  <li><strong>Ударная акустическая эмиссия</strong> — определение попаданий по акустическим сигналам.</li>
+</ul>
+
+<h2>Последние разработки</h2>
+<div class="not-prose mt-6 grid lg:grid-cols-2 gap-6">
+  <div class="card card-glass p-7 border border-dark-700/60">
+    <h3 class="text-xl font-bold text-white">«Интеллектуальный» датчик поражения</h3>
+    <p class="mt-3 text-gray-300">Отличает прямые поражения от ударов камней, рикошетов и осколков — это позволяет отказаться от тяжелых обкладочных мишеней.</p>
+  </div>
+  <div class="card card-glass p-7 border border-dark-700/60">
+    <h3 class="text-xl font-bold text-white">Захват поражения по ударной акустике</h3>
+    <p class="mt-3 text-gray-300">Произвольное расположение 3–8 датчиков, устойчивость к «отстрелу» датчиков и передача готовых координат по самовосстанавливающейся радиосети.</p>
+  </div>
+</div>
+
+<h2>Как мы работаем</h2>
+<ol>
+  <li>Собираем требования и сценарии упражнений</li>
+  <li>Проектируем и согласуем (в том числе по 3D‑моделям)</li>
+  <li>Изготавливаем, испытываем и вводим в эксплуатацию</li>
+  <li>Обучаем персонал и сопровождаем</li>
+</ol>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer client:load />
+</BaseLayout>
