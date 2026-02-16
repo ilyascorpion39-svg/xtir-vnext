@@ -2,51 +2,214 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { docGroups } from "@/data/docs";
 
-const groups = (docGroups ?? []).filter(g => (g.items ?? []).some(i => i?.href));
+const groups = (docGroups ?? [])
+  .map(g => ({
+    ...g,
+    items: (g.items ?? []).filter(i => i?.href)
+  }))
+  .filter(g => (g.items ?? []).length > 0);
+
+const total = groups.reduce((acc, g) => acc + (g.items?.length ?? 0), 0);
+
+function extOf(href?: string) {  if (!href) return "";
+  const clean = href.split("?")[0].split("#")[0];
+  const m = clean.match(/\.([a-z0-9]+)$/i);
+  return (m?.[1] ?? "").toLowerCase();
+}
+function tagOf(href?: string) {
+  const ext = extOf(href);
+  if (!ext) return "LINK";
+  if (ext === "pdf") return "PDF";
+  if (ext === "doc" || ext === "docx") return "DOC";
+  if (ext === "ppt" || ext === "pptx") return "PPT";
+  if (ext === "xls" || ext === "xlsx") return "XLS";
+  return ext.toUpperCase();
+}
 ---
 
 <BaseLayout title="Документы">
   <section class="container-custom pt-28 pb-16">
-    <header class="max-w-3xl">
-      <h1 class="text-3xl md:text-4xl font-orbitron font-bold gradient-text">Документы</h1>
-      <p class="mt-3 text-gray-300">
-        Паспорта, инструкции и материалы. Открываются в новой вкладке.
-      </p>
-    </header>
+    <header class="max-w-4xl">
+      <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-orbitron font-bold gradient-text">Документы</h1>
+          <p class="mt-2 text-gray-300">
+            Инструкции, паспорта и материалы. Поиск работает по названиям.
+          </p>
+        </div>
 
-    {groups.length === 0 ? (
-      <div class="mt-10 glass-card p-6">
-        <p class="text-gray-200 font-medium">Пока нет документов для отображения.</p>
-        <p class="text-gray-400 mt-2 text-sm">
-          Проверь <code>src/data/docs.ts</code>: у элементов должны быть <code>href</code>.
-        </p>
+        <div class="glass-card px-4 py-3 border border-primary/20">
+          <div class="text-gray-400 text-xs">Всего</div>
+          <div class="text-light font-orbitron text-2xl leading-none">{total}</div>
+        </div>
       </div>
-    ) : (
-      <div class="mt-10 space-y-8">
-        {groups.map((g) => (
-          <div class="glass-card p-6">
-            <h2 class="text-xl font-orbitron font-semibold text-light">{g.title}</h2>
 
-            <div class="mt-4 grid gap-3">
-              {(g.items ?? []).filter(i => i?.href).map((i) => (
-                <a
-                  class="block p-4 rounded-xl border border-primary/20 hover:border-primary/50 hover:bg-primary/5 transition"
-                  href={i.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <div class="flex items-start justify-between gap-4">
-                    <div class="min-w-0">
-                      <div class="text-light font-medium truncate">{i.title ?? "Материал"}</div>
-                    </div>
-                    <span class="text-primary font-medium whitespace-nowrap">Открыть</span>
-                  </div>
-                </a>
-              ))}
+      <div class="mt-6 glass-card p-4 border border-primary/20">
+        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <label class="w-full md:max-w-xl">
+            <span class="sr-only">Поиск</span>
+            <input
+              id="docsSearch"
+              type="search"
+              placeholder="Поиск: например “pmu-100”, “паспорт”, “инструкция”…"
+              class="w-full bg-transparent border border-primary/20 rounded-xl px-4 py-3 text-light placeholder:text-gray-500 focus:outline-none focus:border-primary/60"
+              autocomplete="off"
+            />
+          </label>
+
+          <div class="flex items-center gap-3">
+            <button
+              id="docsClear"
+              type="button"
+              class="btn-primary text-sm py-2 px-4"
+            >
+              Очистить
+            </button>
+
+            <div class="text-sm text-gray-300">
+              Найдено: <span id="docsCount" class="text-light font-medium">{total}</span>
             </div>
           </div>
-        ))}
+        </div>
+        <p class="mt-3 text-xs text-gray-500">
+          Подсказка: чтобы быстро поделиться, жми “Копировать ссылку” у нужного файла.
+        </p>
       </div>
-    )}
+    </header>
+
+    <div id="docsRoot" class="mt-10 space-y-8">
+      {groups.map((g) => (
+        <section class="glass-card p-6 border border-primary/20" data-group>
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-orbitron font-semibold text-light">{g.title}</h2>
+              <div class="mt-1 text-sm text-gray-400">
+                В группе: <span class="text-gray-200 font-medium">{g.items?.length ?? 0}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 grid gap-3">
+            {(g.items ?? []).map((i) => (
+              <article
+                class="docs-item p-4 rounded-2xl border border-primary/15 hover:border-primary/50 hover:bg-primary/5 transition"
+                data-title={(i.title ?? "").toLowerCase()}
+                data-href={i.href}
+              >
+                <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                  <div class="min-w-0">
+                    <div class="flex items-center gap-2">
+                      <span class="inline-flex items-center justify-center px-2 py-1 rounded-lg text-xs font-semibold border border-primary/25 text-primary/90">
+                        {tagOf(i.href)}
+                      </span>
+                      <a
+                        class="text-light font-medium truncate hover:text-primary transition"
+                        href={i.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={i.title ?? "Документ"}
+                      >
+                        {i.title ?? "Документ"}
+                      </a>
+                    </div>
+
+                    <div class="mt-2 text-xs text-gray-500 break-all">
+                      {i.href}
+                    </div>
+                  </div>
+
+                  <div class="flex items-center gap-2 md:flex-col md:items-end">
+                    <a
+                      class="btn-primary text-sm py-2 px-4 text-center"
+                      href={i.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Открыть
+                    </a>
+
+                    <button
+                      type="button"
+                      class="copy-link text-sm py-2 px-4 rounded-xl border border-primary/25 text-light hover:border-primary/60 hover:bg-primary/10 transition"
+                      data-copy={i.href}
+                    >
+                      Копировать ссылку
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
   </section>
+
+  <script is:inline>
+    (function () {
+      const input = document.getElementById("docsSearch");
+      const clear = document.getElementById("docsClear");
+      const count = document.getElementById("docsCount");
+      const items = Array.from(document.querySelectorAll(".docs-item"));
+      const groups = Array.from(document.querySelectorAll("[data-group]"));
+
+      function setCount(n) {
+        if (count) count.textContent = String(n);
+      }
+
+      function applyFilter() {
+        const q = (input && input.value ? input.value : "").trim().toLowerCase();
+        let visible = 0;
+
+        items.forEach((el) => {
+          const title = el.getAttribute("data-title") || "";
+          const href = (el.getAttribute("data-href") || "").toLowerCase();
+          const ok = !q || title.includes(q) || href.includes(q);
+          el.style.display = ok ? "" : "none";
+          if (ok) visible++;
+        });
+
+        groups.forEach((g) => {
+          const hasVisible = Array.from(g.querySelectorAll(".docs-item")).some(x => x.style.display !== "none");
+          g.style.display = hasVisible ? "" : "none";
+        });
+
+        setCount(visible);
+      }
+
+      if (input) input.addEventListener("input", applyFilter);
+      if (clear) clear.addEventListener("click", () => { if (input) input.value = ""; applyFilter(); });
+
+      document.addEventListener("click", async (e) => {
+        const btn = e.target && e.target.closest ? e.target.closest(".copy-link") : null;
+        if (!btn) return;
+        const url = btn.getAttribute("data-copy");
+        if (!url) return;
+
+        try {
+          await navigator.clipboard.writeText(url);
+          const old = btn.textContent;
+          btn.textContent = "Скопировано";
+          btn.setAttribute("aria-live", "polite");
+          setTimeout(() => (btn.textContent = old), 900);
+        } catch (_) {
+          // fallback
+          const ta = document.createElement("textarea");
+          ta.value = url;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand("copy"); } catch (_) {}
+          document.body.removeChild(ta);
+          const old = btn.textContent;
+          btn.textContent = "Скопировано";
+          setTimeout(() => (btn.textContent = old), 900);
+        }
+      });
+
+      applyFilter();
+    })();
+  </script>
 </BaseLayout>
+
