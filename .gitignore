@@ -24,3 +24,7 @@ Thumbs.db
 # local backups
 *.bak
 
+
+# Astro generated
+.astro/
+
