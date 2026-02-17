@@ -3,14 +3,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SITE } from "@/site";
 
 const navItems = [
-  { name: "Главная", href: "/" },
-  { name: "Продукция", href: "/products" },
-  { name: "Документация", href: "/docs" },
-  { name: "Галерея", href: "/gallery" },
-  { name: "Технологии", href: "/technologies" },
-  { name: "Партнёры", href: "/partners" },
-  { name: "О компании", href: "/about" },
-  { name: "Контакты", href: "/contact" },
+  { name: 'Главная', href: '/' },
+  { name: 'Продукты', href: '/products' },
+  { name: 'Технологии', href: '/technologies' },
+  { name: 'Галерея', href: '/gallery' },
+  { name: 'Партнёры', href: '/partners' },
+  { name: 'О компании', href: '/about' },
+  { name: 'Поддержка', href: '/support' },
+  { name: 'Контакты', href: '/contact' },
 ];
 
 const socialLinks = [
