@@ -100,7 +100,7 @@ xtir-website-astro/
 ```tsx
 // src/components/ui/MyButton.tsx
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 interface MyButtonProps {
   text: string;
@@ -192,7 +192,7 @@ import Footer from '@/components/common/Footer';
 
 <BaseLayout title="Новая страница" description="Описание новой страницы">
   <Header client:load />
-  
+
   <main>
     <section class="section">
       <div class="section-container">
@@ -201,7 +201,7 @@ import Footer from '@/components/common/Footer';
       </div>
     </section>
   </main>
-  
+
   <Footer client:load />
 </BaseLayout>
 ```
@@ -272,8 +272,8 @@ fontFamily: {
 
 ```css
 @font-face {
-  font-family: 'YourFont';
-  src: url('/fonts/your-font.woff2') format('woff2');
+  font-family: "YourFont";
+  src: url("/fonts/your-font.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
@@ -329,6 +329,7 @@ rm -rf .astro dist       # Очистить кэш и сборку
 Установите расширение "Astro" для подсветки синтаксиса.
 
 `.vscode/settings.json`:
+
 ```json
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -350,7 +351,7 @@ rm -rf .astro dist       # Очистить кэш и сборку
 Добавьте в компонент:
 
 ```tsx
-console.log('Debug:', someVariable);
+console.log("Debug:", someVariable);
 ```
 
 Или используйте React DevTools в браузере.
@@ -373,6 +374,7 @@ npx lighthouse http://localhost:4321 --view
 ### Q: Как изменить порт dev-сервера?
 
 A: Добавьте в `package.json`:
+
 ```json
 "scripts": {
   "dev": "astro dev --port 3000"
@@ -382,27 +384,35 @@ A: Добавьте в `package.json`:
 ### Q: Ошибка "Module not found"
 
 A: Проверьте пути импорта. Используйте alias:
+
 ```tsx
-import Component from '@/components/Component'; // ✅
-import Component from '../../components/Component'; // ❌ избегайте
+import Component from "@/components/Component"; // ✅
+import Component from "../../components/Component"; // ❌ избегайте
 ```
 
 ### Q: Как добавить Google Analytics?
 
 A: В `src/layouts/BaseLayout.astro` перед `</head>`:
+
 ```html
-<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'GA_MEASUREMENT_ID');
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "GA_MEASUREMENT_ID");
 </script>
 ```
 
 ### Q: React компонент не обновляется
 
 A: Убедитесь, что используете `client:load` (или другую client: директиву):
+
 ```astro
 <MyComponent client:load />
 ```
@@ -410,6 +420,7 @@ A: Убедитесь, что используете `client:load` (или др�
 ### Q: Как добавить мета-теги для SEO?
 
 A: В каждой странице:
+
 ```astro
 ---
 const title = "Заголовок страницы";
@@ -423,6 +434,7 @@ const description = "Описание страницы";
 ### Q: Ошибки при сборке production
 
 A: Проверьте:
+
 1. `npm run type-check` - TypeScript ошибки
 2. `npm run lint` - ESLint ошибки
 3. Очистите кэш: `rm -rf .astro dist && npm run build`
@@ -432,6 +444,7 @@ A: Проверьте:
 ## 📚 Дополнительные ресурсы
 
 ### Документация:
+
 - [Astro Docs](https://docs.astro.build)
 - [React Docs](https://react.dev)
 - [Tailwind CSS Docs](https://tailwindcss.com/docs)
@@ -439,11 +452,13 @@ A: Проверьте:
 - [Three.js Docs](https://threejs.org/docs/)
 
 ### Обучение:
+
 - [Astro Tutorial](https://docs.astro.build/en/tutorial/0-introduction/)
 - [Tailwind CSS Course](https://tailwindcss.com/course)
 - [React Three Fiber](https://docs.pmnd.rs/react-three-fiber)
 
 ### Сообщество:
+
 - [Astro Discord](https://astro.build/chat)
 - [Stack Overflow](https://stackoverflow.com/questions/tagged/astro)
 
@@ -452,11 +467,13 @@ A: Проверьте:
 ## 🆘 Получить помощь
 
 **Техническая поддержка:**
+
 - Email: dev@xtir.ru
 - Документация: `/docs`
 - GitHub Issues: [открыть issue]
 
 **Для заказчика:**
+
 - Email: info@xtir.ru
 - Телефон: +7 (915) 425-00-95
 

@@ -1,5 +1,5 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
+import fs from "node:fs/promises";
+import path from "node:path";
 
 /**
  * XTIR Archive index generator
@@ -9,26 +9,27 @@ import path from 'node:path';
  */
 
 const PROJECT_ROOT = process.cwd();
-const ARCHIVE_DIR = path.join(PROJECT_ROOT, 'public', 'xtir-archive');
-const OUT_FILE = path.join(PROJECT_ROOT, 'src', 'data', 'archive.generated.ts');
+const ARCHIVE_DIR = path.join(PROJECT_ROOT, "public", "xtir-archive");
+const OUT_FILE = path.join(PROJECT_ROOT, "src", "data", "archive.generated.ts");
 
-const toPosix = (p) => p.split(path.sep).join('/');
+const toPosix = (p) => p.split(path.sep).join("/");
 
 const typeByExt = (ext) => {
   const e = ext.toLowerCase();
-  if (['.pdf'].includes(e)) return 'pdf';
-  if (['.mp4', '.webm', '.mov', '.m4v'].includes(e)) return 'video';
-  if (['.mp3', '.wav', '.ogg', '.m4a'].includes(e)) return 'audio';
-  if (['.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg'].includes(e)) return 'image';
-  return 'other';
+  if ([".pdf"].includes(e)) return "pdf";
+  if ([".mp4", ".webm", ".mov", ".m4v"].includes(e)) return "video";
+  if ([".mp3", ".wav", ".ogg", ".m4a"].includes(e)) return "audio";
+  if ([".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"].includes(e))
+    return "image";
+  return "other";
 };
 
 const humanize = (name) => {
   const base = name
-    .replace(/\.[^.]+$/, '')
-    .replace(/[_]+/g, ' ')
-    .replace(/[-]+/g, ' ')
-    .replace(/\s+/g, ' ')
+    .replace(/\.[^.]+$/, "")
+    .replace(/[_]+/g, " ")
+    .replace(/[-]+/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
   if (!base) return name;
   return base.charAt(0).toUpperCase() + base.slice(1);
@@ -48,7 +49,7 @@ async function walk(dir) {
     }
 
     for (const ent of entries) {
-      if (ent.name.startsWith('.')) continue;
+      if (ent.name.startsWith(".")) continue;
       const abs = path.join(current, ent.name);
       if (ent.isDirectory()) {
         await recur(abs);
@@ -76,7 +77,9 @@ async function main() {
     .map(({ rel, stat }) => {
       const relPosix = toPosix(rel);
       const ext = path.extname(relPosix);
-      const folder = relPosix.includes('/') ? relPosix.split('/').slice(0, -1).join('/') : '';
+      const folder = relPosix.includes("/")
+        ? relPosix.split("/").slice(0, -1).join("/")
+        : "";
       const url = `/xtir-archive/${relPosix}`;
       return {
         id: relPosix, // stable id == relative path
@@ -89,7 +92,9 @@ async function main() {
         updatedAt: new Date(stat.mtimeMs).toISOString(),
       };
     })
-    .sort((a, b) => (a.folder + a.title).localeCompare(b.folder + b.title, 'ru'));
+    .sort((a, b) =>
+      (a.folder + a.title).localeCompare(b.folder + b.title, "ru"),
+    );
 
   const content = `/* eslint-disable */
 /* AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
@@ -112,20 +117,23 @@ export const ARCHIVE_ASSET_BASE = '/xtir-archive';
 
 export const archiveItems: ArchiveItem[] = [
 ${items
-  .map((it) =>
-    `  { id: ${tsString(it.id)}, title: ${tsString(it.title)}, relPath: ${tsString(it.relPath)}, folder: ${tsString(
-      it.folder,
-    )}, url: ${tsString(it.url)}, type: ${tsString(it.type)}, size: ${it.size}, updatedAt: ${tsString(it.updatedAt)} },`,
+  .map(
+    (it) =>
+      `  { id: ${tsString(it.id)}, title: ${tsString(it.title)}, relPath: ${tsString(it.relPath)}, folder: ${tsString(
+        it.folder,
+      )}, url: ${tsString(it.url)}, type: ${tsString(it.type)}, size: ${it.size}, updatedAt: ${tsString(it.updatedAt)} },`,
   )
-  .join('\n')}
+  .join("\n")}
 ];
 `;
 
   await fs.mkdir(path.dirname(OUT_FILE), { recursive: true });
-  await fs.writeFile(OUT_FILE, content, 'utf8');
+  await fs.writeFile(OUT_FILE, content, "utf8");
 
   // eslint-disable-next-line no-console
-  console.log(`Archive index generated: ${path.relative(PROJECT_ROOT, OUT_FILE)} (items: ${items.length})`);
+  console.log(
+    `Archive index generated: ${path.relative(PROJECT_ROOT, OUT_FILE)} (items: ${items.length})`,
+  );
 }
 
 main().catch((err) => {

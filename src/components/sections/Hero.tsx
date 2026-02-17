@@ -24,21 +24,24 @@ export default function Hero() {
             <div className="mb-6 h-px w-full max-w-[520px] bg-gradient-accent opacity-70 animate-slide-in" />
 
             <h1 className="text-shadow animate-fade-in-up">
-              <span className="block text-white/95">Электронно-механические решения</span>
+              <span className="block text-white/95">
+                Электронно-механические решения
+              </span>
               <span className="mt-2 block bg-gradient-accent bg-clip-text text-transparent">
                 для современной стрельбы
               </span>
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg text-white/65 md:text-xl animate-fade-in-up animate-delay-100">
-              Разработка и производство оборудования XTIR: надёжность, контроль, точность.
-              Всё в одном стиле, без лишнего шума.
+              Разработка и производство оборудования XTIR: надёжность, контроль,
+              точность. Всё в одном стиле, без лишнего шума.
             </p>
 
             {/* CTAs */}
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center animate-fade-in-up animate-delay-200">
               <a href="/contact" className="btn btn-primary">
-                Запросить материалы <span className="ml-1 inline-block text-primary-200">→</span>
+                Запросить материалы{" "}
+                <span className="ml-1 inline-block text-primary-200">→</span>
               </a>
               <a href="/products" className="btn btn-secondary">
                 Смотреть решения
@@ -49,15 +52,21 @@ export default function Hero() {
             <div className="mt-10 grid gap-3 sm:grid-cols-3 animate-fade-in-up animate-delay-300">
               <div className="card card-hover card-tech">
                 <div className="text-sm text-white/70">Форм-фактор</div>
-                <div className="mt-1 text-lg font-semibold text-white">Компактно</div>
+                <div className="mt-1 text-lg font-semibold text-white">
+                  Компактно
+                </div>
               </div>
               <div className="card card-hover card-tech">
                 <div className="text-sm text-white/70">Интеграция</div>
-                <div className="mt-1 text-lg font-semibold text-white">Гибко</div>
+                <div className="mt-1 text-lg font-semibold text-white">
+                  Гибко
+                </div>
               </div>
               <div className="card card-hover card-tech">
                 <div className="text-sm text-white/70">Управление</div>
-                <div className="mt-1 text-lg font-semibold text-white">Точно</div>
+                <div className="mt-1 text-lg font-semibold text-white">
+                  Точно
+                </div>
               </div>
             </div>
 

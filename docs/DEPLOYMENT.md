@@ -141,7 +141,7 @@ server {
     listen 80;
     listen [::]:80;
     server_name xtir.ru www.xtir.ru;
-    
+
     root /var/www/xtir.ru;
     index index.html;
 
@@ -165,13 +165,13 @@ server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
     server_name xtir.ru www.xtir.ru;
-    
+
     ssl_certificate /etc/letsencrypt/live/xtir.ru/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/xtir.ru/privkey.pem;
-    
+
     root /var/www/xtir.ru;
     index index.html;
-    
+
     # ... остальные настройки как выше
 }
 
@@ -222,7 +222,7 @@ CMD ["nginx", "-g", "daemon off;"]
 #### docker-compose.yml:
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   xtir-website:
@@ -268,17 +268,20 @@ npx lighthouse https://xtir.ru --view
 ### 2. Настройка мониторинга
 
 #### UptimeRobot (бесплатный):
+
 1. Зарегистрироваться на [uptimerobot.com](https://uptimerobot.com)
 2. Добавить мониторинг для `https://xtir.ru`
 3. Настроить уведомления на email
 
 #### Google Analytics:
+
 1. Создать property для xtir.ru
 2. Получить ID (G-XXXXXXXXXX)
 3. Добавить в `.env`: `PUBLIC_GA_ID=G-XXXXXXXXXX`
 4. Обновить код в `BaseLayout.astro`
 
 #### Яндекс.Метрика:
+
 1. Создать счетчик на [metrika.yandex.ru](https://metrika.yandex.ru)
 2. Получить ID
 3. Добавить в `.env`: `PUBLIC_YM_ID=XXXXXXXX`
@@ -300,6 +303,7 @@ find $BACKUP_DIR -name "xtir-*.tar.gz" -mtime +30 -delete
 ```
 
 Добавить в crontab:
+
 ```bash
 0 2 * * * /path/to/backup-script.sh
 ```
@@ -307,6 +311,7 @@ find $BACKUP_DIR -name "xtir-*.tar.gz" -mtime +30 -delete
 ### 4. CDN (опционально)
 
 #### Cloudflare:
+
 1. Зарегистрироваться на [cloudflare.com](https://cloudflare.com)
 2. Добавить сайт xtir.ru
 3. Обновить nameservers у регистратора
@@ -363,27 +368,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          
+          node-version: "18"
+
       - name: Install dependencies
         run: npm ci
-        
+
       - name: Build
         run: npm run build
         env:
           PUBLIC_SITE_URL: ${{ secrets.SITE_URL }}
-          
+
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.ORG_ID }}
           vercel-project-id: ${{ secrets.PROJECT_ID }}
-          vercel-args: '--prod'
+          vercel-args: "--prod"
 ```
 
 ---
@@ -395,6 +400,7 @@ jobs:
 **Решение:** Настроить rewrites для SPA
 
 Nginx:
+
 ```nginx
 location / {
     try_files $uri $uri/ /index.html;
@@ -402,17 +408,17 @@ location / {
 ```
 
 Vercel (vercel.json):
+
 ```json
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
 ```
 
 ### Проблема: Медленная загрузка
 
 **Решение:**
+
 1. Включить gzip/brotli сжатие
 2. Оптимизировать изображения
 3. Использовать CDN
@@ -421,6 +427,7 @@ Vercel (vercel.json):
 ### Проблема: Errors в консоли
 
 **Решение:**
+
 ```bash
 # Проверить логи
 npm run build
@@ -437,6 +444,7 @@ npm run lint
 ## 📞 Поддержка
 
 По вопросам развертывания:
+
 - Email: dev@xtir.ru
 - Документация: /docs
 - Issues: GitHub Issues

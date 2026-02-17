@@ -33,14 +33,14 @@ export type Partner = {
  */
 export const partners: Partner[] = [
   {
-    slug: 'example-partner',
-    name: 'Партнёр (пример)',
-    tagline: 'Шаблон карточки партнёра — заменим на реальные данные.',
+    slug: "example-partner",
+    name: "Партнёр (пример)",
+    tagline: "Шаблон карточки партнёра — заменим на реальные данные.",
     description:
-      'Это пример записи партнёра. Дайте материалы партнёров (логотип, описание, ссылки) — я заполню и оформлю красиво, в едином премиум-стиле XTIR.',
-    logoSrc: '/images/products/placeholder.svg',
-    websiteUrl: '',
-    location: '',
+      "Это пример записи партнёра. Дайте материалы партнёров (логотип, описание, ссылки) — я заполню и оформлю красиво, в едином премиум-стиле XTIR.",
+    logoSrc: "/images/products/placeholder.svg",
+    websiteUrl: "",
+    location: "",
     links: [],
     featured: false,
   },

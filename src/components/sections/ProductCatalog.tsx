@@ -1,7 +1,7 @@
-import { useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
-import type { Product } from '@/data/products';
-import ProductCard from './ProductCard';
+import { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import type { Product } from "@/data/products";
+import ProductCard from "./ProductCard";
 
 type Category = { id: string; name: string };
 
@@ -11,16 +11,17 @@ type Props = {
 };
 
 export default function ProductCatalog({ products, categories }: Props) {
-  const [active, setActive] = useState<string>('all');
-  const [query, setQuery] = useState<string>('');
+  const [active, setActive] = useState<string>("all");
+  const [query, setQuery] = useState<string>("");
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return products.filter((p) => {
-      const okCat = active === 'all' ? true : p.category === active;
+      const okCat = active === "all" ? true : p.category === active;
       if (!okCat) return false;
       if (!q) return true;
-      const hay = `${p.name} ${p.shortDescription} ${p.description}`.toLowerCase();
+      const hay =
+        `${p.name} ${p.shortDescription} ${p.description}`.toLowerCase();
       return hay.includes(q);
     });
   }, [products, active, query]);
@@ -34,9 +35,11 @@ export default function ProductCatalog({ products, categories }: Props) {
   return (
     <section id="products" className="section pt-8">
       <div className="section-container">
-        <div className="mb-8"><div className="h-px w-full max-w-[420px] bg-gradient-accent opacity-40 mb-6"></div>
+        <div className="mb-8">
+          <div className="h-px w-full max-w-[420px] bg-gradient-accent opacity-40 mb-6"></div>
           <p className="section-subtitle">
-            Каталог изделий и модулей. Фильтры и поиск помогут быстро найти нужное.
+            Каталог изделий и модулей. Фильтры и поиск помогут быстро найти
+            нужное.
           </p>
           <div className="divider" />
         </div>
@@ -47,13 +50,13 @@ export default function ProductCatalog({ products, categories }: Props) {
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
-                onClick={() => setActive('all')}
+                onClick={() => setActive("all")}
                 className={[
-                  'px-4 py-2 rounded-xl text-sm border transition-all duration-200 ease-out',
-                  active === 'all'
-                    ? 'bg-primary-500/15 border-primary-500/50 text-white'
-                    : 'bg-white/5 border-white/10 text-white/70 hover:text-white hover:border-primary-500/30 hover:bg-white/10',
-                ].join(' ')}
+                  "px-4 py-2 rounded-xl text-sm border transition-all duration-200 ease-out",
+                  active === "all"
+                    ? "bg-primary-500/15 border-primary-500/50 text-white"
+                    : "bg-white/5 border-white/10 text-white/70 hover:text-white hover:border-primary-500/30 hover:bg-white/10",
+                ].join(" ")}
               >
                 Все
               </button>
@@ -64,11 +67,11 @@ export default function ProductCatalog({ products, categories }: Props) {
                   type="button"
                   onClick={() => setActive(c.id)}
                   className={[
-                    'px-4 py-2 rounded-xl text-sm border transition-all duration-200 ease-out',
+                    "px-4 py-2 rounded-xl text-sm border transition-all duration-200 ease-out",
                     active === c.id
-                      ? 'bg-primary-500/15 border-primary-500/50 text-white'
-                      : 'bg-white/5 border-white/10 text-white/70 hover:text-white hover:border-primary-500/30 hover:bg-white/10',
-                  ].join(' ')}
+                      ? "bg-primary-500/15 border-primary-500/50 text-white"
+                      : "bg-white/5 border-white/10 text-white/70 hover:text-white hover:border-primary-500/30 hover:bg-white/10",
+                  ].join(" ")}
                 >
                   {c.name}
                 </button>
@@ -84,7 +87,12 @@ export default function ProductCatalog({ products, categories }: Props) {
                 className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white/85 placeholder:text-white/35 outline-none focus:border-primary-500/60"
               />
               <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/40">
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -97,7 +105,8 @@ export default function ProductCatalog({ products, categories }: Props) {
           </div>
 
           <div className="mt-4 text-sm text-white/55">
-            Найдено: <span className="text-white font-semibold">{filtered.length}</span>
+            Найдено:{" "}
+            <span className="text-white font-semibold">{filtered.length}</span>
           </div>
         </div>
 
@@ -113,9 +122,15 @@ export default function ProductCatalog({ products, categories }: Props) {
           {filtered.map((p) => (
             <motion.div
               key={p.id}
-              variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 10 },
+                show: { opacity: 1, y: 0 },
+              }}
             >
-              <ProductCard product={p} categoryName={catNameById.get(p.category)} />
+              <ProductCard
+                product={p}
+                categoryName={catNameById.get(p.category)}
+              />
             </motion.div>
           ))}
         </motion.div>
@@ -123,5 +138,3 @@ export default function ProductCatalog({ products, categories }: Props) {
     </section>
   );
 }
-
-

@@ -117,14 +117,16 @@
     @apply relative overflow-hidden;
   }
   .card-tech::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: 12px;
     pointer-events: none;
     opacity: 0;
     transition: opacity 200ms ease-out;
-    box-shadow: 0 0 0 1px rgba(0, 179, 255, 0.28), 0 0 32px rgba(0, 179, 255, 0.10);
+    box-shadow:
+      0 0 0 1px rgba(0, 179, 255, 0.28),
+      0 0 32px rgba(0, 179, 255, 0.1);
   }
   .card-tech:hover::before {
     opacity: 1;
@@ -141,7 +143,11 @@
   /* Section titles */
   .section-title {
     @apply text-4xl md:text-5xl lg:text-6xl font-bold mb-4;
-    background-image: linear-gradient(90deg, rgba(230, 237, 243, 1), rgba(0, 179, 255, 1));
+    background-image: linear-gradient(
+      90deg,
+      rgba(230, 237, 243, 1),
+      rgba(0, 179, 255, 1)
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -159,7 +165,12 @@
   /* Divider line */
   .divider {
     @apply h-px;
-    background: linear-gradient(90deg, transparent, rgba(0, 179, 255, 0.38), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 179, 255, 0.38),
+      transparent
+    );
   }
 }
 
@@ -171,7 +182,8 @@
 
   /* Tech grid background (subtle) */
   .tech-grid {
-    background-image: linear-gradient(
+    background-image:
+      linear-gradient(
         0deg,
         transparent 24%,
         rgba(0, 179, 255, 0.05) 25%,

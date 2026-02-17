@@ -12,4 +12,3 @@ export default defineConfig({
 
   integrations: [react(), tailwind()],
 });
-

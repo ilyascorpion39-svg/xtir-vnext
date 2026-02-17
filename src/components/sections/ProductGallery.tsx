@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export type ProductGalleryProps = {
   images: string[];
@@ -11,7 +11,11 @@ function clamp(n: number, min: number, max: number) {
   return Math.max(min, Math.min(max, n));
 }
 
-export default function ProductGallery({ images, alt, accent = '#00ff41' }: ProductGalleryProps) {
+export default function ProductGallery({
+  images,
+  alt,
+  accent = "#00ff41",
+}: ProductGalleryProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
@@ -28,7 +32,7 @@ export default function ProductGallery({ images, alt, accent = '#00ff41' }: Prod
     if (!el) return;
     const i = clamp(idx, 0, Math.max(0, total - 1));
     const w = el.clientWidth;
-    el.scrollTo({ left: i * w, behavior: 'smooth' });
+    el.scrollTo({ left: i * w, behavior: "smooth" });
   };
 
   const prev = () => scrollToIndex(active - 1);
@@ -50,15 +54,15 @@ export default function ProductGallery({ images, alt, accent = '#00ff41' }: Prod
       updateActive();
     };
 
-    el.addEventListener('scroll', updateActive, { passive: true });
-    window.addEventListener('resize', onResize);
+    el.addEventListener("scroll", updateActive, { passive: true });
+    window.addEventListener("resize", onResize);
 
     // Initial sync
     updateActive();
 
     return () => {
-      el.removeEventListener('scroll', updateActive);
-      window.removeEventListener('resize', onResize);
+      el.removeEventListener("scroll", updateActive);
+      window.removeEventListener("resize", onResize);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [total]);
@@ -86,19 +90,21 @@ export default function ProductGallery({ images, alt, accent = '#00ff41' }: Prod
             [scrollbar-width:none]
             [&::-webkit-scrollbar]:hidden
           "
-          style={{ boxShadow: `0 0 0 1px rgba(255,255,255,0.06), 0 18px 60px rgba(0,0,0,0.45)` }}
+          style={{
+            boxShadow: `0 0 0 1px rgba(255,255,255,0.06), 0 18px 60px rgba(0,0,0,0.45)`,
+          }}
           aria-label="Галерея фотографий"
         >
           {safeImages.map((src, i) => (
             <div
               key={`${src}-${i}`}
               className="relative shrink-0 w-full snap-center"
-              style={{ aspectRatio: '16 / 9' }}
+              style={{ aspectRatio: "16 / 9" }}
             >
               <img
                 src={src}
                 alt={`${alt} — фото ${i + 1}`}
-                loading={i === 0 ? 'eager' : 'lazy'}
+                loading={i === 0 ? "eager" : "lazy"}
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
@@ -126,7 +132,16 @@ export default function ProductGallery({ images, alt, accent = '#00ff41' }: Prod
               "
               aria-label="Предыдущее фото"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M15 18l-6-6 6-6" />
               </svg>
             </button>
@@ -148,7 +163,16 @@ export default function ProductGallery({ images, alt, accent = '#00ff41' }: Prod
               "
               aria-label="Следующее фото"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M9 18l6-6-6-6" />
               </svg>
             </button>
@@ -182,12 +206,19 @@ export default function ProductGallery({ images, alt, accent = '#00ff41' }: Prod
                   hover:opacity-95
                 "
                 style={{
-                  borderColor: isActive ? accent : 'rgba(255,255,255,0.12)',
-                  boxShadow: isActive ? `0 0 0 1px ${accent}, 0 10px 30px rgba(0,0,0,0.35)` : undefined,
+                  borderColor: isActive ? accent : "rgba(255,255,255,0.12)",
+                  boxShadow: isActive
+                    ? `0 0 0 1px ${accent}, 0 10px 30px rgba(0,0,0,0.35)`
+                    : undefined,
                 }}
                 aria-label={`Открыть фото ${i + 1}`}
               >
-                <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+                <img
+                  src={src}
+                  alt=""
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
                 {isActive && <div className="absolute inset-0 bg-black/10" />}
               </button>
             );
