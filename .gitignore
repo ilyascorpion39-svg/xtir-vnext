@@ -1,18 +1,20 @@
 node_modules/
 dist/
 .astro/
+.next/
+out/
 
 # Netlify local state
 .netlify/
-
-# Local patch files
-*.patch
 
 # Local tooling / assistants / IDE junk
 .lmstudio/
 .psprofile_backup/
 .cursor/
 .vscode/
+
+# Local patch files
+*.patch
 
 # OS / temp
 Thumbs.db

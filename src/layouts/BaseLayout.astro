@@ -185,7 +185,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             ta.style.left = '-9999px';
             document.body.appendChild(ta);
             ta.select();
-            document.execCommand('copy');
+            (document as any).execCommand('copy');
             document.body.removeChild(ta);
             showToast();
           }
@@ -277,6 +277,7 @@ ${body}`;
     }
   }
 </style>
+
 
 
 

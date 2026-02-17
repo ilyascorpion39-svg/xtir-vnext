@@ -200,7 +200,7 @@ function tagOf(href?: string) {
           ta.style.left = "-9999px";
           document.body.appendChild(ta);
           ta.select();
-          try { document.execCommand("copy"); } catch (_) {}
+          try { (document as any).execCommand("copy"); } catch (_) {}
           document.body.removeChild(ta);
           const old = btn.textContent;
           btn.textContent = "Скопировано";
@@ -212,4 +212,5 @@ function tagOf(href?: string) {
     })();
   </script>
 </BaseLayout>
+
 
