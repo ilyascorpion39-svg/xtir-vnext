@@ -6,13 +6,14 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "npm run clean:vite && astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "archive:build": "node scripts/build-archive-index.mjs",
     "format": "prettier --write .",
     "lint": "eslint .",
-    "type-check": "astro check"
+    "type-check": "astro check",
+    "clean:vite": "rimraf node_modules/.vite"
   },
   "dependencies": {
     "@astrojs/react": "4.4.2",
@@ -46,6 +47,7 @@
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "prettier": "^3.2.4",
     "prettier-plugin-astro": "^0.13.0",
+    "rimraf": "6.1.3",
     "typescript": "5.9.3"
   },
   "keywords": [
