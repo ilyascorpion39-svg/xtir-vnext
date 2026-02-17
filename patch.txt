@@ -1,0 +1,334 @@
+diff --git a/src/pages/about.astro b/src/pages/about.astro
+index 91c40f4..c771056 100644
+--- a/src/pages/about.astro
++++ b/src/pages/about.astro
+@@ -5,9 +5,7 @@ import Footer from '@/components/common/Footer';
+ ---
+ 
+ <BaseLayout title="О компании" description="Информация о компании XTIR, принципах работы и экспертизе.">
+-  <Header client:load />
+-
+-  <main class="pt-24">
++<main class="pt-24">
+     <section class="section">
+       <div class="section-container">
+         <div class="max-w-4xl">
+@@ -49,6 +47,4 @@ import Footer from '@/components/common/Footer';
+       </div>
+     </section>
+   </main>
+-
+-  <Footer client:load />
+ </BaseLayout>
+diff --git a/src/pages/careers.astro b/src/pages/careers.astro
+index 5000d2b..6fec7f3 100644
+--- a/src/pages/careers.astro
++++ b/src/pages/careers.astro
+@@ -5,9 +5,7 @@ import Footer from '@/components/common/Footer';
+ ---
+ 
+ <BaseLayout title="Карьера" description="Вакансии XTIR.">
+-  <Header client:load />
+-
+-  <main class="pt-24">
++<main class="pt-24">
+     <section class="section">
+       <div class="section-container">
+         <div class="max-w-4xl">
+@@ -19,6 +17,4 @@ import Footer from '@/components/common/Footer';
+       </div>
+     </section>
+   </main>
+-
+-  <Footer client:load />
+ </BaseLayout>
+diff --git a/src/pages/certificates.astro b/src/pages/certificates.astro
+index a2489e6..1b19452 100644
+--- a/src/pages/certificates.astro
++++ b/src/pages/certificates.astro
+@@ -5,9 +5,7 @@ import Footer from '@/components/common/Footer';
+ ---
+ 
+ <BaseLayout title="Сертификаты" description="Сертификаты и подтверждающие документы.">
+-  <Header client:load />
+-
+-  <main class="pt-24">
++<main class="pt-24">
+     <section class="section">
+       <div class="section-container">
+         <div class="max-w-4xl">
+@@ -19,6 +17,4 @@ import Footer from '@/components/common/Footer';
+       </div>
+     </section>
+   </main>
+-
+-  <Footer client:load />
+ </BaseLayout>
+diff --git a/src/pages/contact.astro b/src/pages/contact.astro
+index 987b791..bab7738 100644
+--- a/src/pages/contact.astro
++++ b/src/pages/contact.astro
+@@ -8,9 +8,7 @@ const description = 'Свяжитесь с XTIR: запрос цены, КП, д
+ ---
+ 
+ <BaseLayout title={title} description={description}>
+-  <Header />
+-
+-  <main class="pt-28 pb-20">
++<main class="pt-28 pb-20">
+     <section class="section-xtir">
+       <div class="max-w-6xl mx-auto px-6">
+         <h1 class="text-4xl md:text-5xl font-semibold tracking-tight text-white">Контакты</h1>
+@@ -167,10 +165,7 @@ const description = 'Свяжитесь с XTIR: запрос цены, КП, д
+       </div>
+     </section>
+   </main>
+-
+-  <Footer />
+-
+-  <script is:inline>
++<script is:inline>
+     (function () {
+       const targetEmail = 'info@xtir.ru';
+       const qs = new URLSearchParams(window.location.search);
+diff --git a/src/pages/faq.astro b/src/pages/faq.astro
+index b20ceeb..faa6c49 100644
+--- a/src/pages/faq.astro
++++ b/src/pages/faq.astro
+@@ -5,9 +5,7 @@ import Footer from '@/components/common/Footer';
+ ---
+ 
+ <BaseLayout title="FAQ" description="Ответы на частые вопросы по оборудованию XTIR.">
+-  <Header client:load />
+-
+-  <main class="pt-24">
++<main class="pt-24">
+     <section class="section">
+       <div class="section-container">
+         <div class="max-w-4xl">
+@@ -19,6 +17,4 @@ import Footer from '@/components/common/Footer';
+       </div>
+     </section>
+   </main>
+-
+-  <Footer client:load />
+ </BaseLayout>
+diff --git a/src/pages/gallery.astro b/src/pages/gallery.astro
+index d2d19a2..d24d24f 100644
+--- a/src/pages/gallery.astro
++++ b/src/pages/gallery.astro
+@@ -7,8 +7,7 @@ import { archiveItems } from '../data/archive.generated';
+ ---
+ 
+ <BaseLayout title="Галерея" description="Фотогалерея и материалы XTIR и партнёров">
+-  <Header />
+-  <main class="mx-auto w-full max-w-7xl px-6 py-14">
++<main class="mx-auto w-full max-w-7xl px-6 py-14">
+     <div class="mb-8">
+       <h1 class="h1-xtir">Галерея</h1>
+       <p class="mt-3 max-w-3xl text-gray-300">
+@@ -19,5 +18,4 @@ import { archiveItems } from '../data/archive.generated';
+ 
+     <GalleryApp client:load items={archiveItems} />
+   </main>
+-  <Footer />
+ </BaseLayout>
+diff --git a/src/pages/index.astro b/src/pages/index.astro
+index c170d65..debc32b 100644
+--- a/src/pages/index.astro
++++ b/src/pages/index.astro
+@@ -6,9 +6,7 @@ import Hero from '@/components/sections/Hero';
+ ---
+ 
+ <BaseLayout title="Главная" description="XTIR - разработка и производство электронно-механического оборудования для стрельбы">
+-  <Header client:load />
+-  
+-  <main>
++<main>
+     <Hero client:load />
+     
+     <!-- Features Section -->
+@@ -184,6 +182,4 @@ import Hero from '@/components/sections/Hero';
+       </div>
+     </section>
+   </main>
+-  
+-  <Footer client:load />
+ </BaseLayout>
+diff --git a/src/pages/news.astro b/src/pages/news.astro
+index 2eb80a3..78e7d7b 100644
+--- a/src/pages/news.astro
++++ b/src/pages/news.astro
+@@ -5,9 +5,7 @@ import Footer from '@/components/common/Footer';
+ ---
+ 
+ <BaseLayout title="Новости" description="Новости и обновления XTIR.">
+-  <Header client:load />
+-
+-  <main class="pt-24">
++<main class="pt-24">
+     <section class="section">
+       <div class="section-container">
+         <div class="max-w-4xl">
+@@ -19,6 +17,4 @@ import Footer from '@/components/common/Footer';
+       </div>
+     </section>
+   </main>
+-
+-  <Footer client:load />
+ </BaseLayout>
+diff --git a/src/pages/partners/index.astro b/src/pages/partners/index.astro
+index 9135d1f..76d3c55 100644
+--- a/src/pages/partners/index.astro
++++ b/src/pages/partners/index.astro
+@@ -47,9 +47,7 @@ const xtirLinks = [
+ ---
+ 
+ <BaseLayout title="Партнёры" description="Партнёры XTIR и совместные проекты">
+-  <Header />
+-
+-  <main class="container mx-auto px-6 py-10">
++<main class="container mx-auto px-6 py-10">
+     <div class="max-w-4xl">
+       <h1 class="h1-xtir">Партнёры</h1>
+       <p class="mt-4 text-gray-300 leading-relaxed">
+@@ -180,6 +178,4 @@ const xtirLinks = [
+       </div>
+     </section>
+   </main>
+-
+-  <Footer />
+ </BaseLayout>
+diff --git a/src/pages/privacy.astro b/src/pages/privacy.astro
+index d0c92b2..91108dc 100644
+--- a/src/pages/privacy.astro
++++ b/src/pages/privacy.astro
+@@ -5,9 +5,7 @@ import Footer from '@/components/common/Footer';
+ ---
+ 
+ <BaseLayout title="Политика конфиденциальности" description="Политика конфиденциальности XTIR.">
+-  <Header client:load />
+-
+-  <main class="pt-24">
++<main class="pt-24">
+     <section class="section">
+       <div class="section-container">
+         <div class="max-w-4xl">
+@@ -19,6 +17,4 @@ import Footer from '@/components/common/Footer';
+       </div>
+     </section>
+   </main>
+-
+-  <Footer client:load />
+ </BaseLayout>
+diff --git a/src/pages/products/index.astro b/src/pages/products/index.astro
+index fd273d8..57e1189 100644
+--- a/src/pages/products/index.astro
++++ b/src/pages/products/index.astro
+@@ -12,9 +12,7 @@ const categories = productCategories.filter((c) => c.id !== 'texts'); // на о
+   title="Продукция"
+   description="Каталог оборудования XTIR: электронные мишени, подъемники, поворотки, тросовые и монорельсовые установки, системы управления и прочее."
+ >
+-  <Header client:load />
+-
+-  <main class="pt-24">
++<main class="pt-24">
+     <section class="section">
+       <div class="section-container">
+         <div class="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-hero p-8 md:p-10">
+@@ -67,7 +65,5 @@ const categories = productCategories.filter((c) => c.id !== 'texts'); // на о
+       </div>
+     </section>
+   </main>
+-
+-  <Footer client:load />
+ </BaseLayout>
+ 
+diff --git a/src/pages/support.astro b/src/pages/support.astro
+index 7320a7c..6480991 100644
+--- a/src/pages/support.astro
++++ b/src/pages/support.astro
+@@ -5,9 +5,7 @@ import Footer from '@/components/common/Footer';
+ ---
+ 
+ <BaseLayout title="Поддержка" description="Поддержка XTIR: документация, сопровождение, консультации.">
+-  <Header client:load />
+-
+-  <main class="pt-24">
++<main class="pt-24">
+     <section class="section">
+       <div class="section-container">
+         <div class="max-w-4xl">
+@@ -43,6 +41,4 @@ import Footer from '@/components/common/Footer';
+       </div>
+     </section>
+   </main>
+-
+-  <Footer client:load />
+ </BaseLayout>
+diff --git a/src/pages/technologies.astro b/src/pages/technologies.astro
+index 09588f5..0ce8833 100644
+--- a/src/pages/technologies.astro
++++ b/src/pages/technologies.astro
+@@ -5,9 +5,7 @@ import Footer from '@/components/common/Footer';
+ ---
+ 
+ <BaseLayout title="Технологии" description="Технологии XTIR: оптика, Wi‑Fi/радиосвязь, микропроцессорное управление, ударная акустика.">
+-  <Header client:load />
+-
+-  <main class="pt-24">
++<main class="pt-24">
+     <section class="section">
+       <div class="section-container">
+         <div class="max-w-4xl">
+@@ -49,6 +47,4 @@ import Footer from '@/components/common/Footer';
+       </div>
+     </section>
+   </main>
+-
+-  <Footer client:load />
+ </BaseLayout>
+diff --git a/src/pages/terms.astro b/src/pages/terms.astro
+index 9ed7256..d990fc8 100644
+--- a/src/pages/terms.astro
++++ b/src/pages/terms.astro
+@@ -5,9 +5,7 @@ import Footer from '@/components/common/Footer';
+ ---
+ 
+ <BaseLayout title="Условия использования" description="Условия использования сайта XTIR.">
+-  <Header client:load />
+-
+-  <main class="pt-24">
++<main class="pt-24">
+     <section class="section">
+       <div class="section-container">
+         <div class="max-w-4xl">
+@@ -19,6 +17,4 @@ import Footer from '@/components/common/Footer';
+       </div>
+     </section>
+   </main>
+-
+-  <Footer client:load />
+ </BaseLayout>
+diff --git a/src/pages/warranty.astro b/src/pages/warranty.astro
+index 34620d6..9169d52 100644
+--- a/src/pages/warranty.astro
++++ b/src/pages/warranty.astro
+@@ -5,9 +5,7 @@ import Footer from '@/components/common/Footer';
+ ---
+ 
+ <BaseLayout title="Гарантия" description="Гарантийные условия XTIR.">
+-  <Header client:load />
+-
+-  <main class="pt-24">
++<main class="pt-24">
+     <section class="section">
+       <div class="section-container">
+         <div class="max-w-4xl">
+@@ -19,6 +17,4 @@ import Footer from '@/components/common/Footer';
+       </div>
+     </section>
+   </main>
+-
+-  <Footer client:load />
+ </BaseLayout>

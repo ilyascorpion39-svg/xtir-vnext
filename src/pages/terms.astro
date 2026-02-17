@@ -1,13 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Header from '@/components/common/Header';
-import Footer from '@/components/common/Footer';
 ---
 
 <BaseLayout title="Условия использования" description="Условия использования сайта XTIR.">
-  <Header client:load />
-
-  <main class="pt-24">
+<main class="pt-24">
     <section class="section">
       <div class="section-container">
         <div class="max-w-4xl">
@@ -19,6 +15,4 @@ import Footer from '@/components/common/Footer';
       </div>
     </section>
   </main>
-
-  <Footer client:load />
 </BaseLayout>

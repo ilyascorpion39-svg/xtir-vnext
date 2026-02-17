@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Header from '@/components/common/Header';
-import Footer from '@/components/common/Footer';
 import { partners } from '@/data/partners';
 import { archiveItems, ARCHIVE_ASSET_BASE } from '@/data/archive.generated';
 import { SITE } from '@/site';
@@ -47,9 +45,7 @@ const xtirLinks = [
 ---
 
 <BaseLayout title="Партнёры" description="Партнёры XTIR и совместные проекты">
-  <Header />
-
-  <main class="container mx-auto px-6 py-10">
+<main class="container mx-auto px-6 py-10">
     <div class="max-w-4xl">
       <h1 class="h1-xtir">Партнёры</h1>
       <p class="mt-4 text-gray-300 leading-relaxed">
@@ -180,6 +176,4 @@ const xtirLinks = [
       </div>
     </section>
   </main>
-
-  <Footer />
 </BaseLayout>

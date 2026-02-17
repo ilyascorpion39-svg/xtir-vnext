@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Header from '@/components/common/Header';
-import Footer from '@/components/common/Footer';
 import ProductCatalog from '@/components/sections/ProductCatalog';
 import { allProducts, productCategories } from '@/data/products';
 
@@ -12,9 +10,7 @@ const categories = productCategories.filter((c) => c.id !== 'texts'); // на о
   title="Продукция"
   description="Каталог оборудования XTIR: электронные мишени, подъемники, поворотки, тросовые и монорельсовые установки, системы управления и прочее."
 >
-  <Header client:load />
-
-  <main class="pt-24">
+<main class="pt-24">
     <section class="section">
       <div class="section-container">
         <div class="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-hero p-8 md:p-10">
@@ -67,7 +63,5 @@ const categories = productCategories.filter((c) => c.id !== 'texts'); // на о
       </div>
     </section>
   </main>
-
-  <Footer client:load />
 </BaseLayout>
 

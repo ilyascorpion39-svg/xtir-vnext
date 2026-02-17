@@ -1,16 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/common/Header';
-import Footer from '../components/common/Footer';
-
 const title = 'Контакты';
 const description = 'Свяжитесь с XTIR: запрос цены, КП, документации или консультации.';
 ---
 
 <BaseLayout title={title} description={description}>
-  <Header />
-
-  <main class="pt-28 pb-20">
+<main class="pt-28 pb-20">
     <section class="section-xtir">
       <div class="max-w-6xl mx-auto px-6">
         <h1 class="text-4xl md:text-5xl font-semibold tracking-tight text-white">Контакты</h1>
@@ -167,10 +162,7 @@ const description = 'Свяжитесь с XTIR: запрос цены, КП, д
       </div>
     </section>
   </main>
-
-  <Footer />
-
-  <script is:inline>
+<script is:inline>
     (function () {
       const targetEmail = 'info@xtir.ru';
       const qs = new URLSearchParams(window.location.search);
