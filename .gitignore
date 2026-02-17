@@ -1,5 +1,22 @@
-# ...твой контент...
-node_modules
+node_modules/
+dist/
+.astro/
 
-# Local Netlify folder
-.netlify
+# Netlify local state
+.netlify/
+
+# Local patch files
+*.patch
+
+# Local tooling / IDE
+.vscode/
+.cursor/
+.lmstudio/
+.psprofile_backup/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Personal npm config (обычно НЕ надо в репо)
+.npmrc
