@@ -20,3 +20,7 @@ Thumbs.db
 
 # Personal npm config (обычно НЕ надо в репо)
 .npmrc
+
+# local backups
+*.bak
+
