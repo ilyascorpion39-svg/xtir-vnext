@@ -6,7 +6,7 @@ const footerLinks = {
     { name: "О компании", href: "/about" },
     { name: "Технологии", href: "/technologies" },
     { name: "Партнёры", href: "/partners" },
-    { name: "Новости", href: "/news" },
+    ,
     { name: "Карьера", href: "/careers" },
   ],
   products: [
@@ -218,14 +218,11 @@ export default function Footer() {
                 href="/sitemap.xml"
                 className="hover:text-primary-500 transition-colors"
               >
-                Карта сайта
               </a>
               <span>•</span>
               <a
-                href="/rss.xml"
                 className="hover:text-primary-500 transition-colors"
               >
-                RSS
               </a>
             </div>
           </div>
