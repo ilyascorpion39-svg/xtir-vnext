@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "npm run clean:vite && astro check && astro build",
+    "build": "node scripts/gen-build-stamp.mjs && npm run clean:vite && astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "archive:build": "node scripts/build-archive-index.mjs",
