@@ -1,24 +1,16 @@
+# Dependencies / build
 node_modules/
 dist/
 .astro/
-.next/
-out/
+node_modules/.vite/
+
+# Env (никогда в репо)
 .env
 .env.*
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-.DS_Store
-Thumbs.db
-*.zip
-*.tar
-*.tar.gz
-*.7z
+!.env.example
+
 # Netlify local state
 .netlify/
-# Local patch files
-*.patch
 
 # Local tooling / assistants / IDE junk
 .lmstudio/
@@ -26,13 +18,18 @@ Thumbs.db
 .cursor/
 .vscode/
 
-# Netlify local state
-.netlify/
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
 # OS / temp
-Thumbs.db
 .DS_Store
+Thumbs.db
+
+# Local patch files
+*.patch
 
 # Personal npm config (обычно НЕ надо в репо)
 .npmrc
-
