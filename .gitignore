@@ -19,3 +19,20 @@ Thumbs.db
 .netlify/
 # Local patch files
 *.patch
+
+# Local tooling / assistants / IDE junk
+.lmstudio/
+.psprofile_backup/
+.cursor/
+.vscode/
+
+# Netlify local state
+.netlify/
+
+# OS / temp
+Thumbs.db
+.DS_Store
+
+# Personal npm config (обычно НЕ надо в репо)
+.npmrc
+
