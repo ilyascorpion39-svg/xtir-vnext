@@ -3,22 +3,28 @@ import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import netlify from "@astrojs/netlify";
 
-// https://astro.build/config
+const isNetlify = !!process.env.NETLIFY;
+const isGitHubActions = !!process.env.GITHUB_ACTIONS;
+
 export default defineConfig({
   integrations: [
     react(),
     tailwind({ applyBaseStyles: false }),
   ],
 
-  // было hybrid, оставляем
+  // Статика для GitHub Pages и обычного хостинга
   output: "static",
 
-  // Netlify adapter
-  adapter: netlify(),
+  // На Netlify можно оставить адаптер, но для GH Pages он не нужен
+  adapter: isNetlify ? netlify() : undefined,
 
+  // GitHub Pages публикует проект в подпапке /xtir-vnext/
+  base: isGitHubActions ? "/xtir-vnext" : undefined,
+
+  // RU only
   i18n: {
     defaultLocale: "ru",
-    locales: ["ru", "en"],
+    locales: ["ru"],
     routing: { prefixDefaultLocale: false },
   },
 
@@ -32,5 +38,3 @@ export default defineConfig({
   compressHTML: true,
   build: { inlineStylesheets: "auto" },
 });
-
-
