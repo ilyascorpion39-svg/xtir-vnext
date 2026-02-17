@@ -32,6 +32,13 @@ jobs:
 
       - name: Build
         run: npm run build
+      - name: XTIR leak guard (dist)
+        run: |
+          test -f dist/index.html
+          if grep -E -i "import\s+\w+\s+from\s+['""]|import\s+Header\s+from|import\s+Footer\s+from|GA_MEASUREMENT_ID" dist/index.html; then
+            echo "Leak detected in dist/index.html"
+            exit 1
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

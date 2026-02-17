@@ -5,21 +5,20 @@ $ErrorActionPreference = "Stop"
 $wfDir = ".github/workflows"
 if (!(Test-Path -LiteralPath $wfDir)) { throw "Нет $wfDir" }
 
-$files = Get-ChildItem -LiteralPath $wfDir -Filter "*.yml" -File
-if ($files.Count -eq 0) { $files = Get-ChildItem -LiteralPath $wfDir -Filter "*.yaml" -File }
-if ($files.Count -eq 0) { throw "Workflow файлов не найдено" }
+$files = @(Get-ChildItem -LiteralPath $wfDir -Filter "*.yml" -File -ErrorAction SilentlyContinue)
+if (@($files).Count -eq 0) { $files = @(Get-ChildItem -LiteralPath $wfDir -Filter "*.yaml" -File -ErrorAction SilentlyContinue) }
+if (@($files).Count -eq 0) { throw "Workflow файлов не найдено в $wfDir" }
 
 $patched = 0
 
 foreach ($f in $files) {
   $t = Get-Content -LiteralPath $f.FullName -Raw
 
-  # ищем место перед upload-pages-artifact или deploy-pages
-  if ($t -match "upload-pages-artifact|deploy-pages|actions/deploy-pages") {
+  # only workflows related to pages deploy
+  if ($t -notmatch "pages|deploy-pages|upload-pages-artifact") { continue }
+  if ($t -match "XTIR leak guard") { continue } # already patched
 
-    if ($t -match "XTIR leak guard") { continue } # уже есть
-
-    $guard = @"
+  $guard = @"
       - name: XTIR leak guard (dist)
         run: |
           test -f dist/index.html
@@ -29,17 +28,17 @@ foreach ($f in $files) {
           fi
 "@
 
-    # вставим перед upload-pages-artifact если есть
-    if ($t -match "upload-pages-artifact") {
-      $t = [regex]::Replace($t, "(?m)^(\s*-\s*name:\s*Upload artifact[\s\S]*?upload-pages-artifact[\s\S]*?\n)", ($guard + "`n`$1"), 1)
-    } else {
-      # иначе вставим перед deploy-pages шагом
-      $t = [regex]::Replace($t, "(?m)^(\s*-\s*name:.*deploy.*\r?\n)", ($guard + "`n`$1"), 1)
-    }
-
-    Set-Content -LiteralPath $f.FullName -Value $t -NoNewline -Encoding UTF8
-    $patched++
+  if ($t -match "(?m)^\s*-\s*name:\s*Upload.*\r?\n[\s\S]*?upload-pages-artifact") {
+    $t = [regex]::Replace($t, "(?m)^(\s*-\s*name:\s*Upload[\s\S]*?upload-pages-artifact[\s\S]*?\r?\n)", ($guard + "`n`$1"), 1)
+  } elseif ($t -match "deploy-pages|actions/deploy-pages") {
+    $t = [regex]::Replace($t, "(?m)^(\s*-\s*name:.*deploy.*\r?\n)", ($guard + "`n`$1"), 1)
+  } else {
+    continue
   }
+
+  Set-Content -LiteralPath $f.FullName -Value $t -NoNewline -Encoding UTF8
+  $patched++
 }
 
 Write-Host "OK: patched workflows: $patched" -ForegroundColor Green
+if ($patched -eq 0) { Write-Host "NOTE: подходящий workflow не найден или уже пропатчен." -ForegroundColor Yellow }
