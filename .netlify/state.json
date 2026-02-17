@@ -1,0 +1,20 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Ufa",
+			"country": {
+				"code": "RU",
+				"name": "Russia"
+			},
+			"subdivision": {
+				"code": "BA",
+				"name": "Bashkortostan Republic"
+			},
+			"timezone": "Asia/Yekaterinburg",
+			"latitude": 54.7431,
+			"longitude": 55.9678,
+			"postalCode": "450000"
+		},
+		"timestamp": 1771279401593
+	}
+}

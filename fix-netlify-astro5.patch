@@ -1,0 +1,69 @@
+@'
+diff --git a/astro.config.mjs b/astro.config.mjs
+index 8a6c7d1..f0c6b31 100644
+--- a/astro.config.mjs
++++ b/astro.config.mjs
+@@ -1 +1,39 @@
+-import { defineConfig } from 'astro/config'; import react from '@astrojs/react'; import tailwind from '@astrojs/tailwind'; import vercel from '@astrojs/vercel/serverless'; // https://astro.build/config export default defineConfig({ integrations: [ react(), tailwind({ applyBaseStyles: false, }), ], output: 'hybrid', adapter: vercel({ webAnalytics: { enabled: true, }, }), i18n: { defaultLocale: 'ru', locales: ['ru', 'en'], routing: { prefixDefaultLocale: false, }, }, vite: { ssr: { noExternal: ['three', '@react-three/fiber', '@react-three/drei'], }, }, site: 'https://x-tir.ru', compressHTML: true, build: { inlineStylesheets: 'auto', }, });
++import { defineConfig } from 'astro/config';
++import react from '@astrojs/react';
++import tailwind from '@astrojs/tailwind';
++import netlify from '@astrojs/netlify';
++
++// https://astro.build/config
++export default defineConfig({
++  integrations: [
++    react(),
++    tailwind({
++      applyBaseStyles: false,
++    }),
++  ],
++
++  // сохраняем режим, как было
++  output: 'hybrid',
++
++  // Netlify adapter (SSR/On-demand при необходимости)
++  adapter: netlify(),
++
++  i18n: {
++    defaultLocale: 'ru',
++    locales: ['ru', 'en'],
++    routing: {
++      prefixDefaultLocale: false,
++    },
++  },
++
++  vite: {
++    ssr: {
++      noExternal: ['three', '@react-three/fiber', '@react-three/drei'],
++    },
++  },
++
++  site: 'https://x-tir.ru',
++  compressHTML: true,
++  build: { inlineStylesheets: 'auto' },
++});
+diff --git a/netlify.toml b/netlify.toml
+new file mode 100644
+index 0000000..ee2f2ac
+--- /dev/null
++++ b/netlify.toml
+@@ -0,0 +1,12 @@
++[build]
++  command = "npm run build"
++  publish = "dist"
++
++[build.environment]
++  NODE_VERSION = "20"
++
++# Если захочешь превью локально как на Netlify:
++# npm i -g netlify-cli
++# netlify dev
+diff --git a/package.json b/package.json
+index 3b1f6d2..eeb0d13 100644
+--- a/package.json
++++ b/package.json
+@@ -1 +1 @@
+-{ "name": "xtir-website", "type": "module", "version": "1.0.0", "description": "Современный сайт для XTIR - производителя оборудования для стрельбы", "scripts": { "dev": "astro dev", "start": "astro dev", "build": "astro check && astro build", "preview": "astro preview", "astro": "astro", "archive:build": "node scripts/build-archive-index.mjs", "format": "prettier --write .", "lint": "eslint .", "type-check": "astro check" }, "dependencies": { "@astrojs/react": "^3.0.9", "@astrojs/tailwind": "^5.1.0", "@astrojs/vercel": "^7.0.4", "@react-three/drei": "^9.96.0", "@react-three/fiber": "^8.15.15", "astro": "^4.2.1", "clsx": "^2.1.0", "framer-motion": "^11.0.3", "gsap": "^3.12.4", "react": "^18.2.0", "react-dom": "^18.2.0", "tailwindcss": "^3.4.1", "three": "^0.160.1" }, "devDependencies": { "@tailwindcss/typography": "^0.5.10", "@types/node": "^20.11.5", "@types/react": "^18.2.48", "@types/react-dom": "^18.2.18", "@types/three": "^0.160.0", "@typescript-eslint/eslint-plugin": "^6.19.1", "@typescript-eslint/parser": "^6.19.1", "autoprefixer": "^10.4.17", "eslint": "^8.56.0", "eslint-plugin-astro": "^0.31.3", "eslint-plugin-jsx-a11y": "^6.8.0", "prettier": "^3.2.4", "prettier-plugin-astro": "^0.13.0", "typescript": "^5.3.3" }, "keywords": [ "xtir", "shooting", "equipment", "astro", "react", "3d" ], "author": "XTIR Team", "license": "UNLICENSED" }
++{ "name": "xtir-website", "type": "module", "version": "1.0.0", "description": "Современный сайт для XTIR - производителя оборудования для стрельбы", "scripts": { "dev": "astro dev", "start": "astro dev", "build": "astro check && astro build", "preview": "astro preview", "astro": "astro", "archive:build": "node scripts/build-archive-index.mjs", "format": "prettier --write .", "lint": "eslint .", "type-check": "astro check" }, "dependencies": { "@astrojs/netlify": "^6.6.3", "@astrojs/react": "^4.4.2", "@astrojs/tailwind": "^6.0.2", "@react-three/drei": "^9.96.0", "@react-three/fiber": "^8.15.15", "astro": "^5.17.2", "clsx": "^2.1.0", "framer-motion": "^11.0.3", "gsap": "^3.12.4", "react": "^18.2.0", "react-dom": "^18.2.0", "tailwindcss": "^3.4.1", "three": "^0.160.1" }, "devDependencies": { "@tailwindcss/typography": "^0.5.10", "@types/node": "^20.11.5", "@types/react": "^18.2.48", "@types/react-dom": "^18.2.18", "@types/three": "^0.160.0", "@typescript-eslint/eslint-plugin": "^6.19.1", "@typescript-eslint/parser": "^6.19.1", "autoprefixer": "^10.4.17", "eslint": "^8.56.0", "eslint-plugin-astro": "^1.6.0", "eslint-plugin-jsx-a11y": "^6.8.0", "prettier": "^3.2.4", "prettier-plugin-astro": "^0.14.1", "typescript": "^5.3.3" }, "keywords": [ "xtir", "shooting", "equipment", "astro", "react", "3d" ], "author": "XTIR Team", "license": "UNLICENSED" }
+'@ | Set-Content -Encoding UTF8 .\fix-netlify-astro5.patch
