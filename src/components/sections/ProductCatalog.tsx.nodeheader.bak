@@ -32,9 +32,10 @@ export default function ProductCatalog({ products, categories }: Props) {
   }, [categories]);
 
   return (
-    <section id="products" className="section pt-8">
+    <section id="products" className="section">
       <div className="section-container">
-        <div className="mb-8"><div className="h-px w-full max-w-[420px] bg-gradient-accent opacity-40 mb-6"></div>
+        <div className="mb-10">
+          <h2 className="section-title">Решения XTIR</h2>
           <p className="section-subtitle">
             Каталог изделий и модулей. Фильтры и поиск помогут быстро найти нужное.
           </p>
@@ -123,5 +124,3 @@ export default function ProductCatalog({ products, categories }: Props) {
     </section>
   );
 }
-
-

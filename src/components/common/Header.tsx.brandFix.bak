@@ -63,22 +63,37 @@ export default function Header() {
       <nav className="section-container">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-<a href="/" className="flex items-center gap-3">
+          <motion.a
+            href="/"
+            className="flex items-center space-x-3 group"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <div className="relative w-12 h-12">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg opacity-20 group-hover:opacity-40 transition-opacity blur-xl"></div>
+              <div className="relative w-full h-full bg-dark-800 rounded-lg flex items-center justify-center border border-primary-500/30 group-hover:border-primary-500 transition-colors">
+                <span className="text-2xl font-display font-bold gradient-text">X</span>
+              </div>
+            </div>
+            <div>
+              <span className="inline-flex items-center gap-3">
   <img
     src="/images/logo.png"
     srcSet="/images/logo.png 1x, /images/xtir-logo@2x.png 2x"
-    width={140}
-    height={48}
+    width={160}
+    height={40}
     alt="XTIR"
+    className="h-10 w-auto select-none"
     decoding="async"
-    className="h-12 w-auto"
+    draggable={false}
   />
-  <div className="leading-tight">
-    <div className="text-xs text-white/55">Точность технологий</div>
-  </div>
-</a>
+  <span className="text-xl font-display font-bold text-white transition-colors group-hover:text-primary-300">XTIR</span>
+</span>
+              <p className="text-xs text-gray-400 font-sans">Точность технологий</p>
+            </div>
+          </motion.a>
 
-{/* Desktop Navigation */}
+          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
             {navItems.map((item, index) => (
               <motion.a
@@ -211,10 +226,6 @@ export default function Header() {
     </motion.header>
   );
 }
-
-
-
-
 
 
 

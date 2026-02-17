@@ -318,6 +318,7 @@ const hasDocs = !!product.documentation?.length;
                           ) : (
                             <a
                               href={d.href}
+                              download
                               class="text-sm text-white/85 hover:text-white underline decoration-white/20 hover:decoration-white/50 underline-offset-4 transition truncate"
                             >
                               {d.title}
@@ -341,9 +342,10 @@ const hasDocs = !!product.documentation?.length;
                         ) : (
                           <a
                             href={d.href}
+                            download
                             class="shrink-0 rounded-lg border border-green-400/30 bg-green-500/10 px-3 py-1.5 text-xs font-medium text-green-200 hover:bg-green-500/15 hover:text-white transition"
                           >
-                            
+                            Скачать
                           </a>
                         )
                       ) : (
@@ -471,6 +473,5 @@ const hasDocs = !!product.documentation?.length;
 
   <Footer client:load />
 </BaseLayout>
-
 
 

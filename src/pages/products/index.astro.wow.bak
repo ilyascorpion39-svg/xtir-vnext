@@ -17,25 +17,12 @@ const categories = productCategories.filter((c) => c.id !== 'texts'); // на о
   <main class="pt-24">
     <section class="section">
       <div class="section-container">
-        <div class="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-hero p-8 md:p-10">
-          <div class="pointer-events-none absolute inset-0 tech-grid opacity-[0.55]"></div>
-          <div class="pointer-events-none absolute inset-0 bg-gradient-radial from-primary-500/10 via-transparent to-transparent"></div>
-
-          <div class="relative max-w-3xl">
-            <div class="mb-5 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2">
-              <span class="h-2 w-2 rounded-full bg-primary-400" style="box-shadow: 0 0 18px rgba(0,179,255,0.25)"></span>
-              <span class="font-mono text-xs tracking-widest text-white/70">XTIR / CATALOG • STATUS: ACTIVE</span>
-            </div>
-
-            <h1 class="h1-xtir text-white/95">Каталог решений XTIR</h1>
-            <div class="mt-4 h-px w-full max-w-[520px] bg-gradient-accent opacity-70"></div>
-
-            <p class="mt-5 text-base md:text-lg text-white/55 leading-relaxed">
-              На сайте представлено оборудование, которое было реально изготовлено и прошло испытания.
-              Для части изделий мы показываем 3D-модели и визуализации: это помогает согласовать проект, даже если «живые» фото нельзя публиковать.
-            </p>
-          </div>
-        </div>
+        <div class="max-w-3xl">
+          <h1 class="h1-xtir">Каталог продукции XTIR</h1>
+          <p class="section-subtitle mt-4">
+            На сайте представлено оборудование, которое было реально изготовлено и прошло испытания. Для части изделий мы показываем
+            3D-модели и визуализации — это помогает согласовать проект, даже если «живые» фото нельзя публиковать.
+          </p>
 
         <!-- Якоря для быстрых ссылок из футера -->
         <div id="electronic" class="scroll-mt-24"></div>
@@ -49,19 +36,20 @@ const categories = productCategories.filter((c) => c.id !== 'texts'); // на о
         <div id="accessories" class="scroll-mt-24"></div>
         <div id="misc" class="scroll-mt-24"></div>
         <div id="texts" class="scroll-mt-24"></div>
+        </div>
 
         <div class="mt-10">
           <ProductCatalog client:load products={allProducts} categories={categories} />
         </div>
 
-        <div class="mt-16 card card-tech p-8 border border-white/10">
+        <div class="mt-16 card card-glass p-8 border border-dark-700/60">
           <h2 class="text-2xl font-bold text-white">Заказать или уточнить цену</h2>
-          <p class="mt-3 text-white/55">
+          <p class="mt-3 text-gray-400">
             Цена зависит от конфигурации и объема заказа. Напишите нам — подберем решение и подготовим коммерческое предложение.
           </p>
           <div class="mt-6 flex flex-col sm:flex-row gap-4">
             <a href="/contact" class="btn btn-primary">Оставить заявку</a>
-            <a href="/support" class="btn btn-outline">Поддержка</a>
+            <a href="/support" class="btn btn-outline">Поддержка и документация</a>
           </div>
         </div>
       </div>
@@ -70,4 +58,3 @@ const categories = productCategories.filter((c) => c.id !== 'texts'); // на о
 
   <Footer client:load />
 </BaseLayout>
-
