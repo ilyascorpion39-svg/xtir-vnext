@@ -142,8 +142,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       (function () {
         const modal = document.getElementById('xtir-request-modal');
         if (!modal) return;
-
-        const panel = modal.querySelector('[data-panel]');
         const toast = modal.querySelector('[data-toast]');
         const emailEl = modal.querySelector('[data-email]');
         const productEl = modal.querySelector('[data-product]');
@@ -277,6 +275,9 @@ ${body}`;
     }
   }
 </style>
+
+
+
 
 
 
