@@ -158,7 +158,7 @@ export default function Footer() {
                 {category === "legal" && "Правовая информация"}
               </h3>
               <ul className="space-y-3">
-                {links.map((link) => (
+                {links.filter(Boolean).map((link) => (
                   <li key={link.name}>
                     <a
                       href={link.href}
