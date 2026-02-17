@@ -1,16 +1,12 @@
-# Dependencies / build
 node_modules/
 dist/
 .astro/
-node_modules/.vite/
-
-# Env (никогда в репо)
-.env
-.env.*
-!.env.example
 
 # Netlify local state
 .netlify/
+
+# Local patch files
+*.patch
 
 # Local tooling / assistants / IDE junk
 .lmstudio/
@@ -18,18 +14,9 @@ node_modules/.vite/
 .cursor/
 .vscode/
 
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
 # OS / temp
-.DS_Store
 Thumbs.db
-
-# Local patch files
-*.patch
+.DS_Store
 
 # Personal npm config (обычно НЕ надо в репо)
 .npmrc
