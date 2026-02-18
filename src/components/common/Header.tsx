@@ -2,6 +2,19 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SITE } from "@/site";
 
+// Читаем base из мета-тега, который Astro вставляет автоматически
+// На GitHub Pages это будет "/xtir-vnext", локально — ""
+const getBase = () => {
+  if (typeof document === "undefined") return "";
+  const base = document.querySelector('base')?.getAttribute('href') ?? "";
+  return base.replace(/\/$/, "");
+};
+
+const makeHref = (path: string) => {
+  const base = getBase();
+  return base + path;
+};
+
 const navItems = [
   { name: 'Главная', href: '/' },
   { name: 'Продукты', href: '/products' },
@@ -39,15 +52,19 @@ const socialLinks = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [base, setBase] = useState("");
 
   useEffect(() => {
+    setBase(getBase());
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const href = (path: string) => base + path;
 
   return (
     <motion.header
@@ -63,10 +80,10 @@ export default function Header() {
       <nav className="section-container">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-3">
+          <a href={href("/")} className="flex items-center gap-3">
             <img
-              src="/images/logo.png"
-              srcSet="/images/logo.png 1x, /images/xtir-logo@2x.png 2x"
+              src={`${base}/images/logo.png`}
+              srcSet={`${base}/images/logo.png 1x, ${base}/images/xtir-logo@2x.png 2x`}
               width={140}
               height={48}
               alt="XTIR"
@@ -83,7 +100,7 @@ export default function Header() {
             {navItems.map((item, index) => (
               <motion.a
                 key={item.name}
-                href={item.href}
+                href={href(item.href)}
                 className="text-gray-300 hover:text-primary-500 font-medium transition-colors relative group"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -123,7 +140,7 @@ export default function Header() {
             </div>
 
             <motion.a
-              href="/contact"
+              href={href("/contact")}
               className="btn btn-primary"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -138,21 +155,9 @@ export default function Header() {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             whileTap={{ scale: 0.95 }}
           >
-            <span
-              className={`block w-6 h-0.5 bg-white transition-all ${
-                isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
-            ></span>
-            <span
-              className={`block w-6 h-0.5 bg-white transition-all ${
-                isMobileMenuOpen ? "opacity-0" : ""
-              }`}
-            ></span>
-            <span
-              className={`block w-6 h-0.5 bg-white transition-all ${
-                isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            ></span>
+            <span className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
+            <span className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`}></span>
+            <span className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}></span>
           </motion.button>
         </div>
       </nav>
@@ -171,7 +176,7 @@ export default function Header() {
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.name}
-                  href={item.href}
+                  href={href(item.href)}
                   className="block py-3 text-lg text-gray-300 hover:text-primary-500 transition-colors border-b border-dark-700 last:border-0"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -194,21 +199,13 @@ export default function Header() {
                       className="w-11 h-11 rounded-lg bg-dark-800 border border-dark-700 flex items-center justify-center hover:border-primary-500 hover:bg-dark-700 transition-all"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      <svg
-                        className="w-5 h-5 text-gray-300"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
+                      <svg className="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path d={s.icon} />
                       </svg>
                     </a>
                   ))}
                 </div>
-                <a
-                  href="/contact"
-                  className="block w-full btn btn-primary text-center"
-                >
+                <a href={href("/contact")} className="block w-full btn btn-primary text-center">
                   Заказать
                 </a>
               </div>
