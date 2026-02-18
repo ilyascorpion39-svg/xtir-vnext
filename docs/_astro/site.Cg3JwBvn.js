@@ -1,0 +1,1 @@
+const t={tagline:"Точность технологий",telegramChannelUrl:"https://t.me/xtirofficial",vkChannelUrl:"https://vk.com/xtirofficial",youtubeChannelUrl:"https://youtube.com/@XTIRofficial",rutubeChannelUrl:"https://rutube.ru/channel/61475514/",orderCtaText:"Заказать",orderCtaHref:"/contact"};export{t as S};

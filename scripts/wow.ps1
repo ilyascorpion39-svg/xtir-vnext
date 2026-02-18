@@ -1,105 +1,237 @@
+#requires -Version 7
+<#
+.SYNOPSIS
+    XTIR: WOW Check — проверка качества Astro-проекта (v3.0)
+
+.DESCRIPTION
+    Проверяет типичные ошибки и антипаттерны в Astro-проектах:
+    • успешная сборка
+    • lang="ru" в BaseLayout
+    • наличие Header/Footer только в layout
+    • запрещённые слова
+    • нежелательные внешние ресурсы и трекеры
+    • утечки в итоговой сборке (dist/index.html)
+#>
+
+[CmdletBinding()]
 param()
 
 $ErrorActionPreference = "Stop"
+$WarningPreference     = "Continue"
 
-function Ok($msg){ Write-Host ("✅ " + $msg) -ForegroundColor Green }
-function Warn($msg){ Write-Host ("⚠️  " + $msg) -ForegroundColor Yellow }
-function Bad($msg){ Write-Host ("❌ " + $msg) -ForegroundColor Red }
-function Info($msg){ Write-Host ("• " + $msg) -ForegroundColor Cyan }
+Set-StrictMode -Version Latest
 
-function Grep($pattern, $path){
-  try { return @(git grep -n $pattern $path 2>$null) } catch { return @() }
+# ─── Цветные помощники ───────────────────────────────────────────────────────
+function Ok    { param([string]$msg) Write-Host "✅ $msg" -ForegroundColor Green }
+function Warn  { param([string]$msg) Write-Host "⚠️  $msg" -ForegroundColor Yellow }
+function Bad   { param([string]$msg) Write-Host "❌ $msg" -ForegroundColor Red   }
+function Info  { param([string]$msg) Write-Host "• $msg"  -ForegroundColor Cyan  }
+function Title { param([string]$msg) Write-Host "`n$msg" -ForegroundColor White -BackgroundColor DarkCyan }
+
+# ─── Поиск по файлам (замена grep) ───────────────────────────────────────────
+function Find-InSource {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [string] $Pattern,
+        [string] $Path = "src",
+        [string[]] $Include = @("*.astro", "*.tsx", "*.ts", "*.jsx", "*.js", "*.css", "*.json", "*.md", "*.mdx")
+    )
+
+    $found = @()
+
+    Get-ChildItem -Path $Path -Recurse -File -Include $Include -ErrorAction SilentlyContinue |
+        ForEach-Object {
+            $content = Get-Content $_.FullName -Raw -ErrorAction SilentlyContinue
+            if ($content -and $content -match $Pattern) {
+                # Находим первую строку с совпадением
+                $lines = $content -split '\r?\n'
+                for ($i = 0; $i -lt $lines.Count; $i++) {
+                    if ($lines[$i] -match $Pattern) {
+                        $found += "{0}:{1}: {2}" -f $_.FullName, ($i+1), $lines[$i].Trim()
+                        break   # достаточно первой строки с совпадением
+                    }
+                }
+            }
+        }
+
+    return $found
 }
 
-function ReadIfExists($p){
-  if (Test-Path -LiteralPath $p) { return (Get-Content -LiteralPath $p -Raw) }
-  return $null
+# ─── Чтение файла если существует ────────────────────────────────────────────
+function ReadIfExists([string]$Path) {
+    if (Test-Path -LiteralPath $Path) {
+        return Get-Content -LiteralPath $Path -Raw -ErrorAction SilentlyContinue
+    }
+    return $null
 }
 
-Write-Host "== XTIR: WOW Check (v2.4) ==" -ForegroundColor Cyan
+# ─── Основная логика ─────────────────────────────────────────────────────────
+Clear-Host
 
-if (!(Test-Path "package.json")) { throw "package.json не найден. Запусти из корня проекта." }
+Title "XTIR: WOW Check  v3.0   (Astro project quality check)"
+Write-Host "Текущая папка: $PWD`n" -ForegroundColor DarkGray
 
-Info "Build..."
-npm run build | Out-Host
-Ok "Build прошёл"
-
-$baseLayout = "src/layouts/BaseLayout.astro"
-if (!(Test-Path $baseLayout)) { Bad "Нет src/layouts/BaseLayout.astro"; exit 1 }
-
-$layoutText = Get-Content -LiteralPath $baseLayout -Raw
-
-if ($layoutText -match '<html\b[^>]*\blang\s*=\s*["'']ru["'']') { Ok 'RU-only: <html lang="ru">' } else { Warn "RU-only: lang не ru в BaseLayout" }
-if ($layoutText -match '<Header\b') { Ok "Header присутствует в BaseLayout" } else { Bad "Header НЕ найден в BaseLayout" }
-if ($layoutText -match '<Footer\b') { Ok "Footer присутствует в BaseLayout" } else { Bad "Footer НЕ найден в BaseLayout" }
-
-$hfPages = Grep "<Header|<Footer" "src/pages"
-if (@($hfPages).Count -eq 0) { Ok "Нет дублей Header/Footer в src/pages" } else { Warn "Найдены Header/Footer в страницах (дубли):"; $hfPages | Out-Host }
-
-$badImports = Grep "import\s+BaseLayout\s+from\s+['""][.]{1,2}/" "src/pages"
-if (@($badImports).Count -eq 0) { Ok "Импорты BaseLayout унифицированы (без ../)" } else { Warn "Есть относительные импорты BaseLayout (лучше @/):"; $badImports | Out-Host }
-
-$downloads = Grep "Скачать" "src"
-if (@($downloads).Count -eq 0) { Ok "Запрещённое слово 'Скачать' не найдено в src" } else { Bad "Найдено 'Скачать' (нужно убрать):"; $downloads | Out-Host }
-
-# --- External domains report (smarter) ---
-$allowSocial = @("t.me","vk.com","rutube.ru","youtube.com","youtu.be")
-$allowInfra  = @("schema.org")
-$allowSelf   = @("x-tir.ru")
-$blockHard   = @("googletagmanager.com")
-
-$foundUrls = New-Object System.Collections.Generic.HashSet[string]
-$files = @(git ls-files src)
-foreach ($f in $files) {
-  if (!(Test-Path -LiteralPath $f)) { continue }
-  $t = Get-Content -LiteralPath $f -Raw
-  $m = [regex]::Matches($t, "(https?:\/\/[^\s""')]+)")
-  foreach ($x in $m) { [void]$foundUrls.Add($x.Value) }
+# 1. Проверка, что мы в корне проекта
+if (!(Test-Path "package.json")) {
+    Bad "package.json не найден → запустите скрипт из корня проекта"
+    exit 1
 }
 
-function HostOf($u) {
-  try { return ([uri]$u).Host.ToLowerInvariant() } catch { return "" }
+# 2. Сборка проекта
+Info "Запуск сборки (npm run build)..."
+$buildOutput = ""
+$buildSuccess = $false
+
+try {
+    $buildOutput = & npm run build 2>&1
+    $buildSuccess = ($LASTEXITCODE -eq 0)
+}
+catch {
+    $buildOutput = $_.Exception.Message
 }
 
-$fonts = @()
-$tracking = @()
-$other = @()
-
-foreach ($u in $foundUrls) {
-  $h = HostOf $u
-  if (!$h) { continue }
-
-  if ($h -in @("fonts.googleapis.com","fonts.gstatic.com")) { $fonts += $u; continue }
-  if ($allowSelf | Where-Object { $h -like "*$_" }) { continue }
-  if ($allowInfra | Where-Object { $h -like "*$_" }) { continue }
-  if ($allowSocial | Where-Object { $h -like "*$_" }) { continue }
-  if ($blockHard | Where-Object { $h -like "*$_" }) { $tracking += $u; continue }
-  $other += $u
+if ($buildSuccess) {
+    Ok "Сборка прошла успешно"
+}
+else {
+    Bad "Сборка завершилась с ошибкой (код $LASTEXITCODE)"
+    Write-Host $buildOutput -ForegroundColor DarkRed
+    exit 1
 }
 
-if (@($tracking).Count -eq 0) { Ok "Трекинг-домены не найдены" } else { Warn "Найдены трекинг/аналитика домены:"; $tracking | Sort-Object | Out-Host }
-if (@($fonts).Count -eq 0) { Ok "Google Fonts не найдены" } else { Warn "Найдены Google Fonts (можно перевести в локальные):"; $fonts | Sort-Object | Out-Host }
-if (@($other).Count -eq 0) { Ok "Лишних внешних доменов не найдено" } else { Warn "Найдены прочие внешние домены:"; $other | Sort-Object | Out-Host }
+# 3. Проверка BaseLayout
+$baseLayoutPath = "src/layouts/BaseLayout.astro"
 
-# --- dist leak guard ---
-Info "dist leak guard..."
-$distIndex = ReadIfExists "dist/index.html"
-if ($null -eq $distIndex) {
-  Warn "dist/index.html не найден (пропускаю проверку утечек)"
-} else {
-  $leaks = @()
+if (!(Test-Path $baseLayoutPath)) {
+    Bad "Файл не найден: $baseLayoutPath"
+}
+else {
+    $layout = Get-Content $baseLayoutPath -Raw
 
-  if ($distIndex -match "(?i)\bimport\s+\w+\s+from\s+['""]") { $leaks += "ESM import leaked into HTML" }
-  if ($distIndex -match "(?i)\bGA_MEASUREMENT_ID\b") { $leaks += "GA_MEASUREMENT_ID placeholder found" }
-  if ($distIndex -match "(?i)import\s+Header\s+from") { $leaks += "Header import text leaked" }
-  if ($distIndex -match "(?i)import\s+Footer\s+from") { $leaks += "Footer import text leaked" }
+    if ($layout -match '(?i)<html\b[^>]*lang\s*=\s*["'']ru["'']') {
+        Ok 'BaseLayout → <html lang="ru">'
+    }
+    else {
+        Warn 'BaseLayout → атрибут lang не "ru" или отсутствует'
+    }
 
-  if (@($leaks).Count -eq 0) {
-    Ok "dist/index.html чистый (нет утечек import/GA placeholders)"
-  } else {
-    Bad ("dist/index.html: " + ($leaks -join "; "))
-  }
+    if ($layout -match '<Header\b') { Ok "BaseLayout → <Header" } else { Bad "BaseLayout → <Header не найден" }
+    if ($layout -match '<Footer\b') { Ok "BaseLayout → <Footer" } else { Bad "BaseLayout → <Footer не найден" }
 }
 
-Write-Host ""
-Write-Host "== DONE ==" -ForegroundColor Cyan
+# 4. Header / Footer не должны быть в pages
+Info "Проверка дублирования Header/Footer в src/pages..."
+$directHF = Find-InSource -Pattern '<Header|<Footer' -Path "src/pages"
+
+if ($directHF.Count -eq 0) {
+    Ok "Header и Footer не используются напрямую в страницах"
+}
+else {
+    Warn "Обнаружены прямые упоминания Header/Footer в страницах:"
+    $directHF | ForEach-Object { Write-Host "  $_" -ForegroundColor Yellow }
+}
+
+# 5. Запрещённые / нежелательные слова
+$badWords = @(
+    "Скачать", "скачать", "клик", "кликни", "жми", "жмите",
+    "тык", "тыкни", "Download", "Click", "кнопк[ауе]"
+)
+
+Info "Поиск запрещённых слов..."
+$badFindings = @()
+
+foreach ($word in $badWords) {
+    $found = Find-InSource -Pattern "\b$word\b" -Include "*.astro","*.md","*.mdx","*.tsx","*.ts","*.jsx","*.js"
+    if ($found) { $badFindings += $found }
+}
+
+if ($badFindings.Count -eq 0) {
+    Ok "Запрещённые слова не найдены"
+}
+else {
+    Bad "Найдены нежелательные слова/фразы:"
+    $badFindings | Sort-Object -Unique | ForEach-Object { Write-Host "  $_" }
+}
+
+# 6. Проверка внешних доменов и трекеров
+Info "Анализ внешних URL..."
+
+$allowed = @("t.me", "vk.com", "rutube.ru", "youtube.com", "youtu.be", "schema.org", "x-tir.ru")
+$blocked = @("googletagmanager.com", "google-analytics.com", "mc.yandex.ru", "yandex.", "metrika", "gtag", "facebook.net", "doubleclick.net")
+
+$allUrls = [System.Collections.Generic.HashSet[string]]::new()
+$filesWithUrls = Get-ChildItem "src" -Recurse -File -Include *.astro,*.ts,*.tsx,*.js,*.jsx,*.css,*.json,*.md,*.mdx
+
+foreach ($file in $filesWithUrls) {
+    $content = Get-Content $file.FullName -Raw -ErrorAction SilentlyContinue
+    if (!$content) { continue }
+    [regex]::Matches($content, 'https?://[^\s"''<>)+]+') |
+        ForEach-Object { [void]$allUrls.Add($_.Value) }
+}
+
+$trackingUrls = [System.Collections.Generic.List[string]]::new()
+$otherUrls    = [System.Collections.Generic.List[string]]::new()
+
+foreach ($url in $allUrls) {
+    try {
+        $uri = [uri]$url
+        $host = $uri.Host.ToLowerInvariant()
+
+        if ([string]::IsNullOrEmpty($host)) { continue }
+
+        $isAllowed = $allowed | Where-Object { $host -like "*$_" } | Select-Object -First 1
+        if ($isAllowed) { continue }
+
+        $isTracking = $blocked | Where-Object { $host -like "*$_" } | Select-Object -First 1
+        if ($isTracking) {
+            [void]$trackingUrls.Add($url)
+            continue
+        }
+
+        if (!$host.EndsWith("x-tir.ru", [StringComparison]::OrdinalIgnoreCase)) {
+            [void]$otherUrls.Add($url)
+        }
+    }
+    catch { }
+}
+
+if ($trackingUrls.Count -eq 0) { Ok "Трекеры / аналитика не найдены" }
+else {
+    Warn "Обнаружены потенциально нежелательные трекеры:"
+    $trackingUrls | Sort-Object -Unique | ForEach-Object { "  $_" }
+}
+
+if ($otherUrls.Count -eq 0) { Ok "Других подозрительных внешних доменов нет" }
+else {
+    Warn "Найдены внешние ссылки (кроме разрешённых):"
+    $otherUrls | Sort-Object -Unique | ForEach-Object { "  $_" }
+}
+
+# 7. Проверка чистоты dist/index.html
+Info "Проверка содержимого dist/index.html..."
+
+$indexHtml = ReadIfExists "dist/index.html"
+
+if (!$indexHtml) {
+    Warn "dist/index.html не найден → возможно сборка не завершена"
+}
+else {
+    $issues = [System.Collections.Generic.List[string]]::new()
+
+    if ($indexHtml -match 'import\s+.*\s+from\s+["'']')         { $issues.Add("ESM import в HTML") }
+    if ($indexHtml -match '\bGA_MEASUREMENT_ID\b')             { $issues.Add("Google Analytics ID") }
+    if ($indexHtml -match '(Header|Footer)\s+from')            { $issues.Add("Импорт компонентов в HTML") }
+    if ($indexHtml -match '<!--\s*#\s*sourceMappingURL')       { $issues.Add("source map ссылка") }
+    if ($indexHtml -match 'yandex_metrika')                    { $issues.Add("Яндекс.Метрика") }
+
+    if ($issues.Count -eq 0) {
+        Ok "dist/index.html выглядит чистым"
+    }
+    else {
+        Bad "Обнаружены потенциальные утечки в итоговом HTML:"
+        $issues | ForEach-Object { "  • $_" }
+    }
+}
+
+Title "ПРОВЕРКА ЗАВЕРШЕНА"
+Write-Host "Дата проверки: $(Get-Date -Format "dd.MM.yyyy HH:mm")`n" -ForegroundColor DarkGray

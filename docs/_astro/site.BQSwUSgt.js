@@ -1,1 +1,0 @@
-const t={telegramChannelUrl:"https://t.me/xtirofficial",vkChannelUrl:"https://vk.com/xtirofficial",youtubeChannelUrl:"https://www.youtube.com/@XTIRofficial",rutubeChannelUrl:"https://rutube.ru/channel/61475514/"};export{t as S};

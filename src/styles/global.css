@@ -42,23 +42,23 @@
 
   /* Scrollbar — триколор */
   ::-webkit-scrollbar {
-    width: 3px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #0a0c0f;
-  }
-  ::-webkit-scrollbar-thumb {
-    border-radius: 999px;
-    background: linear-gradient(
-      to bottom,
-      #ffffff 0%,
-      #ffffff 33%,
-      #003DA5 33%,
-      #003DA5 66%,
-      #CC0000 66%,
-      #CC0000 100%
-    );
-  }
+  width: 3px !important;
+}
+::-webkit-scrollbar-track {
+  background: #0a0c0f !important;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 999px !important;
+  background: linear-gradient(
+    to bottom,
+    #ffffff 0%,
+    #ffffff 33%,
+    #003DA5 33%,
+    #003DA5 66%,
+    #CC0000 66%,
+    #CC0000 100%
+  ) !important;
+}
   ::-webkit-scrollbar-thumb:hover {
     opacity: 0.9;
   }
@@ -174,7 +174,13 @@
   .animate-delay-400 { animation-delay: 400ms; }
   .animate-delay-500 { animation-delay: 500ms; }
 }
-
+ /* Scrollbar вне layer — наивысший приоритет */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: #0a0c0f; }
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: linear-gradient(to bottom, #ffffff 0%, #ffffff 33%, #003DA5 33%, #003DA5 66%, #CC0000 66%, #CC0000 100%);
+}
 /* Firefox — тонкий тёмно-синий (градиент не поддерживается) */
 @supports (scrollbar-color: auto) {
   * {

@@ -1,27 +1,16 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SITE } from "@/site";
 
-// Читаем base из мета-тега, который Astro вставляет автоматически
-// На GitHub Pages это будет "/xtir-vnext", локально — ""
-const getBase = () => {
-  if (typeof document === "undefined") return "";
-  const base = document.querySelector('base')?.getAttribute('href') ?? "";
-  return base.replace(/\/$/, "");
-};
-
-const makeHref = (path: string) => {
-  const base = getBase();
-  return base + path;
-};
+const BASE = (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
 
 const navItems = [
-  { name: 'Главная', href: '/' },
-  { name: 'Каталог', href: '/products' },
-  { name: 'Наше фото', href: '/gallery' },
-  { name: 'Партнёры', href: '/partners' },
-  { name: 'О компании', href: '/about' },
-  { name: 'Контакты', href: '/contact' },
+  { name: "Главная", href: "/" },
+  { name: "Каталог", href: "/products" },
+  { name: "Наше фото", href: "/gallery" },
+  { name: "Партнёры", href: "/partners" },
+  { name: "О компании", href: "/about" },
+  { name: "Контакты", href: "/contact" },
 ];
 
 const socialLinks = [
@@ -45,162 +34,144 @@ const socialLinks = [
     href: SITE.rutubeChannelUrl,
     icon: "M8.4 6.7A2 2 0 0 0 6 8.6v6.8a2 2 0 0 0 3 1.7l6.2-3.4a2 2 0 0 0 0-3.4L9 7a2 2 0 0 0-.6-.3z",
   },
-].filter((s) => !!s.href);
+].filter((s) => !!s.href && s.href !== "#");
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [base, setBase] = useState("");
 
   useEffect(() => {
-    setBase(getBase());
-
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const href = (path: string) => base + path;
+  const href = (path: string) => BASE + path;
 
   return (
-    <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <header
+      className={[
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         isScrolled
-          ? "bg-dark-900/95 backdrop-blur-lg shadow-lg shadow-primary-500/10"
-          : "bg-transparent"
-      }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
+          ? "bg-dark/80 backdrop-blur-md border-b border-white/10"
+          : "bg-transparent",
+      ].join(" ")}
     >
-      <nav className="section-container">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <a href={href("/")} className="flex items-center gap-3">
-            <img
-              src={`${base}/images/logo.png`}
-              srcSet={`${base}/images/logo.png 1x, ${base}/images/xtir-logo@2x.png 2x`}
-              width={140}
-              height={48}
-              alt="XTIR"
-              decoding="async"
-              className="h-12 w-auto"
-            />
-            <div className="leading-tight">
-              <div className="text-xs text-white/55">Точность технологий</div>
-            </div>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          <a
+            href={href("/")}
+            className="flex items-center gap-3 text-white/90 hover:text-white transition"
+            aria-label="XTIR"
+          >
+            <span className="font-display tracking-wide text-lg">XTIR</span>
+            <span className="hidden sm:inline text-white/60 text-sm">
+              {SITE.tagline}
+            </span>
           </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item.name}
+          <nav className="hidden lg:flex items-center gap-6">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
                 href={href(item.href)}
-                className="text-gray-300 hover:text-primary-500 font-medium transition-colors relative group"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                className="text-sm text-white/70 hover:text-white transition"
               >
                 {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-500 to-secondary-500 group-hover:w-full transition-all duration-300"></span>
-              </motion.a>
+              </a>
             ))}
+          </nav>
+
+          <div className="hidden lg:flex items-center gap-3">
+            {socialLinks.map((s) => (
+              <a
+                key={s.name}
+                href={s.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={s.name}
+                className="p-2 rounded-lg hover:bg-white/10 transition"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d={s.icon} />
+                </svg>
+              </a>
+            ))}
+            <a
+              href={href(SITE.orderCtaHref)}
+              className="ml-2 inline-flex items-center rounded-xl bg-primary px-4 py-2 text-sm font-medium text-dark hover:opacity-90 transition"
+            >
+              {SITE.orderCtaText}
+            </a>
           </div>
 
-          {/* Actions (social + CTA) */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              {socialLinks.map((s) => (
-                <motion.a
-                  key={s.name}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-dark-800 border border-dark-700 flex items-center justify-center hover:border-primary-500 hover:bg-dark-700 transition-all group"
-                  aria-label={s.name}
-                  title={s.name}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <svg
-                    className="w-5 h-5 text-gray-400 group-hover:text-primary-500 transition-colors"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path d={s.icon} />
-                  </svg>
-                </motion.a>
-              ))}
-            </div>
-
-
-          </div>
-
-          {/* Mobile Menu Button */}
           <motion.button
-            className="lg:hidden w-10 h-10 flex flex-col items-center justify-center space-y-1.5 group"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden inline-flex items-center justify-center rounded-xl p-2 text-white/80 hover:text-white hover:bg-white/10 transition"
+            onClick={() => setIsMobileMenuOpen((v) => !v)}
             whileTap={{ scale: 0.95 }}
+            aria-label="Меню"
           >
-            <span className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
-            <span className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`}></span>
-            <span className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}></span>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M4 7h16M4 12h16M4 17h16"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
           </motion.button>
         </div>
-      </nav>
+      </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="lg:hidden absolute top-full left-0 right-0 bg-dark-900/98 backdrop-blur-xl border-t border-primary-500/20"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            className="lg:hidden border-t border-white/10 bg-dark/90 backdrop-blur-md"
           >
-            <nav className="section-container py-6 space-y-4">
-              {navItems.map((item, index) => (
-                <motion.a
-                  key={item.name}
+            <div className="mx-auto max-w-7xl px-4 py-4 space-y-2">
+              {navItems.map((item) => (
+                <a
+                  key={item.href}
                   href={href(item.href)}
-                  className="block py-3 text-lg text-gray-300 hover:text-primary-500 transition-colors border-b border-dark-700 last:border-0"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
                   onClick={() => setIsMobileMenuOpen(false)}
+                  className="block rounded-xl px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 transition"
                 >
                   {item.name}
-                </motion.a>
+                </a>
               ))}
-              <div className="pt-4 space-y-3">
-                <div className="flex items-center justify-center gap-3">
-                  {socialLinks.map((s) => (
-                    <a
-                      key={s.name}
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={s.name}
-                      title={s.name}
-                      className="w-11 h-11 rounded-lg bg-dark-800 border border-dark-700 flex items-center justify-center hover:border-primary-500 hover:bg-dark-700 transition-all"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <svg className="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d={s.icon} />
-                      </svg>
-                    </a>
-                  ))}
-                </div>
+
+              <div className="pt-2 flex items-center gap-2">
+                {socialLinks.map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={s.name}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="p-2 rounded-xl hover:bg-white/10 transition"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <path d={s.icon} />
+                    </svg>
+                  </a>
+                ))}
+                <a
+                  href={href(SITE.orderCtaHref)}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="ml-auto inline-flex items-center rounded-xl bg-primary px-4 py-2 text-sm font-medium text-dark hover:opacity-90 transition"
+                >
+                  {SITE.orderCtaText}
+                </a>
               </div>
-            </nav>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

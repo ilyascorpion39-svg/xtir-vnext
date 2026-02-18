@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import { SITE } from "@/site";
 
 const footerLinks = {
@@ -59,17 +58,12 @@ const categoryNames: Record<string, string> = {
   legal: "Правовая информация",
 };
 
+// Правильный base для Astro (и GitHub Pages, и прод), без DOM-костылей
+const BASE = (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
+const href = (path: string) => BASE + path;
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const [base, setBase] = useState("");
-
-  useEffect(() => {
-    // Читаем base из тега <base> который Astro вставляет для GitHub Pages
-    const baseEl = document.querySelector("base");
-    setBase(baseEl?.getAttribute("href")?.replace(/\/$/, "") ?? "");
-  }, []);
-
-  const href = (path: string) => base + path;
 
   return (
     <footer className="bg-dark-900 border-t border-dark-800">
@@ -90,22 +84,35 @@ export default function Footer() {
                 </div>
                 <span className="text-2xl font-display font-bold gradient-text">XTIR</span>
               </a>
+
               <p className="text-gray-400 mb-6 max-w-sm">
                 Разработка и производство электронно-механического оборудования
                 для стрельбы. Современные технологии для профессиональной подготовки.
               </p>
+
               <div className="space-y-3 text-sm text-gray-400">
                 <div className="flex items-center space-x-3">
                   <svg className="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
                   </svg>
                   <a href={href("/contact")} className="hover:text-primary-500 transition-colors">
                     info@xtir.ru
                   </a>
                 </div>
+
                 <div className="flex items-center space-x-3">
                   <svg className="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    />
                   </svg>
                   <div>
                     <a href="tel:+79154250095" className="hover:text-primary-500 transition-colors block">
@@ -178,6 +185,7 @@ export default function Footer() {
                 </a>
               ))}
             </div>
+
             <div className="text-sm text-gray-500 text-center md:text-right">
               <p>© {currentYear} XTIR. Все права защищены.</p>
               <p className="mt-1">Работаем без выходных</p>

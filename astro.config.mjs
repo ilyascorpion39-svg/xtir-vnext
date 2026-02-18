@@ -1,13 +1,25 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 
-// GitHub Actions автоматически выставляет GITHUB_ACTIONS=true
-const isProd = process.env.GITHUB_ACTIONS === "true";
-
 export default defineConfig({
-  site: "https://ilyascorpion39-svg.github.io",
-  base: isProd ? "/xtir-vnext" : "",
+  site: "https://x-tir.ru",
+  output: "static",
   trailingSlash: "ignore",
-  integrations: [react(), tailwind()],
+  compressHTML: true,
+
+  integrations: [
+    react(),
+    tailwind({ applyBaseStyles: false }),
+  ],
+
+  vite: {
+    ssr: {
+      noExternal: ["three", "@react-three/fiber", "@react-three/drei"],
+    },
+  },
+
+  build: {
+    inlineStylesheets: "auto",
+  },
 });
