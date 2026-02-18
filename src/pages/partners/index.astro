@@ -1,15 +1,18 @@
----
-// Статический HTML редирект — работает на GitHub Pages
----
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=reb-zont/">
-  <link rel="canonical" href="reb-zont/"/>
-  <script>window.location.replace('reb-zont/')</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting...</title>
 </head>
 <body>
-  <p>Перенаправление... <a href="reb-zont/">нажмите здесь</a></p>
+  <p>Перенаправление... <a href="reb-zone/">нажмите здесь</a></p>
+
+  <!-- JavaScript for the redirect (only for static HTML) -->
+  <script>
+    setTimeout(function() {
+      document.location.href = 'reb-zont/';
+    }, 1000); // Redirect after 1 second
+  </script>
 </body>
 </html>
