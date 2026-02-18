@@ -1,221 +1,524 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { docGroups } from "@/data/docs";
 
-const groups = (docGroups ?? [])
-  .map(g => ({
-    ...g,
-    items: (g.items ?? []).filter(i => i?.href)
-  }))
-  .filter(g => (g.items ?? []).length > 0);
-
-const total = groups.reduce((acc, g) => acc + (g.items?.length ?? 0), 0);
-
-function extOf(href?: string) {  if (!href) return "";
-  const clean = href.split("?")[0].split("#")[0];
-  const m = clean.match(/\.([a-z0-9]+)$/i);
-  return (m?.[1] ?? "").toLowerCase();
-}
-function tagOf(href?: string) {
-  const ext = extOf(href);
-  if (!ext) return "LINK";
-  if (ext === "pdf") return "PDF";
-  if (ext === "doc" || ext === "docx") return "DOC";
-  if (ext === "ppt" || ext === "pptx") return "PPT";
-  if (ext === "xls" || ext === "xlsx") return "XLS";
-  return ext.toUpperCase();
-}
+const categories = [
+  {
+    id: 'manuals',
+    title: 'Инструкции и паспорта',
+    icon: '📋',
+    docs: [
+      { title: 'ПМУ-7М — Инструкция по эксплуатации', tags: ['Подъёмники', 'Эксплуатация'] },
+      { title: 'ПМУ-90 — Инструкция по эксплуатации', tags: ['Подъёмники', 'Эксплуатация'] },
+      { title: 'ПМУ-100 — Инструкция и паспорт', tags: ['Подъёмники', 'Эксплуатация'] },
+      { title: 'ПМУ-300 — Работа с программой', tags: ['Подъёмники', 'Программное обеспечение'] },
+      { title: 'Пума 4 — Инструкция', tags: ['Мишени', 'Эксплуатация'] },
+      { title: 'Пума 5.1 — Инструкция', tags: ['Мишени', 'Эксплуатация'] },
+      { title: 'Пума ТР — Инструкция', tags: ['Мишени', 'Эксплуатация'] },
+      { title: 'Стойка Саггитар — Документация', tags: ['Оснащение', 'Эксплуатация'] },
+    ]
+  },
+  {
+    id: 'technical',
+    title: 'Технические материалы',
+    icon: '⚙️',
+    docs: [
+      { title: 'Точность определения координат удара', tags: ['Технологии', 'Сенсоры'] },
+      { title: 'Монтаж монорельса на основе уголков 50×50×5 мм', tags: ['Монтаж', 'Инфраструктура'] },
+      { title: 'Печатный узел блока управления УМУ-С-127', tags: ['Электроника', 'Компоненты'] },
+      { title: 'Выбор способа управления мишенными установками', tags: ['Технологии', 'Управление'] },
+    ]
+  },
+  {
+    id: 'solutions',
+    title: 'Решения и проекты',
+    icon: '🎯',
+    docs: [
+      { title: 'Оснащение открытого тира', tags: ['Проекты', 'Комплексные решения'] },
+      { title: 'Комплекс управления мишенным оборудованием войскового стрельбища', tags: ['Военные', 'Комплексные решения'] },
+      { title: 'Новая жизнь стрелковому тиру — DIY кейс', tags: ['Кейсы', 'Реализация'] },
+      { title: 'Комплект для переделки GAN2', tags: ['Модернизация', 'Компоненты'] },
+    ]
+  },
+  {
+    id: 'international',
+    title: 'Международные стандарты',
+    icon: '🌐',
+    docs: [
+      { title: 'CR-2 Target Retrieval System — PDS', tags: ['Международные', 'Стандарты'] },
+      { title: 'CR-2TL Master Range Control — PDS', tags: ['Международные', 'Управление'] },
+    ]
+  },
+]
 ---
 
-<BaseLayout title="Документы">
-  <section class="container-custom pt-28 pb-16">
-    <header class="max-w-4xl">
-      <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-        <div>
-          <h1 class="text-3xl md:text-4xl font-orbitron font-bold gradient-text">Документы</h1>
-          <p class="mt-2 text-gray-300">
-            Инструкции, паспорта и материалы. Поиск работает по названиям.
+<BaseLayout
+  title="Библиотека документов — XTIR"
+  description="Техническая документация, инструкции и материалы по оборудованию XTIR. Запросите нужный документ — пришлём в течение суток."
+>
+  <main class="docs-page">
+
+    <!-- Герой -->
+    <section class="docs-hero">
+      <div class="docs-hero__bg"></div>
+      <div class="container">
+        <div class="docs-hero__inner">
+          <div class="docs-hero__label">ТЕХНИЧЕСКАЯ БИБЛИОТЕКА</div>
+          <h1 class="docs-hero__title">Документация<br/><span>XTIR</span></h1>
+          <p class="docs-hero__sub">
+            Инструкции, паспорта, технические материалы и проектная документация.<br/>
+            Документы предоставляются по запросу — бесплатно, в течение суток.
           </p>
-        </div>
-
-        <div class="glass-card px-4 py-3 border border-primary/20">
-          <div class="text-gray-400 text-xs">Всего</div>
-          <div class="text-light font-orbitron text-2xl leading-none">{total}</div>
-        </div>
-      </div>
-
-      <div class="mt-6 glass-card p-4 border border-primary/20">
-        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <label class="w-full md:max-w-xl">
-            <span class="sr-only">Поиск</span>
-            <input
-              id="docsSearch"
-              type="search"
-              placeholder="Поиск: например “pmu-100”, “паспорт”, “инструкция”…"
-              class="w-full bg-transparent border border-primary/20 rounded-xl px-4 py-3 text-light placeholder:text-gray-500 focus:outline-none focus:border-primary/60"
-              autocomplete="off"
-            />
-          </label>
-
-          <div class="flex items-center gap-3">
-            <button
-              id="docsClear"
-              type="button"
-              class="btn-primary text-sm py-2 px-4"
-            >
-              Очистить
-            </button>
-
-            <div class="text-sm text-gray-300">
-              Найдено: <span id="docsCount" class="text-light font-medium">{total}</span>
+          <div class="docs-hero__stats">
+            <div class="docs-stat">
+              <div class="docs-stat__num">18+</div>
+              <div class="docs-stat__label">документов</div>
+            </div>
+            <div class="docs-stat__divider"></div>
+            <div class="docs-stat">
+              <div class="docs-stat__num">4</div>
+              <div class="docs-stat__label">раздела</div>
+            </div>
+            <div class="docs-stat__divider"></div>
+            <div class="docs-stat">
+              <div class="docs-stat__num">24ч</div>
+              <div class="docs-stat__label">время ответа</div>
             </div>
           </div>
         </div>
-        <p class="mt-3 text-xs text-gray-500">
-          Подсказка: чтобы быстро поделиться, жми “Копировать ссылку” у нужного файла.
-        </p>
       </div>
-    </header>
+    </section>
 
-    <div id="docsRoot" class="mt-10 space-y-8">
-      {groups.map((g) => (
-        <section class="glass-card p-6 border border-primary/20" data-group>
-          <div class="flex items-start justify-between gap-4">
-            <div>
-              <h2 class="text-xl font-orbitron font-semibold text-light">{g.title}</h2>
-              <div class="mt-1 text-sm text-gray-400">
-                В группе: <span class="text-gray-200 font-medium">{g.items?.length ?? 0}</span>
-              </div>
-            </div>
+    <!-- Каталог документов -->
+    <section class="docs-catalog container">
+      {categories.map((cat) => (
+        <div class="doc-category">
+          <div class="doc-category__header">
+            <span class="doc-category__icon">{cat.icon}</span>
+            <h2 class="doc-category__title">{cat.title}</h2>
+            <span class="doc-category__count">{cat.docs.length}</span>
           </div>
-
-          <div class="mt-5 grid gap-3">
-            {(g.items ?? []).map((i) => (
-              <article
-                class="docs-item p-4 rounded-2xl border border-primary/15 hover:border-primary/50 hover:bg-primary/5 transition"
-                data-title={(i.title ?? "").toLowerCase()}
-                data-href={i.href}
-              >
-                <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-                  <div class="min-w-0">
-                    <div class="flex items-center gap-2">
-                      <span class="inline-flex items-center justify-center px-2 py-1 rounded-lg text-xs font-semibold border border-primary/25 text-primary/90">
-                        {tagOf(i.href ?? "")}
-                      </span>
-                      <a
-                        class="text-light font-medium truncate hover:text-primary transition"
-                        href={i.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title={i.title ?? "Документ"}
-                      >
-                        {i.title ?? "Документ"}
-                      </a>
-                    </div>
-
-                    <div class="mt-2 text-xs text-gray-500 break-all">
-                      {i.href}
-                    </div>
-                  </div>
-
-                  <div class="flex items-center gap-2 md:flex-col md:items-end">
-                    <a
-                      class="btn-primary text-sm py-2 px-4 text-center"
-                      href={i.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Открыть
-                    </a>
-
-                    <button
-                      type="button"
-                      class="copy-link text-sm py-2 px-4 rounded-xl border border-primary/25 text-light hover:border-primary/60 hover:bg-primary/10 transition"
-                      data-copy={i.href}
-                    >
-                      Копировать ссылку
-                    </button>
+          <div class="doc-list">
+            {cat.docs.map((doc, i) => (
+              <div class="doc-item">
+                <div class="doc-item__num">{String(i + 1).padStart(2, '0')}</div>
+                <div class="doc-item__icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                    <path stroke-linecap="round" d="M12 3v6h6"/>
+                  </svg>
+                </div>
+                <div class="doc-item__info">
+                  <div class="doc-item__title">{doc.title}</div>
+                  <div class="doc-item__tags">
+                    {doc.tags.map(tag => (
+                      <span class="doc-tag">{tag}</span>
+                    ))}
                   </div>
                 </div>
-              </article>
+                <button
+                  class="doc-item__btn"
+                  onclick={`openRequest('${doc.title}')`}
+                >
+                  Запросить
+                </button>
+              </div>
             ))}
           </div>
-        </section>
+        </div>
       ))}
-    </div>
-  </section>
+    </section>
 
-  <script is:inline>
-    (function () {
-      const input = document.getElementById("docsSearch");
-      const clear = document.getElementById("docsClear");
-      const count = document.getElementById("docsCount");
-      const items = Array.from(document.querySelectorAll(".docs-item"));
-      const groups = Array.from(document.querySelectorAll("[data-group]"));
+    <!-- Форма запроса -->
+    <section class="request-section" id="request-form">
+      <div class="container">
+        <div class="request-inner">
+          <div class="request-left">
+            <div class="request-label">ЗАПРОС ДОКУМЕНТА</div>
+            <h2 class="request-title">Нужен<br/>конкретный<br/>документ?</h2>
+            <p class="request-desc">
+              Укажите название документа или опишите что ищете — пришлём в течение суток на email.
+              Всё бесплатно.
+            </p>
+            <div class="request-contacts">
+              <a href="mailto:info@xtir.ru" class="request-contact">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+                info@xtir.ru
+              </a>
+              <a href="tel:+79154250095" class="request-contact">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+                +7 (915) 425-00-95
+              </a>
+            </div>
+          </div>
 
-      function setCount(n) {
-        if (count) count.textContent = String(n);
-      }
+          <div class="request-right">
+            <form class="request-form" id="doc-request-form">
+              <div class="form-group">
+                <label class="form-label">Название документа</label>
+                <input
+                  type="text"
+                  id="doc-name"
+                  class="form-input"
+                  placeholder="Например: Инструкция ПМУ-7М"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Ваше имя</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="Как к вам обращаться"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email для отправки *</label>
+                <input
+                  type="email"
+                  class="form-input"
+                  placeholder="your@email.ru"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Комментарий</label>
+                <textarea
+                  class="form-input form-textarea"
+                  placeholder="Уточните что именно нужно или для каких задач"
+                  rows="3"
+                ></textarea>
+              </div>
+              <button type="submit" class="form-submit">
+                <span>Отправить запрос</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      function applyFilter() {
-        const q = (input && input.value ? input.value : "").trim().toLowerCase();
-        let visible = 0;
-
-        items.forEach((el) => {
-          const title = el.getAttribute("data-title") || "";
-          const href = (el.getAttribute("data-href") || "").toLowerCase();
-          const ok = !q || title.includes(q) || href.includes(q);
-          el.style.display = ok ? "" : "none";
-          if (ok) visible++;
-        });
-
-        groups.forEach((g) => {
-          const hasVisible = Array.from(g.querySelectorAll(".docs-item")).some(x => x.style.display !== "none");
-          g.style.display = hasVisible ? "" : "none";
-        });
-
-        setCount(visible);
-      }
-
-      if (input) input.addEventListener("input", applyFilter);
-      if (clear) clear.addEventListener("click", () => { if (input) input.value = ""; applyFilter(); });
-
-      document.addEventListener("click", async (e) => {
-        const btn = e.target && e.target.closest ? e.target.closest(".copy-link") : null;
-        if (!btn) return;
-        const url = btn.getAttribute("data-copy");
-        if (!url) return;
-
-        try {
-          await navigator.clipboard.writeText(url);
-          const old = btn.textContent;
-          btn.textContent = "Скопировано";
-          btn.setAttribute("aria-live", "polite");
-          setTimeout(() => (btn.textContent = old), 900);
-        } catch (_) {
-          // fallback
-          const ta = document.createElement("textarea");
-          ta.value = url;
-          ta.style.position = "fixed";
-          ta.style.left = "-9999px";
-          document.body.appendChild(ta);
-          ta.select();
-          window.prompt("Скопируйте ссылку:", url);
-          document.body.removeChild(ta);
-          const old = btn.textContent;
-          btn.textContent = "Скопировано";
-          setTimeout(() => (btn.textContent = old), 900);
-        }
-      });
-
-      applyFilter();
-    })();
-  </script>
+  </main>
 </BaseLayout>
 
+<!-- Модальное окно быстрого запроса -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-icon">📄</div>
+    <h3 class="modal-title">Запрос документа</h3>
+    <p class="modal-doc" id="modal-doc-name"></p>
+    <p class="modal-text">Оставьте email — пришлём документ в течение суток.</p>
+    <input type="email" class="form-input" id="modal-email" placeholder="your@email.ru"/>
+    <button class="form-submit" onclick="submitQuickRequest()" style="width:100%;margin-top:12px;">
+      <span>Получить документ</span>
+    </button>
+  </div>
+</div>
 
+<script>
+  function openRequest(docName) {
+    const overlay = document.getElementById('modal-overlay');
+    const docNameEl = document.getElementById('modal-doc-name');
+    const docInput = document.getElementById('doc-name');
+    if (docNameEl) docNameEl.textContent = '«' + docName + '»';
+    if (docInput) docInput.value = docName;
+    if (overlay) overlay.classList.add('active');
+  }
 
+  function closeModal() {
+    const overlay = document.getElementById('modal-overlay');
+    if (overlay) overlay.classList.remove('active');
+  }
 
+  function submitQuickRequest() {
+    const email = document.getElementById('modal-email')?.value;
+    if (!email) { alert('Введите email'); return; }
+    // Здесь будет отправка формы
+    closeModal();
+    showSuccess();
+  }
 
+  function showSuccess() {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = '✓ Запрос отправлен! Ответим в течение суток.';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 10);
+    setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 3000);
+  }
 
+  document.getElementById('doc-request-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    showSuccess();
+  });
+</script>
 
+<style>
+  .docs-page {
+    --bg: #0f141a;
+    --bg2: #0b0e13;
+    --surface: #141a22;
+    --border: rgba(255,255,255,0.07);
+    --accent: #00b3ff;
+    --text: rgba(255,255,255,0.88);
+    --muted: rgba(255,255,255,0.42);
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'PT Serif', Georgia, serif;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ══ ГЕРОЙ ══ */
+  .docs-hero {
+    position: relative;
+    padding: 100px 0 64px;
+    overflow: hidden;
+    background: var(--bg2);
+  }
+  .docs-hero__bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 80% 50%, rgba(0,179,255,0.06) 0%, transparent 70%),
+      linear-gradient(0deg, transparent 24%, rgba(0,179,255,0.025) 25%, rgba(0,179,255,0.025) 26%, transparent 27%) 0 0 / 48px 48px,
+      linear-gradient(90deg, transparent 24%, rgba(0,179,255,0.025) 25%, rgba(0,179,255,0.025) 26%, transparent 27%) 0 0 / 48px 48px;
+  }
+  .docs-hero__inner { position: relative; z-index: 2; }
+  .docs-hero__label {
+    font-family: 'Courier New', monospace;
+    font-size: .72rem; letter-spacing: .2em;
+    color: var(--accent); opacity: .7;
+    margin-bottom: 20px;
+  }
+  .docs-hero__title {
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 700; line-height: .95;
+    margin: 0 0 24px; letter-spacing: -.02em;
+  }
+  .docs-hero__title span {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--accent);
+  }
+  .docs-hero__sub {
+    font-size: 1.05rem; line-height: 1.65;
+    color: var(--muted); max-width: 560px;
+    margin: 0 0 40px;
+  }
+  .docs-hero__stats {
+    display: flex; align-items: center; gap: 32px;
+  }
+  .docs-stat__num {
+    font-size: 2rem; font-weight: 700;
+    color: var(--accent); line-height: 1;
+  }
+  .docs-stat__label {
+    font-size: .78rem; color: var(--muted);
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase; letter-spacing: .08em;
+  }
+  .docs-stat__divider {
+    width: 1px; height: 40px;
+    background: var(--border);
+  }
+
+  /* ══ КАТАЛОГ ══ */
+  .docs-catalog { padding: 64px 0; }
+
+  .doc-category { margin-bottom: 48px; }
+  .doc-category__header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px; padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .doc-category__icon { font-size: 1.4rem; }
+  .doc-category__title {
+    font-size: 1.15rem; font-weight: 700;
+    margin: 0; flex: 1;
+  }
+  .doc-category__count {
+    font-family: 'Courier New', monospace;
+    font-size: .75rem; color: var(--accent);
+    background: rgba(0,179,255,0.08);
+    border: 1px solid rgba(0,179,255,0.2);
+    padding: 3px 10px; border-radius: 20px;
+  }
+
+  .doc-list { display: flex; flex-direction: column; gap: 2px; }
+
+  .doc-item {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: border-color .2s, background .2s;
+  }
+  .doc-item:hover {
+    border-color: rgba(0,179,255,0.25);
+    background: rgba(0,179,255,0.03);
+  }
+  .doc-item__num {
+    font-family: 'Courier New', monospace;
+    font-size: .65rem; color: var(--muted);
+    width: 20px; flex-shrink: 0; text-align: right;
+  }
+  .doc-item__icon {
+    width: 32px; height: 32px; flex-shrink: 0;
+    color: var(--muted);
+  }
+  .doc-item__icon svg { width: 100%; height: 100%; }
+  .doc-item__info { flex: 1; min-width: 0; }
+  .doc-item__title {
+    font-size: .92rem; font-weight: 600;
+    margin-bottom: 5px; line-height: 1.3;
+  }
+  .doc-item__tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .doc-tag {
+    font-family: 'Courier New', monospace;
+    font-size: .62rem; letter-spacing: .06em;
+    color: var(--muted); text-transform: uppercase;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    padding: 2px 8px; border-radius: 2px;
+  }
+  .doc-item__btn {
+    flex-shrink: 0;
+    font-size: .8rem; font-weight: 600;
+    color: var(--accent);
+    background: rgba(0,179,255,0.08);
+    border: 1px solid rgba(0,179,255,0.25);
+    padding: 7px 18px; border-radius: 4px;
+    cursor: pointer; white-space: nowrap;
+    transition: all .2s;
+    font-family: inherit;
+  }
+  .doc-item__btn:hover {
+    background: rgba(0,179,255,0.15);
+    border-color: rgba(0,179,255,0.5);
+  }
+
+  /* ══ ФОРМА ЗАПРОСА ══ */
+  .request-section {
+    background: var(--bg2);
+    padding: 80px 0 100px;
+    border-top: 1px solid var(--border);
+  }
+  .request-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    align-items: start;
+  }
+  @media (max-width: 768px) { .request-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+  .request-label {
+    font-family: 'Courier New', monospace;
+    font-size: .7rem; letter-spacing: .2em;
+    color: var(--accent); opacity: .7; margin-bottom: 16px;
+  }
+  .request-title {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700; line-height: .95;
+    letter-spacing: -.02em; margin: 0 0 20px;
+  }
+  .request-desc {
+    font-size: .95rem; line-height: 1.7;
+    color: var(--muted); margin: 0 0 32px;
+  }
+  .request-contacts { display: flex; flex-direction: column; gap: 12px; }
+  .request-contact {
+    display: flex; align-items: center; gap: 10px;
+    font-size: .9rem; color: var(--muted);
+    text-decoration: none; transition: color .2s;
+  }
+  .request-contact svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .request-contact:hover { color: var(--text); }
+
+  .request-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-label {
+    font-size: .78rem; color: var(--muted);
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase; letter-spacing: .08em;
+  }
+  .form-input {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px; padding: 12px 16px;
+    color: var(--text); font-size: .92rem;
+    font-family: inherit; width: 100%;
+    box-sizing: border-box;
+    transition: border-color .2s;
+    outline: none;
+  }
+  .form-input:focus { border-color: rgba(0,179,255,0.4); }
+  .form-input::placeholder { color: var(--muted); }
+  .form-textarea { resize: vertical; min-height: 80px; }
+  .form-submit {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    background: var(--accent); color: #000;
+    border: none; border-radius: 6px;
+    padding: 14px 28px; font-size: .95rem;
+    font-weight: 700; cursor: pointer;
+    font-family: inherit;
+    transition: all .2s;
+  }
+  .form-submit svg { width: 18px; height: 18px; }
+  .form-submit:hover { background: #00c8ff; transform: translateY(-1px); }
+
+  /* ══ МОДАЛЬНОЕ ОКНО ══ */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity .25s;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+  .modal {
+    background: #141a22;
+    border: 1px solid rgba(0,179,255,0.2);
+    border-radius: 12px; padding: 40px;
+    max-width: 420px; width: 90%;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform .25s;
+    text-align: center;
+  }
+  .modal-overlay.active .modal { transform: translateY(0); }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: none; border: none; color: var(--muted);
+    font-size: 1.1rem; cursor: pointer; padding: 4px 8px;
+    border-radius: 4px; transition: color .2s;
+    font-family: inherit;
+  }
+  .modal-close:hover { color: var(--text); }
+  .modal-icon { font-size: 2.5rem; margin-bottom: 16px; }
+  .modal-title { font-size: 1.3rem; font-weight: 700; margin: 0 0 8px; }
+  .modal-doc {
+    font-size: .85rem; color: var(--accent);
+    margin: 0 0 8px; line-height: 1.4;
+  }
+  .modal-text { font-size: .88rem; color: var(--muted); margin: 0 0 20px; }
+
+  /* ══ ТОСТ ══ */
+  .toast {
+    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: #1a2a1a; border: 1px solid rgba(0,200,100,0.4);
+    color: rgba(0,220,120,1); padding: 14px 24px;
+    border-radius: 8px; font-size: .9rem; font-weight: 600;
+    z-index: 9999; opacity: 0; transition: all .3s;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
