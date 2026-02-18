@@ -1,4 +1,6 @@
-import { defineConfig } from "astro/config";
+import { defineConfig } from 'astro/config';
+
+const isGh = process.env.XTIR_GH_PAGES === '1';
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 
