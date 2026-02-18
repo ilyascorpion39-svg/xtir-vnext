@@ -19,8 +19,10 @@ if ($t -notmatch "(?m)\bbase\s*:") {
 import { defineConfig } from 'astro/config';
 
 const isGh = process.env.GITHUB_ACTIONS === 'true';
-const repo = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'xtir-vnext';
-const ghBase = `/${repo}/`;
+const repo = (process.env.GITHUB_REPOSITORY?.split('/')[1]) ?? 'xtir-vnext';
+const owner = (process.env.GITHUB_REPOSITORY?.split('/')[0]) ?? '';
+const ghBase = `"/`${repo}/`";
+const ghSite = owner ? `"`"https://`$`${owner}.github.io`"`" : `"`"https://github.io`"`";
 
 "@
 
@@ -28,7 +30,7 @@ const ghBase = `/${repo}/`;
     if ($t -match "import\s+\{\s*defineConfig\s*\}\s+from\s+['""]astro/config['""]") {
       # ensure env helpers exist
       if ($t -notmatch "const\s+isGh\s*=") {
-        $t = $t -replace "import\s+\{\s*defineConfig\s*\}\s+from\s+['""]astro/config['""]\s*;\s*", ("import { defineConfig } from 'astro/config';`n`nconst isGh = process.env.GITHUB_ACTIONS === 'true';`nconst repo = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'xtir-vnext';`nconst ghBase = `"/${repo}/`";`n`n")
+        $t = $t -replace "import\s+\{\s*defineConfig\s*\}\s+from\s+['""]astro/config['""]\s*;\s*", ("import { defineConfig } from 'astro/config';`n`nconst isGh = process.env.GITHUB_ACTIONS === 'true';`nconst repo = (process.env.GITHUB_REPOSITORY?.split('/')[1]) ?? 'xtir-vnext';`nconst owner = (process.env.GITHUB_REPOSITORY?.split('/')[0]) ?? '';`nconst ghBase = `"/`${repo}/`";`nconst ghSite = owner ? `"`"https://`$`${owner}.github.io`"`" : `"`"https://github.io`"`";`n`n")
       }
     } else {
       # prepend header
@@ -36,7 +38,7 @@ const ghBase = `/${repo}/`;
     }
 
     # add base/site into config object near the beginning
-    $t = [regex]::Replace($t, "defineConfig\(\{", "defineConfig({`n  site: isGh ? `https://$((process.env.GITHUB_REPOSITORY?.Split('/')[0]) ?? 'ilyascorpion39-svg').github.io${ghBase}` : 'https://x-tir.ru',`n  base: isGh ? ghBase : '/',", 1)
+    $t = [regex]::Replace($t, "defineConfig\(\{", "defineConfig({`n  site: isGh ? ghSite : 'https://x-tir.ru',`n  base: isGh ? ghBase : '/',", 1)
     Write-Host "OK: injected site/base for GitHub Pages in $cfg" -ForegroundColor Green
   } else {
     Write-Host "WARN: could not inject base (unknown astro config format). Skipped." -ForegroundColor Yellow
@@ -98,7 +100,8 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: \${{ steps.deployment.outputs.page_url }}
+      url: `${{
+ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
