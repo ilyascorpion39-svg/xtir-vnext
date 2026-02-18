@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { SITE } from "@/site";
 
 const footerLinks = {
@@ -6,7 +7,6 @@ const footerLinks = {
     { name: "О компании", href: "/about" },
     { name: "Технологии", href: "/technologies" },
     { name: "Партнёры", href: "/partners" },
-    ,
     { name: "Карьера", href: "/careers" },
   ],
   products: [
@@ -48,13 +48,28 @@ const socialLinks = [
   {
     name: "RuTube",
     href: SITE.rutubeChannelUrl,
-    // Нейтральная «play» иконка (без логотипов), чтобы не спорить с бренд-гайдами.
     icon: "M8.4 6.7A2 2 0 0 0 6 8.6v6.8a2 2 0 0 0 3 1.7l6.2-3.4a2 2 0 0 0 0-3.4L9 7a2 2 0 0 0-.6-.3z",
   },
 ].filter((s) => !!s.href && s.href !== "#");
 
+const categoryNames: Record<string, string> = {
+  company: "Компания",
+  products: "Продукция",
+  support: "Поддержка",
+  legal: "Правовая информация",
+};
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const [base, setBase] = useState("");
+
+  useEffect(() => {
+    // Читаем base из тега <base> который Astro вставляет для GitHub Pages
+    const baseEl = document.querySelector("base");
+    setBase(baseEl?.getAttribute("href")?.replace(/\/$/, "") ?? "");
+  }, []);
+
+  const href = (path: string) => base + path;
 
   return (
     <footer className="bg-dark-900 border-t border-dark-800">
@@ -69,71 +84,34 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <a
-                href="/"
-                className="inline-flex items-center space-x-3 mb-6 group"
-              >
+              <a href={href("/")} className="inline-flex items-center space-x-3 mb-6 group">
                 <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl font-display font-bold text-dark-900">
-                    X
-                  </span>
+                  <span className="text-2xl font-display font-bold text-dark-900">X</span>
                 </div>
-                <span className="text-2xl font-display font-bold gradient-text">
-                  XTIR
-                </span>
+                <span className="text-2xl font-display font-bold gradient-text">XTIR</span>
               </a>
               <p className="text-gray-400 mb-6 max-w-sm">
                 Разработка и производство электронно-механического оборудования
-                для стрельбы. Современные технологии для профессиональной
-                подготовки.
+                для стрельбы. Современные технологии для профессиональной подготовки.
               </p>
               <div className="space-y-3 text-sm text-gray-400">
                 <div className="flex items-center space-x-3">
-                  <svg
-                    className="w-5 h-5 text-primary-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
+                  <svg className="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <a
-                    href="/contact"
-                    className="hover:text-primary-500 transition-colors"
-                  >
+                  <a href={href("/contact")} className="hover:text-primary-500 transition-colors">
                     info@xtir.ru
                   </a>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <svg
-                    className="w-5 h-5 text-primary-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                    />
+                  <svg className="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                   <div>
-                    <a
-                      href="tel:+79154250095"
-                      className="hover:text-primary-500 transition-colors block"
-                    >
+                    <a href="tel:+79154250095" className="hover:text-primary-500 transition-colors block">
                       +7 (915) 425-00-95
                     </a>
-                    <a
-                      href="tel:+79162962469"
-                      className="hover:text-primary-500 transition-colors block"
-                    >
+                    <a href="tel:+79162962469" className="hover:text-primary-500 transition-colors block">
                       +7 (916) 296-24-69
                     </a>
                   </div>
@@ -151,20 +129,17 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <h3 className="text-white font-semibold mb-4 capitalize">
-                {category === "company" && "Компания"}
-                {category === "products" && "Продукция"}
-                {category === "support" && "Поддержка"}
-                {category === "legal" && "Правовая информация"}
+              <h3 className="text-white font-semibold mb-4">
+                {categoryNames[category]}
               </h3>
               <ul className="space-y-3">
-                {links.filter((link): link is { name: string; href: string } => !!link).map((link, i) => (
-                  <li key={link?.name ?? i}>
+                {links.map((link) => (
+                  <li key={link.name}>
                     <a
-                      href={link?.href ?? '#'}
+                      href={href(link.href)}
                       className="text-gray-400 hover:text-primary-500 transition-colors text-sm"
                     >
-                      {link?.name ?? ''}
+                      {link.name}
                     </a>
                   </li>
                 ))}
@@ -182,13 +157,16 @@ export default function Footer() {
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-4">
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg bg-dark-800 border border-dark-700 flex items-center justify-center hover:border-primary-500 hover:bg-dark-700 transition-all group"
                   aria-label={social.name}
+                  title={social.name}
                 >
                   <svg
                     className="w-5 h-5 text-gray-400 group-hover:text-primary-500 transition-colors"
@@ -200,33 +178,12 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-
             <div className="text-sm text-gray-500 text-center md:text-right">
               <p>© {currentYear} XTIR. Все права защищены.</p>
               <p className="mt-1">Работаем без выходных</p>
             </div>
           </div>
         </motion.div>
-      </div>
-
-      {/* Bottom Bar */}
-      <div className="bg-dark-950 py-4">
-        <div className="section-container">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-600">
-            <div className="flex items-center space-x-4">
-              <a
-                href="/sitemap.xml"
-                className="hover:text-primary-500 transition-colors"
-              >
-              </a>
-              <span>•</span>
-              <a
-                className="hover:text-primary-500 transition-colors"
-              >
-              </a>
-            </div>
-          </div>
-        </div>
       </div>
     </footer>
   );

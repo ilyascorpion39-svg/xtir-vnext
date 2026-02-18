@@ -1,81 +1,13 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ProductCatalog from '@/components/sections/ProductCatalog';
-import { allProducts, productCategories } from '@/data/products';
-
-const categories = productCategories.filter((c) => c.id !== 'texts'); // на отдельной странице docs
 ---
 
 <BaseLayout
-  title="Продукция"
-  description="Каталог оборудования XTIR: электронные мишени, подъемники, поворотки, тросовые и монорельсовые установки, системы управления и прочее."
+  title="Продукты"
+  description="Каталог продукции XTIR — электронные мишени, подъёмники, движущиеся цели, системы управления полигоном."
 >
-
-<!-- XTIR_PRODUCTS_MUSEUM_V1 -->
-
-<section class="section section--tight">
-  <div class="container">
-    <p class="kicker">Зал экспонатов</p>
-    <h1 class="h1">Решения XTIR</h1>
-    <p class="p">Здесь собраны изделия и модули как элементы сОписаниериев. Не витрина, а каталог возможностей: что можно построить на объекте и как это работает в реальной эксплуатации.</p>
-  </div>
-</section>
-
-<style>
-  .xtir-products-wrap{ padding-bottom: var(--xtir-s6); }
-</style>
-<main class="pt-24">
-    <section class="section">
-      <div class="section-container">
-        <div class="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-hero p-8 md:p-10">
-          <div class="pointer-events-none absolute inset-0 tech-grid opacity-[0.55]"></div>
-          <div class="pointer-events-none absolute inset-0 bg-gradient-radial from-primary-500/10 via-transparent to-transparent"></div>
-
-          <div class="relative max-w-3xl">
-            <div class="mb-5 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2">
-              <span class="h-2 w-2 rounded-full bg-primary-400" style="box-shadow: 0 0 18px rgba(0,179,255,0.25)"></span>
-              <span class="font-mono text-xs tracking-widest text-white/70">XTIR / CATALOG • STATUS: ACTIVE</span>
-            </div>
-
-            <h1 class="h1-xtir text-white/95">Каталог решений XTIR</h1>
-            <div class="mt-4 h-px w-full max-w-[520px] bg-gradient-accent opacity-70"></div>
-
-            <p class="mt-5 text-base md:text-lg text-white/55 leading-relaxed">
-              На сайте представлено оборудование, которое было реально изготовлено и прошло испытания.
-              Для части изделий мы показываем 3D-модели и визуализации: это помогает согласовать проект, даже если «живые» фото нельзя публиковать.
-            </p>
-          </div>
-        </div>
-
-        <!-- Якоря для быстрых ссылок из футера -->
-        <div id="electronic" class="scroll-mt-24"></div>
-        <div id="lifters" class="scroll-mt-24"></div>
-        <div id="turners" class="scroll-mt-24"></div>
-        <div id="lift_turn" class="scroll-mt-24"></div>
-        <div id="ceiling_wall" class="scroll-mt-24"></div>
-        <div id="moving" class="scroll-mt-24"></div>
-        <div id="hanging" class="scroll-mt-24"></div>
-        <div id="systems" class="scroll-mt-24"></div>
-        <div id="accessories" class="scroll-mt-24"></div>
-        <div id="misc" class="scroll-mt-24"></div>
-        <div id="texts" class="scroll-mt-24"></div>
-
-        <div class="mt-10">
-          <ProductCatalog client:load products={allProducts} categories={categories} />
-        </div>
-
-        <div class="mt-16 card card-tech p-8 border border-white/10">
-          <h2 class="text-2xl font-bold text-white">Обсудить или уточнить цену</h2>
-          <p class="mt-3 text-white/55">
-            Описание зависит от конфигурации и объема заказа. Напишите нам — подберем решение и подготовим коммерческое предложение.
-          </p>
-          <div class="mt-6 flex flex-col sm:flex-row gap-4">
-            <a href="/contact" class="btn btn-primary">Оставить заявку</a>
-            <a href="/support" class="btn btn-outline">Поддержка</a>
-          </div>
-        </div>
-      </div>
-    </section>
+  <main class="min-h-screen">
+    <ProductCatalog client:load />
   </main>
 </BaseLayout>
-

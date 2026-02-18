@@ -8,6 +8,6 @@ const isProd = process.env.GITHUB_ACTIONS === "true";
 export default defineConfig({
   site: "https://ilyascorpion39-svg.github.io",
   base: isProd ? "/xtir-vnext" : "",
-  trailingSlash: "always",
+  trailingSlash: "ignore",
   integrations: [react(), tailwind()],
 });

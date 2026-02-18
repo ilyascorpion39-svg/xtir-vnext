@@ -1,139 +1,114 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import type { Product } from "@/data/products";
+import { PRODUCTS, PRODUCT_CATEGORIES } from "@/data/products";
 import ProductCard from "./ProductCard";
 
-type Category = { id: string; name: string };
-
-type Props = {
-  products: Product[];
-  categories: Category[];
-};
-
-export default function ProductCatalog({ products, categories }: Props) {
+export default function ProductCatalog() {
   const [active, setActive] = useState<string>("all");
-  const [query, setQuery] = useState<string>("");
-
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return products.filter((p) => {
-      const okCat = active === "all" ? true : p.category === active;
-      if (!okCat) return false;
-      if (!q) return true;
-      const hay =
-        `${p.name} ${p.shortDescription} ${p.description}`.toLowerCase();
-      return hay.includes(q);
-    });
-  }, [products, active, query]);
+  const [query, setQuery]   = useState<string>("");
 
   const catNameById = useMemo(() => {
     const m = new Map<string, string>();
-    categories.forEach((c) => m.set(c.id, c.name));
+    PRODUCT_CATEGORIES.forEach((c) => m.set(c.id, c.name));
     return m;
-  }, [categories]);
+  }, []);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return PRODUCTS.filter((p) => {
+      const okCat = active === "all" || p.categoryId === active;
+      if (!okCat) return false;
+      if (!q) return true;
+      return `${p.name} ${p.description}`.toLowerCase().includes(q);
+    });
+  }, [active, query]);
 
   return (
     <section id="products" className="section pt-8">
       <div className="section-container">
+
+        {/* Заголовок */}
         <div className="mb-8">
-          <div className="h-px w-full max-w-[420px] bg-gradient-accent opacity-40 mb-6"></div>
+          <p className="kicker">Каталог</p>
+          <h1 className="section-title">Продукция XTIR</h1>
           <p className="section-subtitle">
-            Каталог изделий и модулей. Фильтры и поиск помогут быстро найти
-            нужное.
+            Электронно-механическое оборудование для стрельбы. {PRODUCTS.length} позиций.
           </p>
-          <div className="divider" />
         </div>
 
-        <div className="card card-tech">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            {/* categories */}
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setActive("all")}
-                className={[
-                  "px-4 py-2 rounded-xl text-sm border transition-all duration-200 ease-out",
-                  active === "all"
-                    ? "bg-primary-500/15 border-primary-500/50 text-white"
-                    : "bg-white/5 border-white/10 text-white/70 hover:text-white hover:border-primary-500/30 hover:bg-white/10",
-                ].join(" ")}
-              >
-                Все
-              </button>
-
-              {categories.map((c) => (
-                <button
-                  key={c.id}
-                  type="button"
-                  onClick={() => setActive(c.id)}
-                  className={[
-                    "px-4 py-2 rounded-xl text-sm border transition-all duration-200 ease-out",
-                    active === c.id
-                      ? "bg-primary-500/15 border-primary-500/50 text-white"
-                      : "bg-white/5 border-white/10 text-white/70 hover:text-white hover:border-primary-500/30 hover:bg-white/10",
-                  ].join(" ")}
-                >
-                  {c.name}
-                </button>
-              ))}
-            </div>
-
-            {/* search */}
-            <div className="relative w-full lg:w-[420px]">
-              <input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Поиск по каталогу…"
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white/85 placeholder:text-white/35 outline-none focus:border-primary-500/60"
-              />
-              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/40">
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-4 text-sm text-white/55">
-            Найдено:{" "}
-            <span className="text-white font-semibold">{filtered.length}</span>
-          </div>
-        </div>
-
-        <motion.div
-          className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-          initial="hidden"
-          animate="show"
-          variants={{
-            hidden: { opacity: 0 },
-            show: { opacity: 1, transition: { staggerChildren: 0.05 } },
-          }}
-        >
-          {filtered.map((p) => (
-            <motion.div
-              key={p.id}
-              variants={{
-                hidden: { opacity: 0, y: 10 },
-                show: { opacity: 1, y: 0 },
-              }}
+        {/* Фильтры + поиск */}
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          {/* Категории */}
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => setActive("all")}
+              className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
+                active === "all"
+                  ? "bg-primary-500 text-dark-900"
+                  : "border border-white/15 text-white/60 hover:border-white/30 hover:text-white"
+              }`}
             >
+              Все
+            </button>
+            {PRODUCT_CATEGORIES.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActive(cat.id)}
+                className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
+                  active === cat.id
+                    ? "bg-primary-500 text-dark-900"
+                    : "border border-white/15 text-white/60 hover:border-white/30 hover:text-white"
+                }`}
+              >
+                {cat.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Поиск */}
+          <input
+            type="search"
+            placeholder="Поиск..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="w-full sm:w-64 rounded-lg border border-white/15 bg-dark-800 px-4 py-2 text-sm text-white placeholder-white/35 outline-none focus:border-primary-500/60"
+          />
+        </div>
+
+        {/* Сетка карточек */}
+        {filtered.length > 0 ? (
+          <motion.div
+            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            initial="hidden"
+            animate="visible"
+            variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+          >
+            {filtered.map((product) => (
               <ProductCard
-                product={p}
-                categoryName={catNameById.get(p.category)}
+                key={product.id}
+                product={product}
+                categoryName={catNameById.get(product.categoryId)}
               />
-            </motion.div>
-          ))}
-        </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          <div className="py-24 text-center text-white/40">
+            <p className="text-lg">Ничего не найдено</p>
+            <button
+              onClick={() => { setActive("all"); setQuery(""); }}
+              className="mt-4 text-sm text-primary-500 hover:underline"
+            >
+              Сбросить фильтры
+            </button>
+          </div>
+        )}
+
+        {/* Счётчик */}
+        {filtered.length > 0 && (
+          <p className="mt-8 text-center text-sm text-white/30">
+            Показано {filtered.length} из {PRODUCTS.length}
+          </p>
+        )}
       </div>
     </section>
   );
