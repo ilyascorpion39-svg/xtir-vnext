@@ -10,11 +10,6 @@ const getBase = () => {
   return base.replace(/\/$/, "");
 };
 
-const makeHref = (path: string) => {
-  const base = getBase();
-  return base + path;
-};
-
 const navItems = [
   { name: 'Главная', href: '/' },
   { name: 'Каталог', href: '/products' },

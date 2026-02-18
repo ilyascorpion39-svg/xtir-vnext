@@ -2,24 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
 // Файлы партнёра из архива
-interface Photo {
-  src: string;
-  caption: string;
-}
-
-interface Doc {
-  src: string;
-  title: string;
-  icon: string;
-}
-
-interface VideoLink {
-  platform: string;
-  href: string;
-  label: string;
-}
-
-const photos: Photo[] = [
+const photos = [
   { src: '/xtir-archive/Партнеры/Войсковая часть 45377.jpg', caption: 'Войсковая часть 45377' },
   { src: '/xtir-archive/Партнеры/детектор-рэб-рюкзак (2).jpeg', caption: 'Детектор РЭБ — рюкзачный вариант' },
   { src: '/xtir-archive/Партнеры/ЗОНТ на танке.jpg', caption: 'ЗОНТ на танке' },
@@ -30,17 +13,12 @@ const photos: Photo[] = [
   { src: '/xtir-archive/Партнеры/От отряда спецназа гвардии.jpg', caption: 'Отзыв отряда спецназа гвардии' },
 ];
 
-const docs: Doc[] = [
+const docs = [
   { src: '/xtir-archive/Партнеры/каталог (2).pdf', title: 'Каталог продукции', icon: 'catalog' },
   { src: '/xtir-archive/Партнеры/Письмо ВПК Доскалов.pdf', title: 'Письмо ВПК Доскалов', icon: 'letter' },
   { src: '/xtir-archive/Партнеры/презентация_БТ -ЗОНТ.pdf', title: 'Презентация БТ-ЗОНТ', icon: 'presentation' },
   { src: '/xtir-archive/Партнеры/РЭБ_ЗОНТ_ИТОГОВЫЙ_ПРОТОКОЛ_НИИИ_РЭБ_г_ВОРОНЕЖ.pdf', title: 'Протокол испытаний НИИИ РЭБ, г. Воронеж', icon: 'protocol' },
   { src: '/xtir-archive/Партнеры/Сертификат_соответствия_РЭБ_ЗОНТ.pdf', title: 'Сертификат соответствия', icon: 'cert' },
-];
-
-const videoLinks: VideoLink[] = [
-  { platform: 'YouTube', href: 'https://www.youtube.com/@xtir', label: 'Видео на YouTube' },
-  { platform: 'RuTube', href: 'https://rutube.ru/channel/xtir', label: 'Видео на RuTube' },
 ];
 ---
 
@@ -209,7 +187,7 @@ const videoLinks: VideoLink[] = [
             <div class="video-link__label">Канал XTIR</div>
           </div>
         </a>
-        <a href="https://rutube.ru/channel/xtir" target="_blank" rel="noopener" class="video-link video-link--rt">
+        <a href="https://rutube.ru" target="_blank" rel="noopener" class="video-link video-link--rt">
           <svg class="video-link__icon" viewBox="0 0 24 24" fill="currentColor">
             <path d="M8.4 6.7A2 2 0 0 0 6 8.6v6.8a2 2 0 0 0 3 1.7l6.2-3.4a2 2 0 0 0 0-3.4L9 7a2 2 0 0 0-.6-.3z"/>
           </svg>
