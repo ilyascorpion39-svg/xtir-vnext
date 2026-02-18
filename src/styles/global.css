@@ -19,8 +19,6 @@
     --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.45);
   }
 
-  /* Tailwind-шаблоны (shadcn/ui) часто используют border-border.
-     Делаем безопасный дефолт границ под нашу палитру. */
   * {
     @apply border-white/10;
   }
@@ -34,37 +32,35 @@
     background-color: var(--bg-main);
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1, h2, h3, h4, h5, h6 {
     @apply font-display tracking-tight;
   }
 
-  h1 {
-    @apply text-display-1;
-  }
-  h2 {
-    @apply text-display-2;
-  }
-  h3 {
-    @apply text-display-3;
-  }
+  h1 { @apply text-display-1; }
+  h2 { @apply text-display-2; }
+  h3 { @apply text-display-3; }
 
-  /* Scrollbar */
+  /* Scrollbar — триколор */
   ::-webkit-scrollbar {
-    @apply w-2;
+    width: 3px;
   }
   ::-webkit-scrollbar-track {
-    @apply bg-dark-800;
+    background: #0a0c0f;
   }
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-primary-500/80;
+    border-radius: 999px;
+    background: linear-gradient(
+      to bottom,
+      #ffffff 0%,
+      #ffffff 33%,
+      #003DA5 33%,
+      #003DA5 66%,
+      #CC0000 66%,
+      #CC0000 100%
+    );
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary-400;
+    opacity: 0.9;
   }
 
   /* Selection */
@@ -84,7 +80,6 @@
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-semibold rounded-xl transition-all duration-200 ease-out;
   }
 
-  /* Primary: tech-outline + glow on hover */
   .btn-primary {
     @apply border border-primary-500/60 bg-primary-500/10 text-primary-200 hover:bg-primary-500/15 hover:text-primary-100;
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
@@ -94,7 +89,6 @@
     transform: translateY(-1px);
   }
 
-  /* Secondary: quiet */
   .btn-secondary {
     @apply border border-white/10 bg-white/5 text-white/85 hover:bg-white/10 hover:text-white;
   }
@@ -140,14 +134,9 @@
     @apply container mx-auto px-4 md:px-6 lg:px-8;
   }
 
-  /* Section titles */
   .section-title {
     @apply text-4xl md:text-5xl lg:text-6xl font-bold mb-4;
-    background-image: linear-gradient(
-      90deg,
-      rgba(230, 237, 243, 1),
-      rgba(0, 179, 255, 1)
-    );
+    background-image: linear-gradient(90deg, rgba(230, 237, 243, 1), rgba(0, 179, 255, 1));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -157,81 +146,39 @@
     @apply text-lg md:text-xl text-white/60 mb-12;
   }
 
-  /* Link */
   .link {
     @apply text-primary-300 hover:text-primary-200 transition-colors duration-150;
   }
 
-  /* Divider line */
   .divider {
     @apply h-px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(0, 179, 255, 0.38),
-      transparent
-    );
+    background: linear-gradient(90deg, transparent, rgba(0, 179, 255, 0.38), transparent);
   }
 }
 
 @layer utilities {
-  /* Text shadows (subtle) */
   .text-shadow {
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
   }
 
-  /* Tech grid background (subtle) */
   .tech-grid {
     background-image:
-      linear-gradient(
-        0deg,
-        transparent 24%,
-        rgba(0, 179, 255, 0.05) 25%,
-        rgba(0, 179, 255, 0.05) 26%,
-        transparent 27%,
-        transparent 74%,
-        rgba(0, 179, 255, 0.05) 75%,
-        rgba(0, 179, 255, 0.05) 76%,
-        transparent 77%,
-        transparent
-      ),
-      linear-gradient(
-        90deg,
-        transparent 24%,
-        rgba(0, 179, 255, 0.05) 25%,
-        rgba(0, 179, 255, 0.05) 26%,
-        transparent 27%,
-        transparent 74%,
-        rgba(0, 179, 255, 0.05) 75%,
-        rgba(0, 179, 255, 0.05) 76%,
-        transparent 77%,
-        transparent
-      );
+      linear-gradient(0deg, transparent 24%, rgba(0, 179, 255, 0.05) 25%, rgba(0, 179, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 179, 255, 0.05) 75%, rgba(0, 179, 255, 0.05) 76%, transparent 77%, transparent),
+      linear-gradient(90deg, transparent 24%, rgba(0, 179, 255, 0.05) 25%, rgba(0, 179, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 179, 255, 0.05) 75%, rgba(0, 179, 255, 0.05) 76%, transparent 77%, transparent);
     background-size: 52px 52px;
   }
 
-  /* Micro reveal helpers */
-  .animate-delay-100 {
-    animation-delay: 100ms;
-  }
-  .animate-delay-200 {
-    animation-delay: 200ms;
-  }
-  .animate-delay-300 {
-    animation-delay: 300ms;
-  }
-  .animate-delay-400 {
-    animation-delay: 400ms;
-  }
-  .animate-delay-500 {
-    animation-delay: 500ms;
-  }
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-400 { animation-delay: 400ms; }
+  .animate-delay-500 { animation-delay: 500ms; }
 }
 
-/* Firefox scrollbar */
+/* Firefox — тонкий тёмно-синий (градиент не поддерживается) */
 @supports (scrollbar-color: auto) {
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(0, 179, 255, 0.65) #141a22;
+    scrollbar-color: #003DA5 #0a0c0f;
   }
 }
