@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import type { Product } from "@/data/products";
 import clsx from "clsx";
 
@@ -49,20 +50,32 @@ const toneMeta: Record<Tone, {
 const techLines =
   "repeating-linear-gradient(135deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px, rgba(255,255,255,0) 1px, rgba(255,255,255,0) 10px)";
 
+function getBase(): string {
+  if (typeof document === "undefined") return "";
+  return (document.querySelector("base")?.getAttribute("href") ?? "").replace(/\/$/, "");
+}
+
 export default function ProductCard({ product, categoryName }: Props) {
-  // photos[0] — первое фото из нашего каталога, фолбэк на плейсхолдер
-  const img = product.photos?.[0] ?? "/images/placeholder.svg";
+  const [base, setBase] = useState("");
+
+  useEffect(() => {
+    setBase(getBase());
+  }, []);
+
+  const img = product.photos?.[0]
+    ? base + product.photos[0]
+    : base + "/images/placeholder.svg";
+
   const tone = toneByCategory[product.categoryId] ?? "neutral";
   const meta = toneMeta[tone];
 
-  // Короткое описание — первые 120 символов
   const shortDesc = product.description.length > 120
     ? product.description.slice(0, 120).trimEnd() + "…"
     : product.description;
 
   return (
     <motion.a
-      href={`/products/${product.slug}/`}
+      href={`${base}/products/${product.slug}/`}
       className={clsx(
         "group block h-full overflow-hidden rounded-xl",
         "bg-dark-800",
@@ -76,7 +89,6 @@ export default function ProductCard({ product, categoryName }: Props) {
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.45 }}
     >
-      {/* Фото */}
       <div className="relative aspect-[16/9] overflow-hidden bg-dark-900/70">
         <div
           className="absolute inset-0 opacity-70"
@@ -89,8 +101,6 @@ export default function ProductCard({ product, categoryName }: Props) {
           className="absolute inset-0 h-full w-full object-cover opacity-90 transition-all duration-200 group-hover:opacity-100 group-hover:scale-[1.03]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-dark-900/85 via-dark-900/35 to-transparent" />
-
-        {/* Чип категории */}
         <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-dark-900/80 px-3 py-1 text-xs text-white/85">
           <span
             className="h-2 w-2 rounded-full"
@@ -99,17 +109,13 @@ export default function ProductCard({ product, categoryName }: Props) {
           {categoryName ?? product.categoryId}
         </div>
       </div>
-
-      {/* Контент */}
       <div className="p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
             <h3 className={clsx("text-xl font-semibold text-white transition-colors", meta.titleHoverClass)}>
               {product.name}
             </h3>
-            <p className="mt-2 text-sm text-white/55 line-clamp-2">
-              {shortDesc}
-            </p>
+            <p className="mt-2 text-sm text-white/55 line-clamp-2">{shortDesc}</p>
           </div>
           <div className="shrink-0 text-white/35 transition-colors group-hover:text-white/80">
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,8 +123,6 @@ export default function ProductCard({ product, categoryName }: Props) {
             </svg>
           </div>
         </div>
-
-        {/* Первые 3 фичи */}
         {product.features?.length > 0 && (
           <ul className="mt-5 space-y-1.5">
             {product.features.slice(0, 3).map((f, i) => (
@@ -130,7 +134,6 @@ export default function ProductCard({ product, categoryName }: Props) {
             ))}
           </ul>
         )}
-
         <div className="mt-6 flex items-center justify-between gap-4">
           <span className="text-xs text-white/40">Цена по запросу</span>
           <span className="inline-flex items-center gap-1 text-xs font-semibold text-white/70 transition-all group-hover:text-white group-hover:translate-x-[1px]">
