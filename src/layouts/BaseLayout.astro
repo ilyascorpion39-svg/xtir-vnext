@@ -58,24 +58,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     -->
         <Header client:load />
 <Footer client:load />
-
-  <!-- XTIR_CACHE_NUKE_START -->
-<script is:inline>
-  // XTIR: one-time cache nuke for GitHub Pages updates
-  (async () => {
-    try {
-      if ('serviceWorker' in navigator) {
-        const regs = await navigator.serviceWorker.getRegistrations();
-        await Promise.all(regs.map(r => r.unregister()));
-      }
-      if (window.caches && caches.keys) {
-        const keys = await caches.keys();
-        await Promise.all(keys.map(k => caches.delete(k)));
-      }
-    } catch (e) {}
-  })();
-</script>
-<!-- XTIR_CACHE_NUKE_END -->
 </body>
 </html>
 
