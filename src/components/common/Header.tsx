@@ -12,12 +12,12 @@ const getBase = () => {
 
 const navItems = [
   { name: 'Главная', href: '/' },
-  { name: 'Каталог', href: '/products' },
-  { name: 'Документы', href: '/docs' },
-  { name: 'Наше фото', href: '/gallery' },
-  { name: 'Партнёры', href: '/partners' },
-  { name: 'О компании', href: '/about' },
-  { name: 'Контакты', href: '/contact' },
+  { name: 'Каталог', href: '/products/' },
+  { name: 'Документы', href: '/docs/' },
+  { name: 'Наше фото', href: '/gallery/' },
+  { name: 'Партнёры', href: '/partners/' },
+  { name: 'О компании', href: '/about/' },
+  { name: 'Контакты', href: '/contact/' },
 ];
 
 const socialLinks = [
