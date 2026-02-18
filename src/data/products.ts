@@ -1,5 +1,5 @@
 ﻿// AUTO-GENERATED — run scripts/import-products.ps1 to regenerate
-// Last updated: 2026-02-18 06:12
+// Last updated: 2026-02-18 07:21
 
 export interface ProductSpec { label: string; value: string }
 
@@ -17,14 +17,14 @@ export interface Product {
 export interface ProductCategory { id: string; name: string }
 
 export const PRODUCT_CATEGORIES: ProductCategory[] = [
-  { id: "ceiling", name: "ceiling" },
-  { id: "combo", name: "combo" },
-  { id: "electronic", name: "electronic" },
-  { id: "lifters", name: "lifters" },
-  { id: "moving", name: "moving" },
-  { id: "polygon", name: "polygon" },
-  { id: "rotators", name: "rotators" },
-  { id: "suspended", name: "suspended" },
+  { id: "ceiling", name: "Потолочные" },
+  { id: "combo", name: "Подъёмно-поворотные" },
+  { id: "electronic", name: "Электронные" },
+  { id: "lifters", name: "Подъёмники" },
+  { id: "moving", name: "Движущиеся" },
+  { id: "polygon", name: "Полигоны" },
+  { id: "rotators", name: "Поворотки" },
+  { id: "suspended", name: "Подвесные" },
 ]
 
 export const PRODUCTS: Product[] = [
@@ -438,7 +438,7 @@ export const PRODUCTS: Product[] = [
     ],
     specs: [
     ],
-    photos: ["/products-img/puma-45/puma4-1.png", "/products-img/puma-45/puma4-10.png", "/products-img/puma-45/puma4-2.png", "/products-img/puma-45/puma4-3.png", "/products-img/puma-45/puma4-4.png", "/products-img/puma-45/puma4-5.png", "/products-img/puma-45/puma4-6.png", "/products-img/puma-45/puma4-7.png", "/products-img/puma-45/puma4-8.png", "/products-img/puma-45/puma4-9.png"],
+    photos: ["/products-img/puma-45/1.png", "/products-img/puma-45/2.png", "/products-img/puma-45/3.png", "/products-img/puma-45/4.png"],
   },
   {
     id: 28,
