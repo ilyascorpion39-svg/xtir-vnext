@@ -7,14 +7,55 @@ const categories = [
     title: 'Инструкции и паспорта',
     icon: '📋',
     docs: [
-      { title: 'ПМУ-7М — Инструкция по эксплуатации', tags: ['Подъёмники', 'Эксплуатация'] },
-      { title: 'ПМУ-90 — Инструкция по эксплуатации', tags: ['Подъёмники', 'Эксплуатация'] },
-      { title: 'ПМУ-100 — Инструкция и паспорт', tags: ['Подъёмники', 'Эксплуатация'] },
-      { title: 'ПМУ-300 — Работа с программой', tags: ['Подъёмники', 'Программное обеспечение'] },
-      { title: 'Пума 4 — Инструкция', tags: ['Мишени', 'Эксплуатация'] },
-      { title: 'Пума 5.1 — Инструкция', tags: ['Мишени', 'Эксплуатация'] },
-      { title: 'Пума ТР — Инструкция', tags: ['Мишени', 'Эксплуатация'] },
-      { title: 'Стойка Саггитар — Документация', tags: ['Оснащение', 'Эксплуатация'] },
+      {
+        title: 'Пума 35М — Инструкция',
+        tags: ['Мишени', 'Эксплуатация'],
+        file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/Инструкция Пума 35М.docx',
+        available: true,
+        type: 'DOCX'
+      },
+      {
+        title: 'ПМУ-35 — Инструкция-паспорт',
+        tags: ['Подъёмники', 'Паспорт'],
+        file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/ПМУ 35  Инструкция-паспорт.doc',
+        available: true,
+        type: 'DOC'
+      },
+      {
+        title: 'ПМУ-53 — Инструкция по эксплуатации',
+        tags: ['Подъёмники', 'Эксплуатация'],
+        file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/ПМУ53 Инструкция по эксплуатации (1).docx',
+        available: true,
+        type: 'DOCX'
+      },
+      {
+        title: 'Работа с программой ПМУ-300',
+        tags: ['Подъёмники', 'Программное обеспечение'],
+        file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/Работа с программой ПМУ300.docx',
+        available: true,
+        type: 'DOCX'
+      },
+      {
+        title: 'Стойка Саггитар — Документация',
+        tags: ['Оснащение', 'Эксплуатация'],
+        file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/Стойка саггитар.doc',
+        available: true,
+        type: 'DOC'
+      },
+      {
+        title: 'ПМУ-7М — Инструкция по эксплуатации',
+        tags: ['Подъёмники', 'Эксплуатация'],
+        file: null,
+        available: false,
+        type: 'DOC'
+      },
+      {
+        title: 'ПМУ-90 — Инструкция по эксплуатации',
+        tags: ['Подъёмники', 'Эксплуатация'],
+        file: null,
+        available: false,
+        type: 'DOC'
+      },
     ]
   },
   {
@@ -22,10 +63,34 @@ const categories = [
     title: 'Технические материалы',
     icon: '⚙️',
     docs: [
-      { title: 'Точность определения координат удара', tags: ['Технологии', 'Сенсоры'] },
-      { title: 'Монтаж монорельса на основе уголков 50×50×5 мм', tags: ['Монтаж', 'Инфраструктура'] },
-      { title: 'Печатный узел блока управления УМУ-С-127', tags: ['Электроника', 'Компоненты'] },
-      { title: 'Выбор способа управления мишенными установками', tags: ['Технологии', 'Управление'] },
+      {
+        title: 'Монтаж монорельса на основе уголков 50×50×5 мм',
+        tags: ['Монтаж', 'Инфраструктура'],
+        file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/Монтаж монорельса на основе уголков_ 50х50х5 мм.doc',
+        available: true,
+        type: 'DOC'
+      },
+      {
+        title: 'Печатный узел блока управления УМУ-С-127',
+        tags: ['Электроника', 'Компоненты'],
+        file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/Печатный узел блока управления мишенной установки типа УМУ-С-127.pptx',
+        available: true,
+        type: 'PPTX'
+      },
+      {
+        title: 'Точность определения координат удара',
+        tags: ['Технологии', 'Сенсоры'],
+        file: null,
+        available: false,
+        type: 'PDF'
+      },
+      {
+        title: 'Выбор способа управления мишенными установками',
+        tags: ['Технологии', 'Управление'],
+        file: null,
+        available: false,
+        type: 'PDF'
+      },
     ]
   },
   {
@@ -33,10 +98,34 @@ const categories = [
     title: 'Решения и проекты',
     icon: '🎯',
     docs: [
-      { title: 'Оснащение открытого тира', tags: ['Проекты', 'Комплексные решения'] },
-      { title: 'Комплекс управления мишенным оборудованием войскового стрельбища', tags: ['Военные', 'Комплексные решения'] },
-      { title: 'Новая жизнь стрелковому тиру — DIY кейс', tags: ['Кейсы', 'Реализация'] },
-      { title: 'Комплект для переделки GAN2', tags: ['Модернизация', 'Компоненты'] },
+      {
+        title: 'Комплекс управления мишенным оборудованием войскового стрельбища',
+        tags: ['Военные', 'Комплексные решения'],
+        file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/Комплекс управления мишенным оборудованием войскового стрельбища.pptx',
+        available: true,
+        type: 'PPTX'
+      },
+      {
+        title: 'Новая жизнь стрелковому тиру — DIY кейс',
+        tags: ['Кейсы', 'Реализация'],
+        file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/Новая жизнь стрелковому тиру.docx',
+        available: true,
+        type: 'DOCX'
+      },
+      {
+        title: 'Оснащение открытого тира',
+        tags: ['Проекты', 'Комплексные решения'],
+        file: null,
+        available: false,
+        type: 'DOC'
+      },
+      {
+        title: 'Комплект для переделки GAN2',
+        tags: ['Модернизация', 'Компоненты'],
+        file: null,
+        available: false,
+        type: 'PDF'
+      },
     ]
   },
   {
@@ -44,16 +133,31 @@ const categories = [
     title: 'Международные стандарты',
     icon: '🌐',
     docs: [
-      { title: 'CR-2 Target Retrieval System — PDS', tags: ['Международные', 'Стандарты'] },
-      { title: 'CR-2TL Master Range Control — PDS', tags: ['Международные', 'Управление'] },
+      {
+        title: 'CR-2 Target Retrieval System — PDS',
+        tags: ['Международные', 'Стандарты'],
+        file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/CR-2-Target-Retrieval-System-PDS.pdf',
+        available: true,
+        type: 'PDF'
+      },
+      {
+        title: 'CR-2TL Master Range Control — PDS',
+        tags: ['Международные', 'Управление'],
+        file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/CR-2TL-Master-Range-Control-PDS.pdf',
+        available: true,
+        type: 'PDF'
+      },
     ]
   },
-]
+];
+
+const totalDocs = categories.reduce((acc, c) => acc + c.docs.length, 0);
+const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.available).length, 0);
 ---
 
 <BaseLayout
   title="Библиотека документов — XTIR"
-  description="Техническая документация, инструкции и материалы по оборудованию XTIR. Запросите нужный документ — пришлём в течение суток."
+  description="Техническая документация, инструкции и материалы по оборудованию XTIR. Часть документов доступна онлайн, остальные — по запросу."
 >
   <main class="docs-page">
 
@@ -65,18 +169,19 @@ const categories = [
           <div class="docs-hero__label">ТЕХНИЧЕСКАЯ БИБЛИОТЕКА</div>
           <h1 class="docs-hero__title">Документация<br/><span>XTIR</span></h1>
           <p class="docs-hero__sub">
-            Инструкции, паспорта, технические материалы и проектная документация.<br/>
-            Документы предоставляются по запросу — бесплатно, в течение суток.
+            Инструкции, паспорта, технические материалы и проектная документация.
+            Документы с иконкой <span class="badge-inline badge-open">онлайн</span> открываются прямо в браузере.
+            Остальные — по запросу, бесплатно.
           </p>
           <div class="docs-hero__stats">
             <div class="docs-stat">
-              <div class="docs-stat__num">18+</div>
-              <div class="docs-stat__label">документов</div>
+              <div class="docs-stat__num">{availableDocs}</div>
+              <div class="docs-stat__label">онлайн</div>
             </div>
             <div class="docs-stat__divider"></div>
             <div class="docs-stat">
-              <div class="docs-stat__num">4</div>
-              <div class="docs-stat__label">раздела</div>
+              <div class="docs-stat__num">{totalDocs - availableDocs}</div>
+              <div class="docs-stat__label">по запросу</div>
             </div>
             <div class="docs-stat__divider"></div>
             <div class="docs-stat">
@@ -88,7 +193,7 @@ const categories = [
       </div>
     </section>
 
-    <!-- Каталог документов -->
+    <!-- Каталог -->
     <section class="docs-catalog container">
       {categories.map((cat) => (
         <div class="doc-category">
@@ -99,7 +204,7 @@ const categories = [
           </div>
           <div class="doc-list">
             {cat.docs.map((doc, i) => (
-              <div class="doc-item">
+              <div class={`doc-item ${doc.available ? 'doc-item--available' : ''}`}>
                 <div class="doc-item__num">{String(i + 1).padStart(2, '0')}</div>
                 <div class="doc-item__icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -110,17 +215,34 @@ const categories = [
                 <div class="doc-item__info">
                   <div class="doc-item__title">{doc.title}</div>
                   <div class="doc-item__tags">
+                    <span class={`doc-type doc-type--${doc.type.toLowerCase()}`}>{doc.type}</span>
                     {doc.tags.map(tag => (
                       <span class="doc-tag">{tag}</span>
                     ))}
                   </div>
                 </div>
-                <button
-                  class="doc-item__btn"
-                  onclick={`openRequest('${doc.title}')`}
-                >
-                  Запросить
-                </button>
+                <div class="doc-item__actions">
+                  {doc.available && doc.file ? (
+                    <a
+                      href={doc.file}
+                      target="_blank"
+                      rel="noopener"
+                      class="doc-btn doc-btn--open"
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                      </svg>
+                      Открыть
+                    </a>
+                  ) : (
+                    <button
+                      class="doc-btn doc-btn--request"
+                      onclick={`openRequest('${doc.title}')`}
+                    >
+                      Запросить
+                    </button>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -134,62 +256,42 @@ const categories = [
         <div class="request-inner">
           <div class="request-left">
             <div class="request-label">ЗАПРОС ДОКУМЕНТА</div>
-            <h2 class="request-title">Нужен<br/>конкретный<br/>документ?</h2>
+            <h2 class="request-title">Нужен<br/>документ?</h2>
             <p class="request-desc">
-              Укажите название документа или опишите что ищете — пришлём в течение суток на email.
-              Всё бесплатно.
+              Укажите что именно нужно — пришлём на email в течение суток. Бесплатно.
             </p>
             <div class="request-contacts">
               <a href="mailto:info@xtir.ru" class="request-contact">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
                 info@xtir.ru
               </a>
               <a href="tel:+79154250095" class="request-contact">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                 </svg>
                 +7 (915) 425-00-95
               </a>
             </div>
           </div>
-
           <div class="request-right">
             <form class="request-form" id="doc-request-form">
               <div class="form-group">
                 <label class="form-label">Название документа</label>
-                <input
-                  type="text"
-                  id="doc-name"
-                  class="form-input"
-                  placeholder="Например: Инструкция ПМУ-7М"
-                />
+                <input type="text" id="doc-name" class="form-input" placeholder="Например: Инструкция ПМУ-7М"/>
               </div>
               <div class="form-group">
                 <label class="form-label">Ваше имя</label>
-                <input
-                  type="text"
-                  class="form-input"
-                  placeholder="Как к вам обращаться"
-                />
+                <input type="text" class="form-input" placeholder="Как к вам обращаться"/>
               </div>
               <div class="form-group">
-                <label class="form-label">Email для отправки *</label>
-                <input
-                  type="email"
-                  class="form-input"
-                  placeholder="your@email.ru"
-                  required
-                />
+                <label class="form-label">Email *</label>
+                <input type="email" class="form-input" placeholder="your@email.ru" required/>
               </div>
               <div class="form-group">
                 <label class="form-label">Комментарий</label>
-                <textarea
-                  class="form-input form-textarea"
-                  placeholder="Уточните что именно нужно или для каких задач"
-                  rows="3"
-                ></textarea>
+                <textarea class="form-input form-textarea" placeholder="Уточните задачу или что именно нужно" rows="3"></textarea>
               </div>
               <button type="submit" class="form-submit">
                 <span>Отправить запрос</span>
@@ -206,14 +308,14 @@ const categories = [
   </main>
 </BaseLayout>
 
-<!-- Модальное окно быстрого запроса -->
+<!-- Модалка быстрого запроса -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
-  <div class="modal" onclick="(e) => e.stopPropagation()">
+  <div class="modal" onclick="event.stopPropagation()">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-icon">📄</div>
     <h3 class="modal-title">Запрос документа</h3>
     <p class="modal-doc" id="modal-doc-name"></p>
-    <p class="modal-text">Оставьте email — пришлём документ в течение суток.</p>
+    <p class="modal-text">Введите email — пришлём документ в течение суток.</p>
     <input type="email" class="form-input" id="modal-email" placeholder="your@email.ru"/>
     <button class="form-submit" onclick="submitQuickRequest()" style="width:100%;margin-top:12px;">
       <span>Получить документ</span>
@@ -222,71 +324,49 @@ const categories = [
 </div>
 
 <script>
-  function openRequest(docName: string) {
+  function openRequest(docName) {
     const overlay = document.getElementById('modal-overlay');
     const docNameEl = document.getElementById('modal-doc-name');
-    const docInput = document.getElementById('doc-name') as HTMLInputElement | null;
+    const docInput = document.getElementById('doc-name');
     if (docNameEl) docNameEl.textContent = '«' + docName + '»';
     if (docInput) docInput.value = docName;
     if (overlay) overlay.classList.add('active');
   }
-
   function closeModal() {
-    const overlay = document.getElementById('modal-overlay');
-    if (overlay) overlay.classList.remove('active');
+    document.getElementById('modal-overlay')?.classList.remove('active');
   }
-
   function submitQuickRequest() {
-    const email = (document.getElementById('modal-email') as HTMLInputElement | null)?.value;
+    const email = (document.getElementById('modal-email') as HTMLInputElement)?.value;
     if (!email) { alert('Введите email'); return; }
-    // Здесь будет отправка формы
     closeModal();
-    showSuccess();
+    showToast('✓ Запрос отправлен! Ответим в течение суток.');
   }
-
-  function showSuccess() {
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.textContent = '✓ Запрос отправлен! Ответим в течение суток.';
-    document.body.appendChild(toast);
-    setTimeout(() => toast.classList.add('show'), 10);
-    setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 3000);
+  function showToast(msg: string) {
+    const t = document.createElement('div');
+    t.className = 'toast'; t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.classList.add('show'), 10);
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3500);
   }
-
   document.getElementById('doc-request-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
-    showSuccess();
+    showToast('✓ Запрос отправлен! Ответим в течение суток.');
   });
 </script>
 
 <style>
   .docs-page {
-    --bg: #0f141a;
-    --bg2: #0b0e13;
-    --surface: #141a22;
+    --bg: #0f141a; --bg2: #0b0e13; --surface: #141a22;
     --border: rgba(255,255,255,0.07);
-    --accent: #00b3ff;
-    --text: rgba(255,255,255,0.88);
+    --accent: #00b3ff; --text: rgba(255,255,255,0.88);
     --muted: rgba(255,255,255,0.42);
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'PT Serif', Georgia, serif;
-    min-height: 100vh;
+    background: var(--bg); color: var(--text);
+    font-family: 'PT Serif', Georgia, serif; min-height: 100vh;
   }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* ══ ГЕРОЙ ══ */
-  .docs-hero {
-    position: relative;
-    padding: 100px 0 64px;
-    overflow: hidden;
-    background: var(--bg2);
-  }
+  /* ГЕРОЙ */
+  .docs-hero { position: relative; padding: 100px 0 64px; overflow: hidden; background: var(--bg2); }
   .docs-hero__bg {
     position: absolute; inset: 0;
     background:
@@ -296,225 +376,170 @@ const categories = [
   }
   .docs-hero__inner { position: relative; z-index: 2; }
   .docs-hero__label {
-    font-family: 'Courier New', monospace;
-    font-size: .72rem; letter-spacing: .2em;
-    color: var(--accent); opacity: .7;
-    margin-bottom: 20px;
+    font-family: 'Courier New', monospace; font-size: .72rem;
+    letter-spacing: .2em; color: var(--accent); opacity: .7; margin-bottom: 20px;
   }
   .docs-hero__title {
-    font-size: clamp(48px, 7vw, 88px);
-    font-weight: 700; line-height: .95;
-    margin: 0 0 24px; letter-spacing: -.02em;
+    font-size: clamp(48px, 7vw, 88px); font-weight: 700;
+    line-height: .95; margin: 0 0 24px; letter-spacing: -.02em;
   }
-  .docs-hero__title span {
-    color: transparent;
-    -webkit-text-stroke: 2px var(--accent);
-  }
+  .docs-hero__title span { color: transparent; -webkit-text-stroke: 2px var(--accent); }
   .docs-hero__sub {
-    font-size: 1.05rem; line-height: 1.65;
-    color: var(--muted); max-width: 560px;
-    margin: 0 0 40px;
+    font-size: 1.05rem; line-height: 1.65; color: var(--muted);
+    max-width: 580px; margin: 0 0 40px;
   }
-  .docs-hero__stats {
-    display: flex; align-items: center; gap: 32px;
+  .badge-inline {
+    display: inline-block; font-size: .72rem; font-weight: 700;
+    padding: 2px 8px; border-radius: 3px; font-family: 'Courier New', monospace;
+    vertical-align: middle;
   }
-  .docs-stat__num {
-    font-size: 2rem; font-weight: 700;
-    color: var(--accent); line-height: 1;
-  }
+  .badge-open { background: rgba(0,179,255,0.15); color: var(--accent); border: 1px solid rgba(0,179,255,0.3); }
+  .docs-hero__stats { display: flex; align-items: center; gap: 32px; }
+  .docs-stat__num { font-size: 2rem; font-weight: 700; color: var(--accent); line-height: 1; }
   .docs-stat__label {
     font-size: .78rem; color: var(--muted);
-    font-family: 'Courier New', monospace;
-    text-transform: uppercase; letter-spacing: .08em;
+    font-family: 'Courier New', monospace; text-transform: uppercase; letter-spacing: .08em;
   }
-  .docs-stat__divider {
-    width: 1px; height: 40px;
-    background: var(--border);
-  }
+  .docs-stat__divider { width: 1px; height: 40px; background: var(--border); }
 
-  /* ══ КАТАЛОГ ══ */
+  /* КАТАЛОГ */
   .docs-catalog { padding: 64px 0; }
-
-  .doc-category { margin-bottom: 48px; }
+  .doc-category { margin-bottom: 52px; }
   .doc-category__header {
     display: flex; align-items: center; gap: 12px;
     margin-bottom: 16px; padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
   }
   .doc-category__icon { font-size: 1.4rem; }
-  .doc-category__title {
-    font-size: 1.15rem; font-weight: 700;
-    margin: 0; flex: 1;
-  }
+  .doc-category__title { font-size: 1.15rem; font-weight: 700; margin: 0; flex: 1; }
   .doc-category__count {
-    font-family: 'Courier New', monospace;
-    font-size: .75rem; color: var(--accent);
-    background: rgba(0,179,255,0.08);
-    border: 1px solid rgba(0,179,255,0.2);
+    font-family: 'Courier New', monospace; font-size: .75rem; color: var(--accent);
+    background: rgba(0,179,255,0.08); border: 1px solid rgba(0,179,255,0.2);
     padding: 3px 10px; border-radius: 20px;
   }
-
   .doc-list { display: flex; flex-direction: column; gap: 2px; }
-
   .doc-item {
     display: flex; align-items: center; gap: 16px;
-    padding: 14px 16px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    padding: 14px 16px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 6px;
     transition: border-color .2s, background .2s;
   }
-  .doc-item:hover {
-    border-color: rgba(0,179,255,0.25);
-    background: rgba(0,179,255,0.03);
+  .doc-item--available:hover {
+    border-color: rgba(0,179,255,0.25); background: rgba(0,179,255,0.03);
   }
   .doc-item__num {
-    font-family: 'Courier New', monospace;
-    font-size: .65rem; color: var(--muted);
-    width: 20px; flex-shrink: 0; text-align: right;
+    font-family: 'Courier New', monospace; font-size: .65rem;
+    color: var(--muted); width: 20px; flex-shrink: 0; text-align: right;
   }
-  .doc-item__icon {
-    width: 32px; height: 32px; flex-shrink: 0;
-    color: var(--muted);
-  }
+  .doc-item__icon { width: 28px; height: 28px; flex-shrink: 0; color: var(--muted); }
   .doc-item__icon svg { width: 100%; height: 100%; }
   .doc-item__info { flex: 1; min-width: 0; }
-  .doc-item__title {
-    font-size: .92rem; font-weight: 600;
-    margin-bottom: 5px; line-height: 1.3;
+  .doc-item__title { font-size: .92rem; font-weight: 600; margin-bottom: 5px; line-height: 1.3; }
+  .doc-item__tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .doc-type {
+    font-family: 'Courier New', monospace; font-size: .6rem; font-weight: 700;
+    padding: 2px 7px; border-radius: 2px; letter-spacing: .05em;
   }
-  .doc-item__tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .doc-type--pdf { background: rgba(220,50,50,0.15); color: #ff6b6b; border: 1px solid rgba(220,50,50,0.25); }
+  .doc-type--doc, .doc-type--docx { background: rgba(0,100,220,0.15); color: #6b9fff; border: 1px solid rgba(0,100,220,0.25); }
+  .doc-type--pptx { background: rgba(220,100,0,0.15); color: #ffaa6b; border: 1px solid rgba(220,100,0,0.25); }
   .doc-tag {
-    font-family: 'Courier New', monospace;
-    font-size: .62rem; letter-spacing: .06em;
+    font-family: 'Courier New', monospace; font-size: .62rem; letter-spacing: .06em;
     color: var(--muted); text-transform: uppercase;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
     padding: 2px 8px; border-radius: 2px;
   }
-  .doc-item__btn {
-    flex-shrink: 0;
-    font-size: .8rem; font-weight: 600;
-    color: var(--accent);
-    background: rgba(0,179,255,0.08);
-    border: 1px solid rgba(0,179,255,0.25);
-    padding: 7px 18px; border-radius: 4px;
-    cursor: pointer; white-space: nowrap;
-    transition: all .2s;
-    font-family: inherit;
+  .doc-item__actions { flex-shrink: 0; }
+  .doc-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: .8rem; font-weight: 600; padding: 7px 16px;
+    border-radius: 4px; cursor: pointer; white-space: nowrap;
+    transition: all .2s; font-family: inherit; text-decoration: none;
+    border: 1px solid;
   }
-  .doc-item__btn:hover {
-    background: rgba(0,179,255,0.15);
-    border-color: rgba(0,179,255,0.5);
+  .doc-btn svg { width: 14px; height: 14px; }
+  .doc-btn--open {
+    color: var(--accent); background: rgba(0,179,255,0.08);
+    border-color: rgba(0,179,255,0.3);
   }
+  .doc-btn--open:hover { background: rgba(0,179,255,0.18); border-color: rgba(0,179,255,0.6); }
+  .doc-btn--request {
+    color: var(--muted); background: rgba(255,255,255,0.04);
+    border-color: var(--border);
+  }
+  .doc-btn--request:hover { color: var(--text); background: rgba(255,255,255,0.08); }
 
-  /* ══ ФОРМА ЗАПРОСА ══ */
-  .request-section {
-    background: var(--bg2);
-    padding: 80px 0 100px;
-    border-top: 1px solid var(--border);
-  }
-  .request-inner {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
-    align-items: start;
-  }
+  /* ФОРМА */
+  .request-section { background: var(--bg2); padding: 80px 0 100px; border-top: 1px solid var(--border); }
+  .request-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
   @media (max-width: 768px) { .request-inner { grid-template-columns: 1fr; gap: 40px; } }
-
   .request-label {
-    font-family: 'Courier New', monospace;
-    font-size: .7rem; letter-spacing: .2em;
-    color: var(--accent); opacity: .7; margin-bottom: 16px;
+    font-family: 'Courier New', monospace; font-size: .7rem;
+    letter-spacing: .2em; color: var(--accent); opacity: .7; margin-bottom: 16px;
   }
-  .request-title {
-    font-size: clamp(32px, 4vw, 52px);
-    font-weight: 700; line-height: .95;
-    letter-spacing: -.02em; margin: 0 0 20px;
-  }
-  .request-desc {
-    font-size: .95rem; line-height: 1.7;
-    color: var(--muted); margin: 0 0 32px;
-  }
+  .request-title { font-size: clamp(32px, 4vw, 52px); font-weight: 700; line-height: .95; letter-spacing: -.02em; margin: 0 0 20px; }
+  .request-desc { font-size: .95rem; line-height: 1.7; color: var(--muted); margin: 0 0 32px; }
   .request-contacts { display: flex; flex-direction: column; gap: 12px; }
   .request-contact {
     display: flex; align-items: center; gap: 10px;
-    font-size: .9rem; color: var(--muted);
-    text-decoration: none; transition: color .2s;
+    font-size: .9rem; color: var(--muted); text-decoration: none; transition: color .2s;
   }
   .request-contact svg { width: 18px; height: 18px; flex-shrink: 0; }
   .request-contact:hover { color: var(--text); }
-
   .request-form { display: flex; flex-direction: column; gap: 16px; }
   .form-group { display: flex; flex-direction: column; gap: 6px; }
   .form-label {
     font-size: .78rem; color: var(--muted);
-    font-family: 'Courier New', monospace;
-    text-transform: uppercase; letter-spacing: .08em;
+    font-family: 'Courier New', monospace; text-transform: uppercase; letter-spacing: .08em;
   }
   .form-input {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px; padding: 12px 16px;
-    color: var(--text); font-size: .92rem;
-    font-family: inherit; width: 100%;
-    box-sizing: border-box;
-    transition: border-color .2s;
-    outline: none;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; padding: 12px 16px; color: var(--text);
+    font-size: .92rem; font-family: inherit; width: 100%;
+    box-sizing: border-box; transition: border-color .2s; outline: none;
   }
   .form-input:focus { border-color: rgba(0,179,255,0.4); }
   .form-input::placeholder { color: var(--muted); }
   .form-textarea { resize: vertical; min-height: 80px; }
   .form-submit {
     display: flex; align-items: center; justify-content: center; gap: 10px;
-    background: var(--accent); color: #000;
-    border: none; border-radius: 6px;
-    padding: 14px 28px; font-size: .95rem;
-    font-weight: 700; cursor: pointer;
-    font-family: inherit;
-    transition: all .2s;
+    background: var(--accent); color: #000; border: none; border-radius: 6px;
+    padding: 14px 28px; font-size: .95rem; font-weight: 700;
+    cursor: pointer; font-family: inherit; transition: all .2s;
   }
   .form-submit svg { width: 18px; height: 18px; }
   .form-submit:hover { background: #00c8ff; transform: translateY(-1px); }
 
-  /* ══ МОДАЛЬНОЕ ОКНО ══ */
+  /* МОДАЛКА */
   .modal-overlay {
     position: fixed; inset: 0; z-index: 1000;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(4px);
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
     display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none;
-    transition: opacity .25s;
+    opacity: 0; pointer-events: none; transition: opacity .25s;
   }
   .modal-overlay.active { opacity: 1; pointer-events: all; }
   .modal {
-    background: #141a22;
-    border: 1px solid rgba(0,179,255,0.2);
-    border-radius: 12px; padding: 40px;
-    max-width: 420px; width: 90%;
-    position: relative;
-    transform: translateY(20px);
-    transition: transform .25s;
-    text-align: center;
+    background: #141a22; border: 1px solid rgba(0,179,255,0.2);
+    border-radius: 12px; padding: 40px; max-width: 420px; width: 90%;
+    position: relative; transform: translateY(20px); transition: transform .25s; text-align: center;
   }
   .modal-overlay.active .modal { transform: translateY(0); }
   .modal-close {
     position: absolute; top: 16px; right: 16px;
     background: none; border: none; color: var(--muted);
     font-size: 1.1rem; cursor: pointer; padding: 4px 8px;
-    border-radius: 4px; transition: color .2s;
-    font-family: inherit;
+    border-radius: 4px; transition: color .2s; font-family: inherit;
   }
   .modal-close:hover { color: var(--text); }
   .modal-icon { font-size: 2.5rem; margin-bottom: 16px; }
   .modal-title { font-size: 1.3rem; font-weight: 700; margin: 0 0 8px; }
-  .modal-doc {
-    font-size: .85rem; color: var(--accent);
-    margin: 0 0 8px; line-height: 1.4;
-  }
+  .modal-doc { font-size: .85rem; color: var(--accent); margin: 0 0 8px; line-height: 1.4; }
   .modal-text { font-size: .88rem; color: var(--muted); margin: 0 0 20px; }
 
-  /* ══ ТОСТ ══ */
+  /* ТОСТ */
   .toast {
-    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
+    position: fixed; bottom: 32px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
     background: #1a2a1a; border: 1px solid rgba(0,200,100,0.4);
     color: rgba(0,220,120,1); padding: 14px 24px;
     border-radius: 8px; font-size: .9rem; font-weight: 600;
@@ -522,4 +547,3 @@ const categories = [
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
-
