@@ -17,12 +17,10 @@ const makeHref = (path: string) => {
 
 const navItems = [
   { name: 'Главная', href: '/' },
-  { name: 'Продукты', href: '/products' },
-  { name: 'Технологии', href: '/technologies' },
-  { name: 'Галерея', href: '/gallery' },
+  { name: 'Каталог', href: '/products' },
+  { name: 'Наше фото', href: '/gallery' },
   { name: 'Партнёры', href: '/partners' },
   { name: 'О компании', href: '/about' },
-  { name: 'Поддержка', href: '/support' },
   { name: 'Контакты', href: '/contact' },
 ];
 
@@ -139,14 +137,7 @@ export default function Header() {
               ))}
             </div>
 
-            <motion.a
-              href={href("/contact")}
-              className="btn btn-primary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Заказать
-            </motion.a>
+
           </div>
 
           {/* Mobile Menu Button */}
@@ -205,9 +196,6 @@ export default function Header() {
                     </a>
                   ))}
                 </div>
-                <a href={href("/contact")} className="block w-full btn btn-primary text-center">
-                  Заказать
-                </a>
               </div>
             </nav>
           </motion.div>
