@@ -8,55 +8,233 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 >
 
   <!-- HERO -->
-  <section class="xtir-hero section section--tight">
-    <div class="xtir-hero__bg" aria-hidden="true"></div>
-    <div class="container">
-      <div class="xtir-hero__grid">
-        <div>
-          <p class="kicker">XTIR · электронно-механические решения для стрельбы</p>
-          <h1 class="h1">
-            Точная техника.<br>
-            <span class="xtir-hero__accent">Жёсткая надёжность.</span>
-          </h1>
-          <p class="p xtir-hero__subtitle">
-            Разработка и производство оборудования: управление, связь, механика, интеграции.
-            Без лишних слов — только функционал и ресурс.
-          </p>
-          <div class="xtir-hero__actions">
-            <a class="btn btn--primary" href="/contact/">Оставить заявку</a>
-            <a class="btn btn--ghost" href="/products/">Смотреть продукты</a>
-          </div>
-          <div class="xtir-hero__pills" role="list" aria-label="Преимущества">
-            <span class="pill" role="listitem">Производство</span>
-            <span class="pill" role="listitem">Инженерия</span>
-            <span class="pill" role="listitem">Интеграции</span>
-            <span class="pill" role="listitem">Сервис</span>
-          </div>
+  <!-- XTIR_HERO_V1_START -->
+<section class="xtir-hero section section--tight">
+  <div class="xtir-hero__bg" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="xtir-hero__grid">
+      <div>
+        <p class="kicker">XTIR · электронно-механические решения для стрельбы</p>
+
+        <h1 class="h1">
+          Точная техника.
+          <span class="xtir-hero__accent">Жёсткая надёжность.</span>
+        </h1>
+
+        <p class="p xtir-hero__subtitle">
+          Разработка и производство оборудования: управление, связь, механика, интеграции.
+          Без лишних слов, только функционал и ресурс.
+        </p>
+
+        <div class="xtir-hero__actions">
+          <a class="btn btn--primary" href="/contact">Обсудить проект</a>
+          <a class="btn btn--ghost" href="/products">Задать вопрос</a>
         </div>
 
-        <aside class="card card--flat">
-          <div class="card__pad xtir-hero__stack" aria-label="Ключевые особенности">
-            <div class="xtir-hero__feature card card--flat">
-              <div class="xtir-hero__ftitle">Контроль и телеметрия</div>
-              <div class="p">Управление сценариями, статус, диагностика, журнал событий.</div>
-            </div>
-            <div class="xtir-hero__feature card card--flat">
-              <div class="xtir-hero__ftitle">Связь и устойчивость</div>
-              <div class="p">Wi-Fi / радиоканал, устойчивость к помехам, предсказуемая работа.</div>
-            </div>
-            <div class="xtir-hero__feature card card--flat">
-              <div class="xtir-hero__ftitle">Механика и ресурс</div>
-              <div class="p">Конструкции под реальную эксплуатацию: нагрузка, вибрации, повторяемость.</div>
-            </div>
-            <div class="xtir-hero__note">
-              <span class="xtir-hero__dot" aria-hidden="true"></span>
-              <span class="p">Нужна конфигурация под объект? Опишем решение и сроки.</span>
-            </div>
-          </div>
-        </aside>
+        <div class="xtir-hero__pills" role="list" aria-label="Преимущества">
+          <span class="pill" role="listitem">Производство</span>
+          <span class="pill" role="listitem">Инженерия</span>
+          <span class="pill" role="listitem">Интеграции</span>
+          <span class="pill" role="listitem">Сервис</span>
+        </div>
       </div>
+
+      <aside class="card card--flat">
+        <div class="card__pad xtir-hero__stack" aria-label="Ключевые особенности">
+          <div class="xtir-hero__feature card card--flat">
+            <div class="xtir-hero__ftitle">Контроль и телеметрия</div>
+            <div class="p">Управление сценариями, статус, диагностика, журнал событий.</div>
+          </div>
+
+          <div class="xtir-hero__feature card card--flat">
+            <div class="xtir-hero__ftitle">Связь и устойчивость</div>
+            <div class="p">Wi-Fi/радиоканал, устойчивость к помехам, предсказуемая работа.</div>
+          </div>
+
+          <div class="xtir-hero__feature card card--flat">
+            <div class="xtir-hero__ftitle">Механика и ресурс</div>
+            <div class="p">Конструкции под реальную эксплуатацию: нагрузка, вибрации, повторяемость.</div>
+          </div>
+
+          <div class="xtir-hero__note">
+            <span class="xtir-hero__dot" aria-hidden="true"></span>
+            <span class="p">Нужна конфигурация под объект? Опишем решение и сроки.</span>
+          </div>
+        </div>
+      </aside>
     </div>
-  </section>
+  </div>
+</section>
+
+<style>
+  .xtir-hero{ position:relative; overflow:hidden; }
+  .xtir-hero__bg{
+    position:absolute; inset:-2px;
+    background:
+      radial-gradient(1000px 500px at 15% 10%, rgba(255,255,255,.08), rgba(255,255,255,0) 60%),
+      radial-gradient(900px 500px at 85% 35%, rgba(255,255,255,.06), rgba(255,255,255,0) 65%),
+      linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+    pointer-events:none;
+  }
+  .xtir-hero__grid{ display:grid; gap:18px; grid-template-columns: 1.1fr .9fr; align-items:stretch; }
+  @media (max-width: 980px){ .xtir-hero__grid{ grid-template-columns:1fr; } }
+
+  .xtir-hero__accent{ opacity:.92; }
+  .xtir-hero__subtitle{ max-width:62ch; margin-top:0; margin-bottom: var(--xtir-s4); }
+
+  .xtir-hero__actions{ display:flex; gap:10px; flex-wrap:wrap; margin: 0 0 var(--xtir-s3); }
+  .xtir-hero__pills{ display:flex; gap:8px; flex-wrap:wrap; }
+
+  .xtir-hero__stack{ display:flex; flex-direction:column; gap:10px; }
+  .xtir-hero__feature{ padding: 12px 12px; border-radius: var(--xtir-radius-md); }
+  .xtir-hero__ftitle{ font-weight:750; margin-bottom:6px; }
+
+  .xtir-hero__note{
+    display:flex; gap:10px; align-items:center;
+    margin-top: 2px;
+    padding: 10px 12px;
+    border-radius: var(--xtir-radius-md);
+    border:1px solid var(--xtir-border);
+    background: rgba(255,255,255,.03);
+  }
+  .xtir-hero__dot{
+    width:8px; height:8px; border-radius:999px;
+    background: rgba(255,255,255,.55);
+    box-shadow: 0 0 0 3px rgba(255,255,255,.10);
+    flex: 0 0 auto;
+  }
+</style>
+<!-- XTIR_HERO_V1_END -->
+
+<!-- XTIR_EXPOSITION_V1 -->
+
+<hr class="hr" />
+
+<section class="section">
+  <div class="container">
+    <p class="kicker">Экспозиция</p>
+    <h2 class="h2">Сценарии, в которых техника помогает людям</h2>
+    <p class="p">Не “продажа”. Мы показываем классы решений и то, как они применяются на практике: обучение, спорт, подготовка, инфраструктура объекта.</p>
+
+    <div class="xtir-expo">
+      <a class="card card--flat xtir-expo__item" href="/products">
+        <div class="card__pad">
+          <div class="xtir-expo__top">
+            <span class="pill">Тренировка</span>
+            <span class="pill">Обратная связь</span>
+          </div>
+          <div class="xtir-expo__title">Электронные мишени</div>
+          <p class="p">Когда важны повторяемость, контроль попаданий, понятная статистика и дисциплина занятий.</p>
+          <div class="xtir-expo__more">Смотреть решения →</div>
+        </div>
+      </a>
+
+      <a class="card card--flat xtir-expo__item" href="/products">
+        <div class="card__pad">
+          <div class="xtir-expo__top">
+            <span class="pill">Динамика</span>
+            <span class="pill">Сценарии</span>
+          </div>
+          <div class="xtir-expo__title">Движущиеся цели</div>
+          <p class="p">Когда нужно моделировать реальную ситуацию: скорость, тайминг, работа с вниманием и реакцией.</p>
+          <div class="xtir-expo__more">Как это устроено →</div>
+        </div>
+      </a>
+
+      <a class="card card--flat xtir-expo__item" href="/technologies">
+        <div class="card__pad">
+          <div class="xtir-expo__top">
+            <span class="pill">Связь</span>
+            <span class="pill">Надёжность</span>
+          </div>
+          <div class="xtir-expo__title">Управление и интеграции</div>
+          <p class="p">Когда на объекте много узлов и важна предсказуемая работа: статусы, телеметрия, журнал событий.</p>
+          <div class="xtir-expo__more">Технологии →</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="xtir-expo__cta">
+      <a class="btn btn--primary" href="/contact">Обсудить проект</a>
+      <a class="btn btn--ghost" href="/gallery">Задать вопрос</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .xtir-expo{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: var(--xtir-s4);
+  }
+  @media (max-width: 980px){
+    .xtir-expo{ grid-template-columns: 1fr; }
+  }
+
+  .xtir-expo__item{ text-decoration:none; }
+  .xtir-expo__item:hover{ transform: translateY(-1px); }
+
+  .xtir-expo__top{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 10px; }
+  .xtir-expo__title{ font-weight: 780; margin: 0 0 8px; }
+  .xtir-expo__more{ margin-top: 10px; font-weight: 650; color: var(--xtir-fg); opacity: .92; }
+
+  .xtir-expo__cta{ display:flex; gap:10px; flex-wrap:wrap; margin-top: var(--xtir-s4); }
+</style>
+
+<!-- XTIR_HOME_V1_START -->
+<hr class="hr" />
+
+<section class="section section--tight">
+  <div class="container">
+    <p class="kicker">Почему XTIR</p>
+    <h2 class="h2">Инженерный подход и предсказуемый результат</h2>
+
+    <div class="xtir-grid">
+      <div class="card card--flat"><div class="card__pad">
+        <div class="xtir-title">Проектирование</div>
+        <p class="p">Требования, расчёт, прототипирование, документация. Без догадок.</p>
+      </div></div>
+
+      <div class="card card--flat"><div class="card__pad">
+        <div class="xtir-title">Производство</div>
+        <p class="p">Сборка, контроль, повторяемость. Узлы рассчитаны на эксплуатацию.</p>
+      </div></div>
+
+      <div class="card card--flat"><div class="card__pad">
+        <div class="xtir-title">Интеграции</div>
+        <p class="p">Связь, управление, сценарии. Подстраиваемся под объект и задачи.</p>
+      </div></div>
+
+      <div class="card card--flat"><div class="card__pad">
+        <div class="xtir-title">Поддержка</div>
+        <p class="p">Сопровождение, диагностика, обновления. Коммуникация по делу.</p>
+      </div></div>
+    </div>
+
+    <div class="xtir-actions">
+      <a class="btn btn--primary" href="/contact">Обсудить проект</a>
+      <a class="btn btn--ghost" href="/technologies">Задать вопрос</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .xtir-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: var(--xtir-s4);
+  }
+  @media (max-width: 980px){
+    .xtir-grid{ grid-template-columns: 1fr; }
+  }
+  .xtir-title{ font-weight:750; margin-bottom:8px; }
+  .xtir-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top: var(--xtir-s4); }
+</style>
+<!-- XTIR_HOME_V1_END -->
+
 
   <hr class="hr" />
 
@@ -106,8 +284,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       </div>
 
       <div class="xtir-expo__cta">
-        <a class="btn btn--primary" href="/products/">Полный каталог</a>
-        <a class="btn btn--ghost" href="/gallery/">Посмотреть галерею</a>
+        <a class="btn btn--primary" href="/products/">Обсудить проект</a>
+        <a class="btn btn--ghost" href="/gallery/">Задать вопрос</a>
       </div>
     </div>
   </section>
@@ -144,8 +322,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       </div>
 
       <div class="xtir-actions">
-        <a class="btn btn--primary" href="/contact/">Обсудить задачу</a>
-        <a class="btn btn--ghost" href="/about/">О компании</a>
+        <a class="btn btn--primary" href="/contact/">Обсудить проект</a>
+        <a class="btn btn--ghost" href="/about/">Задать вопрос</a>
       </div>
     </div>
   </section>
@@ -163,8 +341,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           Если у вас есть задача — расскажите, найдём решение вместе.
         </p>
         <div class="xtir-actions" style="margin-top: var(--xtir-s4)">
-          <a class="btn btn--primary" href="/partners/">Стать партнёром</a>
-          <a class="btn btn--ghost" href="/contact/">Написать нам</a>
+          <a class="btn btn--primary" href="/partners/">Обсудить проект</a>
+          <a class="btn btn--ghost" href="/contact/">Задать вопрос</a>
         </div>
       </div>
       <div class="xtir-partner-stats">
@@ -203,9 +381,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           <span class="xtir-contact-label">Email</span>
           <a href="mailto:info@xtir.ru" class="xtir-contact-val">info@xtir.ru</a>
         </div>
-        <a class="btn btn--primary" href="/contact/" style="margin-top: var(--xtir-s3)">
-          Оставить заявку
-        </a>
+        <a class="btn btn--primary" href="/contact/" style="margin-top: var(--xtir-s3)">Обсудить проект</a>
       </div>
     </div>
   </section>
@@ -279,3 +455,63 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   .xtir-contact-val { font-weight: 600; text-decoration: none; color: var(--xtir-fg); }
   .xtir-contact-val:hover { opacity: .75; }
 </style>
+
+<!-- XTIR_SHOWCASE_V1 -->
+
+<section class="section">
+  <div class="container">
+    <p class="kicker">Продукты</p>
+    <h2 class="h2">Витрина решений</h2>
+    <p class="p">Три популярных сценария. Полный каталог по ссылке ниже.</p>
+
+    <div class="xtir-showcase">
+      <a class="card card--flat xtir-cardlink" href="/products/elektronnaya-mishen-puma-100/">
+        <div class="card__pad">
+          <div class="badge">Электронные мишени</div>
+          <div class="xtir-title">PUMA-100</div>
+          <p class="p">Электронная мишень для тренировок и контроля попаданий.</p>
+          <div class="xtir-more">Открыть →</div>
+        </div>
+      </a>
+
+      <a class="card card--flat xtir-cardlink" href="/products/beguschaya-mishen-puma-45/">
+        <div class="card__pad">
+          <div class="badge">Движущиеся цели</div>
+          <div class="xtir-title">PUMA-45</div>
+          <p class="p">Бегущая мишень. Реалистичный сценарий, повторяемость, ресурс.</p>
+          <div class="xtir-more">Открыть →</div>
+        </div>
+      </a>
+
+      <a class="card card--flat xtir-cardlink" href="/products/sistema-upravleniya-poligonom-pak/">
+        <div class="card__pad">
+          <div class="badge">Управление</div>
+          <div class="xtir-title">ПАК</div>
+          <p class="p">Система управления полигоном: сценарии, статус, телеметрия.</p>
+          <div class="xtir-more">Открыть →</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="xtir-actions">
+      <a class="btn btn--primary" href="/products">Обсудить проект</a>
+      <a class="btn btn--ghost" href="/contact">Задать вопрос</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .xtir-showcase{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: var(--xtir-s4);
+  }
+  @media (max-width: 980px){
+    .xtir-showcase{ grid-template-columns: 1fr; }
+  }
+  .xtir-cardlink{ text-decoration:none; }
+  .xtir-cardlink:hover{ transform: translateY(-1px); }
+  .xtir-more{ margin-top: 10px; font-weight: 650; }
+</style>
+

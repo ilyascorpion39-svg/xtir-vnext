@@ -38,9 +38,10 @@ export const SITE: SiteConfig = {
   youtubeChannelUrl: "https://youtube.com/@XTIRofficial",
   rutubeChannelUrl: "https://rutube.ru/channel/61475514/",
 
-  orderCtaText: "Заказать",
-  orderCtaHref: "/contact",
+  orderCtaText: "Обсудить проект",
+  orderCtaHref: "/contact/",
 
   partnersHubUrl: "/partners",
   galleryUrl: "/gallery",
 };
+

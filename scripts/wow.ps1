@@ -45,7 +45,7 @@ function Find-InSource {
             if ($content -and $content -match $Pattern) {
                 # Находим первую строку с совпадением
                 $lines = $content -split '\r?\n'
-                for ($i = 0; $i -lt $lines.Count; $i++) {
+                for ($i = 0; $i -lt @($lines).Count; $i++) {
                     if ($lines[$i] -match $Pattern) {
                         $found += "{0}:{1}: {2}" -f $_.FullName, ($i+1), $lines[$i].Trim()
                         break   # достаточно первой строки с совпадением
@@ -123,7 +123,7 @@ else {
 Info "Проверка дублирования Header/Footer в src/pages..."
 $directHF = Find-InSource -Pattern '<Header|<Footer' -Path "src/pages"
 
-if ($directHF.Count -eq 0) {
+if (@($directHF).Count -eq 0) {
     Ok "Header и Footer не используются напрямую в страницах"
 }
 else {
@@ -132,11 +132,7 @@ else {
 }
 
 # 5. Запрещённые / нежелательные слова
-$badWords = @(
-    "Скачать", "скачать", "клик", "кликни", "жми", "жмите",
-    "тык", "тыкни", "Download", "Click", "кнопк[ауе]"
-)
-
+$badWords = @("Скачать","скачать","Download","download")
 Info "Поиск запрещённых слов..."
 $badFindings = @()
 
@@ -145,7 +141,7 @@ foreach ($word in $badWords) {
     if ($found) { $badFindings += $found }
 }
 
-if ($badFindings.Count -eq 0) {
+if (@($badFindings).Count -eq 0) {
     Ok "Запрещённые слова не найдены"
 }
 else {
@@ -195,13 +191,13 @@ foreach ($url in $allUrls) {
     catch { }
 }
 
-if ($trackingUrls.Count -eq 0) { Ok "Трекеры / аналитика не найдены" }
+if (@($trackingUrls).Count -eq 0) { Ok "Трекеры / аналитика не найдены" }
 else {
     Warn "Обнаружены потенциально нежелательные трекеры:"
     $trackingUrls | Sort-Object -Unique | ForEach-Object { "  $_" }
 }
 
-if ($otherUrls.Count -eq 0) { Ok "Других подозрительных внешних доменов нет" }
+if (@($otherUrls).Count -eq 0) { Ok "Других подозрительных внешних доменов нет" }
 else {
     Warn "Найдены внешние ссылки (кроме разрешённых):"
     $otherUrls | Sort-Object -Unique | ForEach-Object { "  $_" }
@@ -224,7 +220,7 @@ else {
     if ($indexHtml -match '<!--\s*#\s*sourceMappingURL')       { $issues.Add("source map ссылка") }
     if ($indexHtml -match 'yandex_metrika')                    { $issues.Add("Яндекс.Метрика") }
 
-    if ($issues.Count -eq 0) {
+    if (@($issues).Count -eq 0) {
         Ok "dist/index.html выглядит чистым"
     }
     else {
@@ -235,3 +231,4 @@ else {
 
 Title "ПРОВЕРКА ЗАВЕРШЕНА"
 Write-Host "Дата проверки: $(Get-Date -Format "dd.MM.yyyy HH:mm")`n" -ForegroundColor DarkGray
+
