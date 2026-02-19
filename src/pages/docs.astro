@@ -310,7 +310,7 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
 
 <!-- Модалка быстрого запроса -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
-  <div class="modal" onclick="event.stopPropagation()">
+  <div class="modal" data-stop-propagation>
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-icon">📄</div>
     <h3 class="modal-title">Запрос документа</h3>
@@ -550,3 +550,19 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
+
+
+
+<script is:inline>
+  // XTIR_STOP_PROPAGATION
+  // Останавливаем всплытие клика внутри модалки, чтобы не закрывать её по клику на контент.
+  (() => {
+    const init = () => {
+      document.querySelectorAll('[data-stop-propagation]').forEach((el) => {
+        el.addEventListener('click', (ev) => ev.stopPropagation());
+      });
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+    else init();
+  })();
+</script>
