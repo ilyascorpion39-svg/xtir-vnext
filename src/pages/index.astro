@@ -809,7 +809,316 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     border-color:rgba(110,231,255,.5);
   }
 
+
+  /* XTIR_HEADER_POLISH */
+
+  header{
+    backdrop-filter: blur(10px);
+    background: linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.35));
+    border-bottom: 1px solid rgba(110,231,255,.15);
+  }
+
+  header a{
+    transition: color .2s ease, text-shadow .2s ease;
+  }
+
+  header a:hover{
+    color: #9ddcff;
+    text-shadow: 0 0 12px rgba(110,231,255,.6);
+  }
+
+
+  /* XTIR_BADGE_POLISH */
+
+  .hero__badge{
+    background: rgba(110,231,255,.08);
+    border: 1px solid rgba(110,231,255,.25);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 24px rgba(110,231,255,.15);
+    letter-spacing: .08em;
+  }
+
+  .hero__bdot{
+    box-shadow: 0 0 10px rgba(110,231,255,.9);
+  }
+
+
+  /* XTIR_STATS_PANEL */
+
+  .hero__stats{
+    backdrop-filter: blur(14px);
+    background: linear-gradient(180deg, rgba(20,25,35,.85), rgba(10,12,16,.95));
+    border: 1px solid rgba(110,231,255,.18);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.08),
+      0 12px 50px rgba(0,0,0,.6);
+  }
+
+  .hstat__n{
+    color: #9ddcff;
+  }
+
+
+  /* XTIR_CINEMATIC_FLOW */
+
+  /* Мягкое затухание снизу hero */
+  .hero::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:-1px;
+    height:180px;
+    background:linear-gradient(to bottom,
+      rgba(11,12,15,0) 0%,
+      rgba(11,12,15,.55) 45%,
+      rgba(11,12,15,1) 100%);
+    pointer-events:none;
+    z-index:5;
+  }
+
+  /* Подтягиваем следующую секцию ближе */
+  .hero + section{
+    margin-top:-80px;
+    position:relative;
+    z-index:20;
+  }
+
+  /* Немного глубины при скролле */
+  html{
+    scroll-behavior:smooth;
+  }
+
+
+  /* XTIR_DEPTH_CORRIDOR */
+
+  /* Затемнение краёв для глубины */
+  .hero{
+    box-shadow:
+      inset 0 0 220px rgba(0,0,0,.9),
+      inset 0 -120px 160px rgba(0,0,0,.8);
+  }
+
+  /* Убираем лишний контраст снизу */
+  .hero__stats{
+    margin-bottom: 60px;
+  }
+
+  /* Чуть усиливаем контраст заголовка */
+  .hero__slogan-text{
+    letter-spacing: -0.02em;
+  }
+
+  /* Следующая секция появляется из темноты */
+  .hero + section{
+    background: linear-gradient(180deg,
+      rgba(10,12,16,0) 0%,
+      rgba(10,12,16,.85) 50%,
+      rgba(10,12,16,1) 100%);
+  }
+
+
+  /* XTIR_DEPTH_CORRIDOR_TUNE */
+
+  /* Ослабляем затемнение краёв */
+  .hero{
+    box-shadow:
+      inset 0 0 160px rgba(0,0,0,.65),
+      inset 0 -80px 120px rgba(0,0,0,.55) !important;
+  }
+
+  /* Ослабляем “появление из темноты” у следующей секции */
+  .hero + section{
+    background: linear-gradient(180deg,
+      rgba(10,12,16,0) 0%,
+      rgba(10,12,16,.55) 55%,
+      rgba(10,12,16,1) 100%) !important;
+  }
+
+  /* Чуть возвращаем свет под стат-баром */
+  .hero::after{
+    opacity: .70 !important;
+  }
+
+  /* XTIR_DCARDS_WOW */
+
+  /* Контейнер направлений: чуть больше “воздуха” */
+  .sec .sec__hd{ margin-bottom: 28px; }
+
+  /* Сетка карточек: ровнее, стабильнее */
+  .dcards{
+    display:grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    align-items: stretch;
+  }
+  @media (max-width: 980px){
+    .dcards{ grid-template-columns: 1fr; gap: 14px; }
+  }
+
+  /* Карточка как объект: стекло + граница + глубина */
+  .dcard{
+    position: relative;
+    border-radius: calc(var(--xtir-radius) + 6px);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.12);
+    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+    box-shadow: 0 18px 70px rgba(0,0,0,.35);
+    backdrop-filter: blur(12px);
+    transform: translateZ(0);
+    will-change: transform, filter;
+    transition: transform .18s ease, filter .18s ease, border-color .18s ease;
+  }
+
+  /* Внутренняя “подсветка кромки” */
+  .dcard::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    background:
+      radial-gradient(700px 240px at 30% 0%, rgba(110,231,255,.16), transparent 55%),
+      radial-gradient(700px 240px at 80% 10%, rgba(167,139,250,.12), transparent 60%);
+    opacity: .0;
+    transition: opacity .18s ease;
+    pointer-events:none;
+    z-index: 2;
+  }
+
+  /* Блик-скан */
+  .dcard::after{
+    content:"";
+    position:absolute;
+    inset:-60% -40%;
+    background: linear-gradient(115deg, transparent 40%, rgba(110,231,255,.10) 50%, transparent 60%);
+    opacity: 0;
+    transform: translateX(-18%) rotate(-8deg);
+    transition: opacity .18s ease, transform .22s ease;
+    pointer-events:none;
+    z-index: 3;
+  }
+
+  /* Hover: лёгкий tilt */
+  .dcard:hover{
+    transform: translateY(-3px) perspective(900px) rotateX(1.2deg) rotateY(-1.2deg);
+    filter: brightness(1.03);
+    border-color: rgba(110,231,255,.26);
+  }
+  .dcard:hover::before{ opacity: 1; }
+  .dcard:hover::after{ opacity: .8; transform: translateX(10%) rotate(-8deg); }
+
+  /* Изображение: мягкий зум и контраст */
+  .dcard__img{
+    position: relative;
+    height: 240px;
+    overflow:hidden;
+    z-index: 1;
+  }
+  @media (max-width: 980px){
+    .dcard__img{ height: 210px; }
+  }
+
+  .dcard__img img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    filter: saturate(.95) contrast(1.05) brightness(.92);
+    transition: transform .35s ease, filter .35s ease;
+  }
+  .dcard:hover .dcard__img img{
+    transform: scale(1.06);
+    filter: saturate(.98) contrast(1.08) brightness(.96);
+  }
+
+  /* Оверлей картинки: читаемость и “премиум” */
+  .dcard__imgover{
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(700px 240px at 50% 10%, rgba(110,231,255,.14), transparent 60%),
+      linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.62));
+    opacity: 1;
+  }
+
+  /* Номер: как маркировка детали */
+  .dcard__num{
+    position:absolute;
+    top: 14px;
+    left: 14px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    font-size: 12px;
+    color: rgba(255,255,255,.78);
+    background: rgba(0,0,0,.28);
+    border: 1px solid rgba(255,255,255,.14);
+    backdrop-filter: blur(8px);
+  }
+
+  /* Тело карточки */
+  .dcard__body{
+    position: relative;
+    z-index: 4;
+    padding: 16px 16px 18px;
+  }
+  .dcard__t{
+    margin: 0 0 8px;
+    font-size: 18px;
+    line-height: 1.2;
+  }
+  .dcard__d{
+    margin: 0 0 12px;
+    color: var(--xtir-muted);
+  }
+
+  /* Теги */
+  .dcard__tags{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .dcard__tags span{
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.04);
+    border-radius: 999px;
+    padding: 6px 10px;
+    color: rgba(255,255,255,.72);
+  }
+
+  /* Ссылка “more” */
+  .dcard__more{
+    color: rgba(157,220,255,.92);
+    letter-spacing: .02em;
+  }
+
+  /* Тёплый вариант: мягко, без “оранжевого шума” */
+  .dcard--warm{
+    border-color: rgba(255,255,255,.12);
+  }
+  .dcard--warm::before{
+    background:
+      radial-gradient(700px 240px at 30% 0%, rgba(255,255,255,.10), transparent 55%),
+      radial-gradient(700px 240px at 80% 10%, rgba(167,139,250,.12), transparent 60%);
+  }
+
+  /* Уважение к reduce motion */
+  @media (prefers-reduced-motion: reduce){
+    .dcard, .dcard::before, .dcard::after, .dcard__img img{
+      transition:none !important;
+      animation:none !important;
+    }
+    .dcard:hover{ transform:none !important; }
+  }
 </style>
+
+
+
+
+
+
+
 
 
 
