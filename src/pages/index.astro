@@ -204,6 +204,43 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 .hero :where(.hero__bg, .hero__grid, .hero__scan)::after{
   animation: none !important;
 }
+/* XTIR_NO_BULLETS_MAX */
+.hero :where(.hero__bg,.hero__grid,.hero__scan,.hero__fx,.hero__decor,.hero__effects,.hero__backdrop,.bg,.grid,.scan,.fx,.decor,.effects,.backdrop){
+  animation: none !important;
+  transition: none !important;
+  filter: none !important;
+}
+.hero :where(.hero__bg,.hero__grid,.hero__scan,.hero__fx,.hero__decor,.hero__effects,.hero__backdrop,.bg,.grid,.scan,.fx,.decor,.effects,.backdrop) *,
+.hero :where(.hero__bg,.hero__grid,.hero__scan,.hero__fx,.hero__decor,.hero__effects,.hero__backdrop,.bg,.grid,.scan,.fx,.decor,.effects,.backdrop)::before,
+.hero :where(.hero__bg,.hero__grid,.hero__scan,.hero__fx,.hero__decor,.hero__effects,.hero__backdrop,.bg,.grid,.scan,.fx,.decor,.effects,.backdrop)::after{
+  animation: none !important;
+  transition: none !important;
+  animation-play-state: paused !important;
+}
+/* Р•СЃР»Рё вЂњРїСѓР»РёвЂќ СЃРґРµР»Р°РЅС‹ РєР°Рє С‚РѕРЅРєРёРµ Р°Р±СЃРѕР»СЋС‚РЅС‹Рµ Р»РёРЅРёРё */
+.hero :where(span, i, b, em, strong, div)[class]{
+  /* С‚РѕР»СЊРєРѕ РґР»СЏ СЏРІРЅРѕ РґРµРєРѕСЂР°С‚РёРІРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ РїРѕ РёРјРµРЅР°Рј */
+}
+.hero [class*="bullet" i],
+.hero [class*="tracer" i],
+.hero [class*="streak" i],
+.hero [class*="shot" i],
+.hero [class*="beam" i],
+.hero [class*="laser" i],
+.hero [class*="ray" i],
+.hero [class*="sweep" i],
+.hero [class*="scan" i],
+.hero [class*="line" i]{
+  display: none !important;
+  opacity: 0 !important;
+  animation: none !important;
+  transition: none !important;
+}
+/* Р§Р°СЃС‚Рѕ вЂњРїРѕР»РѕСЃРєРёвЂќ Р¶РёРІСѓС‚ РІ РїСЃРµРІРґРѕСЌР»РµРјРµРЅС‚Р°С… hero */
+.hero::before, .hero::after{
+  animation: none !important;
+  transition: none !important;
+}
 
 </style>
 
@@ -460,3 +497,27 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   .hp-cl { font-family: 'Courier New', monospace !important; font-size: .62rem; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,0.4); }
   .hp-cv { font-size: 1.08rem !important; font-weight: 700 !important; color: #fff !important; font-family: inherit !important; }
 </style>
+
+<!-- XTIR_NO_BULLETS_MAX_JS -->
+<script is:inline>
+(() => {
+  const killRe = /(bullet|tracer|streak|shot|beam|laser|ray|sweep|scan|line)/i;
+  const root = document.querySelector('.hero') || document;
+  const sweep = () => {
+    root.querySelectorAll('[class]').forEach(el => {
+      const cls = (el.className && el.className.toString()) || '';
+      if (killRe.test(cls)) el.remove();
+    });
+    root.querySelectorAll('[style]').forEach(el => {
+      const st = el.getAttribute('style') || '';
+      if (/animation/i.test(st) && /(bullet|tracer|streak|shot|beam|laser|ray|sweep|scan|line)/i.test(st)) el.remove();
+    });
+  };
+  sweep();
+  // РЅР° СЃР»СѓС‡Р°Р№, РµСЃР»Рё СЌС„С„РµРєС‚С‹ СЃРѕР·РґР°СЋС‚СЃСЏ РїРѕСЃР»Рµ Р·Р°РіСЂСѓР·РєРё
+  const mo = new MutationObserver(() => sweep());
+  mo.observe(root, { subtree:true, childList:true });
+  setTimeout(() => mo.disconnect(), 8000);
+})();
+</script>
+
