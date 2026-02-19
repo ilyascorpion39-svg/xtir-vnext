@@ -9,11 +9,6 @@
     <span class="tc1"></span><span class="tc2"></span><span class="tc3"></span>
   </div>
 
-  <div class="hp-c hp-c-tl"></div>
-  <div class="hp-c hp-c-tr"></div>
-  <div class="hp-c hp-c-bl"></div>
-  <div class="hp-c hp-c-br"></div>
-
   <div class="hp-body">
     <div class="hp-center">
       <div class="hp-badge">
@@ -86,8 +81,8 @@
   .hp-grid {
     position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(0,179,255,0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,179,255,0.05) 1px, transparent 1px);
+      linear-gradient(rgba(0,179,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,179,255,0.025) 1px, transparent 1px);
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
   }
@@ -97,12 +92,6 @@
     opacity: 0.65;
     backdrop-filter: brightness(0.8);
   }
-
-  .hp-c { position: absolute; width: 26px; height: 26px; border-color: rgba(0,179,255,0.6); border-style: solid; z-index: 5; }
-  .hp-c-tl { top: 10px; left: 10px; border-width: 2px 0 0 2px; border-radius: 3px 0 0 0; }
-  .hp-c-tr { top: 10px; right: 10px; border-width: 2px 2px 0 0; border-radius: 0 3px 0 0; }
-  .hp-c-bl { bottom: 58px; left: 10px; border-width: 0 0 2px 2px; border-radius: 0 0 0 3px; }
-  .hp-c-br { bottom: 58px; right: 10px; border-width: 0 2px 2px 0; border-radius: 0 0 3px 0; }
 
   .hp-body {
     flex: 1; display: flex; align-items: center; justify-content: center;
@@ -134,7 +123,7 @@
     font-size: clamp(19px, 2.6vw, 32px);
     font-weight: 700; color: #ffffff !important;
     text-align: left; line-height: 1.25;
-    text-shadow: 0 2px 16px rgba(0,0,0,0.9);
+    text-shadow: 0 4px 24px rgba(0,0,0,0.9);
     font-family: inherit !important;
     letter-spacing: -0.01em !important;
   }
@@ -154,7 +143,7 @@
     text-decoration: none !important; transition: all .2s;
     font-family: inherit !important;
   }
-  .hp-btn1 { background: #00b3ff; color: #000 !important; }
+  .hp-btn1 { background: #00b3ff; color: #000 !important; box-shadow: 0 12px 32px rgba(0,179,255,0.35); }
   .hp-btn1:hover { background: #00c8ff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,179,255,0.35); }
   .hp-btn2 { color: rgba(255,255,255,0.88) !important; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.07); backdrop-filter: blur(8px); }
   .hp-btn2:hover { background: rgba(255,255,255,0.13); }
