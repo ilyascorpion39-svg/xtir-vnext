@@ -676,27 +676,4 @@ body, main, .page, .layout{
 
 </style>
 
-<!-- XTIR_NO_BULLETS_MAX_JS -->
-<script is:inline>
-(() => {
-  const killRe = /(bullet|tracer|streak|shot|beam|laser|ray|sweep|scan|line)/i;
-  const root = document.querySelector('.hero') || document;
-  const sweep = () => {
-    root.querySelectorAll('[class]').forEach(el => {
-      const cls = (el.className && el.className.toString()) || '';
-      if (killRe.test(cls)) el.remove();
-    });
-    root.querySelectorAll('[style]').forEach(el => {
-      const st = el.getAttribute('style') || '';
-      if (/animation/i.test(st) && /(bullet|tracer|streak|shot|beam|laser|ray|sweep|scan|line)/i.test(st)) el.remove();
-    });
-  };
-  sweep();
-  // РЅР° СЃР»СѓС‡Р°Р№, РµСЃР»Рё СЌС„С„РµРєС‚С‹ СЃРѕР·РґР°СЋС‚СЃСЏ РїРѕСЃР»Рµ Р·Р°РіСЂСѓР·РєРё
-  const mo = new MutationObserver(() => sweep());
-  mo.observe(root, { subtree:true, childList:true });
-  setTimeout(() => mo.disconnect(), 8000);
-})();
-</script>
-
 
