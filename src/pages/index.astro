@@ -24,7 +24,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     <span class="tc-red"></span>
   </div>
 
-  <div class="hero__wrap">
+  <div class="hero__wrap xtir-container">
     <div class="hero__center">
 
       <!-- Бейдж -->
@@ -45,19 +45,19 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           <span class="sb-b"></span>
           <span class="sb-r"></span>
         </div>
-        <h1 class="hero__slogan-text">
+        <h1 class="hero__slogan-text" xtir-h1>
           Инженерные решения для стрелковых тренировок
         </h1>
       </div>
 
-      <p class="hero__sub">
+      <p class="hero__sub" xtir-lead>
         Проектирование и производство систем под реальные условия эксплуатации.
         Точность. Надёжность. Ресурс.
       </p>
 
       <div class="hero__actions">
-        <a href="/contact/" class="btn-primary">Обсудить проект</a>
-        <a href="/products/" class="btn-ghost">Смотреть каталог →</a>
+        <a href="/contact/" class="btn-primary xtir-btn">Обсудить проект</a>
+        <a href="/products/" class="btn-ghost xtir-btn">Смотреть каталог →</a>
       </div>
     </div>
   </div>
@@ -82,7 +82,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 <!-- ═══ НАПРАВЛЕНИЯ с фото ═══ -->
 <section class="sec sec--dark">
-  <div class="wrap">
+  <div class="wrap xtir-container">
     <div class="sec__hd">
       <div class="kicker">Направления</div>
       <h2 class="h2">Оборудование под любую задачу</h2>
@@ -162,8 +162,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       <h2 class="h2">Готовы начать?</h2>
       <p class="sub">Опишите задачу — ответим быстро и по делу.</p>
       <div class="cta__btns">
-        <a href="/contact/" class="btn-primary">Обсудить проект</a>
-        <a href="/products/" class="btn-ghost">Каталог →</a>
+        <a href="/contact/" class="btn-primary xtir-btn">Обсудить проект</a>
+        <a href="/products/" class="btn-ghost xtir-btn">Каталог →</a>
       </div>
     </div>
     <div class="cta__r">
@@ -421,3 +421,4 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   .cta__lbl { font-family: 'Courier New', monospace; font-size: .63rem; text-transform: uppercase; letter-spacing: .12em; color: var(--mu); }
   .cta__val { font-size: 1.1rem; font-weight: 700; color: #fff; }
 </style>
+

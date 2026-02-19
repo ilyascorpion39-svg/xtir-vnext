@@ -44,6 +44,30 @@ const faviconUrl = base + '/favicon.svg';
   
 <style is:global>
   /* XTIR_WOW_GLOBALS */
+  /* XTIR_WOW_COMPAT */
+  .wrap{ width: min(var(--xtir-max), calc(100% - 48px)); margin-inline:auto; }
+  .btn-primary, .btn-ghost{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.55rem;
+    padding:.9rem 1.1rem;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.14);
+    color:var(--xtir-text);
+    text-decoration:none;
+    box-shadow:0 10px 28px rgba(0,0,0,.25);
+    transition:transform .12s ease, filter .12s ease;
+    user-select:none;
+  }
+  .btn-primary{
+    background: linear-gradient(135deg, rgba(110,231,255,.20), rgba(167,139,250,.14));
+  }
+  .btn-ghost{
+    background: rgba(255,255,255,.04);
+  }
+  .btn-primary:hover, .btn-ghost:hover{ transform: translateY(-1px); filter: brightness(1.06); }
+  .btn-primary:active, .btn-ghost:active{ transform: translateY(0px); filter: brightness(0.98); }
   :root{
     --xtir-bg: #0b0c0f;
     --xtir-surface: rgba(255,255,255,.04);
@@ -143,5 +167,6 @@ const faviconUrl = base + '/favicon.svg';
     border-radius: 0 !important;
   }
 </style>
+
 
 
