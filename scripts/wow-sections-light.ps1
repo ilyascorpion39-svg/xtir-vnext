@@ -9,53 +9,17 @@ $nl = if ($orig -match "`r`n") { "`r`n" } else { "`n" }
 
 $c = $orig
 
-# Fix stray boolean attributes (from earlier regex mistakes)
-$c = $c -replace '\s+xtir-h1(?=\s|>)', ''
-$c = $c -replace '\s+xtir-lead(?=\s|>)', ''
-
-# Ensure classes include xtir-h1 / xtir-lead
-$c = [regex]::Replace(
-  $c,
-  '(<h1\b[^>]*\bclass=")([^"]*\bhero__slogan-text\b[^"]*)(")',
-  { param($m)
-    $pre = $m.Groups[1].Value
-    $cls = $m.Groups[2].Value
-    $post = $m.Groups[3].Value
-    if ($cls -notmatch '\bxtir-h1\b') { $cls = ($cls + ' xtir-h1').Trim() }
-    return "$pre$cls$post"
-  },
-  [System.Text.RegularExpressions.RegexOptions]::IgnoreCase
-)
-
-$c = [regex]::Replace(
-  $c,
-  '(<p\b[^>]*\bclass=")([^"]*\bhero__sub\b[^"]*)(")',
-  { param($m)
-    $pre = $m.Groups[1].Value
-    $cls = $m.Groups[2].Value
-    $post = $m.Groups[3].Value
-    if ($cls -notmatch '\bxtir-lead\b') { $cls = ($cls + ' xtir-lead').Trim() }
-    return "$pre$cls$post"
-  },
-  [System.Text.RegularExpressions.RegexOptions]::IgnoreCase
-)
-
-# Slightly brighten base palette on the index page (only if variables exist)
-$c = $c -replace '(--bg:\s*)#[0-9a-fA-F]{3,8}', '${1}#111822'
-$c = $c -replace '(--bg2:\s*)#[0-9a-fA-F]{3,8}', '${1}#0e131b'
-$c = $c -replace '(--sf:\s*)#[0-9a-fA-F]{3,8}', '${1}#171f2a'
-
+# Ensure marker block content (idempotent)
 $marker = "XTIR_SECTIONS_LIGHT"
 $block = @"
   /* $marker */
   :root{
-    /* brighter, but still "night-ops" */
+    /* slightly brighter overall page feel (still dark) */
     --xtir-sec-glowA: rgba(120,170,255,.12);
     --xtir-sec-glowB: rgba(255,255,255,.055);
     --xtir-sec-glowC: rgba(190,120,255,.07);
   }
 
-  /* Sections: less "black hole", more readable depth */
   .sec--dark,
   .sec--darker,
   .sec--cta{
@@ -71,7 +35,6 @@ $block = @"
   .sec--darker{ background-color: rgba(12,14,18,.60); }
   .sec--cta{ background-color: rgba(14,18,24,.48); }
 
-  /* Soft top haze (prevents harsh seam under hero) */
   .sec--dark::before,
   .sec--darker::before,
   .sec--cta::before{
@@ -87,11 +50,9 @@ $block = @"
     z-index: -1;
   }
 
-  /* Lift secondary text a bit */
   .sec .sub{ color: rgba(255,255,255,.72); }
   .sec .kicker{ color: rgba(170,200,255,.78); }
 
-  /* Stats bar: bump contrast so it doesn't "sink" */
   .hero__stats{
     border-color: rgba(255,255,255,.12);
     background: rgba(10,14,18,.55);
@@ -100,7 +61,6 @@ $block = @"
   .hero__stats .hstat__l{ color: rgba(255,255,255,.62); }
 "@
 
-# Normalize newlines to match file
 $block = $block -replace "`r`n", $nl
 
 # Replace existing block or insert before </style>
