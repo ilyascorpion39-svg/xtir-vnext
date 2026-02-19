@@ -7,87 +7,80 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   description="XTIR — разработка и производство электронно-механического оборудования для стрельбы. Электронные мишени, подъёмники, движущиеся цели."
 >
 
+<!-- ═══ ГЕРОЙ ═══ -->
 <section class="hero">
+  <!-- Фон: фото тира -->
   <div class="hero__bg">
+    <img src="/images/hero-bg.png" alt="" class="hero__bgimg"/>
+    <div class="hero__bgover"></div>
     <div class="hero__grid"></div>
-    <div class="hero__glow-l"></div>
-    <div class="hero__glow-r"></div>
     <div class="hero__scan"></div>
   </div>
 
-  <div class="hero__body">
-    <div class="hero__left">
-      <div class="hero__kicker">
-        <span class="hero__dot"></span>
+  <!-- Триколор сверху -->
+  <div class="tricolor">
+    <span class="tc-white"></span>
+    <span class="tc-blue"></span>
+    <span class="tc-red"></span>
+  </div>
+
+  <div class="hero__wrap">
+    <div class="hero__center">
+
+      <!-- Бейдж -->
+      <div class="hero__badge">
+        <span class="hero__bdot"></span>
         XTIR · Электронно-механические решения для стрельбы
       </div>
-      <h1 class="hero__title">
-        Точная<br/>техника.<br/>
-        <span class="hero__outline">Жёсткая<br/>надёжность.</span>
-      </h1>
-      <p class="hero__desc">
-        Разработка и производство оборудования: управление, связь, механика, интеграции.
-        Без лишних слов — только функционал и ресурс.
+
+      <!-- Логотип / заголовок -->
+      <div class="hero__logo-wrap">
+        <img src="/images/logo.png" alt="XTIR" class="hero__logo"/>
+      </div>
+
+      <!-- Слоган с триколорной полосой -->
+      <div class="hero__slogan">
+        <div class="hero__slogan-bar">
+          <span class="sb-w"></span>
+          <span class="sb-b"></span>
+          <span class="sb-r"></span>
+        </div>
+        <h1 class="hero__slogan-text">
+          Инженерные решения для стрелковых тренировок
+        </h1>
+      </div>
+
+      <p class="hero__sub">
+        Проектирование и производство систем под реальные условия эксплуатации.
+        Точность. Надёжность. Ресурс.
       </p>
+
       <div class="hero__actions">
         <a href="/contact/" class="btn-primary">Обсудить проект</a>
         <a href="/products/" class="btn-ghost">Смотреть каталог →</a>
       </div>
-      <div class="hero__pills">
-        <span>Производство</span>
-        <span>Инженерия</span>
-        <span>Интеграции</span>
-        <span>Сервис</span>
-      </div>
-    </div>
-
-    <div class="hero__right">
-      <div class="hero__card">
-        <div class="corner tl"></div><div class="corner tr"></div>
-        <div class="corner bl"></div><div class="corner br"></div>
-        <div class="hero__feature">
-          <span class="hero__ficon">📡</span>
-          <div>
-            <div class="hero__ftitle">Контроль и телеметрия</div>
-            <div class="hero__ftext">Управление сценариями, статус, диагностика, журнал событий.</div>
-          </div>
-        </div>
-        <div class="hero__sep"></div>
-        <div class="hero__feature">
-          <span class="hero__ficon">📶</span>
-          <div>
-            <div class="hero__ftitle">Связь и устойчивость</div>
-            <div class="hero__ftext">Wi-Fi / радиоканал, устойчивость к помехам, предсказуемая работа.</div>
-          </div>
-        </div>
-        <div class="hero__sep"></div>
-        <div class="hero__feature">
-          <span class="hero__ficon">⚙️</span>
-          <div>
-            <div class="hero__ftitle">Механика и ресурс</div>
-            <div class="hero__ftext">Конструкции под реальную эксплуатацию: нагрузка, вибрации, повторяемость.</div>
-          </div>
-        </div>
-        <div class="hero__note">
-          <span class="hero__ndot"></span>
-          Нужна конфигурация под объект? Опишем решение и сроки.
-        </div>
-      </div>
     </div>
   </div>
 
-  <div class="hero__statsbar">
-    <div class="hero__stat"><div class="snum">20+</div><div class="slbl">лет в отрасли</div></div>
-    <div class="sdiv"></div>
-    <div class="hero__stat"><div class="snum">30+</div><div class="slbl">позиций в каталоге</div></div>
-    <div class="sdiv"></div>
-    <div class="hero__stat"><div class="snum">РФ</div><div class="slbl">производство</div></div>
-    <div class="sdiv"></div>
-    <div class="hero__stat"><div class="snum">24/7</div><div class="slbl">поддержка</div></div>
+  <!-- Угловые маркеры -->
+  <div class="hc hc-tl"></div>
+  <div class="hc hc-tr"></div>
+  <div class="hc hc-bl"></div>
+  <div class="hc hc-br"></div>
+
+  <!-- Стат бар -->
+  <div class="hero__stats">
+    <div class="hstat"><div class="hstat__n">20+</div><div class="hstat__l">лет в отрасли</div></div>
+    <div class="hsdiv"></div>
+    <div class="hstat"><div class="hstat__n">30+</div><div class="hstat__l">позиций каталога</div></div>
+    <div class="hsdiv"></div>
+    <div class="hstat"><div class="hstat__n">РФ</div><div class="hstat__l">производство</div></div>
+    <div class="hsdiv"></div>
+    <div class="hstat"><div class="hstat__n">24/7</div><div class="hstat__l">поддержка</div></div>
   </div>
 </section>
 
-<!-- НАПРАВЛЕНИЯ -->
+<!-- ═══ НАПРАВЛЕНИЯ с фото ═══ -->
 <section class="sec sec--dark">
   <div class="wrap">
     <div class="sec__hd">
@@ -95,36 +88,55 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       <h2 class="h2">Оборудование под любую задачу</h2>
       <p class="sub">Три класса решений — от электронных мишеней до полигонных комплексов.</p>
     </div>
-    <div class="cards3">
+    <div class="dcards">
+
       <a href="/products/" class="dcard">
-        <div class="dcard__n">01</div>
-        <div class="dcard__ico">🎯</div>
-        <h3 class="dcard__t">Электронные мишени</h3>
-        <p class="dcard__d">Повторяемость, контроль попаданий, статистика. Для спорта, силовых структур и тиров.</p>
-        <div class="dcard__tags"><span>Тренировка</span><span>Обратная связь</span></div>
-        <div class="dcard__arr">→</div>
+        <div class="dcard__img">
+          <img src="/products-img/baggi/baggi -1.png" alt="Электронные мишени" loading="lazy"/>
+          <div class="dcard__imgover"></div>
+          <div class="dcard__num">01</div>
+        </div>
+        <div class="dcard__body">
+          <h3 class="dcard__t">Электронные мишени</h3>
+          <p class="dcard__d">Повторяемость, контроль попаданий, статистика. Для спорта, силовых структур и тиров.</p>
+          <div class="dcard__tags"><span>Тренировка</span><span>Обратная связь</span></div>
+          <div class="dcard__more">Смотреть продукты →</div>
+        </div>
       </a>
+
       <a href="/products/" class="dcard dcard--warm">
-        <div class="dcard__n">02</div>
-        <div class="dcard__ico">🏃</div>
-        <h3 class="dcard__t">Движущиеся цели</h3>
-        <p class="dcard__d">Моделирование реальных ситуаций: скорость, тайминг, реакция. Динамические сценарии.</p>
-        <div class="dcard__tags"><span>Динамика</span><span>Сценарии</span></div>
-        <div class="dcard__arr">→</div>
+        <div class="dcard__img">
+          <img src="/products-img/kaban/1.png" alt="Движущиеся цели" loading="lazy"/>
+          <div class="dcard__imgover"></div>
+          <div class="dcard__num">02</div>
+        </div>
+        <div class="dcard__body">
+          <h3 class="dcard__t">Движущиеся цели</h3>
+          <p class="dcard__d">Моделирование реальных ситуаций: скорость, тайминг, реакция. Динамические сценарии.</p>
+          <div class="dcard__tags"><span>Динамика</span><span>Сценарии</span></div>
+          <div class="dcard__more">Как это устроено →</div>
+        </div>
       </a>
+
       <a href="/products/" class="dcard">
-        <div class="dcard__n">03</div>
-        <div class="dcard__ico">🔗</div>
-        <h3 class="dcard__t">Управление и интеграции</h3>
-        <p class="dcard__d">Много узлов на объекте — предсказуемая работа: статусы, телеметрия, журнал.</p>
-        <div class="dcard__tags"><span>Связь</span><span>Надёжность</span></div>
-        <div class="dcard__arr">→</div>
+        <div class="dcard__img">
+          <img src="/products-img/pak/1 (1).png" alt="Управление" loading="lazy"/>
+          <div class="dcard__imgover"></div>
+          <div class="dcard__num">03</div>
+        </div>
+        <div class="dcard__body">
+          <h3 class="dcard__t">Управление и интеграции</h3>
+          <p class="dcard__d">Много узлов на объекте — предсказуемая работа: статусы, телеметрия, журнал событий.</p>
+          <div class="dcard__tags"><span>Связь</span><span>Надёжность</span></div>
+          <div class="dcard__more">Технологии →</div>
+        </div>
       </a>
+
     </div>
   </div>
 </section>
 
-<!-- ПОЧЕМУ XTIR -->
+<!-- ═══ ПОЧЕМУ XTIR ═══ -->
 <section class="sec sec--darker">
   <div class="wrap why">
     <div class="why__l">
@@ -137,12 +149,12 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       <div class="wcard"><div class="wcard__i">⚙️</div><div class="wcard__t">Проектирование</div><p class="wcard__d">Требования, расчёт, прототипирование, документация. Без догадок.</p></div>
       <div class="wcard"><div class="wcard__i">🏭</div><div class="wcard__t">Производство</div><p class="wcard__d">Сборка, контроль, повторяемость. Узлы рассчитаны на реальную эксплуатацию.</p></div>
       <div class="wcard"><div class="wcard__i">🔗</div><div class="wcard__t">Интеграции</div><p class="wcard__d">Связь, управление, сценарии. Подстраиваемся под объект и задачи заказчика.</p></div>
-      <div class="wcard"><div class="wcard__i">🛠</div><div class="wcard__t">Поддержка</div><p class="wcard__d">Сопровождение, диагностика, обновления. Работаем без выходных.</p></div>
+      <div class="wcard"><div class="wcard__i">🛠</div><div class="wcard__t">Поддержка</div><p class="wcard__d">Сопровождение, диагностика, обновления. Без выходных.</p></div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
+<!-- ═══ CTA ═══ -->
 <section class="sec sec--cta">
   <div class="cta__glow"></div>
   <div class="wrap cta">
@@ -181,252 +193,231 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     --tx: rgba(255,255,255,0.88); --mu: rgba(255,255,255,0.45);
   }
 
-  /* ── HERO ── */
-  .hero {
-    position: relative; background: var(--bg2);
-    overflow: hidden; display: flex; flex-direction: column;
-    min-height: 100vh;
+  /* ── ТРИКОЛОР ── */
+  .tricolor {
+    position: absolute; top: 0; left: 0; right: 0;
+    display: flex; height: 4px; z-index: 10;
   }
-  .hero__bg { position: absolute; inset: 0; pointer-events: none; }
+  .tc-white { flex: 1; background: #ffffff; }
+  .tc-blue  { flex: 1; background: #0039a6; }
+  .tc-red   { flex: 1; background: #d52b1e; }
+
+  /* ── ГЕРОЙ ── */
+  .hero {
+    position: relative; min-height: 100vh;
+    display: flex; flex-direction: column;
+    overflow: hidden; background: #060a0e;
+  }
+  .hero__bg { position: absolute; inset: 0; }
+  .hero__bgimg {
+    width: 100%; height: 100%; object-fit: cover;
+    opacity: 0.55; display: block;
+  }
+  .hero__bgover {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(6,10,14,0.5) 0%, rgba(6,10,14,0.2) 40%, rgba(6,10,14,0.75) 80%, rgba(6,10,14,1) 100%),
+      linear-gradient(to right, rgba(6,10,14,0.6) 0%, transparent 50%, rgba(6,10,14,0.3) 100%);
+  }
   .hero__grid {
     position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(0,179,255,0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,179,255,0.045) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse 85% 85% at 50% 40%, black 0%, transparent 100%);
-  }
-  .hero__glow-l {
-    position: absolute; width: 700px; height: 700px;
-    top: -150px; left: -250px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,179,255,0.18), transparent 70%);
-    filter: blur(80px);
-  }
-  .hero__glow-r {
-    position: absolute; width: 500px; height: 500px;
-    top: 50px; right: -180px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,80,180,0.15), transparent 70%);
-    filter: blur(80px);
+      linear-gradient(rgba(0,179,255,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,179,255,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
   }
   .hero__scan {
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 40%, rgba(0,179,255,0.025) 50%, transparent 60%);
-    animation: scan 10s ease-in-out infinite;
+    background: linear-gradient(180deg, transparent 35%, rgba(0,179,255,0.04) 50%, transparent 65%);
+    animation: scan 12s ease-in-out infinite;
   }
-  @keyframes scan { 0%,100%{transform:translateY(-40%)} 50%{transform:translateY(40%)} }
+  @keyframes scan { 0%,100%{transform:translateY(-50%)} 50%{transform:translateY(50%)} }
 
-  .hero__body {
-    flex: 1; max-width: 1200px; margin: 0 auto; width: 100%;
-    padding: 140px 24px 60px;
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 48px; align-items: center;
-    position: relative; z-index: 2;
+  /* Угловые маркеры */
+  .hc {
+    position: absolute; width: 28px; height: 28px;
+    border-color: rgba(0,179,255,0.6); border-style: solid;
+    z-index: 5;
   }
-  @media(max-width:900px){ .hero__body{ grid-template-columns:1fr; padding-top:100px; } }
+  .hc-tl { top: 12px; left: 12px; border-width: 2px 0 0 2px; border-radius: 3px 0 0 0; }
+  .hc-tr { top: 12px; right: 12px; border-width: 2px 2px 0 0; border-radius: 0 3px 0 0; }
+  .hc-bl { bottom: 60px; left: 12px; border-width: 0 0 2px 2px; border-radius: 0 0 0 3px; }
+  .hc-br { bottom: 60px; right: 12px; border-width: 0 2px 2px 0; border-radius: 0 0 3px 0; }
 
-  .hero__kicker {
-    display: flex; align-items: center; gap: 10px;
+  .hero__wrap {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 3; padding: 120px 24px 60px;
+  }
+  .hero__center { text-align: center; max-width: 860px; }
+
+  .hero__badge {
+    display: inline-flex; align-items: center; gap: 8px;
     font-family: 'Courier New', monospace;
     font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
     color: var(--ac); margin-bottom: 28px;
+    background: rgba(0,179,255,0.08);
+    border: 1px solid rgba(0,179,255,0.2);
+    padding: 6px 16px; border-radius: 20px;
   }
-  .hero__dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--ac); box-shadow: 0 0 10px var(--ac);
+  .hero__bdot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--ac); box-shadow: 0 0 8px var(--ac);
     animation: pulse 2s ease-in-out infinite; flex-shrink: 0;
   }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-  .hero__title {
-    font-size: clamp(40px, 5.5vw, 80px);
-    font-weight: 800; line-height: .93; letter-spacing: -.03em;
-    margin: 0 0 24px; color: #fff;
+  .hero__logo-wrap { margin-bottom: 32px; }
+  .hero__logo { height: 100px; width: auto; filter: drop-shadow(0 0 40px rgba(0,179,255,0.4)); }
+
+  /* Слоган с триколорной полосой */
+  .hero__slogan {
+    display: flex; align-items: center; gap: 16px;
+    justify-content: center; margin-bottom: 20px;
   }
-  .hero__outline {
-    color: transparent;
-    -webkit-text-stroke: 2px rgba(255,255,255,0.45);
+  .hero__slogan-bar {
+    display: flex; flex-direction: column;
+    width: 4px; height: 60px; border-radius: 2px; overflow: hidden;
+    flex-shrink: 0;
   }
-  .hero__desc {
-    font-size: 1.05rem; line-height: 1.7; color: var(--mu);
-    max-width: 480px; margin: 0 0 32px;
+  .sb-w { flex: 1; background: #ffffff; }
+  .sb-b { flex: 1; background: #0039a6; }
+  .sb-r { flex: 1; background: #d52b1e; }
+  .hero__slogan-text {
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 700; color: #fff;
+    text-align: left; margin: 0; line-height: 1.2;
   }
-  .hero__actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+
+  .hero__sub {
+    font-size: 1.05rem; color: var(--mu);
+    line-height: 1.7; max-width: 560px;
+    margin: 0 auto 36px;
+  }
+  .hero__actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
   .btn-primary {
     display: inline-flex; align-items: center;
-    padding: 13px 28px; border-radius: 8px;
+    padding: 14px 32px; border-radius: 8px;
     background: var(--ac); color: #000;
     font-size: .95rem; font-weight: 700;
     text-decoration: none; transition: all .2s;
   }
-  .btn-primary:hover { background: #00c8ff; transform: translateY(-1px); }
+  .btn-primary:hover { background: #00c8ff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,179,255,0.3); }
   .btn-ghost {
     display: inline-flex; align-items: center;
-    padding: 13px 28px; border-radius: 8px;
-    color: var(--tx); border: 1px solid var(--bd);
-    background: rgba(255,255,255,0.04);
+    padding: 14px 32px; border-radius: 8px;
+    color: var(--tx); border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.06);
     font-size: .95rem; font-weight: 600;
     text-decoration: none; transition: all .2s;
+    backdrop-filter: blur(8px);
   }
-  .btn-ghost:hover { background: rgba(255,255,255,0.08); }
-
-  .hero__pills { display: flex; gap: 8px; flex-wrap: wrap; }
-  .hero__pills span {
-    font-family: 'Courier New', monospace;
-    font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
-    color: var(--mu); border: 1px solid var(--bd);
-    padding: 5px 12px; border-radius: 20px;
-    background: rgba(255,255,255,0.03);
-  }
-
-  /* Hero карточка */
-  .hero__card {
-    position: relative;
-    background: var(--sf); border: 1px solid var(--bd);
-    border-radius: 16px; padding: 28px;
-  }
-  .corner {
-    position: absolute; width: 18px; height: 18px;
-    border-color: var(--ac); border-style: solid; opacity: .55;
-  }
-  .tl{ top:-1px;left:-1px;border-width:2px 0 0 2px;border-radius:4px 0 0 0; }
-  .tr{ top:-1px;right:-1px;border-width:2px 2px 0 0;border-radius:0 4px 0 0; }
-  .bl{ bottom:-1px;left:-1px;border-width:0 0 2px 2px;border-radius:0 0 0 4px; }
-  .br{ bottom:-1px;right:-1px;border-width:0 2px 2px 0;border-radius:0 0 4px 0; }
-
-  .hero__feature { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; }
-  .hero__ficon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
-  .hero__ftitle { font-weight: 700; font-size: .95rem; color: #fff; margin-bottom: 4px; }
-  .hero__ftext { font-size: .84rem; color: var(--mu); line-height: 1.5; }
-  .hero__sep { height: 1px; background: var(--bd); }
-  .hero__note {
-    display: flex; align-items: center; gap: 10px;
-    margin-top: 16px; padding: 12px 14px;
-    background: rgba(0,179,255,0.06);
-    border: 1px solid rgba(0,179,255,0.15);
-    border-radius: 8px; font-size: .84rem; color: var(--mu);
-  }
-  .hero__ndot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--ac); flex-shrink: 0;
-    box-shadow: 0 0 8px var(--ac);
-    animation: pulse 2s ease-in-out infinite;
-  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.12); }
 
   /* Стат бар */
-  .hero__statsbar {
-    position: relative; z-index: 2;
-    border-top: 1px solid var(--bd);
-    background: rgba(255,255,255,0.02);
+  .hero__stats {
+    position: relative; z-index: 3;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(12px);
     display: flex; align-items: center; justify-content: center;
-    gap: 48px; padding: 24px; flex-wrap: wrap;
+    gap: 48px; padding: 20px 24px; flex-wrap: wrap;
   }
-  .hero__stat { text-align: center; }
-  .snum { font-size: 1.9rem; font-weight: 800; color: var(--ac); line-height: 1; }
-  .slbl {
-    font-family: 'Courier New', monospace;
-    font-size: .65rem; text-transform: uppercase;
-    letter-spacing: .1em; color: var(--mu); margin-top: 4px;
+  .hstat { text-align: center; }
+  .hstat__n { font-size: 1.7rem; font-weight: 800; color: var(--ac); line-height: 1; }
+  .hstat__l {
+    font-family: 'Courier New', monospace; font-size: .63rem;
+    text-transform: uppercase; letter-spacing: .1em; color: var(--mu); margin-top: 3px;
   }
-  .sdiv { width: 1px; height: 40px; background: var(--bd); }
-  @media(max-width:600px){ .sdiv{display:none} }
+  .hsdiv { width: 1px; height: 36px; background: var(--bd); }
+  @media(max-width:600px){ .hsdiv{display:none} }
 
   /* ── ОБЩЕЕ ── */
   .sec { padding: 90px 0; }
   .sec--dark { background: var(--bg); }
   .sec--darker { background: var(--bg2); border-top: 1px solid var(--bd); border-bottom: 1px solid var(--bd); }
-  .sec--cta { background: var(--bg); position: relative; overflow: hidden; padding: 90px 0; }
+  .sec--cta { background: var(--bg); position: relative; overflow: hidden; }
 
   .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
   .kicker {
-    font-family: 'Courier New', monospace;
-    font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+    font-family: 'Courier New', monospace; font-size: .7rem;
+    letter-spacing: .2em; text-transform: uppercase;
     color: var(--ac); opacity: .7; margin-bottom: 10px;
   }
-  .h2 {
-    font-size: clamp(26px, 3.5vw, 46px);
-    font-weight: 800; line-height: 1.05;
-    letter-spacing: -.02em; margin: 0 0 14px; color: #fff;
-  }
+  .h2 { font-size: clamp(26px,3.5vw,46px); font-weight: 800; line-height: 1.05; letter-spacing: -.02em; margin: 0 0 14px; color: #fff; }
   .sub { font-size: 1rem; line-height: 1.7; color: var(--mu); margin: 0; }
-
   .sec__hd { margin-bottom: 44px; }
 
-  /* Карточки направлений */
-  .cards3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-  @media(max-width:900px){ .cards3{ grid-template-columns:1fr; } }
+  /* ── КАРТОЧКИ НАПРАВЛЕНИЙ ── */
+  .dcards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  @media(max-width:900px){ .dcards{ grid-template-columns:1fr; } }
 
   .dcard {
-    position: relative; overflow: hidden;
     background: var(--sf); border: 1px solid var(--bd);
-    border-radius: 16px; padding: 32px;
+    border-radius: 16px; overflow: hidden;
     text-decoration: none; color: var(--tx);
-    display: flex; flex-direction: column; gap: 10px;
+    display: flex; flex-direction: column;
     transition: all .25s;
   }
-  .dcard::before {
-    content:''; position:absolute; inset:0; border-radius:16px; opacity:0;
-    background: radial-gradient(circle at top right, rgba(0,179,255,0.12), transparent 60%);
-    transition: opacity .25s;
-  }
-  .dcard--warm::before { background: radial-gradient(circle at top right, rgba(255,107,53,0.12), transparent 60%); }
-  .dcard:hover { border-color: rgba(0,179,255,0.3); transform: translateY(-4px); }
-  .dcard:hover::before { opacity: 1; }
-  .dcard--warm:hover { border-color: rgba(255,107,53,0.3); }
+  .dcard:hover { border-color: rgba(0,179,255,0.35); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+  .dcard--warm:hover { border-color: rgba(255,107,53,0.35); }
 
-  .dcard__n { font-family:'Courier New',monospace; font-size:.68rem; color:var(--ac); opacity:.6; }
-  .dcard--warm .dcard__n { color: var(--acw); }
-  .dcard__ico { font-size: 2rem; }
-  .dcard__t { font-size: 1.15rem; font-weight: 700; color: #fff; margin: 0; }
-  .dcard__d { font-size: .88rem; color: var(--mu); line-height: 1.6; flex: 1; }
-  .dcard__tags { display:flex; gap:6px; flex-wrap:wrap; }
+  .dcard__img {
+    position: relative; aspect-ratio: 16/10; overflow: hidden;
+    background: #0a0d12;
+  }
+  .dcard__img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .4s ease;
+    opacity: .85;
+  }
+  .dcard:hover .dcard__img img { transform: scale(1.06); opacity: 1; }
+  .dcard__imgover {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(10,13,18,0.85) 100%);
+  }
+  .dcard__num {
+    position: absolute; top: 12px; left: 12px;
+    font-family: 'Courier New', monospace; font-size: .65rem;
+    color: var(--ac); background: rgba(0,0,0,0.6);
+    border: 1px solid rgba(0,179,255,0.3);
+    padding: 3px 9px; border-radius: 2px; letter-spacing: .1em;
+  }
+  .dcard--warm .dcard__num { color: var(--acw); border-color: rgba(255,107,53,0.3); }
+
+  .dcard__body { padding: 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .dcard__t { font-size: 1.1rem; font-weight: 700; color: #fff; margin: 0; }
+  .dcard__d { font-size: .87rem; color: var(--mu); line-height: 1.6; flex: 1; }
+  .dcard__tags { display: flex; gap: 6px; flex-wrap: wrap; }
   .dcard__tags span {
-    font-family:'Courier New',monospace; font-size:.6rem;
-    text-transform:uppercase; letter-spacing:.08em;
-    color:var(--mu); border:1px solid var(--bd);
-    padding:2px 8px; border-radius:2px;
+    font-family: 'Courier New', monospace; font-size: .6rem;
+    text-transform: uppercase; letter-spacing: .08em;
+    color: var(--mu); border: 1px solid var(--bd);
+    padding: 2px 8px; border-radius: 2px;
   }
-  .dcard__arr { font-size:1.2rem; color:var(--ac); opacity:0; transition:opacity .2s; align-self:flex-end; }
-  .dcard:hover .dcard__arr { opacity:1; }
+  .dcard__more { font-size: .85rem; font-weight: 600; color: var(--ac); margin-top: 4px; }
+  .dcard--warm .dcard__more { color: var(--acw); }
 
-  /* Почему XTIR */
-  .why { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+  /* ── ПОЧЕМУ XTIR ── */
+  .why { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
   @media(max-width:900px){ .why{ grid-template-columns:1fr; gap:40px; } }
-  .why__lnk {
-    display:inline-block; margin-top:24px;
-    color:var(--ac); text-decoration:none;
-    font-weight:600; transition:opacity .2s;
-  }
-  .why__lnk:hover { opacity:.7; }
-  .why__r { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-
-  .wcard {
-    background:var(--sf); border:1px solid var(--bd);
-    border-radius:12px; padding:22px;
-    transition:border-color .2s;
-  }
+  .why__lnk { display: inline-block; margin-top: 24px; color: var(--ac); text-decoration: none; font-weight: 600; transition: opacity .2s; }
+  .why__lnk:hover { opacity: .7; }
+  .why__r { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .wcard { background: var(--sf); border: 1px solid var(--bd); border-radius: 12px; padding: 22px; transition: border-color .2s; }
   .wcard:hover { border-color: rgba(0,179,255,0.2); }
-  .wcard__i { font-size:1.4rem; margin-bottom:10px; }
-  .wcard__t { font-size:.92rem; font-weight:700; color:#fff; margin-bottom:7px; }
-  .wcard__d { font-size:.84rem; color:var(--mu); line-height:1.6; }
+  .wcard__i { font-size: 1.4rem; margin-bottom: 10px; }
+  .wcard__t { font-size: .92rem; font-weight: 700; color: #fff; margin-bottom: 7px; }
+  .wcard__d { font-size: .84rem; color: var(--mu); line-height: 1.6; }
 
-  /* CTA */
-  .cta__glow {
-    position:absolute; inset:0; pointer-events:none;
-    background: radial-gradient(ellipse 900px 400px at 50% 100%, rgba(0,179,255,0.07), transparent);
-  }
-  .cta {
-    display:grid; grid-template-columns:1fr 1fr;
-    gap:64px; align-items:center; position:relative;
-  }
+  /* ── CTA ── */
+  .cta__glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 900px 400px at 50% 100%, rgba(0,179,255,0.07), transparent); }
+  .cta { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; }
   @media(max-width:768px){ .cta{ grid-template-columns:1fr; gap:40px; } }
-  .cta__btns { display:flex; gap:12px; flex-wrap:wrap; margin-top:28px; }
-  .cta__r { display:flex; flex-direction:column; gap:20px; }
-  .cta__contact { display:flex; flex-direction:column; gap:3px; text-decoration:none; transition:opacity .2s; }
-  .cta__contact:hover { opacity:.7; }
-  .cta__lbl {
-    font-family:'Courier New',monospace; font-size:.63rem;
-    text-transform:uppercase; letter-spacing:.12em; color:var(--mu);
-  }
-  .cta__val { font-size:1.1rem; font-weight:700; color:#fff; }
+  .cta__btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .cta__r { display: flex; flex-direction: column; gap: 20px; }
+  .cta__contact { display: flex; flex-direction: column; gap: 3px; text-decoration: none; transition: opacity .2s; }
+  .cta__contact:hover { opacity: .7; }
+  .cta__lbl { font-family: 'Courier New', monospace; font-size: .63rem; text-transform: uppercase; letter-spacing: .12em; color: var(--mu); }
+  .cta__val { font-size: 1.1rem; font-weight: 700; color: #fff; }
 </style>
