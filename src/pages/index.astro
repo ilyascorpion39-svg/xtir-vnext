@@ -6,13 +6,13 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   title="XTIR — Точная техника. Жёсткая надёжность."
   description="XTIR — разработка и производство электронно-механического оборудования для стрельбы. Электронные мишени, подъёмники, движущиеся цели."
 >
+<!-- XTIR: сделано в особую неделю, когда в семье ожидали пополнение ❤️ -->
 
 <!-- ═══ ГЕРОЙ ═══ -->
-<section class="hero">
+<section class="hero" data-hero-bg="tech-grid">
   <!-- Фон: фото тира -->
   <div class="hero__bg">
-    <img src="/images/hero-bg.png" alt="" class="hero__bgimg"/>
-    <div class="hero__bgover"></div>
+<div class="hero__bgover"></div>
     <div class="hero__grid"></div>
     <div class="hero__scan"></div>
   </div>
@@ -503,6 +503,269 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     .dcard, .wcard{ transition:none; }
     .dcard:hover, .wcard:hover{ transform:none; }
   }
+
+  /* XTIR_HERO_OVERLAY_FIX */
+
+  .hero__slogan-text{
+    position: relative;
+    z-index: 5;
+  }
+
+  /* Если есть большой дублирующий текст */
+  .hero__slogan-text::before,
+  .hero__slogan-text::after{
+    opacity: .08 !important;
+    filter: blur(2px);
+  }
+
+  /* Если большой текст отдельным элементом */
+  .hero__bg h1,
+  .hero__ghost,
+  .hero__bigtext{
+    opacity: .05 !important;
+    filter: blur(3px);
+    pointer-events: none;
+  }
+
+
+  /* XTIR_HERO_LAYER_FIX */
+
+  .hero{
+    position: relative;
+  }
+
+  .hero__center{
+    position: relative;
+    z-index: 10;
+  }
+
+  .hero__slogan-text{
+    position: relative;
+    z-index: 15;
+  }
+
+  /* Если большой текст существует как отдельный слой */
+  .hero__slogan-text::before,
+  .hero__slogan-text::after,
+  .hero__ghost,
+  .hero__bigtext{
+    position: absolute !important;
+    z-index: 1 !important;
+    opacity: .04 !important;
+    transform: translateY(18px);
+    filter: blur(3px);
+    pointer-events: none;
+  }
+
+
+  /* XTIR_HERO_LOGO_CLEANUP */
+
+  /* 1) На десктопе убираем центральный логотип, чтобы не спорил с заголовком */
+  @media (min-width: 900px){
+    .hero__logo-wrap{ display:none !important; }
+  }
+
+  /* 2) Приглушаем фон-картинку (она с огромным XTIR), чтобы не спорила с текстом */
+  .hero__bgimg{
+    filter: brightness(.82) contrast(1.02) saturate(.9);
+  }
+
+  /* 3) Делаем “фокус” на центре: затемнение именно под заголовком/кнопками */
+  .hero__bgover{
+    background:
+      radial-gradient(900px 320px at 50% 55%, rgba(0,0,0,.72), rgba(0,0,0,.40) 55%, rgba(0,0,0,.10) 85%, transparent 100%),
+      linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.40));
+  }
+
+
+  /* XTIR_HERO_BG_LOGO_MASK */
+
+  /* 1) Сдвигаем кадр, чтобы “малый логотип” уехал из зоны внимания */
+  .hero__bgimg{
+    object-fit: cover;
+    object-position: 50% 35%;
+  }
+
+  /* 2) Локальная маска поверх места, где обычно сидит вшитый логотип */
+  .hero__bg{
+    position: relative;
+  }
+  .hero__bg::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+      radial-gradient(360px 200px at 36% 42%, rgba(0,0,0,.78), rgba(0,0,0,.42) 55%, transparent 75%),
+      radial-gradient(700px 320px at 50% 55%, rgba(0,0,0,.38), transparent 65%);
+    mix-blend-mode: normal;
+  }
+
+  /* XTIR_HERO_FINAL_CLEAN */
+
+  /* 1) Жёстко убираем любые дубли/призраки заголовка */
+  .hero__slogan-text::before,
+  .hero__slogan-text::after{
+    content: none !important;
+    display: none !important;
+  }
+
+  /* Если “большой дубль” сделан отдельным элементом */
+  .hero__ghost,
+  .hero__bigtext,
+  .hero__title-ghost,
+  .hero__shadow-title{
+    display: none !important;
+  }
+
+  /* 2) Убираем призрачные псевдо-слои у шапки/навигации (обычно это ::before/::after с content) */
+  header::before, header::after,
+  nav::before, nav::after,
+  .header::before, .header::after,
+  .nav::before, .nav::after,
+  .menu::before, .menu::after{
+    content: none !important;
+  }
+
+  /* 3) Чуть поднимаем смысловой блок, чтобы сверху не было “пустой ямы” */
+  .hero__wrap{ padding-top: clamp(56px, 7vh, 96px) !important; }
+
+  /* XTIR_HERO_ANTI_MUD */
+
+  /* 1) Жёстко фиксируем порядок слоёв: фон ниже, контент выше */
+  .hero{ position:relative; isolation:isolate; }
+  .hero__bg{ position:absolute; inset:0; z-index:0; }
+  .hero__wrap{ position:relative; z-index:5; }
+  .hero__center{ position:relative; z-index:6; }
+
+  /* 2) Убираем “замыливание” фона: слишком много фильтров = грязь */
+  .hero__bgimg{
+    filter: brightness(.92) contrast(1.06) saturate(.95) !important;
+  }
+
+  /* 3) Ослабляем затемняющие маски, чтобы не “топить” текст */
+  .hero__bgover{
+    background:
+      radial-gradient(900px 360px at 50% 55%, rgba(0,0,0,.58), rgba(0,0,0,.28) 55%, transparent 78%),
+      linear-gradient(180deg, rgba(0,0,0,.42), rgba(0,0,0,.30)) !important;
+  }
+
+  /* Если мы добавляли маску через .hero__bg::after, делаем её строго ПОД контентом */
+  .hero__bg::after{
+    z-index:1;
+    opacity:.55 !important;
+    filter:none !important;
+  }
+
+  /* 4) Сетка/скан иногда создают “муть” */
+  .hero__grid{ opacity:.10 !important; }
+  .hero__scan{ opacity:.10 !important; }
+
+  /* 5) Призрачные надписи “Главная/Продукция/О нас/Контакты” (если это псевдо-слой) */
+  header::before, header::after,
+  nav::before, nav::after,
+  .header::before, .header::after,
+  .nav::before, .nav::after,
+  .menu::before, .menu::after{
+    content:none !important;
+    display:none !important;
+  }
+
+  /* 6) Делаем текст снова “перед камерой” */
+  .hero__slogan-text{ text-shadow: 0 10px 34px rgba(0,0,0,.55); }
+  .hero__sub{ color: rgba(255,255,255,.74) !important; }
+
+
+  /* XTIR_HERO_BG_TECH_GRID */
+
+  /* Больше не используем картинку */
+  .hero__bgimg{ display:none !important; }
+
+  /* База: чистый, контрастный, читаемый hero */
+  .hero{
+    position: relative;
+    isolation: isolate;
+    background: #0b0c0f;
+  }
+
+  .hero__bg{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+  }
+
+  /* Основной фон: “сталь + холодное свечение” */
+  .hero__bg{
+    background:
+      radial-gradient(1100px 520px at 50% 12%, rgba(110,231,255,.16), transparent 60%),
+      radial-gradient(900px 480px at 78% 18%, rgba(167,139,250,.12), transparent 58%),
+      radial-gradient(900px 520px at 20% 22%, rgba(255,255,255,.06), transparent 64%),
+      linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.72));
+  }
+
+  /* Сетка */
+  .hero__grid{
+    position:absolute;
+    inset:-2px;
+    z-index:1;
+    opacity:.18 !important;
+    background-image:
+      linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+    background-size: 64px 64px, 64px 64px;
+    mix-blend-mode: overlay;
+    pointer-events:none;
+  }
+
+  /* Диагональные “технические” линии */
+  .hero__bg::before{
+    content:"";
+    position:absolute;
+    inset:-40%;
+    z-index:2;
+    background:
+      repeating-linear-gradient(115deg, rgba(110,231,255,.07) 0 1px, transparent 1px 18px);
+    opacity:.20;
+    transform: rotate(-8deg);
+    pointer-events:none;
+  }
+
+  /* Виньетка для читаемости */
+  .hero__bgover{
+    position:absolute;
+    inset:0;
+    z-index:3;
+    background:
+      radial-gradient(900px 380px at 50% 52%, rgba(0,0,0,.35), rgba(0,0,0,.72) 70%),
+      linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.70));
+    pointer-events:none;
+  }
+
+  /* Скан (очень мягко) */
+  .hero__scan{
+    position:absolute;
+    inset:0;
+    z-index:4;
+    opacity:.10 !important;
+    background: linear-gradient(180deg, transparent 0%, rgba(110,231,255,.10) 45%, transparent 100%);
+    mix-blend-mode: screen;
+    pointer-events:none;
+  }
+
+  /* Контент всегда сверху */
+  .hero__wrap{ position:relative; z-index:10; }
+  .hero__center{ position:relative; z-index:11; }
+  .hero__slogan-text{ text-shadow: 0 10px 34px rgba(0,0,0,.55); }
+  .hero__sub{ color: rgba(255,255,255,.74) !important; }
 </style>
+
+
+
+
+
+
+
+
 
 
