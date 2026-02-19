@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
 import type { Product } from "@/data/products";
 import clsx from "clsx";
 
@@ -55,16 +54,13 @@ function getBase(): string {
   return (document.querySelector("base")?.getAttribute("href") ?? "").replace(/\/$/, "");
 }
 
+// Синхронное чтение — работает до mount React
+const BASE = typeof document !== "undefined" ? getBase() : "";
+
 export default function ProductCard({ product, categoryName }: Props) {
-  const [base, setBase] = useState("");
-
-  useEffect(() => {
-    setBase(getBase());
-  }, []);
-
   const img = product.photos?.[0]
-    ? base + product.photos[0]
-    : base + "/images/placeholder.svg";
+    ? BASE + product.photos[0]
+    : BASE + "/images/placeholder.svg";
 
   const tone = toneByCategory[product.categoryId] ?? "neutral";
   const meta = toneMeta[tone];
@@ -75,7 +71,7 @@ export default function ProductCard({ product, categoryName }: Props) {
 
   return (
     <motion.a
-      href={`${base}/products/${product.slug}/`}
+      href={`${BASE}/products/${product.slug}/`}
       className={clsx(
         "group block h-full overflow-hidden rounded-xl",
         "bg-dark-800",
