@@ -1183,7 +1183,36 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     color: rgba(110,231,255,1);
     text-shadow: 0 0 14px rgba(110,231,255,.35);
   }
+
+  /* XTIR_SECTION_LIGHT */
+
+  /* Мягкий “свет сверху” для секции Направления */
+  .sec--dark{
+    position: relative;
+    overflow: hidden;
+  }
+  .sec--dark::before{
+    content:"";
+    position:absolute;
+    inset:-20% -10% auto -10%;
+    height:420px;
+    background:
+      radial-gradient(60% 60% at 30% 40%, rgba(80,130,255,.18), transparent 70%),
+      radial-gradient(60% 60% at 70% 50%, rgba(0,200,255,.10), transparent 70%);
+    pointer-events:none;
+    z-index:0;
+  }
+  .sec--dark > *{
+    position:relative;
+    z-index:1;
+  }
+
+  /* Карточки: чуть яснее (без “осветления сайта”) */
+  .dcard{
+    background: linear-gradient(180deg, rgba(20,30,50,.85), rgba(10,15,25,.92));
+  }
 </style>
+
 
 
 
