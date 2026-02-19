@@ -758,7 +758,60 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   .hero__center{ position:relative; z-index:11; }
   .hero__slogan-text{ text-shadow: 0 10px 34px rgba(0,0,0,.55); }
   .hero__sub{ color: rgba(255,255,255,.74) !important; }
+
+  /* XTIR_SIGNATURE_HERO */
+
+  /* 1. Делаем hero выше и кинематографичнее */
+  .hero{
+    min-height: 92vh;
+  }
+
+  /* 2. Премиум свечение сверху */
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:2;
+    pointer-events:none;
+    background:
+      radial-gradient(900px 420px at 50% 0%, rgba(110,231,255,.18), transparent 70%);
+    mix-blend-mode: screen;
+    animation: xtirGlow 12s ease-in-out infinite alternate;
+  }
+
+  @keyframes xtirGlow{
+    0%   { opacity:.45; transform:translateY(0px); }
+    100% { opacity:.75; transform:translateY(12px); }
+  }
+
+  /* 3. Микродвижение сетки */
+  .hero__grid{
+    animation: xtirGridMove 40s linear infinite;
+  }
+
+  @keyframes xtirGridMove{
+    from { background-position:0 0, 0 0; }
+    to   { background-position:0 200px, 200px 0; }
+  }
+
+  /* 4. Немного глубины кнопкам */
+  .btn-primary{
+    box-shadow:
+      0 8px 28px rgba(110,231,255,.35),
+      inset 0 1px 0 rgba(255,255,255,.35);
+  }
+
+  .btn-primary:hover{
+    transform:translateY(-2px);
+  }
+
+  .btn-ghost:hover{
+    border-color:rgba(110,231,255,.5);
+  }
+
 </style>
+
+
 
 
 
