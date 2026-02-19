@@ -674,39 +674,6 @@ body, main, .page, .layout{
   .hp-cl { font-family: 'Courier New', monospace !important; font-size: .62rem; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,0.4); }
   .hp-cv { font-size: 1.08rem !important; font-weight: 700 !important; color: #fff !important; font-family: inherit !important; }
 
-/* XTIR_TRICOLOR_DIM_OVERRIDE */
-:root{
-  --xtir-tricolor-opacity: .33;      /* ~РІ 3 СЂР°Р·Р° С‚РёС€Рµ */
-  --xtir-tricolor-brightness: .72;   /* С‡СѓС‚СЊ С‚РµРјРЅРµРµ */
-  --xtir-tricolor-saturate: .80;     /* РјРµРЅСЊС€Рµ вЂњРєРёСЃР»РѕС‚С‹вЂќ */
-}
-
-/* Р›РѕРІРёРј СЃР°РјС‹Рµ С‡Р°СЃС‚С‹Рµ РІР°СЂРёР°РЅС‚С‹ РєР»Р°СЃСЃРѕРІ/Р±Р»РѕРєРѕРІ */
-.tricolor,
-.tricolor-bar,
-.header-tricolor,
-.xtir-tricolor,
-.top-tricolor,
-.xtir-topline,
-[data-tricolor],
-[aria-label*="С‚СЂРёРєРѕР»РѕСЂ" i],
-[aria-label*="tricolor" i]{
-  opacity: var(--xtir-tricolor-opacity) !important;
-  filter: brightness(var(--xtir-tricolor-brightness)) saturate(var(--xtir-tricolor-saturate)) !important;
-}
-
-/* Р•СЃР»Рё С‚СЂРёРєРѕР»РѕСЂ РЅР°СЂРёСЃРѕРІР°РЅ РїСЃРµРІРґРѕСЌР»РµРјРµРЅС‚РѕРј */
-.tricolor::before, .tricolor::after,
-.tricolor-bar::before, .tricolor-bar::after,
-.header-tricolor::before, .header-tricolor::after,
-.xtir-tricolor::before, .xtir-tricolor::after,
-.top-tricolor::before, .top-tricolor::after,
-.xtir-topline::before, .xtir-topline::after,
-[data-tricolor]::before, [data-tricolor]::after{
-  opacity: var(--xtir-tricolor-opacity) !important;
-  filter: brightness(var(--xtir-tricolor-brightness)) saturate(var(--xtir-tricolor-saturate)) !important;
-}
-/* XTIR_TRICOLOR_DIM_OVERRIDE END */
 </style>
 
 <!-- XTIR_NO_BULLETS_MAX_JS -->
@@ -731,4 +698,5 @@ body, main, .page, .layout{
   setTimeout(() => mo.disconnect(), 8000);
 })();
 </script>
+
 
