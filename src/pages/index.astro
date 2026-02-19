@@ -4,420 +4,426 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 <BaseLayout
   title="XTIR — Точная техника. Жёсткая надёжность."
-  description="XTIR — разработка и производство электронно-механического оборудования для стрельбы. Электронные мишени, подъёмники, движущиеся цели."
+  description="XTIR — разработка и производство электронно-механического оборудования для стрельбы."
 >
 
-<!-- ═══ ГЕРОЙ ═══ -->
-<section class="hero">
-  <!-- Фон: фото тира -->
-  <div class="hero__bg">
-    <img src="/images/hero-bg.png" alt="" class="hero__bgimg"/>
-    <div class="hero__bgover"></div>
-    <div class="hero__grid"></div>
-    <div class="hero__scan"></div>
+<section class="hp-hero">
+  <div class="hp-bg">
+    <img src="/images/hero-bg.png" alt="" class="hp-bgimg"/>
+    <div class="hp-over"></div>
+    <div class="hp-grid"></div>
+    <div class="hp-scan"></div>
   </div>
 
-  <!-- Триколор сверху -->
-  <div class="tricolor">
-    <span class="tc-white"></span>
-    <span class="tc-blue"></span>
-    <span class="tc-red"></span>
+  <div class="hp-tricolor">
+    <span class="tc1"></span><span class="tc2"></span><span class="tc3"></span>
   </div>
 
-  <div class="hero__wrap">
-    <div class="hero__center">
+  <div class="hp-c hp-c-tl"></div>
+  <div class="hp-c hp-c-tr"></div>
+  <div class="hp-c hp-c-bl"></div>
+  <div class="hp-c hp-c-br"></div>
 
-      <!-- Бейдж -->
-      <div class="hero__badge">
-        <span class="hero__bdot"></span>
+  <!-- Пуля — медленная трассирующая -->
+  <div class="hp-bullet-wrap">
+    <div class="hp-bullet"></div>
+    <div class="hp-bullet hp-bullet--2"></div>
+  </div>
+
+  <div class="hp-body">
+    <div class="hp-center">
+      <div class="hp-badge">
+        <span class="hp-bdot"></span>
         XTIR · Электронно-механические решения для стрельбы
       </div>
-
-      <!-- Логотип / заголовок -->
-      <div class="hero__logo-wrap">
-        <img src="/images/logo.png" alt="XTIR" class="hero__logo"/>
+      <div class="hp-logo-box">
+        <img src="/images/logo.png" alt="XTIR" class="hp-logo"/>
       </div>
-
-      <!-- Слоган с триколорной полосой -->
-      <div class="hero__slogan">
-        <div class="hero__slogan-bar">
-          <span class="sb-w"></span>
-          <span class="sb-b"></span>
-          <span class="sb-r"></span>
-        </div>
-        <h1 class="hero__slogan-text">
-          Инженерные решения для стрелковых тренировок
-        </h1>
+      <div class="hp-slogan">
+        <div class="hp-sbar"><span class="tc1"></span><span class="tc2"></span><span class="tc3"></span></div>
+        <div class="hp-stext">Инженерные решения для стрелковых тренировок</div>
       </div>
-
-      <p class="hero__sub">
-        Проектирование и производство систем под реальные условия эксплуатации.
+      <div class="hp-desc">
+        Проектирование и производство систем под реальные условия эксплуатации.<br/>
         Точность. Надёжность. Ресурс.
-      </p>
-
-      <div class="hero__actions">
-        <a href="/contact/" class="btn-primary">Обсудить проект</a>
-        <a href="/products/" class="btn-ghost">Смотреть каталог →</a>
+      </div>
+      <div class="hp-acts">
+        <a href="/contact/" class="hp-btn1">Обсудить проект</a>
+        <a href="/products/" class="hp-btn2">Смотреть каталог →</a>
       </div>
     </div>
   </div>
 
-  <!-- Угловые маркеры -->
-  <div class="hc hc-tl"></div>
-  <div class="hc hc-tr"></div>
-  <div class="hc hc-bl"></div>
-  <div class="hc hc-br"></div>
-
-  <!-- Стат бар -->
-  <div class="hero__stats">
-    <div class="hstat"><div class="hstat__n">20+</div><div class="hstat__l">лет в отрасли</div></div>
-    <div class="hsdiv"></div>
-    <div class="hstat"><div class="hstat__n">30+</div><div class="hstat__l">позиций каталога</div></div>
-    <div class="hsdiv"></div>
-    <div class="hstat"><div class="hstat__n">РФ</div><div class="hstat__l">производство</div></div>
-    <div class="hsdiv"></div>
-    <div class="hstat"><div class="hstat__n">24/7</div><div class="hstat__l">поддержка</div></div>
+  <div class="hp-stats">
+    <div class="hp-stat"><div class="hp-sn">20+</div><div class="hp-sl">лет в отрасли</div></div>
+    <div class="hp-sdiv"></div>
+    <div class="hp-stat"><div class="hp-sn">30+</div><div class="hp-sl">позиций каталога</div></div>
+    <div class="hp-sdiv"></div>
+    <div class="hp-stat"><div class="hp-sn">РФ</div><div class="hp-sl">производство</div></div>
+    <div class="hp-sdiv"></div>
+    <div class="hp-stat"><div class="hp-sn">24/7</div><div class="hp-sl">поддержка</div></div>
   </div>
 </section>
 
-<!-- ═══ НАПРАВЛЕНИЯ с фото ═══ -->
-<section class="sec sec--dark">
-  <div class="wrap">
-    <div class="sec__hd">
-      <div class="kicker">Направления</div>
-      <h2 class="h2">Оборудование под любую задачу</h2>
-      <p class="sub">Три класса решений — от электронных мишеней до полигонных комплексов.</p>
+<!-- НАПРАВЛЕНИЯ -->
+<section class="hp-sec hp-dark">
+  <div class="hp-wrap">
+    <div class="hp-hd">
+      <div class="hp-kicker">Направления</div>
+      <div class="hp-title">Оборудование под любую задачу</div>
+      <div class="hp-sub">Три класса решений — от электронных мишеней до полигонных комплексов.</div>
     </div>
-    <div class="dcards">
-
-      <a href="/products/" class="dcard">
-        <div class="dcard__img">
-          <img src="/products-img/baggi/baggi -1.png" alt="Электронные мишени" loading="lazy"/>
-          <div class="dcard__imgover"></div>
-          <div class="dcard__num">01</div>
+    <div class="hp-cards">
+      <a href="/products/" class="hp-card">
+        <div class="hp-cimg">
+          <img src="/products-img/pmu-100/pmu100-1.png" alt="Электронные мишени" loading="lazy"/>
+          <div class="hp-cimgo"></div>
+          <div class="hp-cnum">01</div>
         </div>
-        <div class="dcard__body">
-          <h3 class="dcard__t">Электронные мишени</h3>
-          <p class="dcard__d">Повторяемость, контроль попаданий, статистика. Для спорта, силовых структур и тиров.</p>
-          <div class="dcard__tags"><span>Тренировка</span><span>Обратная связь</span></div>
-          <div class="dcard__more">Смотреть продукты →</div>
+        <div class="hp-cbody">
+          <div class="hp-ct">Электронные мишени</div>
+          <div class="hp-cd">Повторяемость, контроль попаданий, статистика. Для спорта, силовых структур и тиров.</div>
+          <div class="hp-ctags"><span>Тренировка</span><span>Обратная связь</span></div>
+          <div class="hp-cmore">Смотреть продукты →</div>
         </div>
       </a>
-
-      <a href="/products/" class="dcard dcard--warm">
-        <div class="dcard__img">
+      <a href="/products/" class="hp-card hp-card-warm">
+        <div class="hp-cimg">
           <img src="/products-img/kaban/1.png" alt="Движущиеся цели" loading="lazy"/>
-          <div class="dcard__imgover"></div>
-          <div class="dcard__num">02</div>
+          <div class="hp-cimgo"></div>
+          <div class="hp-cnum">02</div>
         </div>
-        <div class="dcard__body">
-          <h3 class="dcard__t">Движущиеся цели</h3>
-          <p class="dcard__d">Моделирование реальных ситуаций: скорость, тайминг, реакция. Динамические сценарии.</p>
-          <div class="dcard__tags"><span>Динамика</span><span>Сценарии</span></div>
-          <div class="dcard__more">Как это устроено →</div>
+        <div class="hp-cbody">
+          <div class="hp-ct">Движущиеся цели</div>
+          <div class="hp-cd">Моделирование реальных ситуаций: скорость, тайминг, реакция. Динамические сценарии.</div>
+          <div class="hp-ctags"><span>Динамика</span><span>Сценарии</span></div>
+          <div class="hp-cmore hp-cmore-warm">Как это устроено →</div>
         </div>
       </a>
-
-      <a href="/products/" class="dcard">
-        <div class="dcard__img">
+      <a href="/products/" class="hp-card">
+        <div class="hp-cimg">
           <img src="/products-img/pak/1 (1).png" alt="Управление" loading="lazy"/>
-          <div class="dcard__imgover"></div>
-          <div class="dcard__num">03</div>
+          <div class="hp-cimgo"></div>
+          <div class="hp-cnum">03</div>
         </div>
-        <div class="dcard__body">
-          <h3 class="dcard__t">Управление и интеграции</h3>
-          <p class="dcard__d">Много узлов на объекте — предсказуемая работа: статусы, телеметрия, журнал событий.</p>
-          <div class="dcard__tags"><span>Связь</span><span>Надёжность</span></div>
-          <div class="dcard__more">Технологии →</div>
+        <div class="hp-cbody">
+          <div class="hp-ct">Управление и интеграции</div>
+          <div class="hp-cd">Много узлов на объекте — предсказуемая работа: статусы, телеметрия, журнал событий.</div>
+          <div class="hp-ctags"><span>Связь</span><span>Надёжность</span></div>
+          <div class="hp-cmore">Технологии →</div>
         </div>
       </a>
-
     </div>
   </div>
 </section>
 
-<!-- ═══ ПОЧЕМУ XTIR ═══ -->
-<section class="sec sec--darker">
-  <div class="wrap why">
-    <div class="why__l">
-      <div class="kicker">Почему XTIR</div>
-      <h2 class="h2">Инженерный подход.<br/>Предсказуемый результат.</h2>
-      <p class="sub">20 лет в отрасли. Оборудование которое реально работает — не на презентации, а на объекте.</p>
-      <a href="/about/" class="why__lnk">О компании →</a>
+<!-- ПОЧЕМУ XTIR -->
+<section class="hp-sec hp-darker">
+  <div class="hp-wrap hp-why">
+    <div class="hp-wl">
+      <div class="hp-kicker">Почему XTIR</div>
+      <div class="hp-title">Инженерный подход.<br/>Предсказуемый результат.</div>
+      <div class="hp-sub">20 лет в отрасли. Оборудование которое реально работает — не на презентации, а на объекте.</div>
+      <a href="/about/" class="hp-lnk">О компании →</a>
     </div>
-    <div class="why__r">
-      <div class="wcard"><div class="wcard__i">⚙️</div><div class="wcard__t">Проектирование</div><p class="wcard__d">Требования, расчёт, прототипирование, документация. Без догадок.</p></div>
-      <div class="wcard"><div class="wcard__i">🏭</div><div class="wcard__t">Производство</div><p class="wcard__d">Сборка, контроль, повторяемость. Узлы рассчитаны на реальную эксплуатацию.</p></div>
-      <div class="wcard"><div class="wcard__i">🔗</div><div class="wcard__t">Интеграции</div><p class="wcard__d">Связь, управление, сценарии. Подстраиваемся под объект и задачи заказчика.</p></div>
-      <div class="wcard"><div class="wcard__i">🛠</div><div class="wcard__t">Поддержка</div><p class="wcard__d">Сопровождение, диагностика, обновления. Без выходных.</p></div>
+    <div class="hp-wr">
+      <div class="hp-wc"><div class="hp-wi">⚙️</div><div class="hp-wt">Проектирование</div><div class="hp-wd">Требования, расчёт, прототипирование, документация. Без догадок.</div></div>
+      <div class="hp-wc"><div class="hp-wi">🏭</div><div class="hp-wt">Производство</div><div class="hp-wd">Сборка, контроль, повторяемость. Узлы рассчитаны на реальную эксплуатацию.</div></div>
+      <div class="hp-wc"><div class="hp-wi">🔗</div><div class="hp-wt">Интеграции</div><div class="hp-wd">Связь, управление, сценарии. Подстраиваемся под объект и задачи заказчика.</div></div>
+      <div class="hp-wc"><div class="hp-wi">🛠</div><div class="hp-wt">Поддержка</div><div class="hp-wd">Сопровождение, диагностика, обновления. Без выходных.</div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ CTA ═══ -->
-<section class="sec sec--cta">
-  <div class="cta__glow"></div>
-  <div class="wrap cta">
-    <div class="cta__l">
-      <h2 class="h2">Готовы начать?</h2>
-      <p class="sub">Опишите задачу — ответим быстро и по делу.</p>
-      <div class="cta__btns">
-        <a href="/contact/" class="btn-primary">Обсудить проект</a>
-        <a href="/products/" class="btn-ghost">Каталог →</a>
+<!-- CTA -->
+<section class="hp-sec hp-dark" style="position:relative;overflow:hidden;">
+  <div class="hp-ctabg"></div>
+  <div class="hp-wrap hp-cta">
+    <div class="hp-ctl">
+      <div class="hp-title">Готовы начать?</div>
+      <div class="hp-sub">Опишите задачу — ответим быстро и по делу.</div>
+      <div class="hp-acts" style="margin-top:28px;">
+        <a href="/contact/" class="hp-btn1">Обсудить проект</a>
+        <a href="/products/" class="hp-btn2">Каталог →</a>
       </div>
     </div>
-    <div class="cta__r">
-      <a href="tel:+79154250095" class="cta__contact">
-        <span class="cta__lbl">Телефон</span>
-        <span class="cta__val">+7 (915) 425-00-95</span>
-      </a>
-      <a href="tel:+79162962469" class="cta__contact">
-        <span class="cta__lbl">&nbsp;</span>
-        <span class="cta__val">+7 (916) 296-24-69</span>
-      </a>
-      <a href="mailto:info@xtir.ru" class="cta__contact">
-        <span class="cta__lbl">Email</span>
-        <span class="cta__val">info@xtir.ru</span>
-      </a>
+    <div class="hp-ctr">
+      <a href="tel:+79154250095" class="hp-cnt"><span class="hp-cl">Телефон</span><span class="hp-cv">+7 (915) 425-00-95</span></a>
+      <a href="tel:+79162962469" class="hp-cnt"><span class="hp-cl">&nbsp;</span><span class="hp-cv">+7 (916) 296-24-69</span></a>
+      <a href="mailto:info@xtir.ru" class="hp-cnt"><span class="hp-cl">Email</span><span class="hp-cv">info@xtir.ru</span></a>
     </div>
   </div>
 </section>
 
 </BaseLayout>
 
+<style is:global>
+  /* Сбрасываем градиентный фон body — убирает дублирование текста */
+  body {
+    background: #060a0e !important;
+    background-image: none !important;
+  }
+  /* Скроллбар — триколор */
+  ::-webkit-scrollbar { width: 3px !important; }
+  ::-webkit-scrollbar-track { background: #060a0e !important; }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom,
+      #ffffff 0%, #ffffff 33%,
+      #0039a6 33%, #0039a6 66%,
+      #d52b1e 66%, #d52b1e 100%
+    ) !important;
+    border-radius: 0 !important;
+  }
+  @supports (scrollbar-color: auto) {
+    * { scrollbar-width: thin; scrollbar-color: #0039a6 #060a0e; }
+  }
+</style>
+
 <style>
-  :root {
+  /* Все переменные локальные */
+  .hp-hero, .hp-sec, .hp-wrap, .hp-cards, .hp-why, .hp-cta {
+    --ac: #00b3ff; --acw: #ff6b35;
     --bg: #0f141a; --bg2: #0b0e13; --sf: #141a22;
     --bd: rgba(255,255,255,0.07);
-    --ac: #00b3ff; --acw: #ff6b35;
     --tx: rgba(255,255,255,0.88); --mu: rgba(255,255,255,0.45);
   }
 
-  /* ── ТРИКОЛОР ── */
-  .tricolor {
-    position: absolute; top: 0; left: 0; right: 0;
-    display: flex; height: 4px; z-index: 10;
-  }
-  .tc-white { flex: 1; background: #ffffff; }
-  .tc-blue  { flex: 1; background: #0039a6; }
-  .tc-red   { flex: 1; background: #d52b1e; }
+  /* Триколор элементы */
+  .tc1 { flex: 1; background: #ffffff !important; }
+  .tc2 { flex: 1; background: #0039a6 !important; }
+  .tc3 { flex: 1; background: #d52b1e !important; }
 
   /* ── ГЕРОЙ ── */
-  .hero {
+  .hp-hero {
     position: relative; min-height: 100vh;
     display: flex; flex-direction: column;
     overflow: hidden; background: #060a0e;
   }
-  .hero__bg { position: absolute; inset: 0; }
-  .hero__bgimg {
-    width: 100%; height: 100%; object-fit: cover;
-    opacity: 0.55; display: block;
-  }
-  .hero__bgover {
+  .hp-bg { position: absolute; inset: 0; }
+  .hp-bgimg { width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.45; display: block; }
+  .hp-over {
     position: absolute; inset: 0;
     background:
-      linear-gradient(to bottom, rgba(6,10,14,0.5) 0%, rgba(6,10,14,0.2) 40%, rgba(6,10,14,0.75) 80%, rgba(6,10,14,1) 100%),
-      linear-gradient(to right, rgba(6,10,14,0.6) 0%, transparent 50%, rgba(6,10,14,0.3) 100%);
+      linear-gradient(to bottom, rgba(6,10,14,0.35) 0%, rgba(6,10,14,0.1) 30%, rgba(6,10,14,0.65) 70%, rgba(6,10,14,1) 100%),
+      linear-gradient(to right, rgba(6,10,14,0.55) 0%, transparent 45%, rgba(6,10,14,0.25) 100%);
   }
-  .hero__grid {
+  .hp-grid {
     position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(0,179,255,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,179,255,0.06) 1px, transparent 1px);
+      linear-gradient(rgba(0,179,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,179,255,0.05) 1px, transparent 1px);
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
   }
-  .hero__scan {
+  .hp-scan {
     position: absolute; inset: 0;
     background: linear-gradient(180deg, transparent 35%, rgba(0,179,255,0.04) 50%, transparent 65%);
-    animation: scan 12s ease-in-out infinite;
+    animation: hpscan 14s ease-in-out infinite;
   }
-  @keyframes scan { 0%,100%{transform:translateY(-50%)} 50%{transform:translateY(50%)} }
+  @keyframes hpscan { 0%,100%{transform:translateY(-50%)} 50%{transform:translateY(50%)} }
+
+  .hp-tricolor {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px; display: flex; z-index: 10;
+  }
 
   /* Угловые маркеры */
-  .hc {
-    position: absolute; width: 28px; height: 28px;
-    border-color: rgba(0,179,255,0.6); border-style: solid;
-    z-index: 5;
-  }
-  .hc-tl { top: 12px; left: 12px; border-width: 2px 0 0 2px; border-radius: 3px 0 0 0; }
-  .hc-tr { top: 12px; right: 12px; border-width: 2px 2px 0 0; border-radius: 0 3px 0 0; }
-  .hc-bl { bottom: 60px; left: 12px; border-width: 0 0 2px 2px; border-radius: 0 0 0 3px; }
-  .hc-br { bottom: 60px; right: 12px; border-width: 0 2px 2px 0; border-radius: 0 0 3px 0; }
+  .hp-c { position: absolute; width: 26px; height: 26px; border-color: rgba(0,179,255,0.6); border-style: solid; z-index: 5; }
+  .hp-c-tl { top: 10px; left: 10px; border-width: 2px 0 0 2px; border-radius: 3px 0 0 0; }
+  .hp-c-tr { top: 10px; right: 10px; border-width: 2px 2px 0 0; border-radius: 0 3px 0 0; }
+  .hp-c-bl { bottom: 58px; left: 10px; border-width: 0 0 2px 2px; border-radius: 0 0 0 3px; }
+  .hp-c-br { bottom: 58px; right: 10px; border-width: 0 2px 2px 0; border-radius: 0 0 3px 0; }
 
-  .hero__wrap {
+  /* ── ПУЛЯ ── медленная, реалистичная */
+  .hp-bullet-wrap {
+    position: absolute; inset: 0; overflow: hidden;
+    pointer-events: none; z-index: 6;
+  }
+  .hp-bullet {
+    position: absolute;
+    width: 200px; height: 2px;
+    background: linear-gradient(to right,
+      transparent 0%,
+      rgba(255,180,30,0.3) 20%,
+      rgba(255,220,80,0.85) 60%,
+      rgba(255,255,200,1) 85%,
+      rgba(255,255,255,0.5) 100%
+    );
+    box-shadow: 0 0 6px rgba(255,200,50,0.7), 0 0 16px rgba(255,130,0,0.4);
+    border-radius: 2px;
+    top: 35%; left: -220px;
+    animation: hpbullet 7s ease-in 2s infinite;
+  }
+  .hp-bullet--2 {
+    top: 55%; left: -220px;
+    animation: hpbullet2 9s ease-in 6s infinite;
+    opacity: 0.6;
+    width: 150px;
+  }
+  @keyframes hpbullet {
+    0%   { left: -220px; top: 35%; opacity: 0; }
+    5%   { opacity: 1; }
+    20%  { left: 25%; top: 42%; }
+    50%  { left: 65%; top: 52%; }
+    75%  { left: 95%; top: 59%; opacity: 0.4; }
+    80%  { left: 105%; opacity: 0; }
+    100% { left: 105%; opacity: 0; }
+  }
+  @keyframes hpbullet2 {
+    0%   { left: -180px; top: 55%; opacity: 0; }
+    5%   { opacity: 0.6; }
+    30%  { left: 35%; top: 48%; }
+    60%  { left: 70%; top: 42%; opacity: 0.3; }
+    70%  { left: 105%; opacity: 0; }
+    100% { left: 105%; opacity: 0; }
+  }
+
+  .hp-body {
     flex: 1; display: flex; align-items: center; justify-content: center;
     position: relative; z-index: 3; padding: 120px 24px 60px;
   }
-  .hero__center { text-align: center; max-width: 860px; }
+  .hp-center { text-align: center; max-width: 820px; }
 
-  .hero__badge {
+  .hp-badge {
     display: inline-flex; align-items: center; gap: 8px;
     font-family: 'Courier New', monospace;
-    font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
-    color: var(--ac); margin-bottom: 28px;
-    background: rgba(0,179,255,0.08);
-    border: 1px solid rgba(0,179,255,0.2);
+    font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+    color: #00b3ff; margin-bottom: 22px;
+    background: rgba(0,179,255,0.08); border: 1px solid rgba(0,179,255,0.2);
     padding: 6px 16px; border-radius: 20px;
   }
-  .hero__bdot {
+  .hp-bdot {
     width: 6px; height: 6px; border-radius: 50%;
-    background: var(--ac); box-shadow: 0 0 8px var(--ac);
-    animation: pulse 2s ease-in-out infinite; flex-shrink: 0;
+    background: #00b3ff; box-shadow: 0 0 8px #00b3ff;
+    animation: hppulse 2s ease-in-out infinite; flex-shrink: 0;
   }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  @keyframes hppulse { 0%,100%{opacity:1} 50%{opacity:.2} }
 
-  .hero__logo-wrap { margin-bottom: 32px; }
-  .hero__logo { height: 100px; width: auto; filter: drop-shadow(0 0 40px rgba(0,179,255,0.4)); }
+  .hp-logo-box { margin-bottom: 24px; }
+  .hp-logo { height: 72px; width: auto; filter: drop-shadow(0 0 28px rgba(0,179,255,0.55)) drop-shadow(0 0 56px rgba(0,100,200,0.3)); }
 
-  /* Слоган с триколорной полосой */
-  .hero__slogan {
-    display: flex; align-items: center; gap: 16px;
-    justify-content: center; margin-bottom: 20px;
-  }
-  .hero__slogan-bar {
-    display: flex; flex-direction: column;
-    width: 4px; height: 60px; border-radius: 2px; overflow: hidden;
-    flex-shrink: 0;
-  }
-  .sb-w { flex: 1; background: #ffffff; }
-  .sb-b { flex: 1; background: #0039a6; }
-  .sb-r { flex: 1; background: #d52b1e; }
-  .hero__slogan-text {
-    font-size: clamp(22px, 3vw, 36px);
-    font-weight: 700; color: #fff;
-    text-align: left; margin: 0; line-height: 1.2;
+  .hp-slogan { display: flex; align-items: center; gap: 14px; justify-content: center; margin-bottom: 16px; }
+  .hp-sbar { display: flex; flex-direction: column; width: 4px; height: 52px; border-radius: 2px; overflow: hidden; flex-shrink: 0; }
+  .hp-stext {
+    font-size: clamp(19px, 2.6vw, 32px);
+    font-weight: 700; color: #ffffff !important;
+    text-align: left; line-height: 1.25;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.9);
+    /* Перебиваем Tailwind h-классы */
+    font-family: inherit !important;
+    letter-spacing: -0.01em !important;
   }
 
-  .hero__sub {
-    font-size: 1.05rem; color: var(--mu);
-    line-height: 1.7; max-width: 560px;
-    margin: 0 auto 36px;
+  .hp-desc {
+    font-size: .98rem; color: rgba(255,255,255,0.5) !important;
+    line-height: 1.7; max-width: 500px; margin: 0 auto 30px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.95);
+    font-family: inherit !important; font-weight: normal !important;
   }
-  .hero__actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .hp-acts { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-  .btn-primary {
+  .hp-btn1, .hp-btn2 {
     display: inline-flex; align-items: center;
-    padding: 14px 32px; border-radius: 8px;
-    background: var(--ac); color: #000;
-    font-size: .95rem; font-weight: 700;
-    text-decoration: none; transition: all .2s;
+    padding: 13px 30px; border-radius: 8px;
+    font-size: .92rem; font-weight: 700;
+    text-decoration: none !important; transition: all .2s;
+    font-family: inherit !important;
   }
-  .btn-primary:hover { background: #00c8ff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,179,255,0.3); }
-  .btn-ghost {
-    display: inline-flex; align-items: center;
-    padding: 14px 32px; border-radius: 8px;
-    color: var(--tx); border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(255,255,255,0.06);
-    font-size: .95rem; font-weight: 600;
-    text-decoration: none; transition: all .2s;
-    backdrop-filter: blur(8px);
-  }
-  .btn-ghost:hover { background: rgba(255,255,255,0.12); }
+  .hp-btn1 { background: #00b3ff; color: #000 !important; }
+  .hp-btn1:hover { background: #00c8ff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,179,255,0.35); }
+  .hp-btn2 { color: rgba(255,255,255,0.88) !important; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.07); backdrop-filter: blur(8px); }
+  .hp-btn2:hover { background: rgba(255,255,255,0.13); }
 
   /* Стат бар */
-  .hero__stats {
+  .hp-stats {
     position: relative; z-index: 3;
     border-top: 1px solid rgba(255,255,255,0.08);
-    background: rgba(0,0,0,0.5); backdrop-filter: blur(12px);
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(16px);
     display: flex; align-items: center; justify-content: center;
     gap: 48px; padding: 20px 24px; flex-wrap: wrap;
   }
-  .hstat { text-align: center; }
-  .hstat__n { font-size: 1.7rem; font-weight: 800; color: var(--ac); line-height: 1; }
-  .hstat__l {
-    font-family: 'Courier New', monospace; font-size: .63rem;
-    text-transform: uppercase; letter-spacing: .1em; color: var(--mu); margin-top: 3px;
+  .hp-stat { text-align: center; }
+  .hp-sn { font-size: 1.65rem; font-weight: 800; color: #00b3ff !important; line-height: 1; font-family: inherit !important; }
+  .hp-sl { font-family: 'Courier New', monospace !important; font-size: .6rem; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,0.45); margin-top: 3px; }
+  .hp-sdiv { width: 1px; height: 34px; background: rgba(255,255,255,0.07); }
+  @media(max-width:600px){ .hp-sdiv{display:none} }
+
+  /* ── ОБЩИЕ ── */
+  .hp-sec { padding: 90px 0; }
+  .hp-dark { background: #0f141a; }
+  .hp-darker { background: #0b0e13; border-top: 1px solid rgba(255,255,255,0.07); border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .hp-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .hp-hd { margin-bottom: 44px; }
+  .hp-kicker { font-family: 'Courier New', monospace !important; font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: #00b3ff; opacity: .75; margin-bottom: 10px; }
+
+  /* Перебиваем Tailwind заголовки */
+  .hp-title {
+    font-size: clamp(24px, 3.2vw, 44px) !important;
+    font-weight: 800 !important; line-height: 1.08 !important;
+    letter-spacing: -0.02em !important;
+    color: #ffffff !important; margin: 0 0 14px !important;
+    font-family: inherit !important;
+    text-transform: none !important;
   }
-  .hsdiv { width: 1px; height: 36px; background: var(--bd); }
-  @media(max-width:600px){ .hsdiv{display:none} }
-
-  /* ── ОБЩЕЕ ── */
-  .sec { padding: 90px 0; }
-  .sec--dark { background: var(--bg); }
-  .sec--darker { background: var(--bg2); border-top: 1px solid var(--bd); border-bottom: 1px solid var(--bd); }
-  .sec--cta { background: var(--bg); position: relative; overflow: hidden; }
-
-  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-  .kicker {
-    font-family: 'Courier New', monospace; font-size: .7rem;
-    letter-spacing: .2em; text-transform: uppercase;
-    color: var(--ac); opacity: .7; margin-bottom: 10px;
+  .hp-sub {
+    font-size: .98rem !important; line-height: 1.7 !important;
+    color: rgba(255,255,255,0.45) !important; margin: 0 !important;
+    font-family: inherit !important; font-weight: normal !important;
+    text-transform: none !important;
   }
-  .h2 { font-size: clamp(26px,3.5vw,46px); font-weight: 800; line-height: 1.05; letter-spacing: -.02em; margin: 0 0 14px; color: #fff; }
-  .sub { font-size: 1rem; line-height: 1.7; color: var(--mu); margin: 0; }
-  .sec__hd { margin-bottom: 44px; }
+  .hp-lnk { display: inline-block; margin-top: 24px; color: #00b3ff !important; text-decoration: none !important; font-weight: 600; transition: opacity .2s; }
+  .hp-lnk:hover { opacity: .7; }
 
-  /* ── КАРТОЧКИ НАПРАВЛЕНИЙ ── */
-  .dcards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-  @media(max-width:900px){ .dcards{ grid-template-columns:1fr; } }
+  /* Карточки направлений */
+  .hp-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  @media(max-width:900px){ .hp-cards{ grid-template-columns:1fr; } }
 
-  .dcard {
-    background: var(--sf); border: 1px solid var(--bd);
+  .hp-card {
+    background: #141a22; border: 1px solid rgba(255,255,255,0.07);
     border-radius: 16px; overflow: hidden;
-    text-decoration: none; color: var(--tx);
-    display: flex; flex-direction: column;
-    transition: all .25s;
+    text-decoration: none !important; color: rgba(255,255,255,0.88) !important;
+    display: flex; flex-direction: column; transition: all .25s;
   }
-  .dcard:hover { border-color: rgba(0,179,255,0.35); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-  .dcard--warm:hover { border-color: rgba(255,107,53,0.35); }
+  .hp-card:hover { border-color: rgba(0,179,255,0.35); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+  .hp-card-warm:hover { border-color: rgba(255,107,53,0.35); }
 
-  .dcard__img {
-    position: relative; aspect-ratio: 16/10; overflow: hidden;
-    background: #0a0d12;
-  }
-  .dcard__img img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform .4s ease;
-    opacity: .85;
-  }
-  .dcard:hover .dcard__img img { transform: scale(1.06); opacity: 1; }
-  .dcard__imgover {
-    position: absolute; inset: 0;
-    background: linear-gradient(to bottom, transparent 40%, rgba(10,13,18,0.85) 100%);
-  }
-  .dcard__num {
+  .hp-cimg { position: relative; aspect-ratio: 16/10; overflow: hidden; background: #0a0d12; }
+  .hp-cimg img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; opacity: .85; }
+  .hp-card:hover .hp-cimg img { transform: scale(1.06); opacity: 1; }
+  .hp-cimgo { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(10,13,18,0.85) 100%); }
+  .hp-cnum {
     position: absolute; top: 12px; left: 12px;
-    font-family: 'Courier New', monospace; font-size: .65rem;
-    color: var(--ac); background: rgba(0,0,0,0.6);
-    border: 1px solid rgba(0,179,255,0.3);
+    font-family: 'Courier New', monospace; font-size: .62rem; color: #00b3ff;
+    background: rgba(0,0,0,0.65); border: 1px solid rgba(0,179,255,0.3);
     padding: 3px 9px; border-radius: 2px; letter-spacing: .1em;
   }
-  .dcard--warm .dcard__num { color: var(--acw); border-color: rgba(255,107,53,0.3); }
+  .hp-card-warm .hp-cnum { color: #ff6b35; border-color: rgba(255,107,53,0.3); }
 
-  .dcard__body { padding: 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-  .dcard__t { font-size: 1.1rem; font-weight: 700; color: #fff; margin: 0; }
-  .dcard__d { font-size: .87rem; color: var(--mu); line-height: 1.6; flex: 1; }
-  .dcard__tags { display: flex; gap: 6px; flex-wrap: wrap; }
-  .dcard__tags span {
-    font-family: 'Courier New', monospace; font-size: .6rem;
-    text-transform: uppercase; letter-spacing: .08em;
-    color: var(--mu); border: 1px solid var(--bd);
-    padding: 2px 8px; border-radius: 2px;
-  }
-  .dcard__more { font-size: .85rem; font-weight: 600; color: var(--ac); margin-top: 4px; }
-  .dcard--warm .dcard__more { color: var(--acw); }
+  .hp-cbody { padding: 22px; display: flex; flex-direction: column; gap: 9px; flex: 1; }
+  .hp-ct { font-size: 1.08rem !important; font-weight: 700 !important; color: #fff !important; font-family: inherit !important; text-transform: none !important; }
+  .hp-cd { font-size: .86rem !important; color: rgba(255,255,255,0.45) !important; line-height: 1.6; flex: 1; font-family: inherit !important; font-weight: normal !important; }
+  .hp-ctags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .hp-ctags span { font-family: 'Courier New', monospace; font-size: .58rem; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.07); padding: 2px 8px; border-radius: 2px; }
+  .hp-cmore { font-size: .84rem !important; font-weight: 600 !important; color: #00b3ff !important; margin-top: 4px; font-family: inherit !important; }
+  .hp-cmore-warm { color: #ff6b35 !important; }
 
-  /* ── ПОЧЕМУ XTIR ── */
-  .why { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-  @media(max-width:900px){ .why{ grid-template-columns:1fr; gap:40px; } }
-  .why__lnk { display: inline-block; margin-top: 24px; color: var(--ac); text-decoration: none; font-weight: 600; transition: opacity .2s; }
-  .why__lnk:hover { opacity: .7; }
-  .why__r { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .wcard { background: var(--sf); border: 1px solid var(--bd); border-radius: 12px; padding: 22px; transition: border-color .2s; }
-  .wcard:hover { border-color: rgba(0,179,255,0.2); }
-  .wcard__i { font-size: 1.4rem; margin-bottom: 10px; }
-  .wcard__t { font-size: .92rem; font-weight: 700; color: #fff; margin-bottom: 7px; }
-  .wcard__d { font-size: .84rem; color: var(--mu); line-height: 1.6; }
+  /* Почему XTIR */
+  .hp-why { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  @media(max-width:900px){ .hp-why{ grid-template-columns:1fr; gap:40px; } }
+  .hp-wr { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .hp-wc { background: #141a22; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 22px; transition: border-color .2s; }
+  .hp-wc:hover { border-color: rgba(0,179,255,0.2); }
+  .hp-wi { font-size: 1.35rem; margin-bottom: 10px; }
+  .hp-wt { font-size: .9rem !important; font-weight: 700 !important; color: #fff !important; margin-bottom: 7px; font-family: inherit !important; text-transform: none !important; }
+  .hp-wd { font-size: .83rem !important; color: rgba(255,255,255,0.45) !important; line-height: 1.6; font-family: inherit !important; font-weight: normal !important; }
 
-  /* ── CTA ── */
-  .cta__glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 900px 400px at 50% 100%, rgba(0,179,255,0.07), transparent); }
-  .cta { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; }
-  @media(max-width:768px){ .cta{ grid-template-columns:1fr; gap:40px; } }
-  .cta__btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-  .cta__r { display: flex; flex-direction: column; gap: 20px; }
-  .cta__contact { display: flex; flex-direction: column; gap: 3px; text-decoration: none; transition: opacity .2s; }
-  .cta__contact:hover { opacity: .7; }
-  .cta__lbl { font-family: 'Courier New', monospace; font-size: .63rem; text-transform: uppercase; letter-spacing: .12em; color: var(--mu); }
-  .cta__val { font-size: 1.1rem; font-weight: 700; color: #fff; }
+  /* CTA */
+  .hp-ctabg { position: absolute; inset: 0; background: radial-gradient(ellipse 900px 400px at 50% 100%, rgba(0,179,255,0.07), transparent); pointer-events: none; }
+  .hp-cta { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; }
+  @media(max-width:768px){ .hp-cta{ grid-template-columns:1fr; gap:40px; } }
+  .hp-ctr { display: flex; flex-direction: column; gap: 20px; }
+  .hp-cnt { display: flex; flex-direction: column; gap: 3px; text-decoration: none !important; transition: opacity .2s; }
+  .hp-cnt:hover { opacity: .7; }
+  .hp-cl { font-family: 'Courier New', monospace !important; font-size: .62rem; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,0.4); }
+  .hp-cv { font-size: 1.08rem !important; font-weight: 700 !important; color: #fff !important; font-family: inherit !important; }
 </style>
