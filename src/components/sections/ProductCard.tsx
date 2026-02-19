@@ -73,11 +73,11 @@ export default function ProductCard({ product, categoryName }: Props) {
     <motion.a
       href={`${BASE}/products/${product.slug}/`}
       className={clsx(
-        "group block h-full overflow-hidden rounded-xl",
+        "group block h-full overflow-hidden rounded-[18px] backdrop-blur-[8px]",
         "bg-dark-800",
         "border border-white/10",
-        "transition-all duration-200 ease-out",
-        "hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/45 hover:scale-[1.01]",
+        "[transition:transform_0.25s_ease,box-shadow_0.25s_ease]",
+        "hover:-translate-y-[6px] hover:shadow-[0_18px_42px_rgba(0,0,0,0.45)]",
         meta.borderHoverClass,
       )}
       initial={{ opacity: 0, y: 14 }}
@@ -108,7 +108,7 @@ export default function ProductCard({ product, categoryName }: Props) {
       <div className="p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className={clsx("text-xl font-semibold text-white transition-colors", meta.titleHoverClass)}>
+            <h3 className={clsx("text-xl font-semibold text-white transition-colors [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]", meta.titleHoverClass)}>
               {product.name}
             </h3>
             <p className="mt-2 text-sm text-white/55 line-clamp-2">{shortDesc}</p>
