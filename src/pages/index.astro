@@ -193,6 +193,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     padding-left: 0;
   }
   .sec li::marker, .hero li::marker{ content: ""; }
+/* XTIR_NO_BULLETS */
+.hero [class*="bullet"], .hero [class*="streak"], .hero [class*="tracer"], .hero [class*="shot"], .hero [class*="sweep"]{
+  animation: none !important;
+  transition: none !important;
+  opacity: 0 !important;
+  display: none !important;
+}
+.hero :where(.hero__bg, .hero__grid, .hero__scan)::before,
+.hero :where(.hero__bg, .hero__grid, .hero__scan)::after{
+  animation: none !important;
+}
 
 </style>
 
