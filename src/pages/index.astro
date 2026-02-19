@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
@@ -45,12 +45,12 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           <span class="sb-b"></span>
           <span class="sb-r"></span>
         </div>
-        <h1 class="hero__slogan-text" xtir-h1>
+        <h1 class="hero__slogan-text xtir-h1">
           Инженерные решения для стрелковых тренировок
         </h1>
       </div>
 
-      <p class="hero__sub" xtir-lead>
+      <p class="hero__sub xtir-lead">
         Проектирование и производство систем под реальные условия эксплуатации.
         Точность. Надёжность. Ресурс.
       </p>
@@ -187,7 +187,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 <style>
   :root {
-    --bg: #0f141a; --bg2: #0b0e13; --sf: #141a22;
+    --bg: #111822; --bg2: #0e131b; --sf: #171f2a;
     --bd: rgba(255,255,255,0.07);
     --ac: #00b3ff; --acw: #ff6b35;
     --tx: rgba(255,255,255,0.88); --mu: rgba(255,255,255,0.45);
@@ -1024,91 +1024,58 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   .hero__actions .btn-ghost{
     box-shadow: 0 10px 26px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.10) inset;
   }
-
-/* XTIR_SECTIONS_LIGHT */
-  /* РЎРµРєС†РёРё: РґРµР»Р°РµРј В«СЃСЂРµРґРЅРёР№ СЃРІРµС‚В» РІС‹С€Рµ, С‡С‚РѕР±С‹ РЅРµ Р±С‹Р»Рѕ РѕС‰СѓС‰РµРЅРёСЏ РїСЂРѕРІР°Р»Р° РІ С‡РµСЂРЅРѕС‚Сѓ.
-     Р›РѕРіРёРєР°: РїРѕРґРЅРёРјР°РµРј Р±Р°Р·РѕРІСѓСЋ СЏСЂРєРѕСЃС‚СЊ С„РѕРЅР° СЃРµРєС†РёР№, РґРѕР±Р°РІР»СЏРµРј РјСЏРіРєРёР№ top-glow,
-     Рё РїРѕРґСЃРІРµС‚РєСѓ РїРѕРґ Р·Р°РіРѕР»РѕРІРѕРє СЃРµРєС†РёРё. Р‘РµР· РєР°СЂС‚РёРЅРѕРє, С‚РѕР»СЊРєРѕ РіСЂР°РґРёРµРЅС‚С‹. */
-
+  /* XTIR_SECTIONS_LIGHT */
   :root{
-    --xtir-sec-ink: rgba(255,255,255,.86);
-    --xtir-sec-sub: rgba(255,255,255,.62);
-    --xtir-sec-dim: rgba(255,255,255,.42);
-
-    /* С„РѕРЅРѕРІР°СЏ В«РґС‹РјРєР°В» */
-    --xtir-sec-fogA: rgba(120,190,255,.10);
-    --xtir-sec-fogB: rgba(160,120,255,.08);
-    --xtir-sec-fogC: rgba(255,120,120,.06);
-
-    /* Р±Р°Р·РѕРІР°СЏ РїРѕРґСЃРІРµС‚РєР° */
-    --xtir-sec-base: rgba(255,255,255,.03);
-    --xtir-sec-base2: rgba(255,255,255,.015);
+    /* brighter, but still "night-ops" */
+    --xtir-sec-glowA: rgba(120,170,255,.12);
+    --xtir-sec-glowB: rgba(255,255,255,.055);
+    --xtir-sec-glowC: rgba(190,120,255,.07);
   }
 
-  /* РћР±С‰Р°СЏ СЂР°РјРєР° СЃРµРєС†РёР№ */
-  .sec{ position: relative; color: var(--xtir-sec-ink); }
-
-  /* РќРµРЅР°РІСЏР·С‡РёРІС‹Р№ РІРµСЂС…РЅРёР№ СЃРІРµС‚ РІ РєР°Р¶РґРѕР№ СЃРµРєС†РёРё */
-  .sec::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    background:
-      radial-gradient(1200px 520px at 50% -140px, rgba(120,190,255,.16), transparent 60%),
-      radial-gradient(900px 420px at 70% -120px, rgba(160,120,255,.12), transparent 62%),
-      radial-gradient(900px 420px at 20% -120px, rgba(255,120,120,.08), transparent 64%);
-    opacity:.75;
-    mix-blend-mode: screen;
-  }
-
-  /* РџРѕРґРЅРёРјР°РµРј СЏСЂРєРѕСЃС‚СЊ Сѓ С‚С‘РјРЅС‹С… СЃРµРєС†РёР№, С‡С‚РѕР±С‹ РЅРµ В«РїСЂРѕРІР°Р»РёРІР°Р»РёСЃСЊВ» */
-  .sec--dark, .sec--darker{
-    background:
-      linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.00) 55%),
-      radial-gradient(1200px 700px at 50% 0%, var(--xtir-sec-base), transparent 60%),
-      radial-gradient(900px 600px at 10% 40%, var(--xtir-sec-base2), transparent 60%),
-      radial-gradient(900px 600px at 90% 40%, var(--xtir-sec-base2), transparent 60%);
-  }
-
-  /* Р§СѓС‚СЊ СЂР°Р·РЅРёС†Р° РјРµР¶РґСѓ --dark Рё --darker */
-  .sec--darker{
-    background:
-      linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.00) 58%),
-      radial-gradient(1200px 700px at 50% 0%, rgba(255,255,255,.028), transparent 62%),
-      radial-gradient(900px 600px at 10% 40%, rgba(255,255,255,.012), transparent 62%),
-      radial-gradient(900px 600px at 90% 40%, rgba(255,255,255,.012), transparent 62%);
-  }
-
-  /* РџРѕРґСЃРІРµС‚РєР° РїРѕРґ Р·Р°РіРѕР»РѕРІРѕРє СЃРµРєС†РёРё (С‚Р°Рј РіРґРµ РµСЃС‚СЊ .sec__hd) */
-  .sec__hd{
+  /* Sections: less "black hole", more readable depth */
+  .sec--dark,
+  .sec--darker,
+  .sec--cta{
     position: relative;
-  }
-  .sec__hd::after{
-    content:"";
-    position:absolute;
-    left:-6px;
-    right:-6px;
-    top:-10px;
-    height:140px;
-    pointer-events:none;
+    isolation: isolate;
     background:
-      radial-gradient(520px 120px at 10% 40%, rgba(120,190,255,.16), transparent 70%),
-      radial-gradient(520px 120px at 60% 40%, rgba(160,120,255,.12), transparent 72%),
-      radial-gradient(520px 120px at 95% 40%, rgba(255,120,120,.08), transparent 74%);
-    filter: blur(10px);
-    opacity:.55;
+      radial-gradient(1100px 620px at 18% 0%, var(--xtir-sec-glowA), transparent 62%),
+      radial-gradient(900px 520px at 84% 18%, var(--xtir-sec-glowC), transparent 68%),
+      linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
   }
 
-  /* РўРµРєСЃС‚РѕРІР°СЏ РёРµСЂР°СЂС…РёСЏ СЃРµРєС†РёР№ */
-  .sec .sub{ color: var(--xtir-sec-sub); }
-  .sec .kicker{ color: rgba(170,210,255,.78); letter-spacing:.14em; }
+  .sec--dark{ background-color: rgba(14,18,24,.56); }
+  .sec--darker{ background-color: rgba(12,14,18,.60); }
+  .sec--cta{ background-color: rgba(14,18,24,.48); }
 
-  /* РњСЏРіРєРёРµ СЂР°Р·РґРµР»РёС‚РµР»Рё, РµСЃР»Рё РіРґРµ-С‚Рѕ РµСЃС‚СЊ С‚РѕРЅРєРёРµ Р»РёРЅРёРё */
-  .sec hr, .sec .divider, .sec .hsdiv{
-    opacity:.55;
+  /* Soft top haze (prevents harsh seam under hero) */
+  .sec--dark::before,
+  .sec--darker::before,
+  .sec--cta::before{
+    content: "";
+    position: absolute;
+    inset: -46px -34px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.09), transparent 44%),
+      radial-gradient(1200px 700px at 50% 30%, rgba(120,170,255,.08), transparent 62%);
+    opacity: .55;
+    filter: blur(24px);
+    pointer-events: none;
+    z-index: -1;
   }
-/* END_XTIR_SECTIONS_LIGHT */
+
+  /* Lift secondary text a bit */
+  .sec .sub{ color: rgba(255,255,255,.72); }
+  .sec .kicker{ color: rgba(170,200,255,.78); }
+
+  /* Stats bar: bump contrast so it doesn't "sink" */
+  .hero__stats{
+    border-color: rgba(255,255,255,.12);
+    background: rgba(10,14,18,.55);
+  }
+  .hero__stats .hstat__n{ color: rgba(140,190,255,.95); text-shadow: 0 0 18px rgba(120,170,255,.22); }
+  .hero__stats .hstat__l{ color: rgba(255,255,255,.62); }
+
 </style>
 
 
