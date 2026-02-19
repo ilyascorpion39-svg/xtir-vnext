@@ -10,6 +10,9 @@ const getBase = () => {
   return base.replace(/\/$/, "");
 };
 
+// Синхронное чтение base — работает до mount React
+const BASE = typeof document !== "undefined" ? getBase() : "";
+
 const navItems = [
   { name: 'Главная', href: '/' },
   { name: 'Каталог', href: '/products/' },
@@ -46,11 +49,8 @@ const socialLinks = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [base, setBase] = useState("");
 
   useEffect(() => {
-    setBase(getBase());
-
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -58,7 +58,7 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const href = (path: string) => base + path;
+  const href = (path: string) => BASE + path;
 
   return (
     <motion.header
@@ -76,8 +76,8 @@ export default function Header() {
           {/* Logo */}
           <a href={href("/")} className="flex items-center gap-3">
             <img
-              src={`${base}/images/logo.png`}
-              srcSet={`${base}/images/logo.png 1x, ${base}/images/xtir-logo@2x.png 2x`}
+              src={`${BASE}/images/logo.png`}
+              srcSet={`${BASE}/images/logo.png 1x, ${BASE}/images/xtir-logo@2x.png 2x`}
               width={140}
               height={48}
               alt="XTIR"
