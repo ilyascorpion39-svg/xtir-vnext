@@ -310,7 +310,7 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
 
 <!-- Модалка быстрого запроса -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
-  <div class="modal" data-stop-propagation>
+  <div class="modal xtir-card" data-stop-propagation>
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-icon">📄</div>
     <h3 class="modal-title">Запрос документа</h3>
@@ -566,3 +566,4 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
     else init();
   })();
 </script>
+
