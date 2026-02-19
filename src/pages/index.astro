@@ -317,7 +317,108 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 .btn-primary, .btn-ghost{
   box-shadow: 0 10px 28px rgba(0,0,0,.30);
 }
+/* XTIR_HEADER_VISIBLE */
+/* Р–С‘СЃС‚РєРѕ РІРѕР·РІСЂР°С‰Р°РµРј С€Р°РїРєСѓ РїРѕРІРµСЂС… hero/С„РѕРЅР° */
+header, .header, .site-header, .topbar, [data-header], [role="banner"]{
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 9999 !important;
+}
 
+/* Р’РёРґРёРјРѕСЃС‚СЊ/РєРѕРЅС‚СЂР°СЃС‚ */
+header, .header, .site-header, .topbar, [data-header], [role="banner"]{
+  background: rgba(6,10,14,.72) !important;
+  backdrop-filter: blur(10px) saturate(1.05);
+  -webkit-backdrop-filter: blur(10px) saturate(1.05);
+  border-bottom: 1px solid rgba(255,255,255,.10) !important;
+}
+
+/* РўРµРєСЃС‚/СЃСЃС‹Р»РєРё */
+header a, .header a, .site-header a, .topbar a, [role="banner"] a{
+  color: rgba(255,255,255,.86) !important;
+}
+header a:hover, .header a:hover, .site-header a:hover, .topbar a:hover, [role="banner"] a:hover{
+  color: rgba(170,210,255,.98) !important;
+}
+
+/* РќР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№: РµСЃР»Рё С€Р°РїРєСѓ вЂњСЃСЉРµРґР°РµС‚вЂќ СЂРѕРґРёС‚РµР»СЊ */
+body, main, .page, .layout{
+  overflow-x: hidden;
+}
+/* XTIR_TRICOLOR_TINT */
+/* Р—Р°С‚РµРјРЅСЏРµРј/РїСЂРёРіР»СѓС€Р°РµРј С‚СЂРёРєРѕР»РѕСЂ-РїРѕР»РѕСЃРєСѓ РїРѕРґ С€Р°РїРєРѕР№ */
+:root{
+  --xtir-tricolor-dim: .28;     /* 0..1: РјРµРЅСЊС€Рµ = С‚РµРјРЅРµРµ */
+  --xtir-tricolor-alpha: .15;   /* РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ РїРѕР»РѕСЃРєРё */
+}
+
+/* РџРѕРїС‹С‚РєР° РїРѕР№РјР°С‚СЊ СЂР°Р·РЅС‹Рµ РІР°СЂРёР°РЅС‚С‹ РєР»Р°СЃСЃРѕРІ/Р°С‚СЂРёР±СѓС‚РѕРІ */
+.tricolor, .tricolor-bar, .xtir-tricolor, .topbar__tricolor, .header__tricolor,
+[data-tricolor], [data-xtir-tricolor]{
+  opacity: var(--xtir-tricolor-alpha) !important;
+  filter: brightness(var(--xtir-tricolor-dim)) saturate(.95) !important;
+}
+
+/* Р•СЃР»Рё С‚СЂРёРєРѕР»РѕСЂ РЅР°СЂРёСЃРѕРІР°РЅ РїСЃРµРІРґРѕСЌР»РµРјРµРЅС‚РѕРј */
+.tricolor::before, .tricolor::after,
+.tricolor-bar::before, .tricolor-bar::after,
+.xtir-tricolor::before, .xtir-tricolor::after,
+.topbar__tricolor::before, .topbar__tricolor::after,
+.header__tricolor::before, .header__tricolor::after,
+[data-tricolor]::before, [data-tricolor]::after,
+[data-xtir-tricolor]::before, [data-xtir-tricolor]::after{
+  opacity: var(--xtir-tricolor-alpha) !important;
+  filter: brightness(var(--xtir-tricolor-dim)) saturate(.95) !important;
+}
+
+/* Р›С‘РіРєР°СЏ вЂњРґС‹РјРєР°вЂќ РїРѕРІРµСЂС…, С‡С‚РѕР±С‹ РІС‹РіР»СЏРґРµР»Рѕ С‚РµС…РЅРёС‡РЅРѕ Рё РЅРµ РєСЂРёС‡Р°Р»Рѕ */
+.tricolor, .tricolor-bar, .xtir-tricolor, .topbar__tricolor, .header__tricolor,
+[data-tricolor], [data-xtir-tricolor]{
+  position: relative;
+}
+.tricolor::after, .tricolor-bar::after, .xtir-tricolor::after,
+.topbar__tricolor::after, .header__tricolor::after,
+[data-tricolor]::after, [data-xtir-tricolor]::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0,0,0,.72), rgba(0,0,0,.40));
+}
+
+/* XTIR_TRICOLOR_DIM_OVERRIDE */
+:root{
+  --xtir-tricolor-opacity: .33;      /* ~РІ 3 СЂР°Р·Р° С‚РёС€Рµ */
+  --xtir-tricolor-brightness: .72;   /* С‡СѓС‚СЊ С‚РµРјРЅРµРµ */
+  --xtir-tricolor-saturate: .80;     /* РјРµРЅСЊС€Рµ вЂњРєРёСЃР»РѕС‚С‹вЂќ */
+}
+
+/* Р›РѕРІРёРј СЃР°РјС‹Рµ С‡Р°СЃС‚С‹Рµ РІР°СЂРёР°РЅС‚С‹ РєР»Р°СЃСЃРѕРІ/Р±Р»РѕРєРѕРІ */
+.tricolor,
+.tricolor-bar,
+.header-tricolor,
+.xtir-tricolor,
+.top-tricolor,
+.xtir-topline,
+[data-tricolor],
+[aria-label*="С‚СЂРёРєРѕР»РѕСЂ" i],
+[aria-label*="tricolor" i]{
+  opacity: var(--xtir-tricolor-opacity) !important;
+  filter: brightness(var(--xtir-tricolor-brightness)) saturate(var(--xtir-tricolor-saturate)) !important;
+}
+
+/* Р•СЃР»Рё С‚СЂРёРєРѕР»РѕСЂ РЅР°СЂРёСЃРѕРІР°РЅ РїСЃРµРІРґРѕСЌР»РµРјРµРЅС‚РѕРј */
+.tricolor::before, .tricolor::after,
+.tricolor-bar::before, .tricolor-bar::after,
+.header-tricolor::before, .header-tricolor::after,
+.xtir-tricolor::before, .xtir-tricolor::after,
+.top-tricolor::before, .top-tricolor::after,
+.xtir-topline::before, .xtir-topline::after,
+[data-tricolor]::before, [data-tricolor]::after{
+  opacity: var(--xtir-tricolor-opacity) !important;
+  filter: brightness(var(--xtir-tricolor-brightness)) saturate(var(--xtir-tricolor-saturate)) !important;
+}
+/* XTIR_TRICOLOR_DIM_OVERRIDE END */
 </style>
 
 <style>
@@ -572,6 +673,40 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   .hp-cnt:hover { opacity: .7; }
   .hp-cl { font-family: 'Courier New', monospace !important; font-size: .62rem; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,0.4); }
   .hp-cv { font-size: 1.08rem !important; font-weight: 700 !important; color: #fff !important; font-family: inherit !important; }
+
+/* XTIR_TRICOLOR_DIM_OVERRIDE */
+:root{
+  --xtir-tricolor-opacity: .33;      /* ~РІ 3 СЂР°Р·Р° С‚РёС€Рµ */
+  --xtir-tricolor-brightness: .72;   /* С‡СѓС‚СЊ С‚РµРјРЅРµРµ */
+  --xtir-tricolor-saturate: .80;     /* РјРµРЅСЊС€Рµ вЂњРєРёСЃР»РѕС‚С‹вЂќ */
+}
+
+/* Р›РѕРІРёРј СЃР°РјС‹Рµ С‡Р°СЃС‚С‹Рµ РІР°СЂРёР°РЅС‚С‹ РєР»Р°СЃСЃРѕРІ/Р±Р»РѕРєРѕРІ */
+.tricolor,
+.tricolor-bar,
+.header-tricolor,
+.xtir-tricolor,
+.top-tricolor,
+.xtir-topline,
+[data-tricolor],
+[aria-label*="С‚СЂРёРєРѕР»РѕСЂ" i],
+[aria-label*="tricolor" i]{
+  opacity: var(--xtir-tricolor-opacity) !important;
+  filter: brightness(var(--xtir-tricolor-brightness)) saturate(var(--xtir-tricolor-saturate)) !important;
+}
+
+/* Р•СЃР»Рё С‚СЂРёРєРѕР»РѕСЂ РЅР°СЂРёСЃРѕРІР°РЅ РїСЃРµРІРґРѕСЌР»РµРјРµРЅС‚РѕРј */
+.tricolor::before, .tricolor::after,
+.tricolor-bar::before, .tricolor-bar::after,
+.header-tricolor::before, .header-tricolor::after,
+.xtir-tricolor::before, .xtir-tricolor::after,
+.top-tricolor::before, .top-tricolor::after,
+.xtir-topline::before, .xtir-topline::after,
+[data-tricolor]::before, [data-tricolor]::after{
+  opacity: var(--xtir-tricolor-opacity) !important;
+  filter: brightness(var(--xtir-tricolor-brightness)) saturate(var(--xtir-tricolor-saturate)) !important;
+}
+/* XTIR_TRICOLOR_DIM_OVERRIDE END */
 </style>
 
 <!-- XTIR_NO_BULLETS_MAX_JS -->
