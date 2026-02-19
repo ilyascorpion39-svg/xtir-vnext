@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/sections/Hero.astro';
 ---
 
 <BaseLayout
@@ -7,63 +8,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   description="XTIR — разработка и производство электронно-механического оборудования для стрельбы."
 >
 
-<section class="hp-hero">
-  <div class="hp-bg">
-    <div class="hp-glow-l"></div>
-    <div class="hp-glow-r"></div>
-    <div class="hp-grid"></div>
-    <div class="hp-scan"></div>
-  </div>
-
-  <div class="hp-tricolor">
-    <span class="tc1"></span><span class="tc2"></span><span class="tc3"></span>
-  </div>
-
-  <div class="hp-c hp-c-tl"></div>
-  <div class="hp-c hp-c-tr"></div>
-  <div class="hp-c hp-c-bl"></div>
-  <div class="hp-c hp-c-br"></div>
-
-  <!-- Пуля — медленная трассирующая -->
-  <div class="hp-bullet-wrap">
-    <div class="hp-bullet"></div>
-    <div class="hp-bullet hp-bullet--2"></div>
-  </div>
-
-  <div class="hp-body">
-    <div class="hp-center">
-      <div class="hp-badge">
-        <span class="hp-bdot"></span>
-        XTIR · Электронно-механические решения для стрельбы
-      </div>
-      <div class="hp-logo-box">
-        <img src="/images/logo.png" alt="XTIR" class="hp-logo"/>
-      </div>
-      <div class="hp-slogan">
-        <div class="hp-sbar"><span class="tc1"></span><span class="tc2"></span><span class="tc3"></span></div>
-        <div class="hp-stext">Инженерные решения для стрелковых тренировок</div>
-      </div>
-      <div class="hp-desc">
-        Проектирование и производство систем под реальные условия эксплуатации.<br/>
-        Точность. Надёжность. Ресурс.
-      </div>
-      <div class="hp-acts">
-        <a href="/contact/" class="hp-btn1">Обсудить проект</a>
-        <a href="/products/" class="hp-btn2">Смотреть каталог →</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="hp-stats">
-    <div class="hp-stat"><div class="hp-sn">20+</div><div class="hp-sl">лет в отрасли</div></div>
-    <div class="hp-sdiv"></div>
-    <div class="hp-stat"><div class="hp-sn">30+</div><div class="hp-sl">позиций каталога</div></div>
-    <div class="hp-sdiv"></div>
-    <div class="hp-stat"><div class="hp-sn">РФ</div><div class="hp-sl">производство</div></div>
-    <div class="hp-sdiv"></div>
-    <div class="hp-stat"><div class="hp-sn">24/7</div><div class="hp-sl">поддержка</div></div>
-  </div>
-</section>
+<Hero />
 
 <!-- НАПРАВЛЕНИЯ -->
 <section class="hp-sec hp-dark">
@@ -288,179 +233,6 @@ body, main, .page, .layout{
 </style>
 
 <style>
-  /* Все переменные локальные */
-  .hp-hero, .hp-sec, .hp-wrap, .hp-cards, .hp-why, .hp-cta {
-    --ac: #00b3ff; --acw: #ff6b35;
-    --bg: #0f141a; --bg2: #0b0e13; --sf: #141a22;
-    --bd: rgba(255,255,255,0.07);
-    --tx: rgba(255,255,255,0.88); --mu: rgba(255,255,255,0.45);
-  }
-
-  /* Триколор элементы */
-  .tc1 { flex: 1; background: #ffffff !important; }
-  .tc2 { flex: 1; background: #0039a6 !important; }
-  .tc3 { flex: 1; background: #d52b1e !important; }
-
-  /* ── ГЕРОЙ ── */
-  .hp-hero {
-    position: relative; min-height: 100vh;
-    display: flex; flex-direction: column;
-    overflow: hidden; background: #060a0e;
-  }
-  .hp-bg { position: absolute; inset: 0; }
-  .hp-glow-l {
-    position: absolute; width: 800px; height: 800px;
-    top: -200px; left: -300px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,179,255,0.18), transparent 70%);
-    filter: blur(100px);
-  }
-  .hp-glow-r {
-    position: absolute; width: 600px; height: 600px;
-    top: 0; right: -200px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,60,180,0.15), transparent 70%);
-    filter: blur(80px);
-  }
-  .hp-grid {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(0,179,255,0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,179,255,0.05) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
-  }
-  .hp-scan {
-    position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 35%, rgba(0,179,255,0.04) 50%, transparent 65%);
-    animation: hpscan 14s ease-in-out infinite;
-  }
-  @keyframes hpscan { 0%,100%{transform:translateY(-50%)} 50%{transform:translateY(50%)} }
-
-  .hp-tricolor {
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 4px; display: flex; z-index: 10;
-  }
-
-  /* Угловые маркеры */
-  .hp-c { position: absolute; width: 26px; height: 26px; border-color: rgba(0,179,255,0.6); border-style: solid; z-index: 5; }
-  .hp-c-tl { top: 10px; left: 10px; border-width: 2px 0 0 2px; border-radius: 3px 0 0 0; }
-  .hp-c-tr { top: 10px; right: 10px; border-width: 2px 2px 0 0; border-radius: 0 3px 0 0; }
-  .hp-c-bl { bottom: 58px; left: 10px; border-width: 0 0 2px 2px; border-radius: 0 0 0 3px; }
-  .hp-c-br { bottom: 58px; right: 10px; border-width: 0 2px 2px 0; border-radius: 0 0 3px 0; }
-
-  /* ── ПУЛЯ ── медленная, реалистичная */
-  .hp-bullet-wrap {
-    position: absolute; inset: 0; overflow: hidden;
-    pointer-events: none; z-index: 6;
-  }
-  .hp-bullet {
-    position: absolute;
-    width: 200px; height: 2px;
-    background: linear-gradient(to right,
-      transparent 0%,
-      rgba(255,180,30,0.3) 20%,
-      rgba(255,220,80,0.85) 60%,
-      rgba(255,255,200,1) 85%,
-      rgba(255,255,255,0.5) 100%
-    );
-    box-shadow: 0 0 6px rgba(255,200,50,0.7), 0 0 16px rgba(255,130,0,0.4);
-    border-radius: 2px;
-    top: 35%; left: -220px;
-    animation: hpbullet 7s ease-in 2s infinite;
-  }
-  .hp-bullet--2 {
-    top: 55%; left: -220px;
-    animation: hpbullet2 9s ease-in 6s infinite;
-    opacity: 0.6;
-    width: 150px;
-  }
-  @keyframes hpbullet {
-    0%   { left: -220px; top: 35%; opacity: 0; }
-    5%   { opacity: 1; }
-    20%  { left: 25%; top: 42%; }
-    50%  { left: 65%; top: 52%; }
-    75%  { left: 95%; top: 59%; opacity: 0.4; }
-    80%  { left: 105%; opacity: 0; }
-    100% { left: 105%; opacity: 0; }
-  }
-  @keyframes hpbullet2 {
-    0%   { left: -180px; top: 55%; opacity: 0; }
-    5%   { opacity: 0.6; }
-    30%  { left: 35%; top: 48%; }
-    60%  { left: 70%; top: 42%; opacity: 0.3; }
-    70%  { left: 105%; opacity: 0; }
-    100% { left: 105%; opacity: 0; }
-  }
-
-  .hp-body {
-    flex: 1; display: flex; align-items: center; justify-content: center;
-    position: relative; z-index: 3; padding: 120px 24px 60px;
-  }
-  .hp-center { text-align: center; max-width: 820px; }
-
-  .hp-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: 'Courier New', monospace;
-    font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    color: #00b3ff; margin-bottom: 22px;
-    background: rgba(0,179,255,0.08); border: 1px solid rgba(0,179,255,0.2);
-    padding: 6px 16px; border-radius: 20px;
-  }
-  .hp-bdot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: #00b3ff; box-shadow: 0 0 8px #00b3ff;
-    animation: hppulse 2s ease-in-out infinite; flex-shrink: 0;
-  }
-  @keyframes hppulse { 0%,100%{opacity:1} 50%{opacity:.2} }
-
-  .hp-logo-box { margin-bottom: 24px; }
-  .hp-logo { height: 72px; width: auto; filter: drop-shadow(0 0 28px rgba(0,179,255,0.55)) drop-shadow(0 0 56px rgba(0,100,200,0.3)); }
-
-  .hp-slogan { display: flex; align-items: center; gap: 14px; justify-content: center; margin-bottom: 16px; }
-  .hp-sbar { display: flex; flex-direction: column; width: 4px; height: 52px; border-radius: 2px; overflow: hidden; flex-shrink: 0; }
-  .hp-stext {
-    font-size: clamp(19px, 2.6vw, 32px);
-    font-weight: 700; color: #ffffff !important;
-    text-align: left; line-height: 1.25;
-    text-shadow: 0 2px 16px rgba(0,0,0,0.9);
-    /* Перебиваем Tailwind h-классы */
-    font-family: inherit !important;
-    letter-spacing: -0.01em !important;
-  }
-
-  .hp-desc {
-    font-size: .98rem; color: rgba(255,255,255,0.5) !important;
-    line-height: 1.7; max-width: 500px; margin: 0 auto 30px;
-    text-shadow: 0 1px 8px rgba(0,0,0,0.95);
-    font-family: inherit !important; font-weight: normal !important;
-  }
-  .hp-acts { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-
-  .hp-btn1, .hp-btn2 {
-    display: inline-flex; align-items: center;
-    padding: 13px 30px; border-radius: 8px;
-    font-size: .92rem; font-weight: 700;
-    text-decoration: none !important; transition: all .2s;
-    font-family: inherit !important;
-  }
-  .hp-btn1 { background: #00b3ff; color: #000 !important; }
-  .hp-btn1:hover { background: #00c8ff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,179,255,0.35); }
-  .hp-btn2 { color: rgba(255,255,255,0.88) !important; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.07); backdrop-filter: blur(8px); }
-  .hp-btn2:hover { background: rgba(255,255,255,0.13); }
-
-  /* Стат бар */
-  .hp-stats {
-    position: relative; z-index: 3;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    background: rgba(0,0,0,0.6); backdrop-filter: blur(16px);
-    display: flex; align-items: center; justify-content: center;
-    gap: 48px; padding: 20px 24px; flex-wrap: wrap;
-  }
-  .hp-stat { text-align: center; }
-  .hp-sn { font-size: 1.65rem; font-weight: 800; color: #00b3ff !important; line-height: 1; font-family: inherit !important; }
-  .hp-sl { font-family: 'Courier New', monospace !important; font-size: .6rem; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,0.45); margin-top: 3px; }
-  .hp-sdiv { width: 1px; height: 34px; background: rgba(255,255,255,0.07); }
-  @media(max-width:600px){ .hp-sdiv{display:none} }
-
   /* ── ОБЩИЕ ── */
   .hp-sec { padding: 90px 0; }
   .hp-dark { background: #0f141a; }
@@ -484,6 +256,18 @@ body, main, .page, .layout{
     font-family: inherit !important; font-weight: normal !important;
     text-transform: none !important;
   }
+  .hp-acts { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .hp-btn1, .hp-btn2 {
+    display: inline-flex; align-items: center;
+    padding: 13px 30px; border-radius: 8px;
+    font-size: .92rem; font-weight: 700;
+    text-decoration: none !important; transition: all .2s;
+    font-family: inherit !important;
+  }
+  .hp-btn1 { background: #00b3ff; color: #000 !important; }
+  .hp-btn1:hover { background: #00c8ff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,179,255,0.35); }
+  .hp-btn2 { color: rgba(255,255,255,0.88) !important; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.07); backdrop-filter: blur(8px); }
+  .hp-btn2:hover { background: rgba(255,255,255,0.13); }
   .hp-lnk { display: inline-block; margin-top: 24px; color: #00b3ff !important; text-decoration: none !important; font-weight: 600; transition: opacity .2s; }
   .hp-lnk:hover { opacity: .7; }
 
