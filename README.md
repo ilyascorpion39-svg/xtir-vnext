@@ -59,6 +59,19 @@ GitHub Actions → GitHub Pages автоматически при push в `main`
 
 Продакшн: **https://xtir.ru**
 
+### Прод-деплой на x-tir.ru (SSH)
+
+Добавлен workflow: `.github/workflows/deploy-x-tir-prod.yml`
+
+Нужные `Repository Secrets`:
+- `PROD_SSH_HOST` — хост сервера
+- `PROD_SSH_PORT` — порт SSH (обычно `22`)
+- `PROD_SSH_USER` — пользователь SSH
+- `PROD_SSH_KEY` — приватный ключ (ed25519/rsa) для доступа
+- `PROD_TARGET_DIR` — директория, куда выкладывается содержимое `dist`
+- `PROD_POST_DEPLOY_CMD` (optional) — например `sudo systemctl reload caddy`
+- `PROD_HEALTHCHECK_URL` (optional) — например `https://x-tir.ru/`
+
 ## Контакты
 
 - Email: info@xtir.ru
