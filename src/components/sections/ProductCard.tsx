@@ -61,17 +61,14 @@ export default function ProductCard({ product, categoryName }: Props) {
   const shortDesc = product.description.length > 120
     ? product.description.slice(0, 120).trimEnd() + "…"
     : product.description;
+  const specPreview = (product.specs ?? []).filter((s) => s.value?.trim()).slice(0, 2);
+  const featurePreview = product.features.slice(0, 2);
 
   return (
     <motion.a
       href={withBase(`/products/${product.slug}/`)}
       className={clsx(
-        "group block h-full overflow-hidden rounded-[18px] backdrop-blur-[8px]",
-        "[background:linear-gradient(to_top,rgba(0,0,0,0.65),transparent_60%),linear-gradient(180deg,#0f141a_0%,#0b1016_100%)]",
-        "[box-shadow:inset_0_1px_0_rgba(255,255,255,0.05)]",
-        "border border-[rgba(255,255,255,0.06)]",
-        "[transition:transform_0.25s_ease,box-shadow_0.25s_ease,border-color_0.25s_ease]",
-        "hover:-translate-y-[6px] hover:shadow-[0_18px_40px_rgba(0,0,0,0.5)] hover:border-[rgba(0,179,255,0.18)]",
+        "group xtir-card xtir-card--hover flex h-full flex-col overflow-hidden",
       )}
       initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -98,13 +95,13 @@ export default function ProductCard({ product, categoryName }: Props) {
           {categoryName ?? product.categoryId}
         </div>
       </div>
-      <div className="p-6">
+      <div className="flex h-full flex-col p-5 md:p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
             <h3 className={clsx("text-xl font-bold text-white transition-colors [text-shadow:0_2px_12px_rgba(0,0,0,0.6)] [letter-spacing:0.02em]", meta.titleHoverClass)}>
               {product.name}
             </h3>
-            <p className="mt-2 text-sm text-white/75 line-clamp-2">{shortDesc}</p>
+            <p className="mt-2 text-sm text-white/75">{shortDesc}</p>
           </div>
           <div className="shrink-0 text-white/35 transition-colors group-hover:text-white/80">
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,20 +109,29 @@ export default function ProductCard({ product, categoryName }: Props) {
             </svg>
           </div>
         </div>
-        {product.features?.length > 0 && (
+        {specPreview.length > 0 ? (
+          <dl className="mt-5 grid gap-2 text-sm">
+            {specPreview.map((s) => (
+              <div key={s.label} className="flex items-baseline justify-between gap-3 border-b border-white/10 pb-1.5">
+                <dt className="text-white/55">{s.label}</dt>
+                <dd className="text-right text-white/85">{s.value}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : featurePreview.length > 0 ? (
           <ul className="mt-5 space-y-1.5">
-            {product.features.slice(0, 3).map((f, i) => (
+            {featurePreview.map((f, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-white/70">
                 <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full"
                   style={{ backgroundColor: meta.accent }} />
-                <span className="line-clamp-1">{f}</span>
+                <span>{f}</span>
               </li>
             ))}
           </ul>
-        )}
-        <div className="mt-6 flex items-center justify-between gap-4">
+        ) : null}
+        <div className="mt-auto flex items-center justify-between gap-4 pt-6">
           <span className="text-xs text-white/40">Цена по запросу</span>
-          <span className="inline-flex items-center gap-1 text-xs font-semibold text-white/70 transition-all group-hover:text-white group-hover:translate-x-[1px]">
+          <span className="xtir-btn xtir-btn--secondary min-h-0 px-3 py-1.5 text-xs">
             Подробнее
           </span>
         </div>

@@ -12,6 +12,9 @@ const categoryOrder = [
 export default function ProductCatalog() {
   const [active, setActive] = useState<string>("all");
   const [query, setQuery]   = useState<string>("");
+  const hasCatalog = PRODUCTS.length > 0;
+  const toAnchorId = (value: string) =>
+    value.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "-").replace(/^-+|-+$/g, "");
 
   const catNameById = useMemo(() => {
     const m = new Map<string, string>();
@@ -48,14 +51,14 @@ export default function ProductCatalog() {
   }, [filtered]);
 
   return (
-    <section id="products" className="section pt-8">
-      <div className="section-container">
+    <section id="products" className="xtir-section pt-4 md:pt-6">
+      <div className="xtir-container">
 
         {/* Заголовок */}
-        <div className="mb-8">
+        <div className="mb-8 md:mb-10">
           <p className="kicker">Каталог</p>
-          <h1 className="section-title">Мишенные системы XTIR</h1>
-          <p className="section-subtitle">
+          <h1 className="xtir-title">Мишенные системы XTIR</h1>
+          <p className="xtir-lead mt-3">
             Электронно-механическое оборудование для стрельбы. {PRODUCTS.length} позиций.
           </p>
         </div>
@@ -66,10 +69,10 @@ export default function ProductCatalog() {
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setActive("all")}
-              className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
+              className={`xtir-btn text-sm ${
                 active === "all"
-                  ? "bg-primary-500 text-dark-900"
-                  : "border border-white/15 text-white/60 hover:border-white/30 hover:text-white"
+                  ? "xtir-btn--primary"
+                  : "xtir-btn--secondary"
               }`}
             >
               Все
@@ -78,10 +81,10 @@ export default function ProductCatalog() {
               <button
                 key={cat.id}
                 onClick={() => setActive(cat.id)}
-                className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
+                className={`xtir-btn text-sm ${
                   active === cat.id
-                    ? "bg-primary-500 text-dark-900"
-                    : "border border-white/15 text-white/60 hover:border-white/30 hover:text-white"
+                    ? "xtir-btn--primary"
+                    : "xtir-btn--secondary"
                 }`}
               >
                 {cat.name}
@@ -95,26 +98,31 @@ export default function ProductCatalog() {
             placeholder="Поиск..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full sm:w-64 rounded-lg border border-white/15 bg-dark-800 px-4 py-2 text-sm text-white placeholder-white/35 outline-none focus:border-primary-500/60"
+            className="w-full sm:w-72 rounded-xl border border-white/15 bg-dark-800 px-4 py-2.5 text-sm text-white placeholder-white/35 outline-none focus:border-primary-500/60"
           />
         </div>
 
         <div className="category-nav">
           {categoryOrder.map((cat) => (
-            <a key={cat} href={`#cat-${cat}`} className="cat-link">
+            <a key={cat} href={`#cat-${toAnchorId(cat)}`} className="cat-link">
               {cat}
             </a>
           ))}
         </div>
 
         {/* Категории + сетки карточек */}
-        {filtered.length > 0 ? (
+        {!hasCatalog ? (
+          <div className="xtir-card p-8 md:p-10 text-center">
+            <p className="text-lg text-white/90">Каталог временно обновляется</p>
+            <p className="xtir-lead mt-2">Список продукции скоро появится на этой странице.</p>
+          </div>
+        ) : filtered.length > 0 ? (
           <div className="space-y-10">
             {grouped.map(([category, products]) => (
-              <section key={category} id={`cat-${category}`}>
+              <section key={category} id={`cat-${toAnchorId(category)}`}>
                 <h2 className="mb-5 text-2xl font-semibold text-white">{category}</h2>
                 <motion.div
-                  className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                  className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:grid-cols-4 auto-rows-fr"
                   initial="hidden"
                   animate="visible"
                   variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
@@ -131,11 +139,12 @@ export default function ProductCatalog() {
             ))}
           </div>
         ) : (
-          <div className="py-24 text-center text-white/40">
-            <p className="text-lg">Ничего не найдено</p>
+          <div className="xtir-card p-8 md:p-10 text-center">
+            <p className="text-lg text-white/90">Ничего не найдено</p>
+            <p className="xtir-lead mt-2">Измените фильтры или сбросьте поиск.</p>
             <button
               onClick={() => { setActive("all"); setQuery(""); }}
-              className="mt-4 text-sm text-primary-500 hover:underline"
+              className="xtir-btn xtir-btn--secondary mt-5 text-sm"
             >
               Сбросить фильтры
             </button>
@@ -153,21 +162,26 @@ export default function ProductCatalog() {
         html { scroll-behavior: smooth; }
         .category-nav {
           display: flex;
-          gap: 12px;
-          margin-bottom: 40px;
+          gap: 10px;
+          margin-bottom: 32px;
           flex-wrap: wrap;
         }
         .cat-link {
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.16);
           border-radius: 9999px;
           padding: 8px 14px;
-          color: rgba(255, 255, 255, 0.8);
+          color: rgba(255, 255, 255, 0.78);
+          font-size: 13px;
           transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
         }
         .cat-link:hover {
           border-color: rgba(255, 255, 255, 0.35);
           background-color: rgba(255, 255, 255, 0.06);
           color: #fff;
+        }
+        .cat-link:focus-visible {
+          outline: 2px solid rgba(0, 179, 255, 0.85);
+          outline-offset: 2px;
         }
       `}</style>
     </section>
