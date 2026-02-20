@@ -106,7 +106,32 @@
     color: #00b3ff; margin-bottom: 22px;
     background: rgba(0,179,255,0.08); border: 1px solid rgba(0,179,255,0.2);
     padding: 6px 16px; border-radius: 20px;
+    position: relative;
   }
+  .hp-badge::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(120,220,255,0.95);
+    box-shadow: 0 0 8.5px rgba(120,220,255,0.8);
+    transform: translateY(-50%);
+    animation: hpbadgepulse 2.8s ease-in-out infinite;
+  }
+  .hp-badge::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 4px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(120,220,255,0.35), rgba(255,255,255,0));
+    opacity: 0.6;
+  }
+  @keyframes hpbadgepulse { 0%,100% { opacity: .45; transform: translateY(-50%) scale(1); } 50% { opacity: 1; transform: translateY(-50%) scale(1.2); } }
   .hp-bdot {
     width: 6px; height: 6px; border-radius: 50%;
     background: #00b3ff; box-shadow: 0 0 8px #00b3ff;

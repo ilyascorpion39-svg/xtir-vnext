@@ -23,6 +23,16 @@ export default function ProductCatalog() {
     });
   }, [active, query]);
 
+  const grouped = useMemo(() => {
+    const groups = new Map<string, typeof PRODUCTS>();
+    filtered.forEach((product) => {
+      const key = product.category || "Без категории";
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key)!.push(product);
+    });
+    return Array.from(groups.entries());
+  }, [filtered]);
+
   return (
     <section id="products" className="section pt-8">
       <div className="section-container">
@@ -75,22 +85,29 @@ export default function ProductCatalog() {
           />
         </div>
 
-        {/* Сетка карточек */}
+        {/* Категории + сетки карточек */}
         {filtered.length > 0 ? (
-          <motion.div
-            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-            initial="hidden"
-            animate="visible"
-            variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
-          >
-            {filtered.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                categoryName={catNameById.get(product.categoryId)}
-              />
+          <div className="space-y-10">
+            {grouped.map(([category, products]) => (
+              <section key={category}>
+                <h2 className="mb-5 text-2xl font-semibold text-white">{category}</h2>
+                <motion.div
+                  className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                  initial="hidden"
+                  animate="visible"
+                  variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+                >
+                  {products.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      categoryName={catNameById.get(product.categoryId)}
+                    />
+                  ))}
+                </motion.div>
+              </section>
             ))}
-          </motion.div>
+          </div>
         ) : (
           <div className="py-24 text-center text-white/40">
             <p className="text-lg">Ничего не найдено</p>
