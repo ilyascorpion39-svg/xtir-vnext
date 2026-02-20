@@ -13,7 +13,7 @@ import { withBase } from "@/site";
     <span class="tc1"></span><span class="tc2"></span><span class="tc3"></span>
   </div>
 
-  <div class="hp-body">
+  <div class="hp-body home-container">
     <div class="hp-center">
       <div class="hp-badge">
         <span class="hp-bdot"></span>
@@ -24,15 +24,15 @@ import { withBase } from "@/site";
       </div>
       <div class="hp-slogan">
         <div class="hp-sbar"><span class="tc1"></span><span class="tc2"></span><span class="tc3"></span></div>
-        <div class="hp-stext">Инженерные решения для стрелковых тренировок</div>
+        <h1 class="hp-stext">Инженерные решения для стрелковых тренировок</h1>
       </div>
-      <div class="hp-desc">
+      <div class="hp-desc home-lead">
         Проектирование и производство систем под реальные условия эксплуатации.<br/>
         Точность. Надёжность. Ресурс.
       </div>
       <div class="hp-acts">
-        <a href={withBase("/contact/")} class="hp-btn1">Обсудить проект</a>
-        <a href={withBase("/products/")} class="hp-btn2">Смотреть каталог →</a>
+        <a href={withBase("/contact/")} class="home-btn home-btn--primary">Обсудить проект</a>
+        <a href={withBase("/products/")} class="home-btn home-btn--secondary">Смотреть каталог →</a>
       </div>
     </div>
   </div>
@@ -99,9 +99,9 @@ import { withBase } from "@/site";
 
   .hp-body {
     flex: 1; display: flex; align-items: center; justify-content: center;
-    position: relative; z-index: 3; padding: 120px 24px 60px;
+    position: relative; z-index: 3; padding-top: clamp(112px, 18vh, 156px); padding-bottom: 56px;
   }
-  .hp-center { text-align: center; max-width: 820px; }
+  .hp-center { text-align: center; max-width: 820px; margin-inline: auto; }
 
   .hp-badge {
     display: inline-flex; align-items: center; gap: 8px;
@@ -149,8 +149,10 @@ import { withBase } from "@/site";
   .hp-slogan { display: flex; align-items: center; gap: 14px; justify-content: center; margin-bottom: 16px; }
   .hp-sbar { display: flex; flex-direction: column; width: 4px; height: 52px; border-radius: 2px; overflow: hidden; flex-shrink: 0; }
   .hp-stext {
-    font-size: clamp(19px, 2.6vw, 32px);
-    font-weight: 700; color: #ffffff !important;
+    margin: 0;
+    font-size: var(--home-h1);
+    font-weight: 800;
+    color: #ffffff !important;
     text-align: left; line-height: 1.25;
     text-shadow: 0 4px 24px rgba(0,0,0,0.9);
     font-family: inherit !important;
@@ -158,33 +160,11 @@ import { withBase } from "@/site";
   }
 
   .hp-desc {
-    font-size: .98rem; color: rgba(255,255,255,0.5) !important;
-    line-height: 1.7; max-width: 500px; margin: 0 auto 30px;
+    max-width: 620px; margin: 0 auto 30px;
     text-shadow: 0 1px 8px rgba(0,0,0,0.95);
-    font-family: inherit !important; font-weight: normal !important;
-  }
-  .hp-acts { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-
-  .hp-btn1, .hp-btn2 {
-    display: inline-flex; align-items: center;
-    padding: 13px 30px; border-radius: 8px;
-    font-size: .92rem; font-weight: 700;
-    text-decoration: none !important; transition: all .2s;
     font-family: inherit !important;
   }
-  .hp-btn1 { background: #00b3ff; color: #000 !important; box-shadow: 0 12px 32px rgba(0,179,255,0.35); position: relative; overflow: hidden; }
-  .hp-btn1::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), transparent 60%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  .hp-btn1:hover { background: #00c8ff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,179,255,0.35); }
-  .hp-btn1:hover::after { opacity: 0.6; }
-  .hp-btn2 { color: rgba(255,255,255,0.88) !important; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.07); backdrop-filter: blur(8px); }
-  .hp-btn2:hover { background: rgba(255,255,255,0.13); }
+  .hp-acts { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
   .hp-stats {
     position: relative; z-index: 3;
@@ -198,4 +178,8 @@ import { withBase } from "@/site";
   .hp-sl { font-family: 'Courier New', monospace !important; font-size: .6rem; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,0.45); margin-top: 3px; }
   .hp-sdiv { width: 1px; height: 34px; background: rgba(255,255,255,0.07); }
   @media(max-width:600px){ .hp-sdiv{display:none} }
+  @media(max-width:640px){
+    .hp-slogan { align-items: flex-start; }
+    .hp-logo { height: 62px; }
+  }
 </style>
