@@ -66,13 +66,23 @@ jobs:
           rsync -az --delete -e "ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.PROD_SSH_PORT }}" ./dist/ "${{ secrets.PROD_SSH_USER }}@${{ secrets.PROD_SSH_HOST }}:${{ secrets.PROD_TARGET_DIR }}/"
 
       - name: Post-deploy command (optional)
-        if: ${{ secrets.PROD_POST_DEPLOY_CMD != '' }}
         shell: bash
+        env:
+          PROD_POST_DEPLOY_CMD: ${{ secrets.PROD_POST_DEPLOY_CMD }}
         run: |
-          ssh -i ~/.ssh/id_ed25519 -p "${{ secrets.PROD_SSH_PORT }}" "${{ secrets.PROD_SSH_USER }}@${{ secrets.PROD_SSH_HOST }}" "${{ secrets.PROD_POST_DEPLOY_CMD }}"
+          if [ -n "${PROD_POST_DEPLOY_CMD}" ]; then
+            ssh -i ~/.ssh/id_ed25519 -p "${{ secrets.PROD_SSH_PORT }}" "${{ secrets.PROD_SSH_USER }}@${{ secrets.PROD_SSH_HOST }}" "${PROD_POST_DEPLOY_CMD}"
+          else
+            echo "No PROD_POST_DEPLOY_CMD provided, skipping."
+          fi
 
       - name: Health check (optional)
-        if: ${{ secrets.PROD_HEALTHCHECK_URL != '' }}
         shell: bash
+        env:
+          PROD_HEALTHCHECK_URL: ${{ secrets.PROD_HEALTHCHECK_URL }}
         run: |
-          curl -fsSIL --retry 5 --retry-all-errors --retry-delay 3 "${{ secrets.PROD_HEALTHCHECK_URL }}"
+          if [ -n "${PROD_HEALTHCHECK_URL}" ]; then
+            curl -fsSIL --retry 5 --retry-all-errors --retry-delay 3 "${PROD_HEALTHCHECK_URL}"
+          else
+            echo "No PROD_HEALTHCHECK_URL provided, skipping."
+          fi
