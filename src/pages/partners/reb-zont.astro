@@ -535,7 +535,7 @@ const docsWithBase = docs.map((doc) => ({ ...doc, src: withBase(doc.src) }));
   /* ══ ВИДЕО ══ */
   .video-links {
     display: flex; gap: 16px; flex-wrap: wrap;
-    padding-bottom: 64px;
+    padding-bottom: 40px;
   }
   .video-link {
     display: flex; align-items: center; gap: 16px;
@@ -561,12 +561,12 @@ const docsWithBase = docs.map((doc) => ({ ...doc, src: withBase(doc.src) }));
     padding-bottom: 0;
   }
   .cta-inner {
-    padding: 64px 0;
+    padding: 54px 0;
     text-align: center;
     max-width: 600px; margin: 0 auto;
   }
   .cta-title { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
-  .cta-text { color: var(--muted); line-height: 1.6; margin-bottom: 32px; }
+  .cta-text { color: rgba(255,255,255,.58); line-height: 1.6; margin-bottom: 32px; }
   .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .cta-btn {
     padding: 14px 32px; border-radius: 3px;
@@ -579,10 +579,17 @@ const docsWithBase = docs.map((doc) => ({ ...doc, src: withBase(doc.src) }));
   }
   .cta-btn--primary:hover { background: #aa0000; border-color: #aa0000; }
   .cta-btn--ghost {
-    background: transparent; color: var(--text);
-    border: 1px solid var(--border);
+    background: transparent; color: rgba(255,255,255,.92);
+    border: 1px solid rgba(255,255,255,.22);
   }
-  .cta-btn--ghost:hover { border-color: rgba(255,255,255,.3); }
+  .cta-btn--ghost:hover {
+    border-color: rgba(255,255,255,.36);
+    background: rgba(255,255,255,.03);
+  }
+
+  .cta-section .tricolor-bar {
+    opacity: .58;
+  }
 
   @media (max-width: 900px) {
     .photo-card__overlay {
