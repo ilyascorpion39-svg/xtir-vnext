@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/sections/Hero.astro';
 import { withBase } from '@/site';
 import { PRODUCTS, PRODUCT_CATEGORIES } from '@/data/products';
+import { deriveProductSpecs } from '@/utils/productSpecs';
 
 const categoryCounts = PRODUCT_CATEGORIES
   .map((category) => ({
@@ -37,29 +38,32 @@ const bySlug = (slug: string) => PRODUCTS.find((product) => product.slug === slu
 
 const practicalScenarios = [
   {
+    slug: 'pmu-100',
     title: 'Точная подготовка стрелка',
     text: excerpt(
       bySlug('pmu-100')?.description ??
         'Автономные электронные мишени для профессиональной подготовки с фиксацией результатов.',
-      220
+      180
     ),
     href: '/products/pmu-100/',
   },
   {
+    slug: 'kaban',
     title: 'Динамические упражнения',
     text: excerpt(
       bySlug('kaban')?.description ??
         'Движущиеся мишенные установки для сценариев с таймингом, скоростью и реакцией.',
-      220
+      180
     ),
     href: '/products/kaban/',
   },
   {
+    slug: 'pak',
     title: 'Управление мишенным полем',
     text: excerpt(
       bySlug('pak')?.description ??
         'Системы управления мишенной обстановкой, сценариями и телеметрией.',
-      220
+      180
     ),
     href: '/products/pak/',
   },
@@ -139,14 +143,14 @@ const supportDeliverables = [
     <div class="hp-wl" data-reveal="2">
       <div class="hp-kicker">Почему XTIR</div>
       <h2 class="hp-title">Инженерный подход.<br/>Предсказуемый результат.</h2>
-      <div class="hp-sub">20 лет в отрасли. Оборудование которое реально работает — не на презентации, а на объекте.</div>
+      <div class="hp-sub">20 лет в отрасли. Оборудование, которое реально работает не на презентации, а на объекте.</div>
       <a href={withBase("/about/")} class="hp-lnk">О компании →</a>
     </div>
     <div class="hp-wr">
-      <div class="hp-wc home-card home-card--hover" data-reveal="2"><div class="hp-wi">⚙️</div><div class="hp-wt">Проектирование</div><div class="hp-wd">Требования, расчёт, прототипирование, документация. Без догадок.</div></div>
-      <div class="hp-wc home-card home-card--hover" data-reveal="3"><div class="hp-wi">🏭</div><div class="hp-wt">Производство</div><div class="hp-wd">Сборка, контроль, повторяемость. Узлы рассчитаны на реальную эксплуатацию.</div></div>
-      <div class="hp-wc home-card home-card--hover" data-reveal="4"><div class="hp-wi">🔗</div><div class="hp-wt">Интеграции</div><div class="hp-wd">Связь, управление, сценарии. Подстраиваемся под объект и задачи заказчика.</div></div>
-      <div class="hp-wc home-card home-card--hover" data-reveal="5"><div class="hp-wi">🛠</div><div class="hp-wt">Поддержка</div><div class="hp-wd">Сопровождение, диагностика, обновления. Без выходных.</div></div>
+      <div class="hp-wc home-card home-card--hover" data-reveal="2"><span class="hp-wi hp-wi--design" aria-hidden="true"></span><div class="hp-wt">Проектирование</div><div class="hp-wd">Требования, расчёт, прототипирование, документация. Без догадок.</div></div>
+      <div class="hp-wc home-card home-card--hover" data-reveal="3"><span class="hp-wi hp-wi--factory" aria-hidden="true"></span><div class="hp-wt">Производство</div><div class="hp-wd">Сборка, контроль, повторяемость. Узлы рассчитаны на реальную эксплуатацию.</div></div>
+      <div class="hp-wc home-card home-card--hover" data-reveal="4"><span class="hp-wi hp-wi--link" aria-hidden="true"></span><div class="hp-wt">Интеграции</div><div class="hp-wd">Связь, управление, сценарии. Подстраиваемся под объект и задачи заказчика.</div></div>
+      <div class="hp-wc home-card home-card--hover" data-reveal="5"><span class="hp-wi hp-wi--support" aria-hidden="true"></span><div class="hp-wt">Поддержка</div><div class="hp-wd">Сопровождение, диагностика, обновления. 24/7.</div></div>
     </div>
   </div>
 </section>
@@ -166,6 +170,18 @@ const supportDeliverables = [
           <div class="hp-pr-num">{String(i + 1).padStart(2, '0')}</div>
           <h3 class="hp-pr-title">{item.title}</h3>
           <p class="hp-pr-text">{item.text}</p>
+          {(() => {
+            const product = bySlug(item.slug);
+            const specs = product ? deriveProductSpecs(product, 2) : [];
+            if (specs.length === 0) return null;
+            return (
+              <ul class="hp-pr-specs" aria-label="Ключевые характеристики">
+                {specs.map((spec) => (
+                  <li><span>{spec.label}</span><strong>{spec.value}</strong></li>
+                ))}
+              </ul>
+            );
+          })()}
           <a href={withBase(item.href)} class="hp-lnk">Подробнее →</a>
         </article>
       ))}
@@ -236,7 +252,6 @@ const supportDeliverables = [
 
 <!-- CTA -->
 <section class="hp-sec hp-dark home-section" style="position:relative;overflow:hidden;">
-  <div class="hp-ctabg"></div>
   <div class="hp-wrap hp-cta home-container" data-reveal>
     <div class="hp-ctl" data-reveal="2">
       <h2 class="hp-title">Готовы начать?</h2>
@@ -248,7 +263,7 @@ const supportDeliverables = [
     </div>
     <div class="hp-ctr" data-reveal="3">
       <a href="tel:+79154250095" class="hp-cnt"><span class="hp-cl">Телефон</span><span class="hp-cv">+7 (915) 425-00-95</span></a>
-      <a href="tel:+79162962469" class="hp-cnt"><span class="hp-cl">&nbsp;</span><span class="hp-cv">+7 (916) 296-24-69</span></a>
+      <a href="tel:+79162962469" class="hp-cnt"><span class="hp-cl">Доп. телефон</span><span class="hp-cv">+7 (916) 296-24-69</span></a>
       <a href="mailto:info@xtir.ru" class="hp-cnt"><span class="hp-cl">Email</span><span class="hp-cv">info@xtir.ru</span></a>
     </div>
   </div>
@@ -263,8 +278,8 @@ const supportDeliverables = [
     position: relative;
     overflow: clip;
     background:
-      radial-gradient(900px 420px at 50% 64%, rgba(82, 154, 255, 0.14), rgba(82, 154, 255, 0) 70%),
-      radial-gradient(680px 300px at 86% 22%, rgba(86, 109, 220, 0.1), rgba(86, 109, 220, 0) 72%),
+      radial-gradient(860px 420px at 50% 62%, rgba(82, 154, 255, 0.11), rgba(82, 154, 255, 0) 70%),
+      radial-gradient(620px 280px at 86% 22%, rgba(86, 109, 220, 0.08), rgba(86, 109, 220, 0) 72%),
       linear-gradient(180deg, #070d16 0%, #050a12 100%);
   }
   .hp-flow::before {
@@ -345,7 +360,63 @@ const supportDeliverables = [
   @media(max-width:900px){ .hp-why{ grid-template-columns:1fr; gap:40px; } }
   .hp-wr { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .hp-wc { padding: 22px; background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012)); }
-  .hp-wi { font-size: 1.35rem; margin-bottom: 10px; }
+  .hp-wi {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid rgba(138, 201, 255, 0.42);
+    background: linear-gradient(180deg, rgba(103, 164, 223, 0.2), rgba(103, 164, 223, 0.04));
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .hp-wi::before,
+  .hp-wi::after {
+    content: "";
+    position: absolute;
+  }
+  .hp-wi--design::before {
+    width: 14px;
+    height: 2px;
+    background: rgba(186, 225, 255, 0.9);
+    top: 8px;
+    left: 6px;
+    box-shadow: 0 6px 0 rgba(150, 206, 255, 0.7);
+  }
+  .hp-wi--factory::before {
+    inset: 8px 7px 7px;
+    border: 1px solid rgba(174, 222, 255, 0.84);
+    border-top: 0;
+  }
+  .hp-wi--factory::after {
+    left: 7px;
+    right: 7px;
+    top: 7px;
+    height: 2px;
+    background: rgba(174, 222, 255, 0.84);
+  }
+  .hp-wi--link::before,
+  .hp-wi--link::after {
+    width: 8px;
+    height: 8px;
+    border: 1px solid rgba(182, 226, 255, 0.9);
+    border-radius: 99px;
+    top: 9px;
+  }
+  .hp-wi--link::before { left: 5px; }
+  .hp-wi--link::after { right: 5px; }
+  .hp-wi--support::before {
+    inset: 7px;
+    border: 1px solid rgba(186, 228, 255, 0.9);
+    border-radius: 99px;
+  }
+  .hp-wi--support::after {
+    width: 8px;
+    height: 8px;
+    border-radius: 99px;
+    background: rgba(173, 222, 255, 0.9);
+    left: 9px;
+    top: 9px;
+  }
   .hp-wt { font-size: .9rem !important; font-weight: 700 !important; color: #fff !important; margin-bottom: 7px; font-family: inherit !important; text-transform: none !important; }
   .hp-wd { font-size: .83rem !important; color: rgba(255,255,255,0.45) !important; line-height: 1.6; font-family: inherit !important; font-weight: normal !important; }
 
@@ -381,6 +452,33 @@ const supportDeliverables = [
     line-height: 1.62;
     flex: 1;
   }
+  .hp-pr-specs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 7px;
+  }
+  .hp-pr-specs li {
+    display: grid;
+    gap: 3px;
+    padding: 8px 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+  }
+  .hp-pr-specs span {
+    font-family: 'Courier New', monospace;
+    font-size: .62rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(170, 211, 255, 0.74);
+  }
+  .hp-pr-specs strong {
+    font-size: .82rem;
+    color: rgba(255,255,255,0.86);
+    line-height: 1.42;
+  }
   .hp-pr-panel {
     padding: 20px;
     background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.012));
@@ -407,7 +505,6 @@ const supportDeliverables = [
   }
 
   /* CTA */
-  .hp-ctabg { position: absolute; inset: 0; background: radial-gradient(ellipse 900px 400px at 50% 100%, rgba(0,179,255,0.07), transparent); pointer-events: none; }
   .hp-cta { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; }
   @media(max-width:768px){ .hp-cta{ grid-template-columns:1fr; gap:36px; } }
   .hp-ctr { display: flex; flex-direction: column; gap: 20px; }

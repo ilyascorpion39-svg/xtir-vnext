@@ -98,19 +98,19 @@
   h3 { @apply text-display-3; }
 
   /* Scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px !important;
-  }
-  ::-webkit-scrollbar-track {
-    background: rgba(9, 14, 24, 0.96) !important;
-  }
+  ::-webkit-scrollbar { width: 5px !important; }
+  ::-webkit-scrollbar-track { background: rgba(9, 14, 24, 0.9) !important; }
   ::-webkit-scrollbar-thumb {
     border-radius: 999px !important;
-    background: linear-gradient(180deg, #5a6f96 0%, #4c6188 100%) !important;
-    border: 1px solid rgba(166, 190, 230, 0.2) !important;
+    background: linear-gradient(180deg, #6077a1 0%, #51678f 100%) !important;
+    border: 1px solid rgba(166, 190, 230, 0.18) !important;
   }
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #6f83ab 0%, #5d7398 100%) !important;
+  ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #7086b0 0%, #5d739b 100%) !important; }
+  @supports (scrollbar-color: auto) {
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #6077a1 rgba(9, 14, 24, 0.9);
+    }
   }
 
   /* Selection */
@@ -598,20 +598,5 @@
       filter: none !important;
       transition: none !important;
     }
-  }
-}
- /* Scrollbar вне layer — наивысший приоритет */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: rgba(9, 14, 24, 0.96); }
-::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: linear-gradient(180deg, #5a6f96 0%, #4c6188 100%);
-  border: 1px solid rgba(166, 190, 230, 0.2);
-}
-/* Firefox — тонкий тёмно-синий (градиент не поддерживается) */
-@supports (scrollbar-color: auto) {
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: #5a6f96 rgba(9, 14, 24, 0.96);
   }
 }

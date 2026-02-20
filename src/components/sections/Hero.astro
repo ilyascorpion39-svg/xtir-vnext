@@ -13,7 +13,6 @@ import TechField from "@/components/visual/TechField";
 
   <div class="hp-body home-container">
     <div class="hp-center">
-      <div class="hp-badge">XTIR · Электронно-механические решения для стрельбы</div>
       <div class="hp-slogan hp-headline">
         <h1 class="hp-stext">Инженерные решения для стрелковых тренировок</h1>
       </div>
@@ -60,30 +59,31 @@ import TechField from "@/components/visual/TechField";
   .hp-bg::after {
     content: "";
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(4, 7, 12, 0.46) 8%, rgba(4, 7, 12, 0.62) 60%, rgba(4, 7, 12, 0.8) 100%);
+    background: linear-gradient(180deg, rgba(4, 7, 12, 0.36) 8%, rgba(4, 7, 12, 0.55) 60%, rgba(4, 7, 12, 0.74) 100%);
     z-index: 2;
     pointer-events: none;
   }
   .hp-glow-l {
     position: absolute; width: 800px; height: 800px;
     top: -200px; left: -300px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,179,255,0.18), transparent 70%);
-    filter: blur(100px);
+    background: radial-gradient(circle, rgba(0,179,255,0.14), transparent 72%);
+    filter: blur(110px);
   }
   .hp-glow-r {
     position: absolute; width: 600px; height: 600px;
     top: 0; right: -200px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,60,180,0.15), transparent 70%);
-    filter: blur(80px);
+    background: radial-gradient(circle, rgba(0,60,180,0.11), transparent 72%);
+    filter: blur(92px);
   }
   .hp-grid {
     position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(0,179,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,179,255,0.02) 1px, transparent 1px);
+      linear-gradient(rgba(0,179,255,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,179,255,0.018) 1px, transparent 1px);
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
     z-index: 1;
+    opacity: .78;
   }
   .hp-body {
     flex: 1; display: flex; align-items: flex-start; justify-content: center;
@@ -93,18 +93,8 @@ import TechField from "@/components/visual/TechField";
     text-align: center; max-width: 820px; margin-inline: auto;
     border-radius: 22px;
     padding: clamp(14px, 2vw, 20px);
-    background: linear-gradient(180deg, rgba(8, 12, 19, 0.34), rgba(8, 12, 19, 0.14));
+    background: linear-gradient(180deg, rgba(8, 12, 19, 0.3), rgba(8, 12, 19, 0.1));
     backdrop-filter: blur(1px);
-  }
-
-  .hp-badge {
-    display: inline-block;
-    font-family: 'Courier New', monospace;
-    font-size: .64rem;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: rgba(146, 198, 255, 0.86);
-    margin-bottom: 18px;
   }
 
   .hp-slogan { display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }

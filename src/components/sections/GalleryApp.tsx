@@ -188,10 +188,9 @@ export default function GalleryApp({ items }: Props) {
       <div className="rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <div className="text-lg font-semibold text-white">Галерея</div>
+            <div className="text-lg font-semibold text-white">Материалы</div>
             <div className="text-sm text-gray-300">
-              Фото установок XTIR и материалы партнёров — аккуратно разложены
-              карточками.
+              Фотоматериалы, документы и медиа по установкам XTIR и партнёрам.
             </div>
           </div>
 
@@ -201,14 +200,14 @@ export default function GalleryApp({ items }: Props) {
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 placeholder="Поиск по названиям и папкам…"
-                className="w-full sm:w-[360px] rounded-xl border border-white/10 bg-black/30 px-4 py-2.5 text-sm text-gray-100 placeholder:text-gray-500 outline-none focus:border-[#93ff5a]/40"
+                className="w-full sm:w-[360px] rounded-xl border border-white/10 bg-black/30 px-4 py-2.5 text-sm text-gray-100 placeholder:text-gray-500 outline-none focus:border-primary-400/60"
               />
             </div>
 
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value as any)}
-              className="w-full sm:w-auto rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-gray-100 outline-none focus:border-[#93ff5a]/40"
+              className="w-full sm:w-auto rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-gray-100 outline-none focus:border-primary-400/60"
             >
               <option value="all">Все типы</option>
               <option value="image">Фото</option>
@@ -229,7 +228,7 @@ export default function GalleryApp({ items }: Props) {
               key={f.name}
               type="button"
               onClick={() => setActiveFolder(f.name)}
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left transition duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:shadow-[0_16px_34px_rgba(0,0,0,0.34)]"
+              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left transition duration-300 hover:-translate-y-0.5 hover:border-primary-300/35 hover:shadow-[0_16px_34px_rgba(0,0,0,0.34)]"
             >
               <div className="absolute inset-0">
                 {f.cover ? (
@@ -242,7 +241,7 @@ export default function GalleryApp({ items }: Props) {
                     sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
                   />
                 ) : (
-                  <div className="h-full w-full bg-[radial-gradient(circle_at_20%_20%,rgba(147,255,90,.18),transparent_55%),radial-gradient(circle_at_80%_30%,rgba(60,220,255,.10),transparent_55%)]" />
+                  <div className="h-full w-full bg-[radial-gradient(circle_at_20%_20%,rgba(110,183,255,.2),transparent_55%),radial-gradient(circle_at_80%_30%,rgba(60,220,255,.1),transparent_55%)]" />
                 )}
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#070a0f]/78 via-[#070a0f]/34 to-transparent" />
               </div>
@@ -256,7 +255,7 @@ export default function GalleryApp({ items }: Props) {
                       {f.count} файлов
                     </div>
                   </div>
-                  <span className="rounded-full border border-white/10 bg-black/40 px-3 py-1 text-xs text-gray-200">
+                  <span className="rounded-full border border-primary-300/30 bg-black/40 px-3 py-1 text-xs text-gray-200">
                     Открыть
                   </span>
                 </div>
@@ -319,8 +318,8 @@ export default function GalleryApp({ items }: Props) {
                 }}
                 onMouseMove={it.type === "image" ? handlePhotoMove : undefined}
                 onMouseLeave={it.type === "image" ? handlePhotoLeave : undefined}
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left transition duration-300 hover:-translate-y-1 hover:border-white/30 hover:shadow-[0_20px_36px_rgba(0,0,0,0.35)]"
-              >
+              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left transition duration-300 hover:-translate-y-1 hover:border-primary-300/35 hover:shadow-[0_20px_36px_rgba(0,0,0,0.35)]"
+            >
                 {it.type === "image" && (
                   <span
                     aria-hidden="true"
@@ -441,7 +440,7 @@ export default function GalleryApp({ items }: Props) {
                 <div className="rounded-xl border border-white/10 bg-black/30 p-5 text-sm text-gray-200">
                   Этот тип файла лучше открыть напрямую:{" "}
                   <a
-                    className="text-[#93ff5a] hover:underline"
+                    className="text-primary-300 hover:underline"
                     href={toAssetUrl(openItem.url)}
                   >
                     нажмите сюда

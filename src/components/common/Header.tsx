@@ -82,7 +82,7 @@ export default function Header() {
       <nav className="xtir-container" aria-label="Основная навигация">
         <div className="flex items-center justify-between h-[74px] md:h-20 gap-4">
           {/* Logo */}
-          <a href={withBase("/")} className="flex items-center lg:pr-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-lg">
+          <a href={withBase("/")} className="flex shrink-0 items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-lg">
             <img
               src={withBase("/images/logo.png")}
               srcSet={`${withBase("/images/logo.png")} 1x, ${withBase("/images/xtir-logo@2x.png")} 2x`}
@@ -95,7 +95,7 @@ export default function Header() {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex h-full items-center lg:ml-6 space-x-6">
+          <div className="hidden lg:flex flex-1 items-center justify-center gap-7 xl:gap-8">
             {navItems.map((item, index) => (
               (() => {
                 const href = withBase(item.href);
@@ -108,7 +108,7 @@ export default function Header() {
                   <motion.a
                     key={item.name}
                     href={href}
-                    className={`inline-flex h-full items-center whitespace-nowrap leading-none text-[0.92rem] font-medium transition-colors relative group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm ${
+                    className={`inline-flex h-20 items-center whitespace-nowrap text-[0.91rem] font-semibold leading-none transition-colors relative group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm ${
                       isActive ? "text-white" : "text-white/80 hover:text-white"
                     }`}
                     initial={{ opacity: 0, y: -20 }}
@@ -117,7 +117,7 @@ export default function Header() {
                     aria-current={isActive ? "page" : undefined}
                   >
                     {item.name}
-                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary-400 transition-all duration-300 ${
+                    <span className={`absolute bottom-[10px] left-0 h-0.5 bg-primary-300 transition-all duration-300 ${
                       isActive ? "w-full" : "w-0 group-hover:w-full"
                     }`}></span>
                   </motion.a>
@@ -127,8 +127,8 @@ export default function Header() {
           </div>
 
           {/* Actions (social + CTA) */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
+          <div className="hidden lg:flex shrink-0 items-center gap-2">
+            <div className="flex items-center gap-2">
               {socialLinks.map((s) => (
                 <motion.a
                   key={s.name}
@@ -152,8 +152,12 @@ export default function Header() {
                 </motion.a>
               ))}
             </div>
-
-
+            <a
+              href={withBase("/contact/")}
+              className="ml-2 hidden xl:inline-flex xtir-btn xtir-btn--secondary min-h-[40px] px-4 py-2 text-[0.84rem]"
+            >
+              Обсудить проект
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -181,7 +185,7 @@ export default function Header() {
           className="block h-full w-full"
           style={{
             background:
-              "linear-gradient(90deg, rgba(244,247,255,0.9) 0%, rgba(244,247,255,0.9) 31%, rgba(93,126,205,0.82) 52%, rgba(163,71,71,0.78) 100%)",
+              "linear-gradient(90deg, rgba(237,241,251,0.7) 0%, rgba(237,241,251,0.74) 28%, rgba(121,152,220,0.68) 50%, rgba(170,84,94,0.66) 76%, rgba(170,84,94,0.62) 100%)",
           }}
         />
       </div>

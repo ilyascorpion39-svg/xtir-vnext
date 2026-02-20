@@ -5,7 +5,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 <BaseLayout title="О компании" description="Информация о компании XTIR, принципах работы и экспертизе.">
   <main class="content-main">
     <section class="xtir-container">
-      <div class="content-shell">
+      <div class="content-shell about-shell">
         <header class="content-header" data-reveal>
           <span class="page-kicker">XTIR</span>
           <h1 class="content-title">О компании XTIR</h1>
@@ -13,9 +13,20 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             <strong>XTIR</strong> — инженерная мастерская и производство электронно‑механического оборудования для стрельбы.
             Мы делаем решения «под задачу»: от отдельных модулей до комплексного оснащения тиров и учебных комплексов.
           </p>
+          <div class="about-highlights">
+            <div><strong>20+</strong><span>лет отраслевой экспертизы</span></div>
+            <div><strong>1–2 недели</strong><span>переход от запроса к старту</span></div>
+            <div><strong>24/7</strong><span>техническая поддержка</span></div>
+          </div>
         </header>
 
         <div class="content-body" data-reveal="2">
+          <h2>Что делает XTIR</h2>
+          <p>
+            Проектируем, производим и внедряем мишенное оборудование под реальные условия эксплуатации.
+            Для нас важны повторяемость результатов, стабильность работы на объекте и понятный цикл поддержки после запуска.
+          </p>
+
           <h2 id="quality">Принцип работы</h2>
           <p>
             На сайте представлено то оборудование, которое было реально изготовлено «в металле» и прошло испытания
@@ -36,18 +47,19 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             областей: прикладная математика, связь, программирование, ударная акустика, электроника.
           </p>
 
-          <div class="content-grid" style="margin-top:1.25rem;">
-            <div class="content-item">
-              <div class="text-3xl font-bold text-white">1–2 недели</div>
-              <div class="mt-2 text-sm text-white/60">типичный переход от заказа к старту производства</div>
+          <h2>Фокус для заказчика</h2>
+          <div class="content-grid about-grid" style="margin-top:1.25rem;">
+            <div class="content-item about-item">
+              <div class="text-3xl font-bold text-white">Прозрачный запуск</div>
+              <div class="mt-2 text-sm text-white/60">понятный план внедрения и согласованные этапы</div>
             </div>
-            <div class="content-item">
-              <div class="text-3xl font-bold text-white">24/7</div>
-              <div class="mt-2 text-sm text-white/60">контакт и поддержка по проектам</div>
+            <div class="content-item about-item">
+              <div class="text-3xl font-bold text-white">Инженерная точность</div>
+              <div class="mt-2 text-sm text-white/60">изделия и параметры под конкретный сценарий стрельбы</div>
             </div>
-            <div class="content-item">
-              <div class="text-3xl font-bold text-white">Кастом</div>
-              <div class="mt-2 text-sm text-white/60">адаптация характеристик под ваш сценарий</div>
+            <div class="content-item about-item">
+              <div class="text-3xl font-bold text-white">Долгий ресурс</div>
+              <div class="mt-2 text-sm text-white/60">сопровождение, диагностика и обновления после поставки</div>
             </div>
           </div>
         </div>
@@ -55,3 +67,56 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     </section>
   </main>
 </BaseLayout>
+
+<style>
+  .about-shell {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012));
+    padding: clamp(18px, 2.7vw, 30px);
+  }
+  .about-highlights {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .about-highlights div {
+    display: grid;
+    gap: 4px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.02);
+    padding: 10px 12px;
+  }
+  .about-highlights strong {
+    color: #9dd5ff;
+    font-size: 1.02rem;
+    line-height: 1.1;
+  }
+  .about-highlights span {
+    color: rgba(255,255,255,0.64);
+    font-size: .82rem;
+    line-height: 1.42;
+  }
+  .about-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .about-item {
+    min-height: 150px;
+  }
+  .about-item .text-3xl {
+    font-size: 1.28rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  @media (max-width: 900px) {
+    .about-highlights,
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-item {
+      min-height: 0;
+    }
+  }
+</style>

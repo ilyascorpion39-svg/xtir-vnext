@@ -2,18 +2,70 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import GalleryApp from '../components/sections/GalleryApp';
 import { archiveItems } from '../data/archive.generated';
+
+const totalAssets = archiveItems.length;
+const totalPhotos = archiveItems.filter((item) => item.type === 'image').length;
+const totalDocs = archiveItems.filter((item) => /\.(pdf|doc|docx|ppt|pptx)$/i.test(item.relPath)).length;
 ---
 
 <BaseLayout title="Галерея" description="Фотогалерея и материалы XTIR и партнёров">
-<main class="mx-auto w-full max-w-7xl px-6 py-12 md:py-14">
-    <div class="mb-8">
-      <h1 class="h1-xtir">Галерея</h1>
+<main class="gallery-page mx-auto w-full max-w-7xl px-6 py-12 md:py-14">
+    <div class="gallery-head mb-8">
+      <p class="kicker">Материалы XTIR</p>
+      <h1 class="h1-xtir">Наше фото</h1>
       <p class="mt-3 max-w-3xl text-gray-300">
-        Здесь собраны фотографии и материалы по установкам XTIR, а также материалы партнёров.
-        Всё открывается прямо на сайте — без внешних облаков.
+        Фото оборудования XTIR, документы и материалы по внедрениям. Все файлы открываются прямо на сайте.
       </p>
+      <div class="gallery-stats">
+        <div><strong>{totalAssets}</strong><span>материалов</span></div>
+        <div><strong>{totalPhotos}</strong><span>фото</span></div>
+        <div><strong>{totalDocs}</strong><span>документов</span></div>
+      </div>
     </div>
 
     <GalleryApp client:visible items={archiveItems} />
   </main>
 </BaseLayout>
+
+<style>
+  .gallery-page {
+    background:
+      radial-gradient(760px 360px at 10% 0%, rgba(84, 156, 255, 0.08), transparent 62%),
+      radial-gradient(620px 320px at 88% 8%, rgba(88, 116, 228, 0.08), transparent 64%),
+      linear-gradient(180deg, #070d16 0%, #050a12 100%);
+  }
+  .gallery-head {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.014));
+    padding: clamp(18px, 3vw, 28px);
+  }
+  .gallery-stats {
+    margin-top: 14px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .gallery-stats div {
+    display: grid;
+    gap: 3px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.02);
+  }
+  .gallery-stats strong {
+    color: #9dd5ff;
+    font-size: 1.08rem;
+    line-height: 1.1;
+  }
+  .gallery-stats span {
+    color: rgba(255,255,255,0.62);
+    font-size: .8rem;
+  }
+  @media (max-width: 900px) {
+    .gallery-stats {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -51,6 +51,12 @@ const toneMeta: Record<Tone, {
 const techLines =
   "repeating-linear-gradient(135deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px, rgba(255,255,255,0) 1px, rgba(255,255,255,0) 10px)";
 
+const excerpt = (text: string, max = 120) => {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  return `${clean.slice(0, max).replace(/[,.!?;:\s]+$/g, "")}…`;
+};
+
 export default function ProductCard({ product, categoryName }: Props) {
   const img = product.photos?.[0]
     ? withBase(product.photos[0])
@@ -59,9 +65,7 @@ export default function ProductCard({ product, categoryName }: Props) {
   const tone = toneByCategory[product.categoryId] ?? "neutral";
   const meta = toneMeta[tone];
 
-  const shortDesc = product.description.length > 120
-    ? product.description.slice(0, 120).trimEnd() + "…"
-    : product.description;
+  const shortDesc = excerpt(product.description, 132);
   const specPreview = deriveProductSpecs(product, 2);
   const featurePreview = product.features.slice(0, 2);
 
@@ -114,14 +118,17 @@ export default function ProductCard({ product, categoryName }: Props) {
           </div>
         </div>
         {specPreview.length > 0 ? (
-          <dl className="mt-5 grid gap-2 text-sm">
+          <div className="mt-5">
+            <div className="mb-2 text-[11px] uppercase tracking-[0.14em] text-white/45">Ключевые характеристики</div>
+            <dl className="grid gap-2 text-sm">
             {specPreview.map((s) => (
               <div key={s.label} className="flex items-baseline justify-between gap-3 border-b border-white/10 pb-1.5">
                 <dt className="text-white/58">{s.label}</dt>
                 <dd className="text-right text-white/88">{s.value}</dd>
               </div>
             ))}
-          </dl>
+            </dl>
+          </div>
         ) : featurePreview.length > 0 ? (
           <ul className="mt-5 space-y-1.5">
             {featurePreview.map((f, i) => (

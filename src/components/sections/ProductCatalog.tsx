@@ -27,6 +27,13 @@ export default function ProductCatalog() {
     PRODUCT_CATEGORIES.forEach((c) => m.set(c.id, c.name));
     return m;
   }, []);
+  const catCountById = useMemo(() => {
+    const m = new Map<string, number>();
+    PRODUCT_CATEGORIES.forEach((c) => {
+      m.set(c.id, PRODUCTS.filter((p) => p.categoryId === c.id).length);
+    });
+    return m;
+  }, []);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -63,7 +70,7 @@ export default function ProductCatalog() {
         {/* Заголовок */}
         <div className="mb-8 md:mb-10">
           <p className="kicker">Каталог</p>
-          <h1 className="xtir-title">Мишенные системы XTIR</h1>
+          <h2 className="xtir-title">Мишенные системы XTIR</h2>
           <p className="xtir-lead mt-3">
             Электронно-механическое оборудование для стрельбы. {PRODUCTS.length} позиций.
           </p>
@@ -83,6 +90,9 @@ export default function ProductCatalog() {
               }`}
             >
               Все
+              <span className="ml-2 rounded-full border border-white/20 px-2 py-0.5 text-[11px] leading-none">
+                {PRODUCTS.length}
+              </span>
             </button>
             {PRODUCT_CATEGORIES.map((cat) => (
               <button
@@ -96,19 +106,28 @@ export default function ProductCatalog() {
                 }`}
               >
                 {cat.name}
+                <span className="ml-2 rounded-full border border-white/20 px-2 py-0.5 text-[11px] leading-none">
+                  {catCountById.get(cat.id) ?? 0}
+                </span>
               </button>
             ))}
           </div>
 
           {/* Поиск */}
-          <input
-            type="search"
-            aria-label="Поиск по каталогу"
-            placeholder="Поиск..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="w-full rounded-xl border border-white/15 bg-dark-800 px-4 py-2.5 text-sm text-white placeholder-white/35 outline-none focus:border-primary-500/60 sm:w-72"
-          />
+          <div className="w-full sm:w-80">
+            <input
+              type="search"
+              aria-label="Поиск по каталогу"
+              placeholder="Название, модель, характеристика..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="w-full rounded-xl border border-white/15 bg-dark-800 px-4 py-2.5 text-sm text-white placeholder-white/35 outline-none focus:border-primary-500/60"
+            />
+          </div>
+        </div>
+        <div className="mb-6 text-sm text-white/55">
+          {active === "all" ? "Все категории" : `Категория: ${catNameById.get(active) ?? active}`} ·
+          {query.trim() ? ` Поиск: “${query.trim()}” ·` : ""} Найдено: {filtered.length}
         </div>
 
         <div className="category-nav mb-8" aria-label="Быстрый переход по категориям">

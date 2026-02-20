@@ -8,24 +8,29 @@ const description = 'Свяжитесь с XTIR: запрос цены, КП, д
 <main class="content-main">
     <section class="xtir-section pt-8 md:pt-10">
       <div class="xtir-container">
-        <header class="content-header" data-reveal>
+        <header class="content-header contact-head" data-reveal>
           <span class="page-kicker">Контакты XTIR</span>
           <h1 class="content-title">Контакты</h1>
           <p class="content-lead">
             Напишите нам — мы подготовим коммерческое предложение, подберём конфигурацию и пришлём документацию.
           </p>
+          <div class="contact-highlights">
+            <div><strong>24/7</strong><span>на связи по проектам</span></div>
+            <div><strong>до 24 ч</strong><span>стартовая обратная связь</span></div>
+            <div><strong>1 канал</strong><span>единая почта: info@xtir.ru</span></div>
+          </div>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8" data-reveal="2">
           <div class="xtir-card p-6 lg:col-span-1">
             <h2 class="text-xl font-semibold text-white">Связь</h2>
 
-            <div class="mt-4 space-y-3 text-white/72">
-              <div class="flex items-start justify-between gap-3">
-                <div>
-                  <p class="text-sm text-white/50">Email</p>
-                  <p class="text-base text-white/90">info@xtir.ru</p>
-                </div>
+              <div class="mt-4 space-y-3 text-white/72">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="text-sm text-white/50">Email</p>
+                    <a href="mailto:info@xtir.ru" class="text-base text-white/90 hover:text-white">info@xtir.ru</a>
+                  </div>
                 <button
                   type="button"
                   class="xtir-btn xtir-btn--secondary !min-h-[36px] px-3 py-2 text-sm"
@@ -37,8 +42,8 @@ const description = 'Свяжитесь с XTIR: запрос цены, КП, д
 
               <div>
                 <p class="text-sm text-white/50">Телефон</p>
-                <p class="text-base text-white/90">+7 (915) 425-00-95</p>
-                <p class="text-base text-white/90">+7 (916) 296-24-69</p>
+                <a href="tel:+79154250095" class="block text-base text-white/90 hover:text-white">+7 (915) 425-00-95</a>
+                <a href="tel:+79162962469" class="block text-base text-white/90 hover:text-white">+7 (916) 296-24-69</a>
               </div>
 
               <div class="pt-2">
@@ -278,4 +283,42 @@ const description = 'Свяжитесь с XTIR: запрос цены, КП, д
       }
     })();
   </script>
+<style>
+  .contact-head {
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012));
+    padding: clamp(18px, 2.7vw, 30px);
+    margin-bottom: 22px;
+  }
+  .contact-highlights {
+    margin-top: 16px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .contact-highlights div {
+    display: grid;
+    gap: 4px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.02);
+  }
+  .contact-highlights strong {
+    color: #9dd5ff;
+    font-size: 1.02rem;
+    line-height: 1.1;
+  }
+  .contact-highlights span {
+    color: rgba(255,255,255,0.64);
+    font-size: .82rem;
+    line-height: 1.42;
+  }
+  @media (max-width: 900px) {
+    .contact-highlights {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
 </BaseLayout>

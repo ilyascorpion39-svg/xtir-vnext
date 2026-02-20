@@ -74,7 +74,7 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
           <h1 class="docs-hero__title">Документация<br/><span>XTIR</span></h1>
           <p class="docs-hero__sub">
             Инструкции, паспорта, технические материалы и проектная документация.
-            Документы с кнопкой <strong style="color:#00b3ff">Открыть</strong> — просматриваются прямо в браузере через Google Docs.
+            Документы с кнопкой <strong class="docs-hero__open">Открыть</strong> — просматриваются прямо в браузере через Google Docs Viewer.
             Остальные — по запросу, бесплатно.
           </p>
           <div class="docs-hero__stats">
@@ -101,9 +101,11 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
       {categories.map((cat) => (
         <div class="doc-category">
           <div class="doc-category__header">
-            <span class="doc-category__icon">{cat.icon}</span>
+            <span class={`doc-category__icon doc-category__icon--${cat.id}`} aria-hidden="true"></span>
             <h2 class="doc-category__title">{cat.title}</h2>
-            <span class="doc-category__count">{cat.docs.length}</span>
+            <span class="doc-category__count">
+              {cat.docs.filter((doc) => doc.available).length}/{cat.docs.length}
+            </span>
           </div>
           <div class="doc-list">
             {cat.docs.map((doc, i) => (
@@ -205,7 +207,7 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
   <div class="modal" data-stop-propagation>
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-icon">📄</div>
+    <div class="modal-icon" aria-hidden="true"></div>
     <h3 class="modal-title">Запрос документа</h3>
     <p class="modal-doc" id="modal-doc-name"></p>
     <p class="modal-text">Введите email — пришлём документ в течение суток.</p>
@@ -267,17 +269,27 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
     --bg: #0f141a; --bg2: #0b0e13; --surface: #141a22;
     --border: rgba(255,255,255,0.07); --accent: #00b3ff;
     --text: rgba(255,255,255,0.88); --muted: rgba(255,255,255,0.42);
-    background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: clamp(56px, 7vw, 90px);
+    background:
+      radial-gradient(860px 420px at 18% 0%, rgba(84, 156, 255, 0.09), transparent 62%),
+      radial-gradient(760px 360px at 86% 8%, rgba(88, 116, 228, 0.08), transparent 64%),
+      linear-gradient(180deg, #070d16 0%, #050a12 100%);
+    color: var(--text); min-height: 100vh; padding-bottom: clamp(56px, 7vw, 90px);
   }
-  .docs-hero { position: relative; padding: clamp(56px, 8vw, 96px) 0 56px; overflow: hidden; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)); border-bottom: 1px solid var(--border); }
+  .docs-hero { position: relative; padding: clamp(56px, 8vw, 96px) 0 56px; overflow: hidden; background: linear-gradient(180deg, rgba(255,255,255,0.016), rgba(255,255,255,0.006)); border-bottom: 1px solid var(--border); }
   .docs-hero__bg {
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse 600px 400px at 80% 50%, rgba(0,179,255,0.06) 0%, transparent 70%);
+    background:
+      radial-gradient(ellipse 600px 400px at 80% 50%, rgba(0,179,255,0.06) 0%, transparent 70%),
+      linear-gradient(rgba(120, 176, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120, 176, 255, 0.024) 1px, transparent 1px);
+    background-size: auto, 56px 56px, 56px 56px;
+    mask-image: linear-gradient(180deg, transparent 0%, black 18%, black 88%, transparent 100%);
   }
   .docs-hero__inner { position: relative; z-index: 2; }
   .docs-hero__label { font-family: 'Courier New', monospace; font-size: .72rem; letter-spacing: .2em; color: var(--accent); opacity: .7; margin-bottom: 20px; }
   .docs-hero__title { font-size: clamp(2.2rem, 5.5vw, 4.6rem); font-weight: 700; line-height: .95; margin: 0 0 24px; letter-spacing: -.02em; }
-  .docs-hero__title span { color: transparent; -webkit-text-stroke: 2px var(--accent); }
+  .docs-hero__title span { color: rgba(118, 189, 255, 0.95); }
+  .docs-hero__open { color: #63c7ff; }
   .docs-hero__sub { font-size: var(--xtir-body); line-height: 1.7; color: rgba(255,255,255,0.66); max-width: 66ch; margin: 0 0 36px; }
   .docs-hero__stats { display: flex; align-items: center; gap: 32px; }
   .docs-stat__num { font-size: 2rem; font-weight: 700; color: var(--accent); line-height: 1; }
@@ -286,7 +298,39 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
   .docs-catalog { padding: clamp(34px, 5vw, 56px) 0; }
   .doc-category { margin-bottom: 52px; }
   .doc-category__header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-  .doc-category__icon { font-size: 1.4rem; }
+  .doc-category__icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 7px;
+    border: 1px solid rgba(138, 201, 255, 0.4);
+    background: linear-gradient(180deg, rgba(103, 164, 223, 0.2), rgba(103, 164, 223, 0.04));
+    position: relative;
+    flex-shrink: 0;
+  }
+  .doc-category__icon::before,
+  .doc-category__icon::after { content: ""; position: absolute; }
+  .doc-category__icon--manuals::before {
+    width: 10px; height: 2px; background: rgba(186, 225, 255, 0.9); top: 6px; left: 5px;
+    box-shadow: 0 4px 0 rgba(150, 206, 255, 0.7), 0 8px 0 rgba(120, 186, 255, 0.65);
+  }
+  .doc-category__icon--technical::before {
+    inset: 5px; border: 1px solid rgba(184, 226, 255, 0.86); border-radius: 99px;
+  }
+  .doc-category__icon--technical::after {
+    width: 6px; height: 6px; border-radius: 99px; background: rgba(173, 222, 255, 0.9); left: 8px; top: 8px;
+  }
+  .doc-category__icon--solutions::before,
+  .doc-category__icon--solutions::after {
+    width: 7px; height: 7px; border: 1px solid rgba(182, 226, 255, 0.9); border-radius: 99px; top: 7px;
+  }
+  .doc-category__icon--solutions::before { left: 3px; }
+  .doc-category__icon--solutions::after { right: 3px; }
+  .doc-category__icon--international::before {
+    inset: 5px; border: 1px solid rgba(184, 226, 255, 0.86); border-top: 0;
+  }
+  .doc-category__icon--international::after {
+    left: 5px; right: 5px; top: 5px; height: 2px; background: rgba(174, 222, 255, 0.84);
+  }
   .doc-category__title { font-size: 1.15rem; font-weight: 700; margin: 0; flex: 1; }
   .doc-category__count { font-family: 'Courier New', monospace; font-size: .75rem; color: var(--accent); background: rgba(0,179,255,0.08); border: 1px solid rgba(0,179,255,0.2); padding: 3px 10px; border-radius: 20px; }
   .doc-list { display: flex; flex-direction: column; gap: 2px; }
@@ -319,6 +363,21 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
     .docs-stat__divider { height: 26px; }
     .docs-catalog { padding-top: 28px; }
     .request-inner { grid-template-columns: 1fr; gap: 34px; }
+    .doc-item {
+      display: grid;
+      grid-template-columns: 20px 24px 1fr;
+      align-items: start;
+      gap: 12px;
+      padding: 12px;
+    }
+    .doc-item__actions {
+      grid-column: 1 / -1;
+      width: 100%;
+    }
+    .doc-btn {
+      width: 100%;
+      justify-content: center;
+    }
   }
   .request-label { font-family: 'Courier New', monospace; font-size: .7rem; letter-spacing: .2em; color: var(--accent); opacity: .7; margin-bottom: 16px; }
   .request-title { font-size: clamp(32px, 4vw, 52px); font-weight: 700; line-height: .95; letter-spacing: -.02em; margin: 0 0 20px; }
@@ -343,10 +402,39 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
   .modal-overlay.active .modal { transform: translateY(0); }
   .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--muted); font-size: 1.1rem; cursor: pointer; padding: 4px 8px; border-radius: 4px; transition: color .2s; font-family: inherit; }
   .modal-close:hover { color: var(--text); }
-  .modal-icon { font-size: 2.5rem; margin-bottom: 16px; }
+  .modal-icon {
+    width: 38px;
+    height: 38px;
+    margin: 0 auto 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(145, 214, 255, 0.58);
+    background: linear-gradient(180deg, rgba(96, 175, 239, 0.26), rgba(96, 175, 239, 0.08));
+    position: relative;
+  }
+  .modal-icon::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    background: rgba(186, 225, 255, 0.92);
+    top: 10px;
+    left: 11px;
+    box-shadow: 0 6px 0 rgba(150, 206, 255, 0.7), 0 12px 0 rgba(120, 186, 255, 0.65);
+  }
   .modal-title { font-size: 1.3rem; font-weight: 700; margin: 0 0 8px; }
   .modal-doc { font-size: .85rem; color: var(--accent); margin: 0 0 8px; line-height: 1.4; }
   .modal-text { font-size: .88rem; color: var(--muted); margin: 0 0 20px; }
   .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1a2a1a; border: 1px solid rgba(0,200,100,0.4); color: rgba(0,220,120,1); padding: 14px 24px; border-radius: 8px; font-size: .9rem; font-weight: 600; z-index: 9999; opacity: 0; transition: all .3s; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .doc-item,
+    .doc-btn,
+    .form-submit,
+    .modal,
+    .modal-overlay,
+    .toast {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
 </style>
