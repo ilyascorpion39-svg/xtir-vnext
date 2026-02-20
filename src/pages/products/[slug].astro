@@ -4,6 +4,7 @@ import { PRODUCTS, getProductBySlug } from '@/data/products';
 import { withBase } from '@/site';
 import ProductGallery from '@/components/sections/ProductGallery';
 import ProductCard from '@/components/sections/ProductCard';
+import { deriveProductSpecs } from '@/utils/productSpecs';
 
 export function getStaticPaths() {
   return PRODUCTS.map((product) => ({
@@ -24,6 +25,7 @@ const shortLead =
     : product.description;
 
 const highlights = product.features.filter((f) => f?.trim()).slice(0, 4);
+const productSpecs = deriveProductSpecs(product, 12);
 const fallbackHighlights = [
   'Надёжная конструкция промышленного уровня',
   'Электромеханический привод с амортизацией',
@@ -86,9 +88,9 @@ const related = PRODUCTS
           <section class="xtir-card p-5 md:p-6">
             <h2 class="text-xl font-semibold text-white">Технические характеристики</h2>
 
-            {product.specs && product.specs.length > 0 ? (
+            {productSpecs.length > 0 ? (
               <dl class="mt-4 divide-y divide-white/10">
-                {product.specs.map((spec) => (
+                {productSpecs.map((spec) => (
                   <div class="grid gap-2 py-3 text-sm sm:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] sm:items-center">
                     <dt class="text-white/62">{spec.label}</dt>
                     <dd class="text-left font-medium text-white/92 sm:text-right">{spec.value}</dd>

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import type { Product } from "@/data/products";
 import clsx from "clsx";
 import { withBase } from "@/site";
+import { deriveProductSpecs } from "@/utils/productSpecs";
 
 type Props = {
   product: Product;
@@ -61,7 +62,7 @@ export default function ProductCard({ product, categoryName }: Props) {
   const shortDesc = product.description.length > 120
     ? product.description.slice(0, 120).trimEnd() + "…"
     : product.description;
-  const specPreview = (product.specs ?? []).filter((s) => s.value?.trim()).slice(0, 2);
+  const specPreview = deriveProductSpecs(product, 2);
   const featurePreview = product.features.slice(0, 2);
 
   return (
