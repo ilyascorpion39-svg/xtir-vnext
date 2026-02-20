@@ -84,6 +84,7 @@ export default function ProductCard({ product, categoryName }: Props) {
           src={img}
           alt={product.name}
           loading="lazy"
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover opacity-90 [transition:transform_0.35s_ease] group-hover:opacity-100 group-hover:scale-[1.04]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-dark-900/85 via-dark-900/35 to-transparent" />

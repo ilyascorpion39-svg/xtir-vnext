@@ -200,6 +200,7 @@ export default function GalleryApp({ items }: Props) {
                     alt={f.name}
                     className="h-full w-full object-cover opacity-30 blur-[1px] transition group-hover:opacity-40"
                     loading="lazy"
+                    decoding="async"
                   />
                 ) : (
                   <div className="h-full w-full bg-[radial-gradient(circle_at_20%_20%,rgba(147,255,90,.18),transparent_55%),radial-gradient(circle_at_80%_30%,rgba(60,220,255,.10),transparent_55%)]" />
@@ -285,6 +286,7 @@ export default function GalleryApp({ items }: Props) {
                       alt={it.title}
                       className="h-full w-full object-cover transition group-hover:scale-[1.02]"
                       loading="lazy"
+                      decoding="async"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center">
@@ -369,6 +371,7 @@ export default function GalleryApp({ items }: Props) {
                   src={toAssetUrl(openItem.url)}
                   alt={openItem.title}
                   className="mx-auto max-h-[70vh] w-auto rounded-xl border border-white/10"
+                  decoding="async"
                 />
               )}
 
@@ -376,7 +379,8 @@ export default function GalleryApp({ items }: Props) {
                 <iframe
                   title={openItem.title}
                   src={toAssetUrl(openItem.url)}
-                  className="h-[70vh] w-full rounded-xl border border-white/10 bg-black/30"
+                  loading="lazy"
+                  className="h-[70vh] w-full rounded-xl border border-white/10 bg-black/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400"
                 />
               )}
 

@@ -105,6 +105,7 @@ export default function ProductGallery({
                 src={src}
                 alt={`${alt} — фото ${i + 1}`}
                 loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
@@ -230,6 +231,7 @@ export default function ProductGallery({
                   alt=""
                   className="w-full h-full object-cover"
                   loading="lazy"
+                  decoding="async"
                 />
                 {isActive && <div className="absolute inset-0 bg-black/10" />}
               </button>

@@ -129,6 +129,7 @@ const docsWithBase = docs.map((doc) => ({ ...doc, src: withBase(doc.src) }));
                   src={photo.src}
                   alt={photo.caption}
                   loading="lazy"
+                  decoding="async"
                   class="photo-card__img"
                 />
                 <div class="photo-card__overlay">
