@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { SITE, withBase } from "@/site";
 
 const footerLinks = {
@@ -68,12 +67,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12 lg:grid-cols-6">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
+            <div>
               <a href={withBase("/")} className="mb-6 inline-flex items-center gap-3 rounded-lg group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400">
                 <img
                   src={withBase("/images/logo.png")}
@@ -126,17 +120,13 @@ export default function Footer() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* Links Columns */}
-          {Object.entries(footerLinks).map(([category, links], index) => (
-            <motion.div
+          {Object.entries(footerLinks).map(([category, links]) => (
+            <div
               key={category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <h3 className="mb-4 text-base font-semibold text-white">
                 {categoryNames[category]}
@@ -153,18 +143,12 @@ export default function Footer() {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Social Links */}
-        <motion.div
-          className="mt-12 border-t border-white/10 pt-8"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
+        <div className="mt-12 border-t border-white/10 pt-8">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="flex items-center space-x-3">
               {socialLinks.map((social) => (
@@ -193,7 +177,7 @@ export default function Footer() {
               <p className="mt-1">Работаем без выходных</p>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );

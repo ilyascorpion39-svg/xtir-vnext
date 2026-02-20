@@ -2,6 +2,36 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/sections/Hero.astro';
 import { withBase } from '@/site';
+import { PRODUCTS, PRODUCT_CATEGORIES } from '@/data/products';
+
+const categoryCounts = PRODUCT_CATEGORIES
+  .map((category) => ({
+    ...category,
+    total: PRODUCTS.filter((product) => product.categoryId === category.id).length,
+  }))
+  .filter((category) => category.total > 0)
+  .sort((a, b) => b.total - a.total);
+
+const topCategoryCounts = categoryCounts.slice(0, 6);
+
+const featureHighlights = Array.from(
+  new Set(
+    PRODUCTS.flatMap((product) => product.features || [])
+      .map((line) => line.replace(/^[\s\-–—]+/, '').trim())
+      .filter((line) => line.length >= 8 && line.length <= 110)
+      .filter((line) => !/^дополнительно/i.test(line))
+  )
+).slice(0, 8);
+
+const spotlightProducts = PRODUCTS
+  .filter((product) => product.description && product.description.length > 90)
+  .slice(0, 3);
+
+const excerpt = (text: string, max = 140) => {
+  const clean = text.replace(/\s+/g, ' ').trim();
+  if (clean.length <= max) return clean;
+  return `${clean.slice(0, max).trim()}...`;
+};
 ---
 
 <BaseLayout
@@ -11,6 +41,7 @@ import { withBase } from '@/site';
 
 <Hero />
 
+<div class="hp-flow">
 <!-- НАПРАВЛЕНИЯ -->
 <section class="hp-sec hp-dark home-section">
   <div class="hp-wrap home-container">
@@ -81,6 +112,54 @@ import { withBase } from '@/site';
   </div>
 </section>
 
+<!-- БАЗА ЗНАНИЙ XTIR -->
+<section class="hp-sec hp-dark home-section">
+  <div class="hp-wrap hp-knowledge home-container">
+    <div class="hp-hd">
+      <div class="hp-kicker">База XTIR</div>
+      <h2 class="hp-title">Тексты из инженерного архива уже на сайте</h2>
+      <div class="hp-sub">Собрали ключевую фактуру по изделиям, возможностям и направлениям — без перегруза, но с полезной глубиной.</div>
+    </div>
+
+    <div class="hp-kgrid">
+      <article class="hp-kcard home-card home-card--hover">
+        <h3 class="hp-ktitle">Категории решений</h3>
+        <ul class="hp-klist">
+          {topCategoryCounts.map((category) => (
+            <li>
+              <span>{category.name}</span>
+              <strong>{category.total}</strong>
+            </li>
+          ))}
+        </ul>
+        <a href={withBase("/products/")} class="hp-lnk">Весь каталог →</a>
+      </article>
+
+      <article class="hp-kcard home-card home-card--hover">
+        <h3 class="hp-ktitle">Ключевые возможности</h3>
+        <ul class="hp-kpoints">
+          {featureHighlights.map((feature) => (
+            <li>{feature}</li>
+          ))}
+        </ul>
+        <a href={withBase("/technologies/")} class="hp-lnk">Технологии →</a>
+      </article>
+
+      <article class="hp-kcard home-card home-card--hover">
+        <h3 class="hp-ktitle">В центре внимания</h3>
+        <div class="hp-kspots">
+          {spotlightProducts.map((product) => (
+            <a href={withBase(`/products/${product.slug}/`)} class="hp-kspot">
+              <div class="hp-kspot-title">{product.title}</div>
+              <div class="hp-kspot-desc">{excerpt(product.description)}</div>
+            </a>
+          ))}
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="hp-sec hp-dark home-section" style="position:relative;overflow:hidden;">
   <div class="hp-ctabg"></div>
@@ -100,14 +179,38 @@ import { withBase } from '@/site';
     </div>
   </div>
 </section>
+</div>
 
 </BaseLayout>
 
 <style>
   /* ── ОБЩИЕ ── */
+  .hp-flow {
+    position: relative;
+    overflow: clip;
+    background:
+      radial-gradient(900px 420px at 50% 64%, rgba(82, 154, 255, 0.14), rgba(82, 154, 255, 0) 70%),
+      radial-gradient(680px 300px at 86% 22%, rgba(86, 109, 220, 0.1), rgba(86, 109, 220, 0) 72%),
+      linear-gradient(180deg, #070d16 0%, #050a12 100%);
+  }
+  .hp-flow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(120, 176, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120, 176, 255, 0.03) 1px, transparent 1px);
+    background-size: 58px 58px;
+    mask-image: linear-gradient(180deg, transparent 0%, black 18%, black 85%, transparent 100%);
+    opacity: 0.42;
+  }
+  .hp-flow :global(.home-section + .home-section::before) {
+    display: none;
+  }
   .hp-sec { padding-block: var(--home-section-space-y); }
-  .hp-dark { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)); }
-  .hp-darker { background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.012)); border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .hp-dark { background: transparent; }
+  .hp-darker { background: transparent; border-top: 0; border-bottom: 0; }
   .hp-wrap { width: min(var(--home-container), calc(100% - (var(--home-gutter) * 2))); margin: 0 auto; }
   .hp-hd { margin-bottom: 44px; }
   .hp-kicker { font-family: 'Courier New', monospace !important; font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: #00b3ff; opacity: .75; margin-bottom: 10px; }
@@ -181,12 +284,133 @@ import { withBase } from '@/site';
   .hp-cnt:hover { opacity: .7; }
   .hp-cl { font-family: 'Courier New', monospace !important; font-size: .62rem; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,0.4); }
   .hp-cv { font-size: 1.08rem !important; font-weight: 700 !important; color: #fff !important; font-family: inherit !important; }
+
+  /* База знаний */
+  .hp-knowledge { position: relative; }
+  .hp-kgrid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .hp-kcard {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hp-kcard::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .24s ease;
+    background: radial-gradient(320px circle at 10% 0%, rgba(130, 205, 255, 0.16), transparent 62%);
+  }
+  .hp-kcard:hover::after {
+    opacity: 1;
+  }
+  .hp-ktitle {
+    margin: 0;
+    font-size: 1.02rem !important;
+    font-weight: 700 !important;
+    color: #fff !important;
+    font-family: inherit !important;
+    text-transform: none !important;
+  }
+  .hp-klist,
+  .hp-kpoints {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .hp-klist li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: .88rem !important;
+    color: rgba(255,255,255,0.82) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 7px;
+  }
+  .hp-klist li strong {
+    font-family: 'Courier New', monospace;
+    font-size: .74rem;
+    color: #00b3ff;
+    letter-spacing: .06em;
+  }
+  .hp-kpoints li {
+    position: relative;
+    padding-left: 12px;
+    font-size: .85rem !important;
+    line-height: 1.5 !important;
+    color: rgba(255,255,255,0.74) !important;
+  }
+  .hp-kpoints li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.58em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(90, 212, 255, 0.9);
+    box-shadow: 0 0 10px rgba(90, 212, 255, 0.45);
+  }
+  .hp-kspots {
+    display: grid;
+    gap: 10px;
+  }
+  .hp-kspot {
+    display: block;
+    text-decoration: none !important;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.02);
+    padding: 12px;
+    transition: border-color .22s ease, background .22s ease, transform .22s ease, box-shadow .22s ease;
+  }
+  .hp-kspot:hover {
+    border-color: rgba(90, 212, 255, 0.35);
+    background: rgba(255,255,255,0.04);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.28);
+  }
+  .hp-kspot-title {
+    font-size: .88rem !important;
+    font-weight: 700 !important;
+    color: #fff !important;
+    margin-bottom: 4px;
+  }
+  .hp-kspot-desc {
+    font-size: .78rem !important;
+    line-height: 1.5 !important;
+    color: rgba(255,255,255,0.68) !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hp-kcard::after,
+    .hp-kspot {
+      transition: none !important;
+    }
+    .hp-kspot:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
   @media(max-width:900px){
     .hp-hd { margin-bottom: 28px; }
     .hp-wr { grid-template-columns: 1fr; }
     .hp-cbody { padding: 18px; }
     .hp-sec { padding-block: clamp(52px, 10vw, 76px); }
     .hp-cnt { padding: 10px 0; }
+    .hp-kgrid { grid-template-columns: 1fr; }
+    .hp-kcard { padding: 18px; }
   }
 
 </style>

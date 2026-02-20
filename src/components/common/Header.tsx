@@ -62,8 +62,8 @@ export default function Header() {
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-dark-900/88 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,0.24)]"
-          : "bg-dark-900/52 backdrop-blur-md"
+          ? "bg-dark-900/90 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,0.24)]"
+          : "bg-dark-900/70 backdrop-blur-lg"
       }`}
       initial={reduceMotion ? false : { y: -100 }}
       animate={{ y: 0 }}
@@ -72,7 +72,7 @@ export default function Header() {
       <nav className="xtir-container" aria-label="Основная навигация">
         <div className="flex items-center justify-between h-[74px] md:h-20 gap-4">
           {/* Logo */}
-          <a href={withBase("/")} className="flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-lg">
+          <a href={withBase("/")} className="flex items-center lg:pr-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-lg">
             <img
               src={withBase("/images/logo.png")}
               srcSet={`${withBase("/images/logo.png")} 1x, ${withBase("/images/xtir-logo@2x.png")} 2x`}
@@ -82,18 +82,15 @@ export default function Header() {
               decoding="async"
               className="h-12 w-auto"
             />
-            <div className="leading-tight">
-              <div className="text-xs text-white/62">Точность технологий</div>
-            </div>
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-7">
+          <div className="hidden lg:flex h-full items-center lg:ml-6 space-x-6">
             {navItems.map((item, index) => (
               <motion.a
                 key={item.name}
                 href={withBase(item.href)}
-                className="text-[0.94rem] text-white/80 hover:text-white font-medium transition-colors relative group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm"
+                className="inline-flex h-full items-center whitespace-nowrap leading-none text-[0.92rem] text-white/80 hover:text-white font-medium transition-colors relative group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
@@ -151,13 +148,17 @@ export default function Header() {
       </nav>
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-[6px] overflow-hidden transition-opacity ${
-          isScrolled ? "opacity-95" : "opacity-85"
+        className={`pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-[3px] overflow-hidden transition-opacity ${
+          isScrolled ? "opacity-75" : "opacity-62"
         }`}
       >
-        <span className="block h-[2px] w-full bg-white/90" />
-        <span className="block h-[2px] w-full bg-[#0039a6]/85" />
-        <span className="block h-[2px] w-full bg-[#d52b1e]/85" />
+        <span
+          className="block h-full w-full"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(244,247,255,0.9) 0%, rgba(244,247,255,0.9) 31%, rgba(93,126,205,0.82) 52%, rgba(163,71,71,0.78) 100%)",
+          }}
+        />
       </div>
 
       {/* Mobile Menu */}
