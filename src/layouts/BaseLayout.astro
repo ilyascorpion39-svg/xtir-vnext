@@ -92,5 +92,25 @@ const websiteJsonLd = {
       <slot />
     </div>
     <Footer />
+    <script is:inline>
+      (() => {
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced) return;
+
+        document.documentElement.classList.add('js-reveal');
+        const items = Array.from(document.querySelectorAll('[data-reveal]'));
+        if (!items.length) return;
+
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-inview');
+            io.unobserve(entry.target);
+          });
+        }, { root: null, rootMargin: '0px 0px -8% 0px', threshold: 0.14 });
+
+        items.forEach((node) => io.observe(node));
+      })();
+    </script>
   </body>
 </html>

@@ -44,14 +44,14 @@ const excerpt = (text: string, max = 140) => {
 <div class="hp-flow">
 <!-- НАПРАВЛЕНИЯ -->
 <section class="hp-sec hp-dark home-section">
-  <div class="hp-wrap home-container">
-    <div class="hp-hd">
+  <div class="hp-wrap home-container" data-reveal>
+    <div class="hp-hd" data-reveal="2">
       <div class="hp-kicker">Направления</div>
       <div class="hp-title">Оборудование под любую задачу</div>
       <div class="hp-sub">Три класса решений — от электронных мишеней до полигонных комплексов.</div>
     </div>
     <div class="hp-cards">
-      <a href={withBase("/products/")} class="hp-card home-card home-card--hover">
+      <a href={withBase("/products/")} class="hp-card home-card home-card--hover" data-reveal="2">
         <div class="hp-cimg">
           <img src={withBase("/products-img/pmu-100/pmu100-1.png")} alt="Электронные мишени" loading="lazy" decoding="async"/>
           <div class="hp-cimgo"></div>
@@ -64,7 +64,7 @@ const excerpt = (text: string, max = 140) => {
           <div class="hp-cmore">Смотреть продукты →</div>
         </div>
       </a>
-      <a href={withBase("/products/")} class="hp-card hp-card-warm home-card home-card--hover">
+      <a href={withBase("/products/")} class="hp-card hp-card-warm home-card home-card--hover" data-reveal="3">
         <div class="hp-cimg">
           <img src={withBase("/products-img/kaban/1.png")} alt="Движущиеся цели" loading="lazy" decoding="async"/>
           <div class="hp-cimgo"></div>
@@ -77,7 +77,7 @@ const excerpt = (text: string, max = 140) => {
           <div class="hp-cmore hp-cmore-warm">Как это устроено →</div>
         </div>
       </a>
-      <a href={withBase("/products/")} class="hp-card home-card home-card--hover">
+      <a href={withBase("/products/")} class="hp-card home-card home-card--hover" data-reveal="4">
         <div class="hp-cimg">
           <img src={withBase("/products-img/pak/1 (1).png")} alt="Управление" loading="lazy" decoding="async"/>
           <div class="hp-cimgo"></div>
@@ -96,33 +96,33 @@ const excerpt = (text: string, max = 140) => {
 
 <!-- ПОЧЕМУ XTIR -->
 <section class="hp-sec hp-darker home-section">
-  <div class="hp-wrap hp-why home-container">
-    <div class="hp-wl">
+  <div class="hp-wrap hp-why home-container" data-reveal>
+    <div class="hp-wl" data-reveal="2">
       <div class="hp-kicker">Почему XTIR</div>
       <h2 class="hp-title">Инженерный подход.<br/>Предсказуемый результат.</h2>
       <div class="hp-sub">20 лет в отрасли. Оборудование которое реально работает — не на презентации, а на объекте.</div>
       <a href={withBase("/about/")} class="hp-lnk">О компании →</a>
     </div>
     <div class="hp-wr">
-      <div class="hp-wc home-card home-card--hover"><div class="hp-wi">⚙️</div><div class="hp-wt">Проектирование</div><div class="hp-wd">Требования, расчёт, прототипирование, документация. Без догадок.</div></div>
-      <div class="hp-wc home-card home-card--hover"><div class="hp-wi">🏭</div><div class="hp-wt">Производство</div><div class="hp-wd">Сборка, контроль, повторяемость. Узлы рассчитаны на реальную эксплуатацию.</div></div>
-      <div class="hp-wc home-card home-card--hover"><div class="hp-wi">🔗</div><div class="hp-wt">Интеграции</div><div class="hp-wd">Связь, управление, сценарии. Подстраиваемся под объект и задачи заказчика.</div></div>
-      <div class="hp-wc home-card home-card--hover"><div class="hp-wi">🛠</div><div class="hp-wt">Поддержка</div><div class="hp-wd">Сопровождение, диагностика, обновления. Без выходных.</div></div>
+      <div class="hp-wc home-card home-card--hover" data-reveal="2"><div class="hp-wi">⚙️</div><div class="hp-wt">Проектирование</div><div class="hp-wd">Требования, расчёт, прототипирование, документация. Без догадок.</div></div>
+      <div class="hp-wc home-card home-card--hover" data-reveal="3"><div class="hp-wi">🏭</div><div class="hp-wt">Производство</div><div class="hp-wd">Сборка, контроль, повторяемость. Узлы рассчитаны на реальную эксплуатацию.</div></div>
+      <div class="hp-wc home-card home-card--hover" data-reveal="4"><div class="hp-wi">🔗</div><div class="hp-wt">Интеграции</div><div class="hp-wd">Связь, управление, сценарии. Подстраиваемся под объект и задачи заказчика.</div></div>
+      <div class="hp-wc home-card home-card--hover" data-reveal="5"><div class="hp-wi">🛠</div><div class="hp-wt">Поддержка</div><div class="hp-wd">Сопровождение, диагностика, обновления. Без выходных.</div></div>
     </div>
   </div>
 </section>
 
 <!-- БАЗА ЗНАНИЙ XTIR -->
 <section class="hp-sec hp-dark home-section">
-  <div class="hp-wrap hp-knowledge home-container">
-    <div class="hp-hd">
+  <div class="hp-wrap hp-knowledge home-container" data-reveal>
+    <div class="hp-hd" data-reveal="2">
       <div class="hp-kicker">База XTIR</div>
       <h2 class="hp-title">Тексты из инженерного архива уже на сайте</h2>
       <div class="hp-sub">Собрали ключевую фактуру по изделиям, возможностям и направлениям — без перегруза, но с полезной глубиной.</div>
     </div>
 
     <div class="hp-kgrid">
-      <article class="hp-kcard home-card home-card--hover">
+      <article class="hp-kcard home-card home-card--hover" data-reveal="2">
         <h3 class="hp-ktitle">Категории решений</h3>
         <ul class="hp-klist">
           {topCategoryCounts.map((category) => (
@@ -135,7 +135,7 @@ const excerpt = (text: string, max = 140) => {
         <a href={withBase("/products/")} class="hp-lnk">Весь каталог →</a>
       </article>
 
-      <article class="hp-kcard home-card home-card--hover">
+      <article class="hp-kcard home-card home-card--hover" data-reveal="3">
         <h3 class="hp-ktitle">Ключевые возможности</h3>
         <ul class="hp-kpoints">
           {featureHighlights.map((feature) => (
@@ -145,7 +145,7 @@ const excerpt = (text: string, max = 140) => {
         <a href={withBase("/technologies/")} class="hp-lnk">Технологии →</a>
       </article>
 
-      <article class="hp-kcard home-card home-card--hover">
+      <article class="hp-kcard home-card home-card--hover" data-reveal="4">
         <h3 class="hp-ktitle">В центре внимания</h3>
         <div class="hp-kspots">
           {spotlightProducts.map((product) => (
@@ -163,8 +163,8 @@ const excerpt = (text: string, max = 140) => {
 <!-- CTA -->
 <section class="hp-sec hp-dark home-section" style="position:relative;overflow:hidden;">
   <div class="hp-ctabg"></div>
-  <div class="hp-wrap hp-cta home-container">
-    <div class="hp-ctl">
+  <div class="hp-wrap hp-cta home-container" data-reveal>
+    <div class="hp-ctl" data-reveal="2">
       <h2 class="hp-title">Готовы начать?</h2>
       <div class="hp-sub">Опишите задачу — ответим быстро и по делу.</div>
       <div class="hp-acts" style="margin-top:28px;">
@@ -172,7 +172,7 @@ const excerpt = (text: string, max = 140) => {
         <a href={withBase("/products/")} class="home-btn home-btn--secondary">Каталог →</a>
       </div>
     </div>
-    <div class="hp-ctr">
+    <div class="hp-ctr" data-reveal="3">
       <a href="tel:+79154250095" class="hp-cnt"><span class="hp-cl">Телефон</span><span class="hp-cv">+7 (915) 425-00-95</span></a>
       <a href="tel:+79162962469" class="hp-cnt"><span class="hp-cl">&nbsp;</span><span class="hp-cv">+7 (916) 296-24-69</span></a>
       <a href="mailto:info@xtir.ru" class="hp-cnt"><span class="hp-cl">Email</span><span class="hp-cv">info@xtir.ru</span></a>

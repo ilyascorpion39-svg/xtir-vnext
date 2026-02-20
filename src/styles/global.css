@@ -568,6 +568,37 @@
   .animate-delay-300 { animation-delay: 300ms; }
   .animate-delay-400 { animation-delay: 400ms; }
   .animate-delay-500 { animation-delay: 500ms; }
+
+  .js-reveal [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: saturate(0.92);
+    transition:
+      opacity 520ms ease,
+      transform 520ms ease,
+      filter 520ms ease;
+    will-change: opacity, transform, filter;
+  }
+
+  .js-reveal [data-reveal].is-inview {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .js-reveal [data-reveal="2"] { transition-delay: 70ms; }
+  .js-reveal [data-reveal="3"] { transition-delay: 130ms; }
+  .js-reveal [data-reveal="4"] { transition-delay: 190ms; }
+  .js-reveal [data-reveal="5"] { transition-delay: 250ms; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js-reveal [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      transition: none !important;
+    }
+  }
 }
  /* Scrollbar вне layer — наивысший приоритет */
 ::-webkit-scrollbar { width: 6px; }
