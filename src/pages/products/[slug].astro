@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { PRODUCTS, getProductBySlug } from '@/data/products';
-import { SITE, withBase } from '@/site';
+import { withBase } from '@/site';
+import ProductGallery from '@/components/sections/ProductGallery';
+import ProductCard from '@/components/sections/ProductCard';
 
 export function getStaticPaths() {
   return PRODUCTS.map((product) => ({
@@ -15,117 +17,114 @@ const product = getProductBySlug(slug);
 if (!product) {
   return Astro.redirect(withBase('/products/'));
 }
+
+const shortLead =
+  product.description.length > 220
+    ? `${product.description.slice(0, 220).trimEnd()}…`
+    : product.description;
+
+const highlights = product.features.filter((f) => f?.trim()).slice(0, 4);
+const fallbackHighlights = [
+  'Надёжная конструкция промышленного уровня',
+  'Электромеханический привод с амортизацией',
+  'Подходит для интенсивной эксплуатации',
+  'Интеграция в существующие стрелковые комплексы',
+];
+
+const related = PRODUCTS
+  .filter((p) => p.slug !== product.slug)
+  .sort((a, b) => {
+    const aSame = a.categoryId === product.categoryId ? 1 : 0;
+    const bSame = b.categoryId === product.categoryId ? 1 : 0;
+    return bSame - aSame || a.name.localeCompare(b.name, 'ru');
+  })
+  .slice(0, 4);
 ---
 
 <BaseLayout
   title={product.name}
   description={product.description.slice(0, 160)}
 >
-  <main class="min-h-screen px-4 py-10">
-    <div class="mx-auto max-w-6xl">
-      <div class="grid gap-10 lg:grid-cols-2">
-        <div>
+  <main class="xtir-section min-h-screen">
+    <div class="xtir-container">
+      <div class="grid gap-8 lg:grid-cols-12 lg:gap-10">
+        <div class="lg:col-span-7">
           {product.photos.length > 0 ? (
-            <div class="rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-6">
-                <img
-                src={withBase(product.photos[0])}
-                alt={product.name}
-                class="w-full rounded-2xl border border-white/10 bg-white/5 object-contain"
-                loading="eager"
-              />
-            </div>
+            <ProductGallery client:load images={product.photos} alt={product.name} />
           ) : (
-            <div class="flex aspect-[4/3] w-full items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white/50">
+            <div class="xtir-card flex aspect-[16/10] w-full items-center justify-center text-white/50">
               Фото скоро появятся
             </div>
           )}
-
-          {product.photos.length > 1 && (
-            <div class="mt-4 flex gap-3 overflow-x-auto pb-2">
-              {product.photos.slice(1).map((photo, index) => (
-                <img
-                  src={withBase(photo)}
-                  alt={`${product.name} превью ${index + 2}`}
-                  class="h-20 w-28 shrink-0 rounded-lg border border-white/10 bg-white/5 object-cover"
-                  loading="lazy"
-                />
-              ))}
-            </div>
-          )}
         </div>
 
-        <div class="space-y-5">
-          <h1 class="text-4xl font-semibold text-white">{product.name}</h1>
-          <p class="text-sm text-white/60">{product.category}</p>
-          <p class="text-base leading-7 text-white/80">{product.description.slice(0, 220) + "…"}</p>
-          <a
-            href={withBase("/contact")}
-            class="inline-flex items-center rounded-xl border border-white/20 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
-          >
-            Оставить заявку
-          </a>
-        </div>
-      </div>
+        <aside class="space-y-5 lg:col-span-5">
+          <div class="xtir-card p-5 md:p-6">
+            <p class="kicker mb-2">{product.category}</p>
+            <h1 class="xtir-title">{product.name}</h1>
+            <p class="xtir-lead mt-3">{shortLead}</p>
 
-      <section class="mt-16">
-        <h2 class="text-2xl font-semibold text-white mb-6">
-          Ключевые особенности
-        </h2>
-
-        <div class="grid sm:grid-cols-2 gap-6 text-white/80">
-          <div>• Надёжная конструкция промышленного уровня</div>
-          <div>• Электромеханический привод с амортизацией</div>
-          <div>• Подходит для интенсивной эксплуатации</div>
-          <div>• Интеграция в существующие стрелковые комплексы</div>
-        </div>
-      </section>
-
-      {product.specs && product.specs.length > 0 && (
-        <section class="mt-16">
-          <h2 class="text-2xl font-semibold text-white mb-6">
-            Технические характеристики
-          </h2>
-
-          <div class="rounded-2xl border border-white/10 overflow-hidden">
-            <div class="divide-y divide-white/10">
-              {product.specs.map((spec) => (
-                <div class="grid grid-cols-2 items-center px-6 py-3 text-sm">
-                  <div class="text-white/70 font-medium">
-                    {spec.label}
-                  </div>
-                  <div class="text-white font-medium">
-                    {spec.value}
-                  </div>
+            <div class="mt-5 grid gap-2">
+              {(highlights.length > 0 ? highlights : fallbackHighlights).map((item) => (
+                <div class="flex items-start gap-2 text-sm text-white/80">
+                  <span class="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-primary-400"></span>
+                  <span>{item}</span>
                 </div>
               ))}
             </div>
+
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href={withBase('/contact/')} class="xtir-btn xtir-btn--primary">
+                Оставить заявку
+              </a>
+              <a href={withBase('/products/')} class="xtir-btn xtir-btn--secondary">
+                Вернуться в каталог
+              </a>
+            </div>
+          </div>
+
+          <section class="xtir-card p-5 md:p-6">
+            <h2 class="text-xl font-semibold text-white">Технические характеристики</h2>
+
+            {product.specs && product.specs.length > 0 ? (
+              <dl class="mt-4 divide-y divide-white/10">
+                {product.specs.map((spec) => (
+                  <div class="grid gap-2 py-3 text-sm sm:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] sm:items-center">
+                    <dt class="text-white/60">{spec.label}</dt>
+                    <dd class="text-left font-medium text-white sm:text-right">{spec.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : (
+              <p class="xtir-lead mt-3">Технические характеристики уточняются для этой модели.</p>
+            )}
+          </section>
+        </aside>
+      </div>
+
+      <section class="xtir-section pt-12">
+        <div class="xtir-card p-6 md:p-8">
+          <h2 class="text-2xl font-semibold text-white">Описание</h2>
+          <p class="mt-4 text-base leading-7 text-white/80">{product.description}</p>
+        </div>
+      </section>
+
+      {related.length > 0 && (
+        <section class="xtir-section pt-6">
+          <div class="mb-6 flex items-end justify-between gap-4">
+            <h2 class="text-2xl font-semibold text-white">Похожие решения</h2>
+            <a href={withBase('/products/')} class="xtir-btn xtir-btn--secondary text-sm">
+              Весь каталог
+            </a>
+          </div>
+
+          <div class="grid auto-rows-fr grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {related.map((item) => (
+              <ProductCard product={item} categoryName={item.category} />
+            ))}
           </div>
         </section>
       )}
-
-      <section class="mt-20">
-        <h2 class="text-2xl font-semibold text-white">Описание</h2>
-        <p class="mt-4 text-base leading-7 text-white/80">{product.description}</p>
-      </section>
-
-      <section class="mt-20">
-        <div class="rounded-2xl border border-white/10 bg-gradient-to-r from-white/5 to-transparent p-10">
-          <h3 class="text-xl font-semibold text-white mb-4">
-            Нужна консультация по {product.name}?
-          </h3>
-
-          <p class="text-white/70 mb-6">
-            Подберём конфигурацию под вашу задачу и условия эксплуатации.
-          </p>
-
-          <a
-            href={`mailto:${SITE.contactEmail}`}
-            class="inline-flex items-center px-6 py-3 rounded-lg bg-primary-500 hover:bg-primary-400 text-black font-medium transition"
-          >
-            Связаться с нами
-          </a>
-        </div>
-      </section>
     </div>
   </main>
 </BaseLayout>

@@ -85,7 +85,6 @@ export default function ProductGallery({
             bg-dark-900/40
             border
             border-white/10
-            glass
             
             [-ms-overflow-style:none]
             [scrollbar-width:none]
@@ -130,6 +129,10 @@ export default function ProductGallery({
                 hover:bg-black/55
                 disabled:opacity-40 disabled:cursor-not-allowed
                 transition
+                focus-visible:outline
+                focus-visible:outline-2
+                focus-visible:outline-offset-2
+                focus-visible:outline-primary-400
               "
               aria-label="Предыдущее фото"
             >
@@ -161,6 +164,10 @@ export default function ProductGallery({
                 hover:bg-black/55
                 disabled:opacity-40 disabled:cursor-not-allowed
                 transition
+                focus-visible:outline
+                focus-visible:outline-2
+                focus-visible:outline-offset-2
+                focus-visible:outline-primary-400
               "
               aria-label="Следующее фото"
             >
@@ -205,6 +212,10 @@ export default function ProductGallery({
                   border
                   transition
                   hover:opacity-95
+                  focus-visible:outline
+                  focus-visible:outline-2
+                  focus-visible:outline-offset-2
+                  focus-visible:outline-primary-400
                 "
                 style={{
                   borderColor: isActive ? accent : "rgba(255,255,255,0.12)",
