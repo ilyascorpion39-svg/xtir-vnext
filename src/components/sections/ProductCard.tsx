@@ -99,10 +99,10 @@ export default function ProductCard({ product, categoryName }: Props) {
       <div className="flex h-full flex-col p-5 md:p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className={clsx("text-xl font-bold text-white transition-colors [text-shadow:0_2px_12px_rgba(0,0,0,0.6)] [letter-spacing:0.02em]", meta.titleHoverClass)}>
+            <h3 className={clsx("text-[1.16rem] font-bold leading-tight text-white transition-colors [text-shadow:0_2px_12px_rgba(0,0,0,0.6)] [letter-spacing:0.01em]", meta.titleHoverClass)}>
               {product.name}
             </h3>
-            <p className="mt-2 text-sm text-white/75">{shortDesc}</p>
+            <p className="mt-2 text-sm leading-6 text-white/78">{shortDesc}</p>
           </div>
           <div className="shrink-0 text-white/35 transition-colors group-hover:text-white/80">
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -114,8 +114,8 @@ export default function ProductCard({ product, categoryName }: Props) {
           <dl className="mt-5 grid gap-2 text-sm">
             {specPreview.map((s) => (
               <div key={s.label} className="flex items-baseline justify-between gap-3 border-b border-white/10 pb-1.5">
-                <dt className="text-white/55">{s.label}</dt>
-                <dd className="text-right text-white/85">{s.value}</dd>
+                <dt className="text-white/58">{s.label}</dt>
+                <dd className="text-right text-white/88">{s.value}</dd>
               </div>
             ))}
           </dl>
@@ -131,7 +131,7 @@ export default function ProductCard({ product, categoryName }: Props) {
           </ul>
         ) : null}
         <div className="mt-auto flex items-center justify-between gap-4 pt-6">
-          <span className="text-xs text-white/40">Цена по запросу</span>
+          <span className="text-xs text-white/45">Цена по запросу</span>
           <span className="xtir-btn xtir-btn--secondary min-h-0 px-3 py-1.5 text-xs">
             Подробнее
           </span>

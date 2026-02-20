@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && npm run check:dist-base-links && npm run check:dist-canonical",
+    "build": "node scripts/build-runner.mjs prod",
+    "build:gh": "node scripts/build-runner.mjs gh",
+    "verify:both": "npm run build && npm run build:gh",
     "preview": "astro preview",
     "astro": "astro",
     "archive:build": "node scripts/build-archive-index.mjs",

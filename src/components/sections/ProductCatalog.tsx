@@ -64,7 +64,7 @@ export default function ProductCatalog() {
         </div>
 
         {/* Фильтры + поиск */}
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="xtir-card mb-8 flex flex-col gap-4 rounded-2xl p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
           {/* Категории */}
           <div className="flex flex-wrap gap-2">
             <button
@@ -98,11 +98,11 @@ export default function ProductCatalog() {
             placeholder="Поиск..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full sm:w-72 rounded-xl border border-white/15 bg-dark-800 px-4 py-2.5 text-sm text-white placeholder-white/35 outline-none focus:border-primary-500/60"
+            className="w-full rounded-xl border border-white/15 bg-dark-800 px-4 py-2.5 text-sm text-white placeholder-white/35 outline-none focus:border-primary-500/60 sm:w-72"
           />
         </div>
 
-        <div className="category-nav">
+        <div className="category-nav mb-8">
           {categoryOrder.map((cat) => (
             <a key={cat} href={`#cat-${toAnchorId(cat)}`} className="cat-link">
               {cat}
@@ -153,7 +153,7 @@ export default function ProductCatalog() {
 
         {/* Счётчик */}
         {filtered.length > 0 && (
-          <p className="mt-8 text-center text-sm text-white/30">
+          <p className="mt-8 text-center text-sm text-white/40">
             Показано {filtered.length} из {PRODUCTS.length}
           </p>
         )}
@@ -163,16 +163,18 @@ export default function ProductCatalog() {
         .category-nav {
           display: flex;
           gap: 10px;
-          margin-bottom: 32px;
+          margin-bottom: 0;
           flex-wrap: wrap;
         }
         .cat-link {
-          border: 1px solid rgba(255, 255, 255, 0.16);
+          border: 1px solid rgba(255, 255, 255, 0.2);
           border-radius: 9999px;
-          padding: 8px 14px;
-          color: rgba(255, 255, 255, 0.78);
+          padding: 9px 14px;
+          color: rgba(255, 255, 255, 0.82);
           font-size: 13px;
+          line-height: 1;
           transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+          background: rgba(255, 255, 255, 0.03);
         }
         .cat-link:hover {
           border-color: rgba(255, 255, 255, 0.35);

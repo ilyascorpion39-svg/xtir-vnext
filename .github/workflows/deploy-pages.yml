@@ -24,9 +24,7 @@ jobs:
       - name: Install
         run: npm ci --legacy-peer-deps
       - name: Build
-        env:
-          GITHUB_ACTIONS: "true"
-        run: npm run build
+        run: npm run build:gh
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

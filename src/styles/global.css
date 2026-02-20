@@ -29,6 +29,12 @@
     --xtir-card-bg: #141a22;
     --xtir-card-shadow: 0 16px 36px rgba(0, 0, 0, 0.38);
     --xtir-card-shadow-hover: 0 26px 50px rgba(0, 0, 0, 0.48);
+    --xtir-reading-width: 74ch;
+    --xtir-surface-1: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018));
+    --xtir-surface-2: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    --xtir-section-divider: rgba(255, 255, 255, 0.08);
+    --xtir-header-h: 74px;
+    --xtir-header-offset: calc(var(--xtir-header-h) + 12px);
     --home-container: var(--xtir-container);
     --home-gutter: var(--xtir-gutter);
     --home-section-space-y: var(--xtir-section-space-y);
@@ -49,15 +55,36 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: var(--xtir-header-offset);
+  }
+
+  :where(h1, h2, h3, h4, h5, h6, [id]) {
+    scroll-margin-top: var(--xtir-header-offset);
+  }
+
+  .xtir-page-shell {
+    padding-top: var(--xtir-header-offset);
   }
 
   body {
-    @apply bg-dark-900 text-[color:var(--text-main)] font-sans antialiased;
-    background-color: var(--bg-main);
+    @apply text-[color:var(--text-main)] font-sans antialiased;
+    background:
+      radial-gradient(900px 560px at 12% -8%, rgba(0, 179, 255, 0.12), transparent 58%),
+      radial-gradient(760px 460px at 88% 8%, rgba(92, 122, 255, 0.1), transparent 60%),
+      var(--bg-main);
+  }
+
+  body .hp-hero {
+    min-height: calc(100vh - var(--xtir-header-offset));
+  }
+
+  body .hp-hero .hp-body {
+    padding-top: clamp(56px, 10vh, 92px);
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-display tracking-tight;
+    text-wrap: balance;
   }
 
   h1 { @apply text-display-1; }
@@ -127,10 +154,12 @@
   .home-btn,
   .btn {
     @apply inline-flex items-center justify-center font-semibold no-underline transition-all duration-200;
-    min-height: 44px;
-    padding: 0.75rem 1.2rem;
-    border-radius: 12px;
+    min-height: 46px;
+    padding: 0.78rem 1.25rem;
+    border-radius: 13px;
     border: 1px solid transparent;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
   }
 
   .xtir-btn:focus-visible,
@@ -143,10 +172,10 @@
   .xtir-btn--primary,
   .home-btn--primary,
   .btn-primary {
-    color: #041219;
-    background: linear-gradient(180deg, #39cfff 0%, #00b3ff 100%);
-    border-color: rgba(90, 212, 255, 0.8);
-    box-shadow: 0 10px 26px rgba(0, 179, 255, 0.28);
+    color: #031119;
+    background: linear-gradient(180deg, #5ad4ff 0%, #00b3ff 72%, #0091d9 100%);
+    border-color: rgba(108, 221, 255, 0.72);
+    box-shadow: 0 12px 30px rgba(0, 179, 255, 0.28);
   }
 
   .xtir-btn--primary:hover,
@@ -161,10 +190,10 @@
   .home-btn--secondary,
   .btn-secondary,
   .btn-ghost {
-    color: rgba(255, 255, 255, 0.9);
-    border-color: rgba(255, 255, 255, 0.22);
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(8px);
+    color: rgba(255, 255, 255, 0.92);
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
   .xtir-btn--secondary:hover,
@@ -180,10 +209,12 @@
   .xtir-card,
   .home-card,
   .card {
-    background: var(--xtir-card-bg);
+    background: var(--xtir-surface-1);
     border: 1px solid var(--xtir-card-border);
     border-radius: var(--xtir-card-radius);
-    box-shadow: var(--xtir-card-shadow);
+    box-shadow:
+      0 14px 34px rgba(0, 0, 0, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.03);
   }
 
   .xtir-card--hover,
@@ -234,6 +265,20 @@
   .home-section,
   .section {
     padding-block: var(--xtir-section-space-y);
+    position: relative;
+  }
+
+  .xtir-section + .xtir-section::before,
+  .home-section + .home-section::before,
+  .section + .section::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: min(940px, calc(100% - 48px));
+    height: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, var(--xtir-section-divider), transparent);
   }
 
   .section-title {
@@ -260,25 +305,27 @@
   .xtir-title,
   .home-title {
     font-size: var(--xtir-h2);
-    line-height: 1.1;
+    line-height: 1.08;
     letter-spacing: -0.02em;
     color: var(--text-main);
+    max-width: 20ch;
   }
 
   .xtir-lead,
   .home-lead {
     font-size: var(--xtir-body);
-    line-height: 1.65;
+    line-height: 1.72;
     color: var(--xtir-body-muted);
+    max-width: var(--xtir-reading-width);
   }
 
   .content-main {
-    padding-top: clamp(88px, 10vw, 120px);
+    padding-top: clamp(20px, 4vw, 44px);
     padding-bottom: clamp(56px, 8vw, 96px);
   }
 
   .content-shell {
-    max-width: 860px;
+    max-width: 880px;
     margin-inline: auto;
   }
 
@@ -303,6 +350,9 @@
 
   .content-body {
     color: rgba(230, 237, 243, 0.86);
+    font-size: clamp(1rem, 1.2vw, 1.06rem);
+    line-height: 1.75;
+    max-width: var(--xtir-reading-width);
   }
 
   .content-body > * + * {
@@ -361,8 +411,10 @@
     padding: clamp(18px, 2.7vw, 28px);
     border-radius: var(--xtir-card-radius);
     border: 1px solid var(--xtir-card-border);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-    box-shadow: var(--xtir-card-shadow);
+    background: var(--xtir-surface-2);
+    box-shadow:
+      0 12px 30px rgba(0, 0, 0, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.03);
   }
 
   .content-grid {
@@ -372,16 +424,17 @@
   }
 
   .content-item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 0.9rem 1rem;
-    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 14px;
+    padding: 1rem 1.05rem;
+    background: var(--xtir-surface-2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
   }
 
   .faq-item {
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    background: var(--xtir-surface-2);
     overflow: hidden;
   }
 
@@ -408,15 +461,32 @@
   }
 
   .faq-item .faq-answer {
-    padding: 0 1.05rem 0.95rem;
+    padding: 0 1.05rem 1rem;
     color: rgba(230, 237, 243, 0.8);
     line-height: 1.7;
   }
 
   @media (min-width: 768px) {
+    :root {
+      --xtir-header-h: 80px;
+      --xtir-header-offset: calc(var(--xtir-header-h) + 14px);
+    }
+
     .content-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 16px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    :root {
+      --xtir-gutter: 16px;
+    }
+
+    .xtir-btn,
+    .home-btn,
+    .btn {
+      width: 100%;
     }
   }
 }

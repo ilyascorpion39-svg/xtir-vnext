@@ -84,14 +84,14 @@ export default function ProductGallery({
             rounded-2xl
             bg-dark-900/40
             border
-            border-white/10
+            border-white/12
             
             [-ms-overflow-style:none]
             [scrollbar-width:none]
             [&::-webkit-scrollbar]:hidden
           "
           style={{
-            boxShadow: `0 0 0 1px rgba(255,255,255,0.06), 0 18px 60px rgba(0,0,0,0.45)`,
+            boxShadow: `0 0 0 1px rgba(255,255,255,0.06), 0 18px 48px rgba(0,0,0,0.4)`,
           }}
           aria-label="Галерея фотографий"
         >
@@ -123,11 +123,11 @@ export default function ProductGallery({
               className="
                 absolute left-3 top-1/2 -translate-y-1/2
                 w-11 h-11 rounded-full
-                bg-black/45 backdrop-blur-md
+                bg-black/50 backdrop-blur-md
                 border border-white/10
                 flex items-center justify-center
                 text-white/90
-                hover:bg-black/55
+                hover:bg-black/62
                 disabled:opacity-40 disabled:cursor-not-allowed
                 transition
                 focus-visible:outline
@@ -158,11 +158,11 @@ export default function ProductGallery({
               className="
                 absolute right-3 top-1/2 -translate-y-1/2
                 w-11 h-11 rounded-full
-                bg-black/45 backdrop-blur-md
+                bg-black/50 backdrop-blur-md
                 border border-white/10
                 flex items-center justify-center
                 text-white/90
-                hover:bg-black/55
+                hover:bg-black/62
                 disabled:opacity-40 disabled:cursor-not-allowed
                 transition
                 focus-visible:outline

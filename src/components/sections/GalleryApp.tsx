@@ -198,7 +198,7 @@ export default function GalleryApp({ items }: Props) {
                   <img
                     src={f.cover}
                     alt={f.name}
-                    className="h-full w-full object-cover opacity-30 blur-[1px] transition group-hover:opacity-40"
+                    className="h-full w-full object-cover transition duration-200 group-hover:scale-[1.02]"
                     loading="lazy"
                     decoding="async"
                   />
