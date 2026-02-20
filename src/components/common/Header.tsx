@@ -51,17 +51,17 @@ export default function Header() {
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-dark-900/95 backdrop-blur-lg shadow-lg shadow-primary-500/10"
-          : "bg-transparent"
+          ? "bg-dark-900/92 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/35"
+          : "bg-dark-900/40 backdrop-blur-sm"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <nav className="section-container">
-        <div className="flex items-center justify-between h-20">
+      <nav className="xtir-container">
+        <div className="flex items-center justify-between h-[76px] md:h-20 gap-4">
           {/* Logo */}
-          <a href={withBase("/")} className="flex items-center gap-3">
+          <a href={withBase("/")} className="flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-lg">
             <img
               src={withBase("/images/logo.png")}
               srcSet={`${withBase("/images/logo.png")} 1x, ${withBase("/images/xtir-logo@2x.png")} 2x`}
@@ -82,13 +82,13 @@ export default function Header() {
               <motion.a
                 key={item.name}
                 href={withBase(item.href)}
-                className="text-gray-300 hover:text-primary-500 font-medium transition-colors relative group"
+                className="text-white/78 hover:text-white font-medium transition-colors relative group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
                 {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-500 to-secondary-500 group-hover:w-full transition-all duration-300"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-400 group-hover:w-full transition-all duration-300"></span>
               </motion.a>
             ))}
           </div>
@@ -102,14 +102,14 @@ export default function Header() {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-dark-800 border border-dark-700 flex items-center justify-center hover:border-primary-500 hover:bg-dark-700 transition-all group"
+                  className="w-10 h-10 rounded-xl xtir-card flex items-center justify-center hover:border-primary-400 hover:bg-white/10 transition-all group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400"
                   aria-label={s.name}
                   title={s.name}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <svg
-                    className="w-5 h-5 text-gray-400 group-hover:text-primary-500 transition-colors"
+                    className="w-5 h-5 text-white/70 group-hover:text-primary-300 transition-colors"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
@@ -125,9 +125,10 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <motion.button
-            className="lg:hidden w-10 h-10 flex flex-col items-center justify-center space-y-1.5 group"
+            className="lg:hidden w-10 h-10 flex flex-col items-center justify-center space-y-1.5 group rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             whileTap={{ scale: 0.95 }}
+            aria-label="Открыть меню"
           >
             <span className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
             <span className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`}></span>
@@ -140,18 +141,18 @@ export default function Header() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="lg:hidden absolute top-full left-0 right-0 bg-dark-900/98 backdrop-blur-xl border-t border-primary-500/20"
+            className="lg:hidden absolute top-full left-0 right-0 bg-dark-900/98 backdrop-blur-xl border-t border-white/10"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <nav className="section-container py-6 space-y-4">
+            <nav className="xtir-container py-6 space-y-4">
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.name}
                   href={withBase(item.href)}
-                  className="block py-3 text-lg text-gray-300 hover:text-primary-500 transition-colors border-b border-dark-700 last:border-0"
+                  className="block py-3 text-base text-white/80 hover:text-white transition-colors border-b border-white/10 last:border-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
@@ -170,10 +171,10 @@ export default function Header() {
                       rel="noopener noreferrer"
                       aria-label={s.name}
                       title={s.name}
-                      className="w-11 h-11 rounded-lg bg-dark-800 border border-dark-700 flex items-center justify-center hover:border-primary-500 hover:bg-dark-700 transition-all"
+                      className="w-11 h-11 rounded-xl xtir-card flex items-center justify-center hover:border-primary-400 hover:bg-white/10 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      <svg className="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <svg className="w-5 h-5 text-white/80" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path d={s.icon} />
                       </svg>
                     </a>

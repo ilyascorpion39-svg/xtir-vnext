@@ -62,10 +62,10 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-dark-900 border-t border-dark-800">
+    <footer className="bg-dark-900 border-t border-white/10">
       {/* Main Footer */}
-      <div className="section-container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
+      <div className="xtir-container py-14 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 md:gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <motion.div
@@ -74,21 +74,27 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <a href={withBase("/")} className="inline-flex items-center space-x-3 mb-6 group">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl font-display font-bold text-dark-900">X</span>
-                </div>
-                <span className="text-2xl font-display font-bold gradient-text">XTIR</span>
+              <a href={withBase("/")} className="inline-flex items-center gap-3 mb-6 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-lg">
+                <img
+                  src={withBase("/images/logo.png")}
+                  srcSet={`${withBase("/images/logo.png")} 1x, ${withBase("/images/xtir-logo@2x.png")} 2x`}
+                  width={140}
+                  height={48}
+                  alt="XTIR"
+                  decoding="async"
+                  className="h-10 w-auto"
+                />
+                <span className="text-xs text-white/60">Точность технологий</span>
               </a>
 
-              <p className="text-gray-400 mb-6 max-w-sm">
+              <p className="xtir-lead mb-6 max-w-sm">
                 Разработка и производство электронно-механического оборудования
                 для стрельбы. Современные технологии для профессиональной подготовки.
               </p>
 
-              <div className="space-y-3 text-sm text-gray-400">
+              <div className="space-y-3 text-sm text-white/70">
                 <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -96,13 +102,13 @@ export default function Footer() {
                       d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                     />
                   </svg>
-                  <a href={withBase("/contact")} className="hover:text-primary-500 transition-colors">
+                  <a href={withBase("/contact")} className="hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm">
                     info@xtir.ru
                   </a>
                 </div>
 
                 <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -111,10 +117,10 @@ export default function Footer() {
                     />
                   </svg>
                   <div>
-                    <a href="tel:+79154250095" className="hover:text-primary-500 transition-colors block">
+                    <a href="tel:+79154250095" className="hover:text-white transition-colors block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm">
                       +7 (915) 425-00-95
                     </a>
-                    <a href="tel:+79162962469" className="hover:text-primary-500 transition-colors block">
+                    <a href="tel:+79162962469" className="hover:text-white transition-colors block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm">
                       +7 (916) 296-24-69
                     </a>
                   </div>
@@ -132,7 +138,7 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <h3 className="text-white font-semibold mb-4">
+              <h3 className="text-white font-semibold mb-4 text-base">
                 {categoryNames[category]}
               </h3>
               <ul className="space-y-3">
@@ -140,7 +146,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <a
                       href={withBase(link.href)}
-                      className="text-gray-400 hover:text-primary-500 transition-colors text-sm"
+                      className="text-white/65 hover:text-white transition-colors text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm"
                     >
                       {link.name}
                     </a>
@@ -153,7 +159,7 @@ export default function Footer() {
 
         {/* Social Links */}
         <motion.div
-          className="mt-12 pt-8 border-t border-dark-800"
+          className="mt-12 pt-8 border-t border-white/10"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -167,12 +173,12 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-dark-800 border border-dark-700 flex items-center justify-center hover:border-primary-500 hover:bg-dark-700 transition-all group"
+                  className="w-10 h-10 rounded-xl xtir-card flex items-center justify-center hover:border-primary-400 hover:bg-white/10 transition-all group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400"
                   aria-label={social.name}
                   title={social.name}
                 >
                   <svg
-                    className="w-5 h-5 text-gray-400 group-hover:text-primary-500 transition-colors"
+                    className="w-5 h-5 text-white/70 group-hover:text-primary-300 transition-colors"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -182,7 +188,7 @@ export default function Footer() {
               ))}
             </div>
 
-            <div className="text-sm text-gray-500 text-center md:text-right">
+            <div className="text-sm text-white/55 text-center md:text-right">
               <p>© {currentYear} XTIR. Все права защищены.</p>
               <p className="mt-1">Работаем без выходных</p>
             </div>
