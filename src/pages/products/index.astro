@@ -1,6 +1,30 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ProductCatalog from '@/components/sections/ProductCatalog';
+import { PRODUCTS, PRODUCT_CATEGORIES } from '@/data/products';
+import { withBase } from '@/site';
+
+const productTotal = PRODUCTS.length;
+const categoryTotal = PRODUCT_CATEGORIES.length;
+
+const firstSentence = (text: string) => {
+  const clean = text.replace(/\s+/g, ' ').trim();
+  const match = clean.match(/^[^.!?]+[.!?]/);
+  return (match?.[0] ?? clean).trim();
+};
+
+const focusCases = [
+  { slug: 'pmu-100', title: 'Электронные мишени' },
+  { slug: 'kaban', title: 'Движущиеся цели' },
+  { slug: 'pak', title: 'Управление полигоном' },
+].map((item) => {
+  const product = PRODUCTS.find((entry) => entry.slug === item.slug);
+  return {
+    ...item,
+    href: `/products/${item.slug}/`,
+    text: product ? firstSentence(product.description) : 'Описание доступно в карточке изделия.',
+  };
+});
 ---
 
 <BaseLayout
@@ -14,9 +38,105 @@ import ProductCatalog from '@/components/sections/ProductCatalog';
     <p class="kicker">Экспозиция</p>
     <h1 class="h1">Решения и модули</h1>
     <p class="p" style="max-width:74ch;">Собрание инженерных “экспонатов”. Каждый элемент здесь не сам по себе, а как часть сценария: тренировка, динамика, инфраструктура объекта, интеграция.</p>
+
+    <div class="pc-summary">
+      <div class="pc-summary-item">
+        <strong>{productTotal}+</strong>
+        <span>позиций в каталоге</span>
+      </div>
+      <div class="pc-summary-item">
+        <strong>{categoryTotal}</strong>
+        <span>категорий оборудования</span>
+      </div>
+      <div class="pc-summary-item">
+        <strong>24/7</strong>
+        <span>поддержка внедрения</span>
+      </div>
+    </div>
+
+    <div class="pc-cases">
+      {focusCases.map((item) => (
+        <article class="pc-case">
+          <h2>{item.title}</h2>
+          <p>{item.text}</p>
+          <a href={withBase(item.href)}>Открыть раздел →</a>
+        </article>
+      ))}
+    </div>
   </div>
 </section>
 <main class="min-h-screen">
   <ProductCatalog client:visible />
 </main>
 </BaseLayout>
+
+<style>
+  .pc-summary {
+    margin-top: 1.2rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .pc-summary-item {
+    padding: 12px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .pc-summary-item strong {
+    color: #fff;
+    font-size: 1.08rem;
+    line-height: 1.1;
+  }
+  .pc-summary-item span {
+    color: rgba(255,255,255,0.6);
+    font-size: .82rem;
+    line-height: 1.45;
+  }
+
+  .pc-cases {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .pc-case {
+    padding: 14px 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+  }
+  .pc-case h2 {
+    margin: 0 0 6px;
+    color: #fff;
+    font-size: .98rem;
+    line-height: 1.28;
+  }
+  .pc-case p {
+    margin: 0;
+    color: rgba(255,255,255,0.68);
+    font-size: .82rem;
+    line-height: 1.58;
+  }
+  .pc-case a {
+    margin-top: 8px;
+    display: inline-block;
+    color: #7ec3ff;
+    text-decoration: none;
+    font-size: .8rem;
+    font-weight: 600;
+  }
+  .pc-case a:hover {
+    opacity: .8;
+  }
+
+  @media (max-width: 900px) {
+    .pc-summary,
+    .pc-cases {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
