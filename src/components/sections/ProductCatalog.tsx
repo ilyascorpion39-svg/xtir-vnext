@@ -9,6 +9,12 @@ const categoryOrder = [
   "Специальные комплексы",
 ];
 
+const legacyAnchorByCategory: Record<string, string> = {
+  "Электронные мишенные системы": "electronic",
+  "Попперы и механические мишени": "lifters",
+  "Специальные комплексы": "moving",
+};
+
 export default function ProductCatalog() {
   const [active, setActive] = useState<string>("all");
   const [query, setQuery]   = useState<string>("");
@@ -120,6 +126,13 @@ export default function ProductCatalog() {
           <div className="space-y-10">
             {grouped.map(([category, products]) => (
               <section key={category} id={`cat-${toAnchorId(category)}`}>
+                {legacyAnchorByCategory[category] && (
+                  <span
+                    id={legacyAnchorByCategory[category]}
+                    className="relative -top-24 block"
+                    aria-hidden="true"
+                  />
+                )}
                 <h2 className="mb-5 text-2xl font-semibold text-white">{category}</h2>
                 <motion.div
                   className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:grid-cols-4 auto-rows-fr"

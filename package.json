@@ -17,7 +17,8 @@
     "type-check": "astro check",
     "clean:vite": "rimraf node_modules/.vite node_modules/.vite/deps",
     "check:dist-base-links": "node scripts/check-dist-base-links.mjs",
-    "check:dist-canonical": "node scripts/check-dist-canonical.mjs"
+    "check:dist-canonical": "node scripts/check-dist-canonical.mjs",
+    "check:dist-links": "node scripts/check-dist-links.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",

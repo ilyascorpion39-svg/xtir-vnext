@@ -51,6 +51,7 @@ async function main() {
   await run("npm", ["run", "astro", "--", "build"]);
   await run("node", ["scripts/check-dist-base-links.mjs"]);
   await run("node", ["scripts/check-dist-canonical.mjs"]);
+  await run("node", ["scripts/check-dist-links.mjs"]);
 }
 
 main().catch((error) => {
