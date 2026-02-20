@@ -3,6 +3,12 @@ import { motion } from "framer-motion";
 import { PRODUCTS, PRODUCT_CATEGORIES } from "@/data/products";
 import ProductCard from "./ProductCard";
 
+const categoryOrder = [
+  "Электронные мишенные системы",
+  "Попперы и механические мишени",
+  "Специальные комплексы",
+];
+
 export default function ProductCatalog() {
   const [active, setActive] = useState<string>("all");
   const [query, setQuery]   = useState<string>("");
@@ -30,7 +36,15 @@ export default function ProductCatalog() {
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key)!.push(product);
     });
-    return Array.from(groups.entries());
+    const entries = Array.from(groups.entries());
+    const orderIndex = new Map(categoryOrder.map((cat, idx) => [cat, idx]));
+    entries.sort(([a], [b]) => {
+      const ia = orderIndex.has(a) ? orderIndex.get(a)! : Number.MAX_SAFE_INTEGER;
+      const ib = orderIndex.has(b) ? orderIndex.get(b)! : Number.MAX_SAFE_INTEGER;
+      if (ia !== ib) return ia - ib;
+      return a.localeCompare(b);
+    });
+    return entries;
   }, [filtered]);
 
   return (
@@ -85,11 +99,19 @@ export default function ProductCatalog() {
           />
         </div>
 
+        <div className="category-nav">
+          {categoryOrder.map((cat) => (
+            <a key={cat} href={`#cat-${cat}`} className="cat-link">
+              {cat}
+            </a>
+          ))}
+        </div>
+
         {/* Категории + сетки карточек */}
         {filtered.length > 0 ? (
           <div className="space-y-10">
             {grouped.map(([category, products]) => (
-              <section key={category}>
+              <section key={category} id={`cat-${category}`}>
                 <h2 className="mb-5 text-2xl font-semibold text-white">{category}</h2>
                 <motion.div
                   className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
@@ -127,6 +149,27 @@ export default function ProductCatalog() {
           </p>
         )}
       </div>
+      <style>{`
+        html { scroll-behavior: smooth; }
+        .category-nav {
+          display: flex;
+          gap: 12px;
+          margin-bottom: 40px;
+          flex-wrap: wrap;
+        }
+        .cat-link {
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 9999px;
+          padding: 8px 14px;
+          color: rgba(255, 255, 255, 0.8);
+          transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+        .cat-link:hover {
+          border-color: rgba(255, 255, 255, 0.35);
+          background-color: rgba(255, 255, 255, 0.06);
+          color: #fff;
+        }
+      `}</style>
     </section>
   );
 }
