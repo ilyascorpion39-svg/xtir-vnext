@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://xtir.ru/sitemap.xml
+Sitemap: https://x-tir.ru/sitemap.xml

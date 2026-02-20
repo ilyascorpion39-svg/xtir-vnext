@@ -10,12 +10,22 @@ interface Props {
 }
 const {
   title,
-  description = 'XTIR - Разработка и производство электронно-механического оборудования для стрельбы',
+  description = 'XTIR — разработка и производство электронно-механического оборудования для стрельбы. Решения для тиров, полигонов и учебных комплексов.',
   image = '/images/og-image.svg',
 } = Astro.props;
+const PROD_CANONICAL_ORIGIN = 'https://x-tir.ru';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL(base + image, Astro.site);
+const rawPath = Astro.url.pathname || '/';
+const basePrefix = base && base !== '/' ? `${base}/` : '';
+const normalizedPath = rawPath.startsWith(basePrefix)
+  ? rawPath.slice(basePrefix.length - 1)
+  : rawPath;
+const canonicalURL = new URL(normalizedPath, PROD_CANONICAL_ORIGIN);
+const isAbsoluteImage = /^https?:\/\//.test(image);
+const cleanImagePath = image.startsWith('/') ? image : `/${image}`;
+const ogImage = isAbsoluteImage
+  ? image
+  : new URL(cleanImagePath, PROD_CANONICAL_ORIGIN);
 const faviconUrl = base + '/favicon.svg';
 ---
 <!doctype html>
@@ -25,13 +35,15 @@ const faviconUrl = base + '/favicon.svg';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href={faviconUrl} />
     <meta name="generator" content={Astro.generator} />
-    <title>{title} | XTIR</title>
+    <title>{title ? `${title} | XTIR` : 'XTIR — оборудование для стрельбы'}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <meta name="theme-color" content="#0F141A" />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="XTIR" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="XTIR" />
+    <meta property="og:locale" content="ru_RU" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -167,6 +179,5 @@ const faviconUrl = base + '/favicon.svg';
     border-radius: 0 !important;
   }
 </style>
-
 
 

@@ -9,7 +9,7 @@ const ghBase = `/${repo}/`;
 const ghSite = owner ? `https://${owner}.github.io` : "https://github.io";
 
 export default defineConfig({
-  site: isGh ? ghSite : 'https://xtir.ru',
+  site: isGh ? ghSite : 'https://x-tir.ru',
   base: isGh ? ghBase : "/",
   output: "static",
   trailingSlash: "always",
