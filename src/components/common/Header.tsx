@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { SITE, withBase } from "@/site";
 
 const navItems = [
@@ -38,6 +38,8 @@ const socialLinks = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const mobileMenuId = "xtir-mobile-menu";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,6 +49,15 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isMobileMenuOpen]);
+
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -54,11 +65,11 @@ export default function Header() {
           ? "bg-dark-900/88 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,0.24)]"
           : "bg-dark-900/52 backdrop-blur-md"
       }`}
-      initial={{ y: -100 }}
+      initial={reduceMotion ? false : { y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
+      transition={reduceMotion ? { duration: 0 } : { duration: 0.6 }}
     >
-      <nav className="xtir-container">
+      <nav className="xtir-container" aria-label="Основная навигация">
         <div className="flex items-center justify-between h-[74px] md:h-20 gap-4">
           {/* Logo */}
           <a href={withBase("/")} className="flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-lg">
@@ -129,6 +140,8 @@ export default function Header() {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             whileTap={{ scale: 0.95 }}
             aria-label="Открыть меню"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls={mobileMenuId}
           >
             <span className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
             <span className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`}></span>
@@ -138,15 +151,20 @@ export default function Header() {
       </nav>
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-x-0 bottom-0 h-px ${
-          isScrolled ? "bg-white/12" : "bg-white/8"
+        className={`pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-[6px] overflow-hidden transition-opacity ${
+          isScrolled ? "opacity-95" : "opacity-85"
         }`}
-      />
+      >
+        <span className="block h-[2px] w-full bg-white/90" />
+        <span className="block h-[2px] w-full bg-[#0039a6]/85" />
+        <span className="block h-[2px] w-full bg-[#d52b1e]/85" />
+      </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            id={mobileMenuId}
             className="lg:hidden absolute top-full left-0 right-0 bg-dark-900/97 backdrop-blur-xl border-t border-white/12"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}

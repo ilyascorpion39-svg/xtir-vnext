@@ -69,6 +69,7 @@ export default function ProductCard({ product, categoryName }: Props) {
       href={withBase(`/products/${product.slug}/`)}
       className={clsx(
         "group xtir-card xtir-card--hover flex h-full flex-col overflow-hidden",
+        meta.borderHoverClass,
       )}
       initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -85,6 +86,7 @@ export default function ProductCard({ product, categoryName }: Props) {
           alt={product.name}
           loading="lazy"
           decoding="async"
+          sizes="(min-width: 1536px) 22vw, (min-width: 1280px) 30vw, (min-width: 768px) 45vw, 95vw"
           className="absolute inset-0 h-full w-full object-cover opacity-90 [transition:transform_0.35s_ease] group-hover:opacity-100 group-hover:scale-[1.04]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-dark-900/85 via-dark-900/35 to-transparent" />

@@ -9,6 +9,7 @@
     "build": "node scripts/build-runner.mjs prod",
     "build:gh": "node scripts/build-runner.mjs gh",
     "verify:both": "npm run build && npm run build:gh",
+    "verify:premium": "npm run type-check && npm run verify:both && npm run e2e:smoke",
     "preview": "astro preview",
     "astro": "astro",
     "archive:build": "node scripts/build-archive-index.mjs",
@@ -18,7 +19,9 @@
     "clean:vite": "rimraf node_modules/.vite node_modules/.vite/deps",
     "check:dist-base-links": "node scripts/check-dist-base-links.mjs",
     "check:dist-canonical": "node scripts/check-dist-canonical.mjs",
-    "check:dist-links": "node scripts/check-dist-links.mjs"
+    "check:dist-links": "node scripts/check-dist-links.mjs",
+    "e2e:smoke": "node scripts/smoke-playwright.mjs",
+    "visual:baseline": "node scripts/visual-baseline.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",

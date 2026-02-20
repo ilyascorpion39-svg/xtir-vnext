@@ -109,7 +109,7 @@ export default {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-hero":
           "linear-gradient(135deg, #0F141A 0%, #141A22 55%, #0F141A 100%)",
-        "gradient-accent": "linear-gradient(90deg, #00B3FF 0%, #7C3AED 100%)",
+        "gradient-accent": "linear-gradient(90deg, #00B3FF 0%, #9DE8FF 100%)",
       },
     },
   },

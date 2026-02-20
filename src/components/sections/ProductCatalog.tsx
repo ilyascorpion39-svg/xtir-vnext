@@ -75,6 +75,7 @@ export default function ProductCatalog() {
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setActive("all")}
+              aria-pressed={active === "all"}
               className={`xtir-btn text-sm ${
                 active === "all"
                   ? "xtir-btn--primary"
@@ -87,6 +88,7 @@ export default function ProductCatalog() {
               <button
                 key={cat.id}
                 onClick={() => setActive(cat.id)}
+                aria-pressed={active === cat.id}
                 className={`xtir-btn text-sm ${
                   active === cat.id
                     ? "xtir-btn--primary"
@@ -101,6 +103,7 @@ export default function ProductCatalog() {
           {/* Поиск */}
           <input
             type="search"
+            aria-label="Поиск по каталогу"
             placeholder="Поиск..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -108,7 +111,7 @@ export default function ProductCatalog() {
           />
         </div>
 
-        <div className="category-nav mb-8">
+        <div className="category-nav mb-8" aria-label="Быстрый переход по категориям">
           {categoryOrder.map((cat) => (
             <a key={cat} href={`#cat-${toAnchorId(cat)}`} className="cat-link">
               {cat}
@@ -178,6 +181,14 @@ export default function ProductCatalog() {
           gap: 10px;
           margin-bottom: 0;
           flex-wrap: wrap;
+          position: sticky;
+          top: calc(var(--xtir-header-offset) + 8px);
+          z-index: 8;
+          padding: 6px;
+          border-radius: 14px;
+          background: rgba(7, 12, 18, 0.72);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .cat-link {
           border: 1px solid rgba(255, 255, 255, 0.2);
@@ -193,6 +204,15 @@ export default function ProductCatalog() {
           border-color: rgba(255, 255, 255, 0.35);
           background-color: rgba(255, 255, 255, 0.06);
           color: #fff;
+        }
+        @media (max-width: 768px) {
+          .category-nav {
+            position: static;
+            background: transparent;
+            border: 0;
+            backdrop-filter: none;
+            padding: 0;
+          }
         }
         .cat-link:focus-visible {
           outline: 2px solid rgba(0, 179, 255, 0.85);

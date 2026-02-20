@@ -3,6 +3,7 @@ import '@/styles/xtir-tokens.css';
 import '@/styles/global.css';
 import Header from '@/components/common/Header.tsx';
 import Footer from '@/components/common/Footer.tsx';
+import { SITE } from '@/site';
 interface Props {
   title: string;
   description?: string;
@@ -27,17 +28,40 @@ const ogImage = isAbsoluteImage
   ? image
   : new URL(cleanImagePath, PROD_CANONICAL_ORIGIN);
 const faviconUrl = base + '/favicon.svg';
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE.name,
+  url: SITE.websiteUrl,
+  email: SITE.contactEmail,
+  telephone: [SITE.phonePrimary, SITE.phoneSecondary].filter(Boolean),
+  sameAs: [
+    SITE.telegramChannelUrl,
+    SITE.vkChannelUrl,
+    SITE.youtubeChannelUrl,
+    SITE.rutubeChannelUrl,
+  ].filter(Boolean),
+};
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE.name,
+  url: SITE.websiteUrl,
+  inLanguage: "ru-RU",
+};
 ---
 <!doctype html>
 <html lang="ru" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=yes,email=yes,address=no" />
     <link rel="icon" type="image/svg+xml" href={faviconUrl} />
     <meta name="generator" content={Astro.generator} />
     <title>{title ? `${title} | XTIR` : 'XTIR — оборудование для стрельбы'}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" href={canonicalURL} hreflang="ru-RU" />
     <meta name="theme-color" content="#0F141A" />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="XTIR" />
@@ -48,15 +72,19 @@ const faviconUrl = base + '/favicon.svg';
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`${SITE.name} — ${SITE.tagline}`} />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
 </head>
   <body>
+    <a class="xtir-skip-link" href="#main-content">Перейти к содержимому</a>
     <Header client:load />
-    <div class="xtir-page-shell">
+    <div id="main-content" tabindex="-1" class="xtir-page-shell">
       <slot />
     </div>
     <Footer />

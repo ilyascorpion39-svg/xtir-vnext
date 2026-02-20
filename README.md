@@ -17,6 +17,8 @@ npm install
 npm run dev        # локальный сервер http://localhost:4321
 npm run build      # сборка в /dist
 npm run preview    # превью сборки
+npm run verify:premium # type-check + обе сборки + smoke e2e
+npm run visual:baseline # скриншот-бейзлайн ключевых страниц
 ```
 
 ## Структура

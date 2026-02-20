@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type MouseEvent } from "react";
 import { withBase } from "@/site";
 
 type AssetType = "image" | "pdf" | "video" | "audio" | "doc" | "other";
@@ -58,6 +58,7 @@ export default function GalleryApp({ items }: Props) {
   const [q, setQ] = useState("");
   const [typeFilter, setTypeFilter] = useState<AssetType | "all">("all");
   const [openId, setOpenId] = useState<string | null>(null);
+  const [tiltEnabled, setTiltEnabled] = useState(false);
   const toAssetUrl = (url: string) => withBase(url);
 
   const byId = useMemo(() => {
@@ -143,6 +144,43 @@ export default function GalleryApp({ items }: Props) {
     return () => window.removeEventListener("hashchange", applyHash);
   }, [byId]);
 
+  useEffect(() => {
+    const media = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => {
+      setTiltEnabled(media.matches && !reduced.matches && window.innerWidth >= 1024);
+    };
+    update();
+    window.addEventListener("resize", update, { passive: true });
+    media.addEventListener("change", update);
+    reduced.addEventListener("change", update);
+    return () => {
+      window.removeEventListener("resize", update);
+      media.removeEventListener("change", update);
+      reduced.removeEventListener("change", update);
+    };
+  }, []);
+
+  const handlePhotoMove = (event: MouseEvent<HTMLButtonElement>) => {
+    if (!tiltEnabled) return;
+    const card = event.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const px = (event.clientX - rect.left) / rect.width;
+    const py = (event.clientY - rect.top) / rect.height;
+    const rotateX = (0.5 - py) * 3;
+    const rotateY = (px - 0.5) * 3;
+    card.style.transform = `perspective(900px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-5px)`;
+    card.style.setProperty("--glow-x", `${(px * 100).toFixed(1)}%`);
+    card.style.setProperty("--glow-y", `${(py * 100).toFixed(1)}%`);
+  };
+
+  const handlePhotoLeave = (event: MouseEvent<HTMLButtonElement>) => {
+    const card = event.currentTarget;
+    card.style.transform = "";
+    card.style.removeProperty("--glow-x");
+    card.style.removeProperty("--glow-y");
+  };
+
   const hasAny = (items || []).length > 0;
 
   return (
@@ -191,20 +229,22 @@ export default function GalleryApp({ items }: Props) {
               key={f.name}
               type="button"
               onClick={() => setActiveFolder(f.name)}
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left transition hover:border-[#93ff5a]/30 hover:bg-white/10"
+              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left transition duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:shadow-[0_16px_34px_rgba(0,0,0,0.34)]"
             >
               <div className="absolute inset-0">
                 {f.cover ? (
                   <img
                     src={f.cover}
                     alt={f.name}
-                    className="h-full w-full object-cover transition duration-200 group-hover:scale-[1.02]"
+                    className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
                     loading="lazy"
                     decoding="async"
+                    sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
                   />
                 ) : (
                   <div className="h-full w-full bg-[radial-gradient(circle_at_20%_20%,rgba(147,255,90,.18),transparent_55%),radial-gradient(circle_at_80%_30%,rgba(60,220,255,.10),transparent_55%)]" />
                 )}
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#070a0f]/78 via-[#070a0f]/34 to-transparent" />
               </div>
               <div className="relative p-5">
                 <div className="flex items-start justify-between gap-3">
@@ -277,16 +317,29 @@ export default function GalleryApp({ items }: Props) {
                   // сохраняем ссылку, чтобы можно было поделиться
                   window.location.hash = `asset=${esc(it.id)}`;
                 }}
-                className="group overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left transition hover:border-[#93ff5a]/30 hover:bg-white/10"
+                onMouseMove={it.type === "image" ? handlePhotoMove : undefined}
+                onMouseLeave={it.type === "image" ? handlePhotoLeave : undefined}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left transition duration-300 hover:-translate-y-1 hover:border-white/30 hover:shadow-[0_20px_36px_rgba(0,0,0,0.35)]"
               >
+                {it.type === "image" && (
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 z-[1] opacity-0 transition duration-300 group-hover:opacity-100"
+                    style={{
+                      background:
+                        "radial-gradient(260px circle at var(--glow-x,50%) var(--glow-y,0%), rgba(255,255,255,0.2), rgba(255,255,255,0) 62%)",
+                    }}
+                  />
+                )}
                 <div className="aspect-[4/3] w-full overflow-hidden bg-black/30">
                   {it.type === "image" ? (
                     <img
                       src={toAssetUrl(it.url)}
                       alt={it.title}
-                      className="h-full w-full object-cover transition group-hover:scale-[1.02]"
+                      className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.035]"
                       loading="lazy"
                       decoding="async"
+                      sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center">
