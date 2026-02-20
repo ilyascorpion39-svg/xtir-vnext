@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { withBase } from '@/site';
 ---
 
 <BaseLayout title="Карьера" description="Вакансии XTIR.">
@@ -9,7 +10,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         <div class="max-w-4xl">
           <h1 class="h1-xtir">Карьера</h1>
           <div class="prose prose-invert max-w-none mt-8">
-            <p>Сейчас раздел в разработке. Можно прислать резюме и портфолио на <a class="link" href="/contact">info@xtir.ru</a>.</p>
+            <p>Сейчас раздел в разработке. Можно прислать резюме и портфолио на <a class="link" href={withBase("/contact")}>info@xtir.ru</a>.</p>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { SITE } from "@/site";
+import { SITE, withBase } from "@/site";
 
 const footerLinks = {
   company: [
@@ -58,10 +58,6 @@ const categoryNames: Record<string, string> = {
   legal: "Правовая информация",
 };
 
-// Правильный base для Astro (и GitHub Pages, и прод), без DOM-костылей
-const BASE = (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
-const href = (path: string) => BASE + path;
-
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -78,7 +74,7 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <a href={href("/")} className="inline-flex items-center space-x-3 mb-6 group">
+              <a href={withBase("/")} className="inline-flex items-center space-x-3 mb-6 group">
                 <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
                   <span className="text-2xl font-display font-bold text-dark-900">X</span>
                 </div>
@@ -100,7 +96,7 @@ export default function Footer() {
                       d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                     />
                   </svg>
-                  <a href={href("/contact")} className="hover:text-primary-500 transition-colors">
+                  <a href={withBase("/contact")} className="hover:text-primary-500 transition-colors">
                     info@xtir.ru
                   </a>
                 </div>
@@ -143,7 +139,7 @@ export default function Footer() {
                 {links.map((link) => (
                   <li key={link.name}>
                     <a
-                      href={href(link.href)}
+                      href={withBase(link.href)}
                       className="text-gray-400 hover:text-primary-500 transition-colors text-sm"
                     >
                       {link.name}

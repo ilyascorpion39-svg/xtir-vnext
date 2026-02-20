@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SITE, withBase } from '@/site';
 
 // Файлы партнёра из архива
 const photos = [
@@ -20,6 +21,9 @@ const docs = [
   { src: '/xtir-archive/Партнеры/РЭБ_ЗОНТ_ИТОГОВЫЙ_ПРОТОКОЛ_НИИИ_РЭБ_г_ВОРОНЕЖ.pdf', title: 'Протокол испытаний НИИИ РЭБ, г. Воронеж', icon: 'protocol' },
   { src: '/xtir-archive/Партнеры/Сертификат_соответствия_РЭБ_ЗОНТ.pdf', title: 'Сертификат соответствия', icon: 'cert' },
 ];
+
+const photosWithBase = photos.map((photo) => ({ ...photo, src: withBase(photo.src) }));
+const docsWithBase = docs.map((doc) => ({ ...doc, src: withBase(doc.src) }));
 ---
 
 <BaseLayout
@@ -118,7 +122,7 @@ const docs = [
           <div class="section-header__line"></div>
         </div>
         <div class="photo-grid">
-          {photos.map((photo, i) => (
+          {photosWithBase.map((photo, i) => (
             <div class="photo-card" data-index={i}>
               <div class="photo-card__inner">
                 <img
@@ -149,7 +153,7 @@ const docs = [
       </div>
       <p class="docs-note">Документы открываются для просмотра прямо на сайте. По запросу — через форму ниже.</p>
       <div class="docs-grid">
-        {docs.map((doc) => (
+        {docsWithBase.map((doc) => (
           <a href={doc.src} target="_blank" rel="noopener" class="doc-card">
             <div class="doc-card__icon-wrap">
               <svg class="doc-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -178,7 +182,7 @@ const docs = [
       </div>
       <p class="video-note">Видео о системе РЭБ ЗОНТ размещены на официальных каналах XTIR.</p>
       <div class="video-links">
-        <a href="https://www.youtube.com/@xtir" target="_blank" rel="noopener" class="video-link video-link--yt">
+        <a href={SITE.youtubeChannelUrl} target="_blank" rel="noopener" class="video-link video-link--yt">
           <svg class="video-link__icon" viewBox="0 0 24 24" fill="currentColor">
             <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
           </svg>
@@ -187,7 +191,7 @@ const docs = [
             <div class="video-link__label">Канал XTIR</div>
           </div>
         </a>
-        <a href="https://rutube.ru" target="_blank" rel="noopener" class="video-link video-link--rt">
+        <a href={SITE.rutubeChannelUrl} target="_blank" rel="noopener" class="video-link video-link--rt">
           <svg class="video-link__icon" viewBox="0 0 24 24" fill="currentColor">
             <path d="M8.4 6.7A2 2 0 0 0 6 8.6v6.8a2 2 0 0 0 3 1.7l6.2-3.4a2 2 0 0 0 0-3.4L9 7a2 2 0 0 0-.6-.3z"/>
           </svg>
@@ -211,8 +215,8 @@ const docs = [
           <h2 class="cta-title">Связаться с партнёром</h2>
           <p class="cta-text">Вопросы по оборудованию РЭБ ЗОНТ — через форму обратной связи XTIR. Ответим и передадим производителю.</p>
           <div class="cta-btns">
-            <a href="/contact" class="cta-btn cta-btn--primary">Оставить заявку</a>
-            <a href="/partners" class="cta-btn cta-btn--ghost">← Все партнёры</a>
+            <a href={withBase("/contact")} class="cta-btn cta-btn--primary">Оставить заявку</a>
+            <a href={withBase("/partners")} class="cta-btn cta-btn--ghost">← Все партнёры</a>
           </div>
         </div>
       </div>

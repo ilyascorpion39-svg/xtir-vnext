@@ -1,17 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SITE } from "@/site";
-
-// Читаем base из мета-тега, который Astro вставляет автоматически
-// На GitHub Pages это будет "/xtir-vnext", локально — ""
-const getBase = () => {
-  if (typeof document === "undefined") return "";
-  const base = document.querySelector('base')?.getAttribute('href') ?? "";
-  return base.replace(/\/$/, "");
-};
-
-// Синхронное чтение base — работает до mount React
-const BASE = typeof document !== "undefined" ? getBase() : "";
+import { SITE, withBase } from "@/site";
 
 const navItems = [
   { name: 'Главная', href: '/' },
@@ -58,8 +47,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const href = (path: string) => BASE + path;
-
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -74,10 +61,10 @@ export default function Header() {
       <nav className="section-container">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href={href("/")} className="flex items-center gap-3">
+          <a href={withBase("/")} className="flex items-center gap-3">
             <img
-              src={`${BASE}/images/logo.png`}
-              srcSet={`${BASE}/images/logo.png 1x, ${BASE}/images/xtir-logo@2x.png 2x`}
+              src={withBase("/images/logo.png")}
+              srcSet={`${withBase("/images/logo.png")} 1x, ${withBase("/images/xtir-logo@2x.png")} 2x`}
               width={140}
               height={48}
               alt="XTIR"
@@ -94,7 +81,7 @@ export default function Header() {
             {navItems.map((item, index) => (
               <motion.a
                 key={item.name}
-                href={href(item.href)}
+                href={withBase(item.href)}
                 className="text-gray-300 hover:text-primary-500 font-medium transition-colors relative group"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -163,7 +150,7 @@ export default function Header() {
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.name}
-                  href={href(item.href)}
+                  href={withBase(item.href)}
                   className="block py-3 text-lg text-gray-300 hover:text-primary-500 transition-colors border-b border-dark-700 last:border-0"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}

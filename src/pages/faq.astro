@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { withBase } from '@/site';
 ---
 
 <BaseLayout title="FAQ" description="Ответы на частые вопросы по оборудованию XTIR.">
@@ -9,7 +10,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         <div class="max-w-4xl">
           <h1 class="h1-xtir">FAQ</h1>
           <div class="prose prose-invert max-w-none mt-8">
-            <p>Раздел в разработке. Если у вас есть вопрос — лучше всего написать нам на <a class="link" href="/contact">info@xtir.ru</a>.</p>
+            <p>Раздел в разработке. Если у вас есть вопрос — лучше всего написать нам на <a class="link" href={withBase("/contact")}>info@xtir.ru</a>.</p>
           </div>
         </div>
       </div>

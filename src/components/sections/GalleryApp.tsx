@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { withBase } from "@/site";
 
 type AssetType = "image" | "pdf" | "video" | "audio" | "doc" | "other";
 
@@ -57,6 +58,7 @@ export default function GalleryApp({ items }: Props) {
   const [q, setQ] = useState("");
   const [typeFilter, setTypeFilter] = useState<AssetType | "all">("all");
   const [openId, setOpenId] = useState<string | null>(null);
+  const toAssetUrl = (url: string) => withBase(url);
 
   const byId = useMemo(() => {
     const m = new Map<string, GalleryItem>();
@@ -77,7 +79,7 @@ export default function GalleryApp({ items }: Props) {
         cover: undefined as string | undefined,
       };
       cur.count += 1;
-      if (!cur.cover && it.type === "image") cur.cover = it.url;
+      if (!cur.cover && it.type === "image") cur.cover = toAssetUrl(it.url);
       m.set(key, cur);
     }
 
@@ -279,7 +281,7 @@ export default function GalleryApp({ items }: Props) {
                 <div className="aspect-[4/3] w-full overflow-hidden bg-black/30">
                   {it.type === "image" ? (
                     <img
-                      src={it.url}
+                      src={toAssetUrl(it.url)}
                       alt={it.title}
                       className="h-full w-full object-cover transition group-hover:scale-[1.02]"
                       loading="lazy"
@@ -342,7 +344,7 @@ export default function GalleryApp({ items }: Props) {
 
               <div className="flex gap-2">
                 <a
-                  href={openItem.url}
+                  href={toAssetUrl(openItem.url)}
                   className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-100 hover:bg-white/10"
                 >
                   Открыть файл
@@ -364,7 +366,7 @@ export default function GalleryApp({ items }: Props) {
             <div className="max-h-[75vh] overflow-auto p-4">
               {openItem.type === "image" && (
                 <img
-                  src={openItem.url}
+                  src={toAssetUrl(openItem.url)}
                   alt={openItem.title}
                   className="mx-auto max-h-[70vh] w-auto rounded-xl border border-white/10"
                 />
@@ -373,7 +375,7 @@ export default function GalleryApp({ items }: Props) {
               {openItem.type === "pdf" && (
                 <iframe
                   title={openItem.title}
-                  src={openItem.url}
+                  src={toAssetUrl(openItem.url)}
                   className="h-[70vh] w-full rounded-xl border border-white/10 bg-black/30"
                 />
               )}
@@ -383,7 +385,7 @@ export default function GalleryApp({ items }: Props) {
                   Этот тип файла лучше открыть напрямую:{" "}
                   <a
                     className="text-[#93ff5a] hover:underline"
-                    href={openItem.url}
+                    href={toAssetUrl(openItem.url)}
                   >
                     нажмите сюда
                   </a>

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import type { Product } from "@/data/products";
 import clsx from "clsx";
+import { withBase } from "@/site";
 
 type Props = {
   product: Product;
@@ -49,18 +50,10 @@ const toneMeta: Record<Tone, {
 const techLines =
   "repeating-linear-gradient(135deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px, rgba(255,255,255,0) 1px, rgba(255,255,255,0) 10px)";
 
-function getBase(): string {
-  if (typeof document === "undefined") return "";
-  return (document.querySelector("base")?.getAttribute("href") ?? "").replace(/\/$/, "");
-}
-
-// Синхронное чтение — работает до mount React
-const BASE = typeof document !== "undefined" ? getBase() : "";
-
 export default function ProductCard({ product, categoryName }: Props) {
   const img = product.photos?.[0]
-    ? BASE + product.photos[0]
-    : BASE + "/images/placeholder.svg";
+    ? withBase(product.photos[0])
+    : withBase("/images/placeholder.svg");
 
   const tone = toneByCategory[product.categoryId] ?? "neutral";
   const meta = toneMeta[tone];
@@ -71,7 +64,7 @@ export default function ProductCard({ product, categoryName }: Props) {
 
   return (
     <motion.a
-      href={`${BASE}/products/${product.slug}/`}
+      href={withBase(`/products/${product.slug}/`)}
       className={clsx(
         "group block h-full overflow-hidden rounded-[18px] backdrop-blur-[8px]",
         "[background:linear-gradient(to_top,rgba(0,0,0,0.65),transparent_60%),linear-gradient(180deg,#0f141a_0%,#0b1016_100%)]",

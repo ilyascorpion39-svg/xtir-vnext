@@ -6,14 +6,15 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npm run check:dist-base-links",
     "preview": "astro preview",
     "astro": "astro",
     "archive:build": "node scripts/build-archive-index.mjs",
     "format": "prettier --write .",
     "lint": "eslint .",
     "type-check": "astro check",
-    "clean:vite": "rimraf node_modules/.vite node_modules/.vite/deps"
+    "clean:vite": "rimraf node_modules/.vite node_modules/.vite/deps",
+    "check:dist-base-links": "node scripts/check-dist-base-links.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",

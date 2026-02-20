@@ -3,7 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import { partners, type Partner } from '@/data/partners';
-import { SITE } from '@/site';
+import { SITE, withBase } from '@/site';
 
 export async function getStaticPaths() {
   // Добавляйте партнёров в src/data/partners.ts
@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 
 const { partner } = Astro.props as { partner: Partner };
 const title = `${partner.name} — партнёр XTIR`;
-const logo = partner.logoSrc || '/images/products/placeholder.svg';
+const logo = withBase(partner.logoSrc || '/images/products/placeholder.svg');
 ---
 
 <BaseLayout title={title} description={partner.tagline}>
@@ -25,7 +25,7 @@ const logo = partner.logoSrc || '/images/products/placeholder.svg';
       <div class="flex items-center gap-4">
         <a
           class="text-sm text-gray-400 hover:text-gray-200 transition"
-          href="/partners"
+          href={withBase("/partners")}
         >
           ← Все партнёры
         </a>
@@ -55,7 +55,7 @@ const logo = partner.logoSrc || '/images/products/placeholder.svg';
 
             <a
               class="inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-black/20 px-4 py-2 text-sm text-white hover:bg-black/30 transition"
-              href="/contact"
+              href={withBase("/contact")}
             >
               Связаться с нами
             </a>
@@ -122,7 +122,7 @@ const logo = partner.logoSrc || '/images/products/placeholder.svg';
               ссылку на видео или каталог — напишите нам, и мы подключим всё в эту страницу.
             </p>
             <div class="mt-4">
-              <a class="btn-secondary" href="/docs">Открыть документацию</a>
+              <a class="btn-secondary" href={withBase("/docs")}>Открыть документацию</a>
             </div>
           </div>
         </article>

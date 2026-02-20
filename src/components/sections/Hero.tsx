@@ -1,3 +1,5 @@
+import { withBase } from "@/site";
+
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-hero">
@@ -39,11 +41,11 @@ export default function Hero() {
 
             {/* CTAs */}
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center animate-fade-in-up animate-delay-200">
-              <a href="/contact" className="btn btn-primary">
+              <a href={withBase("/contact")} className="btn btn-primary">
                 Запросить материалы{" "}
                 <span className="ml-1 inline-block text-primary-200">→</span>
               </a>
-              <a href="/products" className="btn btn-secondary">
+              <a href={withBase("/products")} className="btn btn-secondary">
                 Смотреть решения
               </a>
             </div>

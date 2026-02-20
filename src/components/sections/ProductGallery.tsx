@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { withBase } from "@/site";
 
 export type ProductGalleryProps = {
   images: string[];
@@ -22,7 +23,7 @@ export default function ProductGallery({
   const safeImages = useMemo(() => {
     const arr = Array.isArray(images) ? images.filter(Boolean) : [];
     // Guard against duplicates
-    return Array.from(new Set(arr));
+    return Array.from(new Set(arr)).map((src) => withBase(src));
   }, [images]);
 
   const total = safeImages.length;

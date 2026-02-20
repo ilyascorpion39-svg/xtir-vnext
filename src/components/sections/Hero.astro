@@ -1,3 +1,7 @@
+---
+import { withBase } from "@/site";
+---
+
 <section class="hp-hero">
   <div class="hp-bg">
     <div class="hp-glow-l"></div>
@@ -16,7 +20,7 @@
         XTIR · Электронно-механические решения для стрельбы
       </div>
       <div class="hp-logo-box">
-        <img src="/images/logo.png" alt="XTIR" class="hp-logo"/>
+        <img src={withBase("/images/logo.png")} alt="XTIR" class="hp-logo"/>
       </div>
       <div class="hp-slogan">
         <div class="hp-sbar"><span class="tc1"></span><span class="tc2"></span><span class="tc3"></span></div>
@@ -27,8 +31,8 @@
         Точность. Надёжность. Ресурс.
       </div>
       <div class="hp-acts">
-        <a href="/contact/" class="hp-btn1">Обсудить проект</a>
-        <a href="/products/" class="hp-btn2">Смотреть каталог →</a>
+        <a href={withBase("/contact/")} class="hp-btn1">Обсудить проект</a>
+        <a href={withBase("/products/")} class="hp-btn2">Смотреть каталог →</a>
       </div>
     </div>
   </div>

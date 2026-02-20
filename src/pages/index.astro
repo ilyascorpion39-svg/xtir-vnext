@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/sections/Hero.astro';
+import { withBase } from '@/site';
 ---
 
 <BaseLayout
@@ -19,9 +20,9 @@ import Hero from '@/components/sections/Hero.astro';
       <div class="hp-sub">Три класса решений — от электронных мишеней до полигонных комплексов.</div>
     </div>
     <div class="hp-cards">
-      <a href="/products/" class="hp-card">
+      <a href={withBase("/products/")} class="hp-card">
         <div class="hp-cimg">
-          <img src="/products-img/pmu-100/pmu100-1.png" alt="Электронные мишени" loading="lazy"/>
+          <img src={withBase("/products-img/pmu-100/pmu100-1.png")} alt="Электронные мишени" loading="lazy"/>
           <div class="hp-cimgo"></div>
           <div class="hp-cnum">01</div>
         </div>
@@ -32,9 +33,9 @@ import Hero from '@/components/sections/Hero.astro';
           <div class="hp-cmore">Смотреть продукты →</div>
         </div>
       </a>
-      <a href="/products/" class="hp-card hp-card-warm">
+      <a href={withBase("/products/")} class="hp-card hp-card-warm">
         <div class="hp-cimg">
-          <img src="/products-img/kaban/1.png" alt="Движущиеся цели" loading="lazy"/>
+          <img src={withBase("/products-img/kaban/1.png")} alt="Движущиеся цели" loading="lazy"/>
           <div class="hp-cimgo"></div>
           <div class="hp-cnum">02</div>
         </div>
@@ -45,9 +46,9 @@ import Hero from '@/components/sections/Hero.astro';
           <div class="hp-cmore hp-cmore-warm">Как это устроено →</div>
         </div>
       </a>
-      <a href="/products/" class="hp-card">
+      <a href={withBase("/products/")} class="hp-card">
         <div class="hp-cimg">
-          <img src="/products-img/pak/1 (1).png" alt="Управление" loading="lazy"/>
+          <img src={withBase("/products-img/pak/1 (1).png")} alt="Управление" loading="lazy"/>
           <div class="hp-cimgo"></div>
           <div class="hp-cnum">03</div>
         </div>
@@ -69,7 +70,7 @@ import Hero from '@/components/sections/Hero.astro';
       <div class="hp-kicker">Почему XTIR</div>
       <div class="hp-title">Инженерный подход.<br/>Предсказуемый результат.</div>
       <div class="hp-sub">20 лет в отрасли. Оборудование которое реально работает — не на презентации, а на объекте.</div>
-      <a href="/about/" class="hp-lnk">О компании →</a>
+      <a href={withBase("/about/")} class="hp-lnk">О компании →</a>
     </div>
     <div class="hp-wr">
       <div class="hp-wc"><div class="hp-wi">⚙️</div><div class="hp-wt">Проектирование</div><div class="hp-wd">Требования, расчёт, прототипирование, документация. Без догадок.</div></div>
@@ -88,8 +89,8 @@ import Hero from '@/components/sections/Hero.astro';
       <div class="hp-title">Готовы начать?</div>
       <div class="hp-sub">Опишите задачу — ответим быстро и по делу.</div>
       <div class="hp-acts" style="margin-top:28px;">
-        <a href="/contact/" class="hp-btn1">Обсудить проект</a>
-        <a href="/products/" class="hp-btn2">Каталог →</a>
+        <a href={withBase("/contact/")} class="hp-btn1">Обсудить проект</a>
+        <a href={withBase("/products/")} class="hp-btn2">Каталог →</a>
       </div>
     </div>
     <div class="hp-ctr">
@@ -325,5 +326,4 @@ body, main, .page, .layout{
   .hp-cv { font-size: 1.08rem !important; font-weight: 700 !important; color: #fff !important; font-family: inherit !important; }
 
 </style>
-
 
