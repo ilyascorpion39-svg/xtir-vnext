@@ -97,27 +97,20 @@
   h2 { @apply text-display-2; }
   h3 { @apply text-display-3; }
 
-  /* Scrollbar — триколор */
+  /* Scrollbar */
   ::-webkit-scrollbar {
-  width: 3px !important;
-}
-::-webkit-scrollbar-track {
-  background: #0a0c0f !important;
-}
-::-webkit-scrollbar-thumb {
-  border-radius: 999px !important;
-  background: linear-gradient(
-    to bottom,
-    #ffffff 0%,
-    #ffffff 33%,
-    #003DA5 33%,
-    #003DA5 66%,
-    #CC0000 66%,
-    #CC0000 100%
-  ) !important;
-}
+    width: 6px !important;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(9, 14, 24, 0.96) !important;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 999px !important;
+    background: linear-gradient(180deg, #5a6f96 0%, #4c6188 100%) !important;
+    border: 1px solid rgba(166, 190, 230, 0.2) !important;
+  }
   ::-webkit-scrollbar-thumb:hover {
-    opacity: 0.9;
+    background: linear-gradient(180deg, #6f83ab 0%, #5d7398 100%) !important;
   }
 
   /* Selection */
@@ -549,16 +542,17 @@
   .animate-delay-500 { animation-delay: 500ms; }
 }
  /* Scrollbar вне layer — наивысший приоритет */
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: #0a0c0f; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: rgba(9, 14, 24, 0.96); }
 ::-webkit-scrollbar-thumb {
   border-radius: 999px;
-  background: linear-gradient(to bottom, #ffffff 0%, #ffffff 33%, #003DA5 33%, #003DA5 66%, #CC0000 66%, #CC0000 100%);
+  background: linear-gradient(180deg, #5a6f96 0%, #4c6188 100%);
+  border: 1px solid rgba(166, 190, 230, 0.2);
 }
 /* Firefox — тонкий тёмно-синий (градиент не поддерживается) */
 @supports (scrollbar-color: auto) {
   * {
     scrollbar-width: thin;
-    scrollbar-color: #003DA5 #0a0c0f;
+    scrollbar-color: #5a6f96 rgba(9, 14, 24, 0.96);
   }
 }

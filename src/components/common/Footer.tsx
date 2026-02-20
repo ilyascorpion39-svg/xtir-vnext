@@ -2,28 +2,28 @@ import { SITE, withBase } from "@/site";
 
 const footerLinks = {
   company: [
-    { name: "О компании", href: "/about" },
-    { name: "Технологии", href: "/technologies" },
-    { name: "Партнёры", href: "/partners" },
-    { name: "Карьера", href: "/careers" },
+    { name: "О компании", href: "/about/" },
+    { name: "Технологии", href: "/technologies/" },
+    { name: "Партнёры", href: "/partners/" },
+    { name: "Карьера", href: "/careers/" },
   ],
   products: [
-    { name: "Электронные мишени", href: "/products#electronic" },
-    { name: "Подъемники", href: "/products#lifters" },
-    { name: "Движущиеся цели", href: "/products#moving" },
-    { name: "Мишенные системы", href: "/products" },
+    { name: "Электронные мишени", href: "/products/#electronic" },
+    { name: "Подъемники", href: "/products/#lifters" },
+    { name: "Движущиеся цели", href: "/products/#moving" },
+    { name: "Мишенные системы", href: "/products/" },
   ],
   support: [
-    { name: "Документация", href: "/docs" },
-    { name: "Галерея", href: "/gallery" },
-    { name: "FAQ", href: "/faq" },
-    { name: "Поддержка", href: "/support" },
-    { name: "Гарантия", href: "/warranty" },
+    { name: "Документация", href: "/docs/" },
+    { name: "Галерея", href: "/gallery/" },
+    { name: "FAQ", href: "/faq/" },
+    { name: "Поддержка", href: "/support/" },
+    { name: "Гарантия", href: "/warranty/" },
   ],
   legal: [
-    { name: "Политика конфиденциальности", href: "/privacy" },
-    { name: "Условия использования", href: "/terms" },
-    { name: "Сертификаты", href: "/certificates" },
+    { name: "Политика конфиденциальности", href: "/privacy/" },
+    { name: "Условия использования", href: "/terms/" },
+    { name: "Сертификаты", href: "/certificates/" },
   ],
 };
 
@@ -96,7 +96,7 @@ export default function Footer() {
                       d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                     />
                   </svg>
-                  <a href={withBase("/contact")} className="transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm">
+                  <a href={withBase("/contact/")} className="transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm">
                     info@xtir.ru
                   </a>
                 </div>
