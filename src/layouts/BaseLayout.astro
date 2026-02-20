@@ -14,6 +14,10 @@ const {
   description = 'XTIR — разработка и производство электронно-механического оборудования для стрельбы. Решения для тиров, полигонов и учебных комплексов.',
   image = '/images/og-image.svg',
 } = Astro.props;
+const hasBrandInTitle = /(^|\s|\W)xtir($|\s|\W)/i.test(title ?? '');
+const pageTitle = title
+  ? (hasBrandInTitle ? title : `${title} | XTIR`)
+  : 'XTIR — оборудование для стрельбы';
 const PROD_CANONICAL_ORIGIN = 'https://x-tir.ru';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const rawPath = Astro.url.pathname || '/';
@@ -58,7 +62,7 @@ const websiteJsonLd = {
     <meta name="format-detection" content="telephone=yes,email=yes,address=no" />
     <link rel="icon" type="image/svg+xml" href={faviconUrl} />
     <meta name="generator" content={Astro.generator} />
-    <title>{title ? `${title} | XTIR` : 'XTIR — оборудование для стрельбы'}</title>
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="alternate" href={canonicalURL} hreflang="ru-RU" />
@@ -69,13 +73,13 @@ const websiteJsonLd = {
     <meta property="og:site_name" content="XTIR" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={title || 'XTIR — оборудование для стрельбы'} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:alt" content={`${SITE.name} — ${SITE.tagline}`} />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title} />
+    <meta property="twitter:title" content={title || 'XTIR — оборудование для стрельбы'} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImage} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />

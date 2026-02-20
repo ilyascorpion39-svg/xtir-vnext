@@ -507,12 +507,30 @@
   @media (max-width: 640px) {
     :root {
       --xtir-gutter: 16px;
+      --xtir-section-space-y: clamp(42px, 9vw, 64px);
     }
 
     .xtir-btn,
     .home-btn,
     .btn {
       width: 100%;
+    }
+
+    .xtir-card--hover:hover,
+    .home-card--hover:hover,
+    .card-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 28px rgba(0, 0, 0, 0.36);
+    }
+
+    .content-title {
+      font-size: clamp(1.6rem, 8.2vw, 2.2rem);
+      line-height: 1.14;
+    }
+
+    .content-lead {
+      font-size: 0.98rem;
+      line-height: 1.65;
     }
 
     .xtir-skip-link {

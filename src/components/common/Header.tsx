@@ -38,6 +38,7 @@ const socialLinks = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [currentPath, setCurrentPath] = useState("/");
   const reduceMotion = useReducedMotion();
   const mobileMenuId = "xtir-mobile-menu";
 
@@ -57,6 +58,15 @@ export default function Header() {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    const normalize = (value: string) => {
+      const cut = value.split("#")[0].split("?")[0];
+      const trimmed = cut.replace(/\/+$/, "");
+      return trimmed === "" ? "/" : trimmed;
+    };
+    setCurrentPath(normalize(window.location.pathname));
+  }, []);
 
   return (
     <motion.header
@@ -87,17 +97,32 @@ export default function Header() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex h-full items-center lg:ml-6 space-x-6">
             {navItems.map((item, index) => (
-              <motion.a
-                key={item.name}
-                href={withBase(item.href)}
-                className="inline-flex h-full items-center whitespace-nowrap leading-none text-[0.92rem] text-white/80 hover:text-white font-medium transition-colors relative group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-400 group-hover:w-full transition-all duration-300"></span>
-              </motion.a>
+              (() => {
+                const href = withBase(item.href);
+                const normalizedHref = href.replace(/\/+$/, "") || "/";
+                const isActive =
+                  currentPath === normalizedHref ||
+                  (normalizedHref !== "/" && currentPath.startsWith(`${normalizedHref}/`));
+
+                return (
+                  <motion.a
+                    key={item.name}
+                    href={href}
+                    className={`inline-flex h-full items-center whitespace-nowrap leading-none text-[0.92rem] font-medium transition-colors relative group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm ${
+                      isActive ? "text-white" : "text-white/80 hover:text-white"
+                    }`}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {item.name}
+                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary-400 transition-all duration-300 ${
+                      isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`}></span>
+                  </motion.a>
+                );
+              })()
             ))}
           </div>
 
