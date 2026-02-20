@@ -51,8 +51,8 @@ export default function Header() {
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-dark-900/88 backdrop-blur-xl border-b border-white/15 shadow-[0_14px_34px_rgba(0,0,0,0.35)]"
-          : "bg-dark-900/52 backdrop-blur-md border-b border-transparent"
+          ? "bg-dark-900/88 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,0.24)]"
+          : "bg-dark-900/52 backdrop-blur-md"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -136,6 +136,12 @@ export default function Header() {
           </motion.button>
         </div>
       </nav>
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none absolute inset-x-0 bottom-0 h-px ${
+          isScrolled ? "bg-white/12" : "bg-white/8"
+        }`}
+      />
 
       {/* Mobile Menu */}
       <AnimatePresence>
