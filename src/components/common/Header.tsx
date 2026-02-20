@@ -15,7 +15,7 @@ const BASE = typeof document !== "undefined" ? getBase() : "";
 
 const navItems = [
   { name: 'Главная', href: '/' },
-  { name: 'Каталог', href: '/products/' },
+  { name: 'Мишенные системы', href: '/products/' },
   { name: 'Документы', href: '/docs/' },
   { name: 'Наше фото', href: '/gallery/' },
   { name: 'Партнёры', href: '/partners/' },

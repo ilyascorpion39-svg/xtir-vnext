@@ -12,7 +12,7 @@ const footerLinks = {
     { name: "Электронные мишени", href: "/products#electronic" },
     { name: "Подъемники", href: "/products#lifters" },
     { name: "Движущиеся цели", href: "/products#moving" },
-    { name: "Полный каталог", href: "/products" },
+    { name: "Мишенные системы", href: "/products" },
   ],
   support: [
     { name: "Документация", href: "/docs" },

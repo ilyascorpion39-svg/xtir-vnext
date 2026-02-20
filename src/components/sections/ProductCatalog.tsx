@@ -54,7 +54,7 @@ export default function ProductCatalog() {
         {/* Заголовок */}
         <div className="mb-8">
           <p className="kicker">Каталог</p>
-          <h1 className="section-title">Продукция XTIR</h1>
+          <h1 className="section-title">Мишенные системы XTIR</h1>
           <p className="section-subtitle">
             Электронно-механическое оборудование для стрельбы. {PRODUCTS.length} позиций.
           </p>
