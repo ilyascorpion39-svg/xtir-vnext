@@ -3,43 +3,52 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="О компании" description="Информация о компании XTIR, принципах работы и экспертизе.">
-<main class="pt-24">
-    <section class="section">
-      <div class="section-container">
-        <div class="max-w-4xl">
-          <h1 class="h1-xtir">О компании XTIR</h1>
-          <div class="prose prose-invert max-w-none mt-8">
-            
-<p><strong>XTIR</strong> — инженерная мастерская и производство электронно‑механического оборудования для стрельбы. Мы делаем решения «под задачу»: от отдельных модулей до комплексного оснащения тиров и учебных комплексов.</p>
+  <main class="content-main">
+    <section class="xtir-container">
+      <div class="content-shell">
+        <header class="content-header">
+          <span class="page-kicker">XTIR</span>
+          <h1 class="content-title">О компании XTIR</h1>
+          <p class="content-lead">
+            <strong>XTIR</strong> — инженерная мастерская и производство электронно‑механического оборудования для стрельбы.
+            Мы делаем решения «под задачу»: от отдельных модулей до комплексного оснащения тиров и учебных комплексов.
+          </p>
+        </header>
 
-<h2 id="quality">Принцип работы</h2>
-<p>На сайте представлено то оборудование, которое было реально изготовлено «в металле» и прошло испытания на соответствие заявленным характеристикам. Если заказчики не разрешают публиковать фото из ведомственных объектов, мы показываем компьютерные модели — по ним и ведется изготовление.</p>
+        <div class="content-body">
+          <h2 id="quality">Принцип работы</h2>
+          <p>
+            На сайте представлено то оборудование, которое было реально изготовлено «в металле» и прошло испытания
+            на соответствие заявленным характеристикам. Если заказчики не разрешают публиковать фото из ведомственных
+            объектов, мы показываем компьютерные модели — по ним и ведется изготовление.
+          </p>
 
-<h2>Полный цикл</h2>
-<ul>
-  <li>Компьютерное и 3D‑моделирование для быстрого проектирования</li>
-  <li>Изготовление металлоконструкций, электроники и печатных плат</li>
-  <li>Разработка ПО для микроконтроллеров и систем управления</li>
-</ul>
+          <h2>Полный цикл</h2>
+          <ul>
+            <li>Компьютерное и 3D‑моделирование для быстрого проектирования</li>
+            <li>Изготовление металлоконструкций, электроники и печатных плат</li>
+            <li>Разработка ПО для микроконтроллеров и систем управления</li>
+          </ul>
 
-<h2 id="team">Экспертиза</h2>
-<p>Мы используем интернет‑технологии совместной удаленной работы и сотрудничаем со специалистами из разных областей: прикладная математика, связь, программирование, ударная акустика, электроника.</p>
+          <h2 id="team">Экспертиза</h2>
+          <p>
+            Мы используем интернет‑технологии совместной удаленной работы и сотрудничаем со специалистами из разных
+            областей: прикладная математика, связь, программирование, ударная акустика, электроника.
+          </p>
 
-<div class="not-prose mt-10 grid sm:grid-cols-3 gap-6">
-  <div class="card card-glass p-6 border border-dark-700/60">
-    <div class="text-3xl font-bold text-white">1–2 недели</div>
-    <div class="mt-2 text-sm text-gray-400">типичный переход от заказа к старту производства</div>
-  </div>
-  <div class="card card-glass p-6 border border-dark-700/60">
-    <div class="text-3xl font-bold text-white">24/7</div>
-    <div class="mt-2 text-sm text-gray-400">контакт и поддержка по проектам</div>
-  </div>
-  <div class="card card-glass p-6 border border-dark-700/60">
-    <div class="text-3xl font-bold text-white">Кастом</div>
-    <div class="mt-2 text-sm text-gray-400">адаптация характеристик под ваш сценарий</div>
-  </div>
-</div>
-
+          <div class="content-grid" style="margin-top:1.25rem;">
+            <div class="content-item">
+              <div class="text-3xl font-bold text-white">1–2 недели</div>
+              <div class="mt-2 text-sm text-white/60">типичный переход от заказа к старту производства</div>
+            </div>
+            <div class="content-item">
+              <div class="text-3xl font-bold text-white">24/7</div>
+              <div class="mt-2 text-sm text-white/60">контакт и поддержка по проектам</div>
+            </div>
+            <div class="content-item">
+              <div class="text-3xl font-bold text-white">Кастом</div>
+              <div class="mt-2 text-sm text-white/60">адаптация характеристик под ваш сценарий</div>
+            </div>
           </div>
         </div>
       </div>

@@ -359,6 +359,16 @@
     margin-bottom: clamp(20px, 4vw, 34px);
   }
 
+  .page-kicker {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    font-family: "Courier New", monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(96, 201, 255, 0.84);
+  }
+
   .content-title {
     font-size: clamp(1.95rem, 3.7vw, 3rem);
     line-height: 1.1;
