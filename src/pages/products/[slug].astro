@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { PRODUCTS, getProductBySlug } from '@/data/products';
-import { SITE } from '@/site';
+import { SITE, withBase } from '@/site';
 
 export function getStaticPaths() {
   return PRODUCTS.map((product) => ({
@@ -13,7 +13,7 @@ const { slug } = Astro.params;
 const product = getProductBySlug(slug);
 
 if (!product) {
-  return Astro.redirect('/products');
+  return Astro.redirect(withBase('/products/'));
 }
 ---
 
@@ -27,8 +27,8 @@ if (!product) {
         <div>
           {product.photos.length > 0 ? (
             <div class="rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-6">
-              <img
-                src={product.photos[0]}
+                <img
+                src={withBase(product.photos[0])}
                 alt={product.name}
                 class="w-full rounded-2xl border border-white/10 bg-white/5 object-contain"
                 loading="eager"
@@ -44,7 +44,7 @@ if (!product) {
             <div class="mt-4 flex gap-3 overflow-x-auto pb-2">
               {product.photos.slice(1).map((photo, index) => (
                 <img
-                  src={photo}
+                  src={withBase(photo)}
                   alt={`${product.name} превью ${index + 2}`}
                   class="h-20 w-28 shrink-0 rounded-lg border border-white/10 bg-white/5 object-cover"
                   loading="lazy"
@@ -59,7 +59,7 @@ if (!product) {
           <p class="text-sm text-white/60">{product.category}</p>
           <p class="text-base leading-7 text-white/80">{product.description.slice(0, 220) + "…"}</p>
           <a
-            href="/contact"
+            href={withBase("/contact")}
             class="inline-flex items-center rounded-xl border border-white/20 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
           >
             Оставить заявку
