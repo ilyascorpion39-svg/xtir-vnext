@@ -12,7 +12,7 @@ export interface Product {
   categoryId: string
   description: string
   features: string[]
-  specs: ProductSpec[]
+  specs?: ProductSpec[]
   photos: string[]
 }
 
@@ -44,6 +44,10 @@ export const PRODUCTS: Product[] = [
       "Внешний или внутренний адаптер 12в 2А"
     ],
     specs: [
+      { label: "Тип установки", value: "Навесная на заднюю дугу багги" },
+      { label: "Тип привода", value: "Электромеханический" },
+      { label: "Питание", value: "12В" },
+      { label: "Назначение", value: "Тренировочная и развлекательная стрельба" }
     ],
     photos: ["/products-img/baggi/baggi -1.png", "/products-img/baggi/baggi-2.png", "/products-img/baggi/baggi-3.png", "/products-img/baggi/baggi-4.png", "/products-img/baggi/baggi-5.png", "/products-img/baggi/baggi-6.png", "/products-img/baggi/baggi-7.png"],
   },

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { PRODUCTS, PRODUCT_CATEGORIES, getProductBySlug } from '@/data/products';
+import { PRODUCTS, getProductBySlug } from '@/data/products';
+import { SITE } from '@/site';
 
 export function getStaticPaths() {
   return PRODUCTS.map((product) => ({
@@ -14,250 +15,117 @@ const product = getProductBySlug(slug);
 if (!product) {
   return Astro.redirect('/products');
 }
-
-const category = PRODUCT_CATEGORIES.find(c => c.id === product.categoryId);
 ---
 
 <BaseLayout
   title={product.name}
   description={product.description.slice(0, 160)}
 >
-  <main class="min-h-screen">
-
-    <!-- Breadcrumb -->
-    <div class="container pt-8 pb-2">
-      <nav class="flex items-center gap-2 text-sm text-white/40">
-        <a href="/" class="hover:text-white transition-colors">Главная</a>
-        <span>/</span>
-        <a href="/products" class="hover:text-white transition-colors">Продукты</a>
-        <span>/</span>
-        <span class="text-white/70">{product.name}</span>
-      </nav>
-    </div>
-
-    <!-- Основной контент -->
-    <section class="section section--tight">
-      <div class="container">
-        <div class="product-layout">
-
-          <!-- Галерея фото -->
-          <div class="product-gallery">
-            {product.photos.length > 0 ? (
-              <>
-                <div class="product-gallery__main">
-                  <img
-                    id="main-photo"
-                    src={product.photos[0]}
-                    alt={product.name}
-                    class="product-gallery__img"
-                  />
-                </div>
-                {product.photos.length > 1 && (
-                  <div class="product-gallery__thumbs">
-                    {product.photos.map((photo, i) => (
-                      <button
-                        class={`product-gallery__thumb ${i === 0 ? 'active' : ''}`}
-                        onclick={`document.getElementById('main-photo').src='${photo}'; document.querySelectorAll('.product-gallery__thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active')`}
-                      >
-                        <img src={photo} alt={`${product.name} фото ${i + 1}`} loading="lazy" />
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </>
-            ) : (
-              <div class="product-gallery__placeholder">
-                <span>Фото скоро появятся</span>
-              </div>
-            )}
-          </div>
-
-          <!-- Информация о продукте -->
-          <div class="product-info">
-
-            {category && (
-              <span class="pill mb-4 inline-block">{category.name}</span>
-            )}
-
-            <h1 class="h1" style="margin-bottom: var(--xtir-s3)">{product.name}</h1>
-
-            <p class="p product-info__desc">{product.description}</p>
-
-            <!-- Характеристики -->
-            {product.specs.length > 0 && (
-              <div class="product-specs">
-                <h2 class="product-specs__title">Характеристики</h2>
-                <dl class="product-specs__list">
-                  {product.specs.map(spec => (
-                    <div class="product-specs__row">
-                      <dt class="product-specs__label">{spec.label}</dt>
-                      <dd class="product-specs__value">{spec.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            )}
-
-            <!-- Функционал -->
-            {product.features.length > 0 && (
-              <div class="product-features">
-                <h2 class="product-features__title">Встроенный функционал</h2>
-                <ul class="product-features__list">
-                  {product.features.map(f => (
-                    <li class="product-features__item">
-                      <span class="product-features__dot" aria-hidden="true"></span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            <!-- CTA -->
-            <div class="product-cta">
-              <p class="product-cta__note">
-                Характеристики могут быть изменены по запросу
-              </p>
-              <div class="product-cta__btns">
-                <a class="btn btn--primary" href="/contact">Оставить заявку</a>
-                <a class="btn btn--ghost" href="/products">← Все продукты</a>
-              </div>
+  <main class="min-h-screen px-4 py-10">
+    <div class="mx-auto max-w-6xl">
+      <div class="grid gap-10 lg:grid-cols-2">
+        <div>
+          {product.photos.length > 0 ? (
+            <div class="rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-6">
+              <img
+                src={product.photos[0]}
+                alt={product.name}
+                class="w-full rounded-2xl border border-white/10 bg-white/5 object-contain"
+                loading="eager"
+              />
             </div>
+          ) : (
+            <div class="flex aspect-[4/3] w-full items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white/50">
+              Фото скоро появятся
+            </div>
+          )}
 
-          </div>
+          {product.photos.length > 1 && (
+            <div class="mt-4 flex gap-3 overflow-x-auto pb-2">
+              {product.photos.slice(1).map((photo, index) => (
+                <img
+                  src={photo}
+                  alt={`${product.name} превью ${index + 2}`}
+                  class="h-20 w-28 shrink-0 rounded-lg border border-white/10 bg-white/5 object-cover"
+                  loading="lazy"
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div class="space-y-5">
+          <h1 class="text-4xl font-semibold text-white">{product.name}</h1>
+          <p class="text-sm text-white/60">{product.category}</p>
+          <p class="text-base leading-7 text-white/80">{product.description.slice(0, 220) + "…"}</p>
+          <a
+            href="/contact"
+            class="inline-flex items-center rounded-xl border border-white/20 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
+          >
+            Оставить заявку
+          </a>
         </div>
       </div>
-    </section>
 
-    <!-- Похожие продукты -->
-    <section class="section section--tight">
-      <div class="container">
-        <hr class="hr" style="margin-bottom: var(--xtir-s5)" />
-        <p class="kicker">Смотрите также</p>
-        <h2 class="h2" style="margin-bottom: var(--xtir-s4)">Другие продукты категории</h2>
-        <div class="related-grid">
-          {PRODUCTS
-            .filter(p => p.categoryId === product.categoryId && p.slug !== product.slug)
-            .slice(0, 3)
-            .map(p => (
-              <a href={`/products/${p.slug}`} class="card card--flat related-card">
-                <div class="card__pad">
-                  {p.photos[0] && (
-                    <img
-                      src={p.photos[0]}
-                      alt={p.name}
-                      loading="lazy"
-                      class="related-card__img"
-                    />
-                  )}
-                  <div class="related-card__name">{p.name}</div>
-                  <div class="related-card__desc">{p.description.slice(0, 80)}…</div>
+      <section class="mt-16">
+        <h2 class="text-2xl font-semibold text-white mb-6">
+          Ключевые особенности
+        </h2>
+
+        <div class="grid sm:grid-cols-2 gap-6 text-white/80">
+          <div>• Надёжная конструкция промышленного уровня</div>
+          <div>• Электромеханический привод с амортизацией</div>
+          <div>• Подходит для интенсивной эксплуатации</div>
+          <div>• Интеграция в существующие стрелковые комплексы</div>
+        </div>
+      </section>
+
+      {product.specs && product.specs.length > 0 && (
+        <section class="mt-16">
+          <h2 class="text-2xl font-semibold text-white mb-6">
+            Технические характеристики
+          </h2>
+
+          <div class="rounded-2xl border border-white/10 overflow-hidden">
+            <div class="divide-y divide-white/10">
+              {product.specs.map((spec) => (
+                <div class="grid grid-cols-2 items-center px-6 py-3 text-sm">
+                  <div class="text-white/70 font-medium">
+                    {spec.label}
+                  </div>
+                  <div class="text-white font-medium">
+                    {spec.value}
+                  </div>
                 </div>
-              </a>
-            ))
-          }
-        </div>
-      </div>
-    </section>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
+      <section class="mt-20">
+        <h2 class="text-2xl font-semibold text-white">Описание</h2>
+        <p class="mt-4 text-base leading-7 text-white/80">{product.description}</p>
+      </section>
+
+      <section class="mt-20">
+        <div class="rounded-2xl border border-white/10 bg-gradient-to-r from-white/5 to-transparent p-10">
+          <h3 class="text-xl font-semibold text-white mb-4">
+            Нужна консультация по {product.name}?
+          </h3>
+
+          <p class="text-white/70 mb-6">
+            Подберём конфигурацию под вашу задачу и условия эксплуатации.
+          </p>
+
+          <a
+            href={`mailto:${SITE.contactEmail}`}
+            class="inline-flex items-center px-6 py-3 rounded-lg bg-primary-500 hover:bg-primary-400 text-black font-medium transition"
+          >
+            Связаться с нами
+          </a>
+        </div>
+      </section>
+    </div>
   </main>
 </BaseLayout>
-
-<style>
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--xtir-s4); }
-
-  /* Layout */
-  .product-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    align-items: start;
-  }
-  @media (max-width: 900px) {
-    .product-layout { grid-template-columns: 1fr; }
-  }
-
-  /* Галерея */
-  .product-gallery__main {
-    border-radius: var(--xtir-radius-lg);
-    overflow: hidden;
-    background: var(--xtir-surface);
-    border: 1px solid var(--xtir-border);
-    aspect-ratio: 4/3;
-  }
-  .product-gallery__img {
-    width: 100%; height: 100%;
-    object-fit: contain;
-    transition: opacity .2s;
-  }
-  .product-gallery__thumbs {
-    display: flex; gap: 8px; flex-wrap: wrap;
-    margin-top: 12px;
-  }
-  .product-gallery__thumb {
-    width: 72px; height: 72px;
-    border-radius: var(--xtir-radius-sm);
-    overflow: hidden;
-    border: 2px solid transparent;
-    background: var(--xtir-surface);
-    cursor: pointer;
-    transition: border-color .15s;
-    padding: 0;
-  }
-  .product-gallery__thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .product-gallery__thumb.active { border-color: var(--xtir-fg); }
-  .product-gallery__thumb:hover { border-color: rgba(255,255,255,.4); }
-  .product-gallery__placeholder {
-    aspect-ratio: 4/3;
-    border-radius: var(--xtir-radius-lg);
-    border: 1px solid var(--xtir-border);
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,.3); font-size: .9rem;
-  }
-
-  /* Инфо */
-  .product-info__desc { margin-bottom: var(--xtir-s4); }
-
-  /* Характеристики */
-  .product-specs { margin-bottom: var(--xtir-s4); }
-  .product-specs__title {
-    font-weight: 750; margin-bottom: 12px;
-    padding-bottom: 8px; border-bottom: 1px solid var(--xtir-border);
-  }
-  .product-specs__list { display: flex; flex-direction: column; gap: 6px; }
-  .product-specs__row {
-    display: flex; gap: 12px; justify-content: space-between;
-    padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.04);
-  }
-  .product-specs__label { color: rgba(255,255,255,.5); font-size: .9rem; }
-  .product-specs__value { font-weight: 600; font-size: .9rem; text-align: right; }
-
-  /* Функционал */
-  .product-features { margin-bottom: var(--xtir-s4); }
-  .product-features__title {
-    font-weight: 750; margin-bottom: 12px;
-    padding-bottom: 8px; border-bottom: 1px solid var(--xtir-border);
-  }
-  .product-features__list { display: flex; flex-direction: column; gap: 8px; list-style: none; padding: 0; margin: 0; }
-  .product-features__item { display: flex; align-items: flex-start; gap: 10px; font-size: .95rem; }
-  .product-features__dot {
-    width: 6px; height: 6px; border-radius: 999px;
-    background: rgba(255,255,255,.5); flex: 0 0 auto; margin-top: 6px;
-  }
-
-  /* CTA */
-  .product-cta__note { font-size: .8rem; opacity: .45; margin-bottom: var(--xtir-s3); }
-  .product-cta__btns { display: flex; gap: 10px; flex-wrap: wrap; }
-
-  /* Похожие */
-  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  @media (max-width: 768px) { .related-grid { grid-template-columns: 1fr; } }
-  .related-card { text-decoration: none; transition: transform .2s; }
-  .related-card:hover { transform: translateY(-2px); }
-  .related-card__img {
-    width: 100%; aspect-ratio: 16/9; object-fit: cover;
-    border-radius: var(--xtir-radius-sm); margin-bottom: 10px;
-  }
-  .related-card__name { font-weight: 700; margin-bottom: 6px; }
-  .related-card__desc { font-size: .85rem; opacity: .55; }
-</style>
