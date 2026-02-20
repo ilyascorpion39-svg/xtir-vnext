@@ -4,37 +4,38 @@ import { withBase } from '@/site';
 ---
 
 <BaseLayout title="Поддержка" description="Поддержка XTIR: документация, сопровождение, консультации.">
-<main class="pt-24">
-    <section class="section">
-      <div class="section-container">
-        <div class="max-w-4xl">
-          <h1 class="h1-xtir">Поддержка и документация</h1>
-          <div class="prose prose-invert max-w-none mt-8">
-            
-<p>Если вам нужна документация, помощь с настройкой или консультация по эксплуатации — мы на связи. Многие материалы предоставляются по запросу (паспорта изделий, инструкции, руководства оператора, статьи и технические описания).</p>
+  <main class="content-main">
+    <section class="xtir-container">
+      <div class="content-shell">
+        <header class="content-header">
+          <h1 class="content-title">Поддержка и документация</h1>
+          <p class="content-lead">Если вам нужна документация, помощь с настройкой или консультация по эксплуатации — мы на связи. Многие материалы предоставляются по запросу (паспорта изделий, инструкции, руководства оператора, статьи и технические описания).</p>
+        </header>
 
-<h2>Что мы делаем</h2>
-<ul>
-  <li>Подбор конфигурации под ваш объект и сценарии</li>
-  <li>Удаленная диагностика и рекомендации</li>
-  <li>Обучение персонала тира</li>
-  <li>Сопровождение проекта после внедрения</li>
-</ul>
+        <div class="content-body">
+          <hr class="content-sep" />
+          <h2>Что мы делаем</h2>
+          <ul>
+            <li>Подбор конфигурации под ваш объект и сценарии</li>
+            <li>Удаленная диагностика и рекомендации</li>
+            <li>Обучение персонала тира</li>
+            <li>Сопровождение проекта после внедрения</li>
+          </ul>
 
-<h2>Документы и материалы</h2>
-<ul>
-  <li>Инструкции по эксплуатации</li>
-  <li>Паспорта изделий</li>
-  <li>Руководства оператора</li>
-  <li>Технические статьи и описания</li>
-</ul>
+          <hr class="content-sep" />
+          <h2>Документы и материалы</h2>
+          <ul>
+            <li>Инструкции по эксплуатации</li>
+            <li>Паспорта изделий</li>
+            <li>Руководства оператора</li>
+            <li>Технические статьи и описания</li>
+          </ul>
 
-<div class="not-prose mt-8 card card-glass p-8 border border-dark-700/60">
-  <h3 class="text-xl font-bold text-white">Контакты поддержки</h3>
-  <p class="mt-3 text-gray-300">Email: <a class="link" href={withBase("/contact")}>info@xtir.ru</a></p>
-  <p class="mt-1 text-gray-300">Телефон: <a class="link" href="tel:+79154250095">+7 (915) 425‑00‑95</a></p>
-</div>
-
+          <div class="content-block" style="margin-top:1.4rem;">
+            <h3 style="margin-top:0;">Контакты поддержки</h3>
+            <p>Email: <a href={withBase("/contact/")}>info@xtir.ru</a></p>
+            <p>Телефон: <a href="tel:+79154250095">+7 (915) 425‑00‑95</a></p>
+            <p>Документы: <a href={withBase("/docs/")}>Открыть библиотеку</a></p>
           </div>
         </div>
       </div>

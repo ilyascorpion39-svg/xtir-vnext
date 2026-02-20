@@ -4,13 +4,30 @@ import { withBase } from '@/site';
 ---
 
 <BaseLayout title="Новости" description="Новости и обновления XTIR.">
-<main class="pt-24">
-    <section class="section">
-      <div class="section-container">
-        <div class="max-w-4xl">
-          <h1 class="h1-xtir">Новости</h1>
-          <div class="prose prose-invert max-w-none mt-8">
-            <p>Раздел в разработке. Если вам нужна информация о последних проектах — напишите нам на <a class="link" href={withBase("/contact")}>info@xtir.ru</a>.</p>
+  <main class="content-main">
+    <section class="xtir-container">
+      <div class="content-shell">
+        <header class="content-header">
+          <h1 class="content-title">Новости</h1>
+          <p class="content-lead">Раздел в разработке. Если вам нужна информация о последних проектах — напишите нам на <a href={withBase("/contact/")}>info@xtir.ru</a>.</p>
+        </header>
+
+        <div class="content-body">
+          <div class="content-grid">
+            <article class="content-item">
+              <h3 style="margin-top:0;">Обновления по проектам</h3>
+              <p>Публикуем этапы внедрения, новые конфигурации и материалы по эксплуатации.</p>
+            </article>
+            <article class="content-item">
+              <h3 style="margin-top:0;">Новые решения</h3>
+              <p>Анонсируем расширение каталога и обновления существующих модулей.</p>
+            </article>
+          </div>
+
+          <hr class="content-sep" />
+          <p>
+            Пока подбор решений доступен через <a href={withBase("/products/")}>каталог продукции</a> и страницу <a href={withBase("/contact/")}>контактов</a>.
+          </p>
           </div>
         </div>
       </div>

@@ -4,13 +4,28 @@ import { withBase } from '@/site';
 ---
 
 <BaseLayout title="Карьера" description="Вакансии XTIR.">
-<main class="pt-24">
-    <section class="section">
-      <div class="section-container">
-        <div class="max-w-4xl">
-          <h1 class="h1-xtir">Карьера</h1>
-          <div class="prose prose-invert max-w-none mt-8">
-            <p>Сейчас раздел в разработке. Можно прислать резюме и портфолио на <a class="link" href={withBase("/contact")}>info@xtir.ru</a>.</p>
+  <main class="content-main">
+    <section class="xtir-container">
+      <div class="content-shell">
+        <header class="content-header">
+          <h1 class="content-title">Карьера</h1>
+          <p class="content-lead">Сейчас раздел в разработке. Можно прислать резюме и портфолио на <a href={withBase("/contact/")}>info@xtir.ru</a>.</p>
+        </header>
+
+        <div class="content-body">
+          <div class="content-grid">
+            <div class="content-item">
+              <h3 style="margin-top:0;">Кого ищем</h3>
+              <p>Инженеры‑конструкторы, специалисты по электронике, монтажу и сопровождению проектов.</p>
+            </div>
+            <div class="content-item">
+              <h3 style="margin-top:0;">Формат отклика</h3>
+              <p>Резюме, краткое описание опыта и примеры реализованных задач.</p>
+            </div>
+          </div>
+
+          <hr class="content-sep" />
+          <p>Актуальные запросы уточняйте через <a href={withBase("/contact/")}>контакты</a>.</p>
           </div>
         </div>
       </div>

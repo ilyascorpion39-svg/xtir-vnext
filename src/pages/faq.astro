@@ -4,13 +4,39 @@ import { withBase } from '@/site';
 ---
 
 <BaseLayout title="FAQ" description="Ответы на частые вопросы по оборудованию XTIR.">
-<main class="pt-24">
-    <section class="section">
-      <div class="section-container">
-        <div class="max-w-4xl">
-          <h1 class="h1-xtir">FAQ</h1>
-          <div class="prose prose-invert max-w-none mt-8">
-            <p>Раздел в разработке. Если у вас есть вопрос — лучше всего написать нам на <a class="link" href={withBase("/contact")}>info@xtir.ru</a>.</p>
+  <main class="content-main">
+    <section class="xtir-container">
+      <div class="content-shell">
+        <header class="content-header">
+          <h1 class="content-title">FAQ</h1>
+          <p class="content-lead">Раздел в разработке. Если у вас есть вопрос — лучше всего написать нам на <a href={withBase("/contact/")}>info@xtir.ru</a>.</p>
+        </header>
+
+        <div class="content-body">
+          <details class="faq-item" open>
+            <summary>Как получить консультацию по оборудованию?</summary>
+            <div class="faq-answer">
+              Напишите нам через страницу <a href={withBase("/contact/")}>контактов</a> — поможем подобрать конфигурацию под задачу.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Где запросить инструкции и паспорта?</summary>
+            <div class="faq-answer">
+              Большая часть материалов доступна в разделе <a href={withBase("/docs/")}>документации</a>, остальные отправляем по запросу.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Можно ли получить поддержку после внедрения?</summary>
+            <div class="faq-answer">
+              Да, сопровождаем проекты после внедрения и консультируем по эксплуатации.
+            </div>
+          </details>
+
+          <hr class="content-sep" />
+          <p>Если не нашли ответ — отправьте вопрос на <a href={withBase("/contact/")}>странице контактов</a>.</p>
+
           </div>
         </div>
       </div>
