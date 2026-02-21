@@ -21,6 +21,7 @@ Thumbs.db
 
 # Personal npm config (обычно НЕ надо в репо)
 .npmrc
+.npm-cache/
 
 # local backups
 *.bak

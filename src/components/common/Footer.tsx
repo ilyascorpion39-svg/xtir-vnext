@@ -75,6 +75,7 @@ export default function Footer() {
                   width={140}
                   height={48}
                   alt="XTIR"
+                  loading="lazy"
                   decoding="async"
                   className="h-10 w-auto"
                 />

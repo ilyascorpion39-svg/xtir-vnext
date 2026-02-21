@@ -89,6 +89,7 @@ export default function Header() {
               width={140}
               height={48}
               alt="XTIR"
+              fetchPriority="high"
               decoding="async"
               className="h-12 w-auto"
             />

@@ -40,10 +40,10 @@ async function walk(dir) {
   const files = [];
 
   async function recur(current) {
-    let entries = [];
+    let entries;
     try {
       entries = await fs.readdir(current, { withFileTypes: true });
-    } catch (e) {
+    } catch {
       // If archive folder doesn't exist yet, that's fine.
       return;
     }
@@ -130,14 +130,12 @@ ${items
   await fs.mkdir(path.dirname(OUT_FILE), { recursive: true });
   await fs.writeFile(OUT_FILE, content, "utf8");
 
-  // eslint-disable-next-line no-console
   console.log(
     `Archive index generated: ${path.relative(PROJECT_ROOT, OUT_FILE)} (items: ${items.length})`,
   );
 }
 
 main().catch((err) => {
-  // eslint-disable-next-line no-console
   console.error(err);
   process.exit(1);
 });

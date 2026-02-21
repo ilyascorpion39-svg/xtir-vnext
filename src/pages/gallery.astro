@@ -23,7 +23,9 @@ const totalDocs = archiveItems.filter((item) => /\.(pdf|doc|docx|ppt|pptx)$/i.te
       </div>
     </div>
 
-    <GalleryApp client:visible items={archiveItems} />
+    <div class="cv-auto">
+      <GalleryApp client:visible items={archiveItems} />
+    </div>
   </main>
 </BaseLayout>
 

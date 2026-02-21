@@ -86,7 +86,7 @@ const supportDeliverables = [
 
 <div class="hp-flow">
 <!-- НАПРАВЛЕНИЯ -->
-<section class="hp-sec hp-dark home-section">
+<section class="hp-sec hp-dark home-section cv-auto">
   <div class="hp-wrap home-container" data-reveal>
     <div class="hp-hd" data-reveal="2">
       <div class="hp-kicker">Направления</div>
@@ -96,7 +96,18 @@ const supportDeliverables = [
     <div class="hp-cards">
       <a href={withBase("/products/")} class="hp-card home-card home-card--hover" data-reveal="2">
         <div class="hp-cimg">
-          <img src={withBase("/products-img/pmu-100/pmu100-1.png")} alt="Электронные мишени" loading="lazy" decoding="async"/>
+          <picture>
+            <source srcSet={withBase("/products-img/pmu-100/pmu100-1.webp")} type="image/webp" />
+            <img
+              src={withBase("/products-img/pmu-100/pmu100-1.png")}
+              alt="Электронные мишени"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="750"
+              sizes="(min-width: 900px) 30vw, 92vw"
+            />
+          </picture>
           <div class="hp-cimgo"></div>
           <div class="hp-cnum">01</div>
         </div>
@@ -109,7 +120,18 @@ const supportDeliverables = [
       </a>
       <a href={withBase("/products/")} class="hp-card hp-card-warm home-card home-card--hover" data-reveal="3">
         <div class="hp-cimg">
-          <img src={withBase("/products-img/kaban/1.png")} alt="Движущиеся цели" loading="lazy" decoding="async"/>
+          <picture>
+            <source srcSet={withBase("/products-img/kaban/1.webp")} type="image/webp" />
+            <img
+              src={withBase("/products-img/kaban/1.png")}
+              alt="Движущиеся цели"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="750"
+              sizes="(min-width: 900px) 30vw, 92vw"
+            />
+          </picture>
           <div class="hp-cimgo"></div>
           <div class="hp-cnum">02</div>
         </div>
@@ -122,7 +144,18 @@ const supportDeliverables = [
       </a>
       <a href={withBase("/products/")} class="hp-card home-card home-card--hover" data-reveal="4">
         <div class="hp-cimg">
-          <img src={withBase("/products-img/pak/1 (1).png")} alt="Управление" loading="lazy" decoding="async"/>
+          <picture>
+            <source srcSet={withBase("/products-img/pak/1 (1).webp")} type="image/webp" />
+            <img
+              src={withBase("/products-img/pak/1 (1).png")}
+              alt="Управление"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="750"
+              sizes="(min-width: 900px) 30vw, 92vw"
+            />
+          </picture>
           <div class="hp-cimgo"></div>
           <div class="hp-cnum">03</div>
         </div>
@@ -138,7 +171,7 @@ const supportDeliverables = [
 </section>
 
 <!-- ПОЧЕМУ XTIR -->
-<section class="hp-sec hp-darker home-section">
+<section class="hp-sec hp-darker home-section cv-auto">
   <div class="hp-wrap hp-why home-container" data-reveal>
     <div class="hp-wl" data-reveal="2">
       <div class="hp-kicker">Почему XTIR</div>
@@ -156,7 +189,7 @@ const supportDeliverables = [
 </section>
 
 <!-- ПРАКТИКА ПРИМЕНЕНИЯ -->
-<section class="hp-sec hp-darker home-section">
+<section class="hp-sec hp-darker home-section cv-auto">
   <div class="hp-wrap hp-practice home-container" data-reveal>
     <div class="hp-hd" data-reveal="2">
       <div class="hp-kicker">Практика XTIR</div>
@@ -203,7 +236,7 @@ const supportDeliverables = [
 </section>
 
 <!-- БАЗА ЗНАНИЙ XTIR -->
-<section class="hp-sec hp-dark home-section">
+<section class="hp-sec hp-dark home-section cv-auto">
   <div class="hp-wrap hp-knowledge home-container" data-reveal>
     <div class="hp-hd" data-reveal="2">
       <div class="hp-kicker">База XTIR</div>
@@ -251,7 +284,7 @@ const supportDeliverables = [
 </section>
 
 <!-- CTA -->
-<section class="hp-sec hp-dark home-section" style="position:relative;overflow:hidden;">
+<section class="hp-sec hp-dark home-section cv-auto" style="position:relative;overflow:hidden;">
   <div class="hp-wrap hp-cta home-container" data-reveal>
     <div class="hp-ctl" data-reveal="2">
       <h2 class="hp-title">Готовы начать?</h2>

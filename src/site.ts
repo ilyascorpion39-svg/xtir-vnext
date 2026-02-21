@@ -39,6 +39,12 @@ export function withBase(path: string): string {
   return `${BASE_URL}${normalized}`;
 }
 
+export function toWebp(path: string): string {
+  if (!path) return path;
+  if (/^https?:\/\//i.test(path)) return path;
+  return path.replace(/\.(png|jpe?g)$/i, ".webp");
+}
+
 export const SITE: SiteConfig = {
   name: "XTIR",
   tagline: "Точность технологий",

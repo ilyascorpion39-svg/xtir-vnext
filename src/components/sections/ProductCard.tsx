@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import type { Product } from "@/data/products";
 import clsx from "clsx";
-import { withBase } from "@/site";
+import { toWebp, withBase } from "@/site";
 import { deriveProductSpecs } from "@/utils/productSpecs";
 
 type Props = {
@@ -61,6 +61,7 @@ export default function ProductCard({ product, categoryName }: Props) {
   const img = product.photos?.[0]
     ? withBase(product.photos[0])
     : withBase("/images/placeholder.svg");
+  const webpImg = toWebp(img);
 
   const tone = toneByCategory[product.categoryId] ?? "neutral";
   const meta = toneMeta[tone];
@@ -86,14 +87,17 @@ export default function ProductCard({ product, categoryName }: Props) {
           className="absolute inset-0 opacity-70"
           style={{ backgroundImage: `${meta.radial}, ${techLines}` }}
         />
-        <img
-          src={img}
-          alt={product.name}
-          loading="lazy"
-          decoding="async"
-          sizes="(min-width: 1536px) 22vw, (min-width: 1280px) 30vw, (min-width: 768px) 45vw, 95vw"
-          className="absolute inset-0 h-full w-full object-cover opacity-90 [transition:transform_0.35s_ease] group-hover:opacity-100 group-hover:scale-[1.04]"
-        />
+        <picture>
+          <source srcSet={webpImg} type="image/webp" />
+          <img
+            src={img}
+            alt={product.name}
+            loading="lazy"
+            decoding="async"
+            sizes="(min-width: 1536px) 22vw, (min-width: 1280px) 30vw, (min-width: 768px) 45vw, 95vw"
+            className="absolute inset-0 h-full w-full object-cover opacity-90 [transition:transform_0.35s_ease] group-hover:opacity-100 group-hover:scale-[1.04]"
+          />
+        </picture>
         <div className="absolute inset-0 bg-gradient-to-t from-dark-900/85 via-dark-900/35 to-transparent" />
         <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-dark-900/80 px-3 py-1 text-xs text-white/85">
           <span

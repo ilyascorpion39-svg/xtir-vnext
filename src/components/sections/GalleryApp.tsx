@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type MouseEvent } from "react";
-import { withBase } from "@/site";
+import { toWebp, withBase } from "@/site";
 
 type AssetType = "image" | "pdf" | "video" | "audio" | "doc" | "other";
 
@@ -126,12 +126,13 @@ export default function GalleryApp({ items }: Props) {
       const m = h.match(/asset=([^&]+)/i);
       if (!m) return;
       const raw = m[1];
-      let decoded = raw;
-      try {
-        decoded = decodeURIComponent(raw);
-      } catch {
-        decoded = raw;
-      }
+      const decoded = (() => {
+        try {
+          return decodeURIComponent(raw);
+        } catch {
+          return raw;
+        }
+      })();
       const it = byId.get(decoded);
       if (it) {
         setActiveFolder((it.folder || "Прочее") as string);
@@ -206,7 +207,7 @@ export default function GalleryApp({ items }: Props) {
 
             <select
               value={typeFilter}
-              onChange={(e) => setTypeFilter(e.target.value as any)}
+              onChange={(e) => setTypeFilter(e.target.value as AssetType | "all")}
               className="w-full sm:w-auto rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-gray-100 outline-none focus:border-primary-400/60"
             >
               <option value="all">Все типы</option>
@@ -232,14 +233,17 @@ export default function GalleryApp({ items }: Props) {
             >
               <div className="absolute inset-0">
                 {f.cover ? (
-                  <img
-                    src={f.cover}
-                    alt={f.name}
-                    className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
-                    loading="lazy"
-                    decoding="async"
-                    sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
-                  />
+                  <picture>
+                    <source srcSet={toWebp(f.cover)} type="image/webp" />
+                    <img
+                      src={f.cover}
+                      alt={f.name}
+                      className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                      loading="lazy"
+                      decoding="async"
+                      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
+                    />
+                  </picture>
                 ) : (
                   <div className="h-full w-full bg-[radial-gradient(circle_at_20%_20%,rgba(110,183,255,.2),transparent_55%),radial-gradient(circle_at_80%_30%,rgba(60,220,255,.1),transparent_55%)]" />
                 )}
@@ -332,14 +336,17 @@ export default function GalleryApp({ items }: Props) {
                 )}
                 <div className="aspect-[4/3] w-full overflow-hidden bg-black/30">
                   {it.type === "image" ? (
-                    <img
-                      src={toAssetUrl(it.url)}
-                      alt={it.title}
-                      className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.035]"
-                      loading="lazy"
-                      decoding="async"
-                      sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
-                    />
+                    <picture>
+                      <source srcSet={toWebp(toAssetUrl(it.url))} type="image/webp" />
+                      <img
+                        src={toAssetUrl(it.url)}
+                        alt={it.title}
+                        className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.035]"
+                        loading="lazy"
+                        decoding="async"
+                        sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
+                      />
+                    </picture>
                   ) : (
                     <div className="flex h-full w-full items-center justify-center">
                       <div className="rounded-xl border border-white/10 bg-black/40 px-4 py-2 text-sm text-gray-200">
@@ -419,12 +426,15 @@ export default function GalleryApp({ items }: Props) {
 
             <div className="max-h-[75vh] overflow-auto p-4">
               {openItem.type === "image" && (
-                <img
-                  src={toAssetUrl(openItem.url)}
-                  alt={openItem.title}
-                  className="mx-auto max-h-[70vh] w-auto rounded-xl border border-white/10"
-                  decoding="async"
-                />
+                <picture>
+                  <source srcSet={toWebp(toAssetUrl(openItem.url))} type="image/webp" />
+                  <img
+                    src={toAssetUrl(openItem.url)}
+                    alt={openItem.title}
+                    className="mx-auto max-h-[70vh] w-auto rounded-xl border border-white/10"
+                    decoding="async"
+                  />
+                </picture>
               )}
 
               {openItem.type === "pdf" && (

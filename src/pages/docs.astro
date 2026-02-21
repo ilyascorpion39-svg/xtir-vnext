@@ -97,7 +97,7 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
       </div>
     </section>
 
-    <section class="docs-catalog xtir-container">
+    <section class="docs-catalog xtir-container cv-auto">
       {categories.map((cat) => (
         <div class="doc-category">
           <div class="doc-category__header">
@@ -155,7 +155,7 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
       ))}
     </section>
 
-    <section class="request-section" id="request-form">
+    <section class="request-section cv-auto" id="request-form">
       <div class="xtir-container">
         <div class="request-inner">
           <div class="request-left">
@@ -243,9 +243,14 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
     setTimeout(() => t.classList.add('show'), 10);
     setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3500);
   }
-  (window as any).openRequest = openRequest;
-  (window as any).closeModal = closeModal;
-  (window as any).submitQuickRequest = submitQuickRequest;
+  const w = window as unknown as Window & {
+    openRequest: typeof openRequest;
+    closeModal: typeof closeModal;
+    submitQuickRequest: typeof submitQuickRequest;
+  };
+  w.openRequest = openRequest;
+  w.closeModal = closeModal;
+  w.submitQuickRequest = submitQuickRequest;
   document.getElementById('doc-request-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
     showToast('✓ Запрос отправлен! Ответим в течение суток.');

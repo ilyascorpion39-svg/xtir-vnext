@@ -42,6 +42,6 @@ export const docGroups: DocGroup[] = [
  * If a product id exists here, its product page will show these docs as clickable links.
  */
 export const docsByProductId: Record<string, DocumentationItem[]> = {
-  "pmu-100": docGroups.find((g) => g.id === "pmu-100")!?.items,
+  "pmu-100": docGroups.find((g) => g.id === "pmu-100")?.items ?? [],
   // ... остальные элементы
 };

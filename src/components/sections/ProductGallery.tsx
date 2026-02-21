@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { withBase } from "@/site";
+import { toWebp, withBase } from "@/site";
 
 export type ProductGalleryProps = {
   images: string[];
@@ -65,7 +65,6 @@ export default function ProductGallery({
       el.removeEventListener("scroll", updateActive);
       window.removeEventListener("resize", onResize);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [total]);
 
   if (total === 0) return null;
@@ -101,13 +100,17 @@ export default function ProductGallery({
               className="relative shrink-0 w-full snap-center"
               style={{ aspectRatio: "16 / 9" }}
             >
-              <img
-                src={src}
-                alt={`${alt} — фото ${i + 1}`}
-                loading={i === 0 ? "eager" : "lazy"}
-                decoding="async"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
+              <picture>
+                <source srcSet={toWebp(src)} type="image/webp" />
+                <img
+                  src={src}
+                  alt={`${alt} — фото ${i + 1}`}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  sizes="(min-width: 1024px) 60vw, 94vw"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </picture>
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
             </div>
           ))}
@@ -226,13 +229,16 @@ export default function ProductGallery({
                 }}
                 aria-label={`Открыть фото ${i + 1}`}
               >
-                <img
-                  src={src}
-                  alt=""
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
+                <picture>
+                  <source srcSet={toWebp(src)} type="image/webp" />
+                  <img
+                    src={src}
+                    alt=""
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
                 {isActive && <div className="absolute inset-0 bg-black/10" />}
               </button>
             );

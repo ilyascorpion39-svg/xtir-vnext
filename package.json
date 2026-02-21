@@ -17,6 +17,7 @@
     "lint": "eslint .",
     "type-check": "astro check",
     "clean:vite": "rimraf node_modules/.vite node_modules/.vite/deps",
+    "optimize:images": "node scripts/optimize-images.mjs",
     "check:dist-base-links": "node scripts/check-dist-base-links.mjs",
     "check:dist-canonical": "node scripts/check-dist-canonical.mjs",
     "check:dist-links": "node scripts/check-dist-links.mjs",
@@ -26,18 +27,11 @@
   "dependencies": {
     "@astrojs/react": "^4.4.2",
     "@astrojs/tailwind": "^5.1.0",
-    "@react-three/drei": "^9.96.0",
-    "@react-three/fiber": "^8.15.15",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.3",
-    "gsap": "^3.12.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tailwindcss": "^3.4.19",
-    "three": "^0.160.1",
-    "ts-node": "10.9.2",
-    "typescript-eslint": "8.56.0",
-    "zod": "3.25.76"
+    "tailwindcss": "^3.4.19"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.6",
@@ -47,9 +41,8 @@
     "@types/node": "^20.11.5",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
-    "@types/three": "^0.160.0",
-    "@typescript-eslint/eslint-plugin": "^8.26.0",
-    "@typescript-eslint/parser": "^8.26.0",
+    "@typescript-eslint/eslint-plugin": "8.56.0",
+    "@typescript-eslint/parser": "8.56.0",
     "ajv": "8.17.1",
     "ajv-errors": "3.0.0",
     "astro": "5.17.2",
@@ -61,6 +54,7 @@
     "prettier": "3.8.1",
     "prettier-plugin-astro": "^0.13.0",
     "rimraf": "6.1.3",
+    "typescript-eslint": "8.56.0",
     "typescript": "5.9.3"
   },
   "keywords": [
@@ -72,8 +66,5 @@
     "3d"
   ],
   "author": "XTIR Team",
-  "license": "UNLICENSED",
-  "overrides": {
-    "zod": "3.25.76"
-  }
+  "license": "UNLICENSED"
 }

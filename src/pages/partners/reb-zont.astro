@@ -112,7 +112,7 @@ const scenarioCards = [
       </div>
     </section>
 
-    <section class="ops-section container">
+    <section class="ops-section container cv-auto">
       <div class="section-header">
         <div class="section-header__num">01</div>
         <h2 class="section-header__title">О партнёре и применение</h2>
@@ -168,7 +168,7 @@ const scenarioCards = [
       </div>
     </section>
 
-    <section class="intel-section container">
+    <section class="intel-section container cv-auto">
       <div class="section-header">
         <div class="section-header__num">02</div>
         <h2 class="section-header__title">Оперативные материалы</h2>
@@ -188,7 +188,17 @@ const scenarioCards = [
                 ]}
                 style={`--delay:${i * 50}ms;`}
               >
-                <img src={photo.src} alt={photo.caption} loading="lazy" decoding="async" class="recon-card__img" />
+                <picture>
+                  <source srcSet={photo.src.replace(/\.(png|jpe?g)$/i, ".webp")} type="image/webp" />
+                  <img
+                    src={photo.src}
+                    alt={photo.caption}
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(min-width: 900px) 40vw, 90vw"
+                    class="recon-card__img"
+                  />
+                </picture>
                 <div class="recon-card__hud">
                   <span>{photo.caption}</span>
                   <em>{String(i + 1).padStart(2, '0')}</em>
@@ -239,7 +249,7 @@ const scenarioCards = [
     </section>
 
     <!-- CTA -->
-    <section class="cta-section">
+    <section class="cta-section cv-auto">
       <div class="tricolor-bar tricolor-bar--bottom">
         <span class="tricolor-bar__white"></span>
         <span class="tricolor-bar__blue"></span>

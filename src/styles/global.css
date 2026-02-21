@@ -416,6 +416,11 @@
     color: rgba(230, 237, 243, 0.84);
   }
 
+  .cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 1000px;
+  }
+
   .content-body ul,
   .content-body ol {
     padding-left: 1.2rem;

@@ -34,7 +34,15 @@ const logo = withBase(partner.logoSrc || '/images/products/placeholder.svg');
       <div class="mt-6 grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
         <aside class="rounded-2xl border border-white/10 bg-white/5 p-6">
           <div class="flex items-center gap-4">
-            <img src={logo} alt={partner.name} class="h-16 w-16 rounded-xl bg-black/40 object-contain p-2" loading="lazy" />
+            <img
+              src={logo}
+              alt={partner.name}
+              class="h-16 w-16 rounded-xl bg-black/40 object-contain p-2"
+              loading="lazy"
+              decoding="async"
+              width="64"
+              height="64"
+            />
             <div>
               <h1 class="text-2xl font-semibold text-white leading-tight">{partner.name}</h1>
               <p class="mt-1 text-sm text-gray-300">{partner.tagline}</p>
