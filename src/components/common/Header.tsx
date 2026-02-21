@@ -75,8 +75,8 @@ export default function Header() {
           ? "bg-dark-900/90 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,0.24)]"
           : "bg-dark-900/70 backdrop-blur-lg"
       }`}
-      initial={reduceMotion ? false : { y: -100 }}
-      animate={{ y: 0 }}
+      initial={false}
+      animate={reduceMotion ? undefined : { y: 0 }}
       transition={reduceMotion ? { duration: 0 } : { duration: 0.6 }}
     >
       <nav className="xtir-container" aria-label="Основная навигация">
@@ -97,7 +97,7 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex flex-1 items-center justify-center gap-7 xl:gap-8">
-            {navItems.map((item, index) => (
+            {navItems.map((item) => (
               (() => {
                 const href = withBase(item.href);
                 const normalizedHref = href.replace(/\/+$/, "") || "/";
@@ -106,22 +106,19 @@ export default function Header() {
                   (normalizedHref !== "/" && currentPath.startsWith(`${normalizedHref}/`));
 
                 return (
-                  <motion.a
+                  <a
                     key={item.name}
                     href={href}
                     className={`inline-flex h-20 items-center whitespace-nowrap text-[0.91rem] font-semibold leading-none transition-colors relative group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm ${
                       isActive ? "text-white" : "text-white/80 hover:text-white"
                     }`}
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
                     aria-current={isActive ? "page" : undefined}
                   >
                     {item.name}
                     <span className={`absolute bottom-[10px] left-0 h-0.5 bg-primary-300 transition-all duration-300 ${
                       isActive ? "w-full" : "w-0 group-hover:w-full"
                     }`}></span>
-                  </motion.a>
+                  </a>
                 );
               })()
             ))}
@@ -203,18 +200,15 @@ export default function Header() {
             transition={{ duration: 0.3 }}
           >
             <nav className="xtir-container py-5 space-y-3">
-              {navItems.map((item, index) => (
-                <motion.a
+              {navItems.map((item) => (
+                <a
                   key={item.name}
                   href={withBase(item.href)}
                   className="block py-3 text-base text-white/82 hover:text-white transition-colors border-b border-white/10 last:border-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
-                </motion.a>
+                </a>
               ))}
               <div className="pt-4 space-y-3">
                 <div className="flex items-center justify-center gap-3">
