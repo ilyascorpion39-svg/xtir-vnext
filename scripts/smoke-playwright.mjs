@@ -104,7 +104,7 @@ async function run() {
     } else if (segmentCount === 1) {
       // Current implementation: one span with tricolor gradient
       const gradient = await stripeSegments.first().evaluate((el) =>
-        window.getComputedStyle(el).backgroundImage,
+        globalThis.getComputedStyle(el).backgroundImage,
       );
       const hasGradient = gradient.includes("linear-gradient");
       const hasBlue = gradient.includes("121, 152, 220");
