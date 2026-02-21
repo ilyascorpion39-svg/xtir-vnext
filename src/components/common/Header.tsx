@@ -3,10 +3,10 @@ import { SITE, withBase } from "@/site";
 
 const navItems = [
   { name: "Главная", href: "/" },
-  { name: "Мишенные системы", href: "/products/" },
-  { name: "Документы", href: "/docs/" },
-  { name: "Наше фото", href: "/gallery/" },
+  { name: "Мишенные установки", href: "/products/" },
   { name: "Партнёры", href: "/partners/" },
+  { name: "Наше фото", href: "/gallery/" },
+  { name: "Документы", href: "/docs/" },
   { name: "О компании", href: "/about/" },
   { name: "Контакты", href: "/contact/" },
 ];
