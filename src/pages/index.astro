@@ -1,127 +1,63 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Hero from '@/components/sections/Hero.astro';
-import TacticalProductGrid from '@/components/sections/TacticalProductGrid.astro';
-import { withBase } from '@/site';
-import { PRODUCTS, PRODUCT_CATEGORIES } from '@/data/products';
-import { deriveProductSpecs } from '@/utils/productSpecs';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/sections/Hero.astro";
+import TacticalProductGrid from "@/components/sections/TacticalProductGrid.astro";
+import { withBase } from "@/site";
+import { PRODUCTS, PRODUCT_CATEGORIES } from "@/data/products";
 
-const categoryCounts = PRODUCT_CATEGORIES
-  .map((category) => ({
-    ...category,
-    total: PRODUCTS.filter((product) => product.categoryId === category.id).length,
-  }))
+const categoryCounts = PRODUCT_CATEGORIES.map((category) => ({
+  ...category,
+  total: PRODUCTS.filter((product) => product.categoryId === category.id)
+    .length,
+}))
   .filter((category) => category.total > 0)
   .sort((a, b) => b.total - a.total);
 
-const topCategoryCounts = categoryCounts.slice(0, 6);
-
-const featureHighlights = Array.from(
-  new Set(
-    PRODUCTS.flatMap((product) => product.features || [])
-      .map((line) => line.replace(/^[\s\-–—]+/, '').trim())
-      .filter((line) => line.length >= 8 && line.length <= 110)
-      .filter((line) => !/^дополнительно/i.test(line))
-  )
-).slice(0, 8);
-
-const spotlightProducts = PRODUCTS
-  .filter((product) => product.description && product.description.length > 90)
-  .slice(0, 3);
-
-const excerpt = (text: string, max = 140) => {
-  const clean = text.replace(/\s+/g, ' ').trim();
-  if (clean.length <= max) return clean;
-  return `${clean.slice(0, max).trim()}...`;
-};
-
-const bySlug = (slug: string) => PRODUCTS.find((product) => product.slug === slug);
-
-const practicalScenarios = [
-  {
-    slug: 'pmu-100',
-    title: 'Точная подготовка стрелка',
-    text: excerpt(
-      bySlug('pmu-100')?.description ??
-        'Автономные электронные мишени для профессиональной подготовки с фиксацией результатов.',
-      180
-    ),
-    href: '/products/pmu-100/',
-  },
-  {
-    slug: 'kaban',
-    title: 'Динамические упражнения',
-    text: excerpt(
-      bySlug('kaban')?.description ??
-        'Движущиеся мишенные установки для сценариев с таймингом, скоростью и реакцией.',
-      180
-    ),
-    href: '/products/kaban/',
-  },
-  {
-    slug: 'pak',
-    title: 'Управление мишенным полем',
-    text: excerpt(
-      bySlug('pak')?.description ??
-        'Системы управления мишенной обстановкой, сценариями и телеметрией.',
-      180
-    ),
-    href: '/products/pak/',
-  },
-];
-
-const supportDeliverables = [
-  'Подбор конфигурации под объект и сценарии',
-  'Удаленная диагностика и рекомендации',
-  'Инструкции по эксплуатации и паспорта изделий',
-  'Сопровождение проекта после внедрения',
-];
-
 const battleMetrics = [
-  { value: `${PRODUCTS.length}+`, label: 'позиций каталога' },
-  { value: `${categoryCounts.length}`, label: 'категорий решений' },
-  { value: '24/7', label: 'техподдержка' },
-  { value: '1 день', label: 'срок первичного ответа' },
+  { value: `${PRODUCTS.length}+`, label: "позиций каталога" },
+  { value: `${categoryCounts.length}`, label: "категорий решений" },
+  { value: "24/7", label: "техподдержка" },
+  { value: "1 день", label: "срок первичного ответа" },
 ];
 
 const quickScenarioCards = [
   {
-    preset: 'Ведомственный тир',
-    title: 'Ведомственный тир',
-    text: 'Подбираем конфигурацию под учебные задачи, регламент эксплуатации и текущую инфраструктуру объекта.',
+    preset: "Ведомственный тир",
+    title: "Ведомственный тир",
+    text: "Подбираем конфигурацию под учебные задачи, регламент эксплуатации и текущую инфраструктуру объекта.",
   },
   {
-    preset: 'Полигонный комплекс',
-    title: 'Полигонный комплекс',
-    text: 'Комбинируем мишенное оборудование, динамику и управление в единую управляемую систему.',
+    preset: "Полигонный комплекс",
+    title: "Полигонный комплекс",
+    text: "Комбинируем мишенное оборудование, динамику и управление в единую управляемую систему.",
   },
   {
-    preset: 'Модернизация существующего тира',
-    title: 'Модернизация',
-    text: 'Интегрируем новые модули в существующий объект без потери совместимости и управляемости.',
+    preset: "Модернизация существующего тира",
+    title: "Модернизация",
+    text: "Интегрируем новые модули в существующий объект без потери совместимости и управляемости.",
   },
 ];
 
 const executionSteps = [
   {
-    step: 'Шаг 01',
-    title: 'Получаем вводные',
-    text: 'Задачи стрельб, режим эксплуатации, ограничения по объекту и бюджету.',
+    step: "Шаг 01",
+    title: "Получаем вводные",
+    text: "Задачи стрельб, режим эксплуатации, ограничения по объекту и бюджету.",
   },
   {
-    step: 'Шаг 02',
-    title: 'Собираем конфигурацию',
-    text: 'Формируем набор установок и логику управления под конкретный сценарий.',
+    step: "Шаг 02",
+    title: "Собираем конфигурацию",
+    text: "Формируем набор установок и логику управления под конкретный сценарий.",
   },
   {
-    step: 'Шаг 03',
-    title: 'Согласуем и запускаем',
-    text: 'Фиксируем состав, сроки, объем работ и переходим к производству/поставке.',
+    step: "Шаг 03",
+    title: "Согласуем и запускаем",
+    text: "Фиксируем состав, сроки, объем работ и переходим к производству/поставке.",
   },
   {
-    step: 'Шаг 04',
-    title: 'Сопровождаем после внедрения',
-    text: 'Поддержка, диагностика, обновления и расширение системы под новые задачи.',
+    step: "Шаг 04",
+    title: "Сопровождаем после внедрения",
+    text: "Поддержка, диагностика, обновления и расширение системы под новые задачи.",
   },
 ];
 ---
@@ -130,269 +66,167 @@ const executionSteps = [
   title="XTIR — Точная техника. Жёсткая надёжность."
   description="XTIR — разработка и производство электронно-механического оборудования для стрельбы."
 >
+  <Hero />
+  <TacticalProductGrid />
 
-<Hero />
-<TacticalProductGrid />
-
-<section class="hp-sec hp-battle home-section cv-auto">
-  <div class="hp-wrap home-container" data-reveal>
-    <div class="hp-hd hp-battle-hd" data-reveal="2">
-      <div class="hp-kicker">Режим запуска</div>
-      <h2 class="hp-title">Соберем решение под ваш объект за 60 секунд</h2>
-      <div class="hp-sub">Не уводим в длинные диалоги: фиксируем вводные и сразу переходим к рабочей конфигурации с понятным составом оборудования.</div>
-    </div>
-
-    <div class="hp-battle-metrics" data-reveal="2">
-      {battleMetrics.map((metric) => (
-        <div class="hp-bm">
-          <strong>{metric.value}</strong>
-          <span>{metric.label}</span>
+  <section class="hp-sec hp-battle home-section cv-auto">
+    <div class="hp-wrap home-container" data-reveal>
+      <div class="hp-hd hp-battle-hd" data-reveal="2">
+        <div class="hp-kicker">Режим запуска</div>
+        <h2 class="hp-title">Соберем решение под ваш объект за 60 секунд</h2>
+        <div class="hp-sub">
+          Не уводим в длинные диалоги: фиксируем вводные и сразу переходим к
+          рабочей конфигурации с понятным составом оборудования.
         </div>
-      ))}
-    </div>
-
-    <div class="hp-battle-grid">
-      {quickScenarioCards.map((card, idx) => (
-        <article class="hp-bcard home-card home-card--hover" data-reveal={String(idx + 2)}>
-          <div class="hp-bcard-step">{String(idx + 1).padStart(2, '0')}</div>
-          <h3>{card.title}</h3>
-          <p>{card.text}</p>
-          <a href={withBase(`/contact/?preset=${encodeURIComponent(card.preset)}`)} class="hp-lnk">Отправить вводные →</a>
-        </article>
-      ))}
-    </div>
-
-    <div class="hp-battle-steps" data-reveal="5">
-      {executionSteps.map((item) => (
-        <article class="hp-bstep home-card">
-          <div class="hp-bstep-num">{item.step}</div>
-          <h3>{item.title}</h3>
-          <p>{item.text}</p>
-        </article>
-      ))}
-    </div>
-  </div>
-</section>
-
-<div class="hp-flow">
-<!-- НАПРАВЛЕНИЯ -->
-<section class="hp-sec hp-dark home-section cv-auto">
-  <div class="hp-wrap home-container" data-reveal>
-    <div class="hp-hd" data-reveal="2">
-      <div class="hp-kicker">Направления</div>
-      <div class="hp-title">Оборудование под любую задачу</div>
-      <div class="hp-sub">Три класса решений — от электронных мишеней до полигонных комплексов.</div>
-    </div>
-    <div class="hp-cards">
-      <a href={withBase("/products/")} class="hp-card home-card home-card--hover" data-reveal="2">
-        <div class="hp-cimg">
-          <picture>
-            <source srcset={withBase("/products-img/pmu-100/pmu100-1.webp")} type="image/webp" />
-            <img
-              src={withBase("/products-img/pmu-100/pmu100-1.png")}
-              alt="Электронные мишени"
-              loading="lazy"
-              decoding="async"
-              width="1200"
-              height="750"
-              sizes="(min-width: 900px) 30vw, 92vw"
-            />
-          </picture>
-          <div class="hp-cimgo"></div>
-          <div class="hp-cnum">01</div>
-        </div>
-        <div class="hp-cbody">
-          <div class="hp-ct">Электронные мишени</div>
-          <div class="hp-cd">Повторяемость, контроль попаданий, статистика. Для спорта, силовых структур и тиров.</div>
-          <div class="hp-ctags"><span>Тренировка</span><span>Обратная связь</span></div>
-          <div class="hp-cmore">Смотреть продукты →</div>
-        </div>
-      </a>
-      <a href={withBase("/products/")} class="hp-card hp-card-warm home-card home-card--hover" data-reveal="3">
-        <div class="hp-cimg">
-          <picture>
-            <source srcset={withBase("/products-img/kaban/1.webp")} type="image/webp" />
-            <img
-              src={withBase("/products-img/kaban/1.png")}
-              alt="Движущиеся цели"
-              loading="lazy"
-              decoding="async"
-              width="1200"
-              height="750"
-              sizes="(min-width: 900px) 30vw, 92vw"
-            />
-          </picture>
-          <div class="hp-cimgo"></div>
-          <div class="hp-cnum">02</div>
-        </div>
-        <div class="hp-cbody">
-          <div class="hp-ct">Движущиеся цели</div>
-          <div class="hp-cd">Моделирование реальных ситуаций: скорость, тайминг, реакция. Динамические сценарии.</div>
-          <div class="hp-ctags"><span>Динамика</span><span>Сценарии</span></div>
-          <div class="hp-cmore hp-cmore-warm">Как это устроено →</div>
-        </div>
-      </a>
-      <a href={withBase("/products/")} class="hp-card home-card home-card--hover" data-reveal="4">
-        <div class="hp-cimg">
-          <picture>
-            <source srcset={withBase("/products-img/pak/1 (1).webp")} type="image/webp" />
-            <img
-              src={withBase("/products-img/pak/1 (1).png")}
-              alt="Управление"
-              loading="lazy"
-              decoding="async"
-              width="1200"
-              height="750"
-              sizes="(min-width: 900px) 30vw, 92vw"
-            />
-          </picture>
-          <div class="hp-cimgo"></div>
-          <div class="hp-cnum">03</div>
-        </div>
-        <div class="hp-cbody">
-          <div class="hp-ct">Управление и интеграции</div>
-          <div class="hp-cd">Много узлов на объекте — предсказуемая работа: статусы, телеметрия, журнал событий.</div>
-          <div class="hp-ctags"><span>Связь</span><span>Надёжность</span></div>
-          <div class="hp-cmore">Технологии →</div>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ПОЧЕМУ XTIR -->
-<section class="hp-sec hp-darker home-section cv-auto">
-  <div class="hp-wrap hp-why home-container" data-reveal>
-    <div class="hp-wl" data-reveal="2">
-      <div class="hp-kicker">Почему XTIR</div>
-      <h2 class="hp-title">Инженерный подход.<br/>Предсказуемый результат.</h2>
-      <div class="hp-sub">20 лет в отрасли. Оборудование, которое реально работает не на презентации, а на объекте.</div>
-      <a href={withBase("/about/")} class="hp-lnk">О компании →</a>
-    </div>
-    <div class="hp-wr">
-      <div class="hp-wc home-card home-card--hover" data-reveal="2"><span class="hp-wi hp-wi--design" aria-hidden="true"></span><div class="hp-wt">Проектирование</div><div class="hp-wd">Требования, расчёт, прототипирование, документация. Без догадок.</div></div>
-      <div class="hp-wc home-card home-card--hover" data-reveal="3"><span class="hp-wi hp-wi--factory" aria-hidden="true"></span><div class="hp-wt">Производство</div><div class="hp-wd">Сборка, контроль, повторяемость. Узлы рассчитаны на реальную эксплуатацию.</div></div>
-      <div class="hp-wc home-card home-card--hover" data-reveal="4"><span class="hp-wi hp-wi--link" aria-hidden="true"></span><div class="hp-wt">Интеграции</div><div class="hp-wd">Связь, управление, сценарии. Подстраиваемся под объект и задачи заказчика.</div></div>
-      <div class="hp-wc home-card home-card--hover" data-reveal="5"><span class="hp-wi hp-wi--support" aria-hidden="true"></span><div class="hp-wt">Поддержка</div><div class="hp-wd">Сопровождение, диагностика, обновления. 24/7.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ПРАКТИКА ПРИМЕНЕНИЯ -->
-<section class="hp-sec hp-darker home-section cv-auto">
-  <div class="hp-wrap hp-practice home-container" data-reveal>
-    <div class="hp-hd" data-reveal="2">
-      <div class="hp-kicker">Практика XTIR</div>
-      <h2 class="hp-title">Не просто каталог, а сценарии применения</h2>
-      <div class="hp-sub">Мы перенесли ключевые тексты из проектного архива на сайт: что именно решает оборудование, как внедряется и что получает заказчик.</div>
-    </div>
-
-    <div class="hp-pr-grid">
-      {practicalScenarios.map((item, i) => (
-        <article class="hp-pr-card home-card home-card--hover" data-reveal={String(i + 2)}>
-          <div class="hp-pr-num">{String(i + 1).padStart(2, '0')}</div>
-          <h3 class="hp-pr-title">{item.title}</h3>
-          <p class="hp-pr-text">{item.text}</p>
-          {(() => {
-            const product = bySlug(item.slug);
-            const specs = product ? deriveProductSpecs(product, 2) : [];
-            if (specs.length === 0) return null;
-            return (
-              <ul class="hp-pr-specs" aria-label="Ключевые характеристики">
-                {specs.map((spec) => (
-                  <li><span>{spec.label}</span><strong>{spec.value}</strong></li>
-                ))}
-              </ul>
-            );
-          })()}
-          <a href={withBase(item.href)} class="hp-lnk">Подробнее →</a>
-        </article>
-      ))}
-    </div>
-
-    <article class="hp-pr-panel home-card" data-reveal="5">
-      <h3 class="hp-pr-panel-title">Что получает заказчик</h3>
-      <ul class="hp-pr-list">
-        {supportDeliverables.map((line) => (
-          <li>{line}</li>
-        ))}
-      </ul>
-      <div class="hp-pr-actions">
-        <a href={withBase("/support/")} class="home-btn home-btn--secondary">Поддержка</a>
-        <a href={withBase("/docs/")} class="home-btn home-btn--secondary">Документация</a>
       </div>
-    </article>
-  </div>
-</section>
 
-<!-- БАЗА ЗНАНИЙ XTIR -->
-<section class="hp-sec hp-dark home-section cv-auto">
-  <div class="hp-wrap hp-knowledge home-container" data-reveal>
-    <div class="hp-hd" data-reveal="2">
-      <div class="hp-kicker">База XTIR</div>
-      <h2 class="hp-title">Тексты из инженерного архива уже на сайте</h2>
-      <div class="hp-sub">Собрали ключевую фактуру по изделиям, возможностям и направлениям — без перегруза, но с полезной глубиной.</div>
-    </div>
+      <div class="hp-battle-metrics" data-reveal="2">
+        {
+          battleMetrics.map((metric) => (
+            <div class="hp-bm">
+              <strong>{metric.value}</strong>
+              <span>{metric.label}</span>
+            </div>
+          ))
+        }
+      </div>
 
-    <div class="hp-kgrid">
-      <article class="hp-kcard home-card home-card--hover" data-reveal="2">
-        <h3 class="hp-ktitle">Категории решений</h3>
-        <ul class="hp-klist">
-          {topCategoryCounts.map((category) => (
-            <li>
-              <span>{category.name}</span>
-              <strong>{category.total}</strong>
-            </li>
-          ))}
-        </ul>
-        <a href={withBase("/products/")} class="hp-lnk">Весь каталог →</a>
-      </article>
+      <div class="hp-battle-grid">
+        {
+          quickScenarioCards.map((card, idx) => (
+            <article
+              class="hp-bcard home-card home-card--hover"
+              data-reveal={String(idx + 2)}
+            >
+              <div class="hp-bcard-step">
+                {String(idx + 1).padStart(2, "0")}
+              </div>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+              <a
+                href={withBase(
+                  `/contact/?preset=${encodeURIComponent(card.preset)}`,
+                )}
+                class="hp-lnk"
+              >
+                Отправить вводные →
+              </a>
+            </article>
+          ))
+        }
+      </div>
 
-      <article class="hp-kcard home-card home-card--hover" data-reveal="3">
-        <h3 class="hp-ktitle">Ключевые возможности</h3>
-        <ul class="hp-kpoints">
-          {featureHighlights.map((feature) => (
-            <li>{feature}</li>
-          ))}
-        </ul>
-        <a href={withBase("/technologies/")} class="hp-lnk">Технологии →</a>
-      </article>
-
-      <article class="hp-kcard home-card home-card--hover" data-reveal="4">
-        <h3 class="hp-ktitle">В центре внимания</h3>
-        <div class="hp-kspots">
-          {spotlightProducts.map((product) => (
-            <a href={withBase(`/products/${product.slug}/`)} class="hp-kspot">
-              <div class="hp-kspot-title">{product.title}</div>
-              <div class="hp-kspot-desc">{excerpt(product.description)}</div>
-            </a>
-          ))}
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="hp-sec hp-dark home-section cv-auto" style="position:relative;overflow:hidden;">
-  <div class="hp-wrap hp-cta home-container" data-reveal>
-    <div class="hp-ctl" data-reveal="2">
-      <h2 class="hp-title">Готовы начать?</h2>
-      <div class="hp-sub">Опишите задачу — ответим быстро и по делу.</div>
-      <div class="hp-acts" style="margin-top:28px;">
-        <a href={withBase("/contact/")} class="home-btn home-btn--primary">Обсудить проект</a>
-        <a href={withBase("/products/")} class="home-btn home-btn--secondary">Каталог →</a>
+      <div class="hp-battle-steps" data-reveal="5">
+        {
+          executionSteps.map((item) => (
+            <article class="hp-bstep home-card">
+              <div class="hp-bstep-num">{item.step}</div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))
+        }
       </div>
     </div>
-    <div class="hp-ctr" data-reveal="3">
-      <a href="tel:+79154250095" class="hp-cnt"><span class="hp-cl">Телефон</span><span class="hp-cv">+7 (915) 425-00-95</span></a>
-      <a href="tel:+79162962469" class="hp-cnt"><span class="hp-cl">Доп. телефон</span><span class="hp-cv">+7 (916) 296-24-69</span></a>
-      <a href="mailto:info@xtir.ru" class="hp-cnt"><span class="hp-cl">Email</span><span class="hp-cv">info@xtir.ru</span></a>
-    </div>
-  </div>
-</section>
-</div>
+  </section>
 
+  <div class="hp-flow">
+    <!-- ПОЧЕМУ XTIR -->
+    <section class="hp-sec hp-darker home-section cv-auto">
+      <div class="hp-wrap hp-why home-container" data-reveal>
+        <div class="hp-wl" data-reveal="2">
+          <div class="hp-kicker">Почему XTIR</div>
+          <h2 class="hp-title">
+            Инженерный подход.<br />Предсказуемый результат.
+          </h2>
+          <div class="hp-sub">
+            20 лет в отрасли. Оборудование, которое реально работает не на
+            презентации, а на объекте.
+          </div>
+          <a href={withBase("/about/")} class="hp-lnk">О компании →</a>
+        </div>
+        <div class="hp-wr">
+          <div class="hp-wc home-card home-card--hover" data-reveal="2">
+            <span class="hp-wi hp-wi--design" aria-hidden="true"></span><div
+              class="hp-wt"
+            >
+              Проектирование
+            </div><div class="hp-wd">
+              Требования, расчёт, прототипирование, документация. Без догадок.
+            </div>
+          </div>
+          <div class="hp-wc home-card home-card--hover" data-reveal="3">
+            <span class="hp-wi hp-wi--factory" aria-hidden="true"></span><div
+              class="hp-wt"
+            >
+              Производство
+            </div><div class="hp-wd">
+              Сборка, контроль, повторяемость. Узлы рассчитаны на реальную
+              эксплуатацию.
+            </div>
+          </div>
+          <div class="hp-wc home-card home-card--hover" data-reveal="4">
+            <span class="hp-wi hp-wi--link" aria-hidden="true"></span><div
+              class="hp-wt"
+            >
+              Интеграции
+            </div><div class="hp-wd">
+              Связь, управление, сценарии. Подстраиваемся под объект и задачи
+              заказчика.
+            </div>
+          </div>
+          <div class="hp-wc home-card home-card--hover" data-reveal="5">
+            <span class="hp-wi hp-wi--support" aria-hidden="true"></span><div
+              class="hp-wt"
+            >
+              Поддержка
+            </div><div class="hp-wd">
+              Сопровождение, диагностика, обновления. 24/7.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section
+      class="hp-sec hp-dark home-section cv-auto"
+      style="position:relative;overflow:hidden;"
+    >
+      <div class="hp-wrap hp-cta home-container" data-reveal>
+        <div class="hp-ctl" data-reveal="2">
+          <h2 class="hp-title">Готовы начать?</h2>
+          <div class="hp-sub">Опишите задачу — ответим быстро и по делу.</div>
+          <div class="hp-acts" style="margin-top:28px;">
+            <a href={withBase("/contact/")} class="home-btn home-btn--primary"
+              >Обсудить проект</a
+            >
+            <a
+              href={withBase("/products/")}
+              class="home-btn home-btn--secondary">Каталог →</a
+            >
+          </div>
+        </div>
+        <div class="hp-ctr" data-reveal="3">
+          <a href="tel:+79154250095" class="hp-cnt"
+            ><span class="hp-cl">Телефон</span><span class="hp-cv"
+              >+7 (915) 425-00-95</span
+            ></a
+          >
+          <a href="tel:+79162962469" class="hp-cnt"
+            ><span class="hp-cl">Доп. телефон</span><span class="hp-cv"
+              >+7 (916) 296-24-69</span
+            ></a
+          >
+          <a href="mailto:info@xtir.ru" class="hp-cnt"
+            ><span class="hp-cl">Email</span><span class="hp-cv"
+              >info@xtir.ru</span
+            ></a
+          >
+        </div>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
 
 <style>
@@ -401,8 +235,16 @@ const executionSteps = [
     position: relative;
     overflow: clip;
     background:
-      radial-gradient(860px 420px at 50% 62%, rgba(82, 154, 255, 0.11), rgba(82, 154, 255, 0) 70%),
-      radial-gradient(620px 280px at 86% 22%, rgba(86, 109, 220, 0.08), rgba(86, 109, 220, 0) 72%),
+      radial-gradient(
+        740px 360px at 50% 50%,
+        rgba(82, 154, 255, 0.1),
+        rgba(82, 154, 255, 0) 72%
+      ),
+      radial-gradient(
+        520px 240px at 84% 20%,
+        rgba(86, 109, 220, 0.07),
+        rgba(86, 109, 220, 0) 74%
+      ),
       linear-gradient(180deg, #070d16 0%, #050a12 100%);
   }
   .hp-flow::before {
@@ -414,46 +256,100 @@ const executionSteps = [
       linear-gradient(rgba(120, 176, 255, 0.035) 1px, transparent 1px),
       linear-gradient(90deg, rgba(120, 176, 255, 0.03) 1px, transparent 1px);
     background-size: 58px 58px;
-    mask-image: linear-gradient(180deg, transparent 0%, black 18%, black 85%, transparent 100%);
+    mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      black 18%,
+      black 85%,
+      transparent 100%
+    );
     opacity: 0.42;
   }
   .hp-flow :global(.home-section + .home-section::before) {
     display: none;
   }
-  .hp-sec { padding-block: var(--home-section-space-y); }
-  .hp-dark { background: transparent; }
-  .hp-darker { background: transparent; border-top: 0; border-bottom: 0; }
-  .hp-wrap { width: min(var(--home-container), calc(100% - (var(--home-gutter) * 2))); margin: 0 auto; }
-  .hp-hd { margin-bottom: 44px; }
-  .hp-kicker { font-family: 'Courier New', monospace !important; font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: #00b3ff; opacity: .75; margin-bottom: 10px; }
+  .hp-sec {
+    padding-block: clamp(44px, 6vw, 72px);
+  }
+  .hp-dark {
+    background: transparent;
+  }
+  .hp-darker {
+    background: transparent;
+    border-top: 0;
+    border-bottom: 0;
+  }
+  .hp-wrap {
+    width: min(var(--home-container), calc(100% - (var(--home-gutter) * 2)));
+    margin: 0 auto;
+  }
+  .hp-hd {
+    margin-bottom: 30px;
+  }
+  .hp-kicker {
+    font-family: "Courier New", monospace !important;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #00b3ff;
+    opacity: 0.75;
+    margin-bottom: 10px;
+  }
 
   /* Перебиваем Tailwind заголовки */
   .hp-title {
     font-size: var(--home-h2) !important;
-    font-weight: 800 !important; line-height: 1.08 !important;
+    font-weight: 800 !important;
+    line-height: 1.08 !important;
     letter-spacing: -0.02em !important;
-    color: #ffffff !important; margin: 0 0 14px !important;
+    color: #ffffff !important;
+    margin: 0 0 14px !important;
     font-family: inherit !important;
     text-transform: none !important;
   }
   .hp-sub {
-    font-size: var(--home-body) !important; line-height: 1.65 !important;
-    color: var(--home-body-muted) !important; margin: 0 !important;
-    font-family: inherit !important; font-weight: normal !important;
+    font-size: var(--home-body) !important;
+    line-height: 1.65 !important;
+    color: var(--home-body-muted) !important;
+    margin: 0 !important;
+    font-family: inherit !important;
+    font-weight: normal !important;
     text-transform: none !important;
     max-width: 60ch;
   }
-  .hp-acts { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .hp-lnk { display: inline-block; margin-top: 24px; color: #00b3ff !important; text-decoration: none !important; font-weight: 600; transition: opacity .2s; }
-  .hp-lnk:hover { opacity: .7; }
+  .hp-acts {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hp-lnk {
+    display: inline-block;
+    margin-top: 16px;
+    color: #00b3ff !important;
+    text-decoration: none !important;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+  .hp-lnk:hover {
+    opacity: 0.7;
+  }
 
   /* Быстрый запуск */
   .hp-battle {
     padding-top: clamp(44px, 7vw, 70px);
     padding-bottom: clamp(44px, 7vw, 74px);
     background:
-      radial-gradient(560px 320px at 14% 30%, rgba(0, 179, 255, 0.12), transparent 72%),
-      radial-gradient(680px 380px at 88% 66%, rgba(95, 135, 255, 0.1), transparent 74%),
+      radial-gradient(
+        560px 320px at 14% 30%,
+        rgba(0, 179, 255, 0.12),
+        transparent 72%
+      ),
+      radial-gradient(
+        680px 380px at 88% 66%,
+        rgba(95, 135, 255, 0.1),
+        transparent 74%
+      ),
       linear-gradient(180deg, #07101a 0%, #060e18 100%);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -468,10 +364,14 @@ const executionSteps = [
     margin-bottom: 16px;
   }
   .hp-bm {
-    border: 1px solid rgba(255,255,255,0.12);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 14px;
     padding: 12px 14px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.015)
+    );
   }
   .hp-bm strong {
     display: block;
@@ -481,10 +381,10 @@ const executionSteps = [
     margin-bottom: 4px;
   }
   .hp-bm span {
-    font-family: 'Courier New', monospace;
-    font-size: .62rem;
+    font-family: "Courier New", monospace;
+    font-size: 0.62rem;
     text-transform: uppercase;
-    letter-spacing: .1em;
+    letter-spacing: 0.1em;
     color: rgba(172, 216, 255, 0.84);
   }
   .hp-battle-grid {
@@ -495,12 +395,16 @@ const executionSteps = [
   }
   .hp-bcard {
     padding: 16px;
-    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.016));
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.016)
+    );
   }
   .hp-bcard-step {
-    font-family: 'Courier New', monospace;
-    font-size: .63rem;
-    letter-spacing: .16em;
+    font-family: "Courier New", monospace;
+    font-size: 0.63rem;
+    letter-spacing: 0.16em;
     color: rgba(127, 208, 255, 0.9);
     margin-bottom: 8px;
   }
@@ -512,8 +416,8 @@ const executionSteps = [
   }
   .hp-bcard p {
     margin: 0;
-    color: rgba(255,255,255,0.72);
-    font-size: .86rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.86rem;
     line-height: 1.56;
   }
   .hp-bcard .hp-lnk {
@@ -526,70 +430,64 @@ const executionSteps = [
   }
   .hp-bstep {
     padding: 12px;
-    background: rgba(255,255,255,0.015);
+    background: rgba(255, 255, 255, 0.015);
   }
   .hp-bstep-num {
-    font-family: 'Courier New', monospace;
-    font-size: .6rem;
-    letter-spacing: .13em;
+    font-family: "Courier New", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
     color: rgba(173, 219, 255, 0.78);
     margin-bottom: 7px;
   }
   .hp-bstep h3 {
     margin: 0 0 5px;
-    font-size: .86rem;
+    font-size: 0.86rem;
     color: #fff;
   }
   .hp-bstep p {
     margin: 0;
-    font-size: .77rem;
+    font-size: 0.77rem;
     line-height: 1.5;
-    color: rgba(255,255,255,0.68);
+    color: rgba(255, 255, 255, 0.68);
   }
-
-  /* Карточки направлений */
-  .hp-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-  @media(max-width:900px){ .hp-cards{ grid-template-columns:1fr; } }
-
-  .hp-card {
-    overflow: hidden;
-    text-decoration: none !important; color: rgba(255,255,255,0.88) !important;
-    display: flex; flex-direction: column;
-  }
-  .hp-card-warm:hover { border-color: rgba(255,107,53,0.35); }
-
-  .hp-cimg { position: relative; aspect-ratio: 16/10; overflow: hidden; background: #0a0d12; border-bottom: 1px solid rgba(255,255,255,.08); }
-  .hp-cimg img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; opacity: .85; }
-  .hp-card:hover .hp-cimg img { transform: scale(1.06); opacity: 1; }
-  .hp-cimgo { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(10,13,18,0.85) 100%); }
-  .hp-cnum {
-    position: absolute; top: 12px; left: 12px;
-    font-family: 'Courier New', monospace; font-size: .62rem; color: #00b3ff;
-    background: rgba(0,0,0,0.65); border: 1px solid rgba(0,179,255,0.3);
-    padding: 3px 9px; border-radius: 2px; letter-spacing: .1em;
-  }
-  .hp-card-warm .hp-cnum { color: #ff6b35; border-color: rgba(255,107,53,0.3); }
-
-  .hp-cbody { padding: 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-  .hp-ct { font-size: 1.08rem !important; font-weight: 700 !important; color: #fff !important; font-family: inherit !important; text-transform: none !important; }
-  .hp-cd { font-size: .92rem !important; color: var(--home-body-muted) !important; line-height: 1.62; flex: 1; font-family: inherit !important; font-weight: normal !important; }
-  .hp-ctags { display: flex; gap: 6px; flex-wrap: wrap; }
-  .hp-ctags span { font-family: 'Courier New', monospace; font-size: .58rem; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.07); padding: 2px 8px; border-radius: 2px; }
-  .hp-cmore { font-size: .84rem !important; font-weight: 600 !important; color: #00b3ff !important; margin-top: 4px; font-family: inherit !important; }
-  .hp-cmore-warm { color: #ff6b35 !important; }
 
   /* Почему XTIR */
-  .hp-why { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-  @media(max-width:900px){ .hp-why{ grid-template-columns:1fr; gap:40px; } }
-  .hp-wr { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .hp-wc { padding: 22px; background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012)); }
+  .hp-why {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .hp-why {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+  .hp-wr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .hp-wc {
+    padding: 22px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.012)
+    );
+  }
   .hp-wi {
     width: 28px;
     height: 28px;
     border-radius: 8px;
     border: 1px solid rgba(138, 201, 255, 0.42);
-    background: linear-gradient(180deg, rgba(103, 164, 223, 0.2), rgba(103, 164, 223, 0.04));
+    background: linear-gradient(
+      180deg,
+      rgba(103, 164, 223, 0.2),
+      rgba(103, 164, 223, 0.04)
+    );
     margin-bottom: 10px;
     position: relative;
   }
@@ -626,8 +524,12 @@ const executionSteps = [
     border-radius: 99px;
     top: 9px;
   }
-  .hp-wi--link::before { left: 5px; }
-  .hp-wi--link::after { right: 5px; }
+  .hp-wi--link::before {
+    left: 5px;
+  }
+  .hp-wi--link::after {
+    right: 5px;
+  }
   .hp-wi--support::before {
     inset: 7px;
     border: 1px solid rgba(186, 228, 255, 0.9);
@@ -641,232 +543,90 @@ const executionSteps = [
     left: 9px;
     top: 9px;
   }
-  .hp-wt { font-size: .9rem !important; font-weight: 700 !important; color: #fff !important; margin-bottom: 7px; font-family: inherit !important; text-transform: none !important; }
-  .hp-wd { font-size: .83rem !important; color: rgba(255,255,255,0.45) !important; line-height: 1.6; font-family: inherit !important; font-weight: normal !important; }
-
-  /* Практика применения */
-  .hp-practice { display: grid; gap: 18px; }
-  .hp-pr-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-  }
-  .hp-pr-card {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .hp-pr-num {
-    font-family: 'Courier New', monospace;
-    font-size: .66rem;
-    color: rgba(0, 179, 255, 0.82);
-    letter-spacing: .14em;
-  }
-  .hp-pr-title {
-    margin: 0;
-    color: #fff;
-    font-size: 1rem;
-    line-height: 1.25;
-  }
-  .hp-pr-text {
-    margin: 0;
-    color: rgba(255,255,255,0.7);
-    font-size: .86rem;
-    line-height: 1.62;
-    flex: 1;
-  }
-  .hp-pr-specs {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 7px;
-  }
-  .hp-pr-specs li {
-    display: grid;
-    gap: 3px;
-    padding: 8px 10px;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 10px;
-    background: rgba(255,255,255,0.02);
-  }
-  .hp-pr-specs span {
-    font-family: 'Courier New', monospace;
-    font-size: .62rem;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: rgba(170, 211, 255, 0.74);
-  }
-  .hp-pr-specs strong {
-    font-size: .82rem;
-    color: rgba(255,255,255,0.86);
-    line-height: 1.42;
-  }
-  .hp-pr-panel {
-    padding: 20px;
-    background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.012));
-  }
-  .hp-pr-panel-title {
-    margin: 0 0 10px;
-    color: #fff;
-    font-size: 1.02rem;
-  }
-  .hp-pr-list {
-    margin: 0;
-    padding: 0 0 0 18px;
-    display: grid;
-    gap: 6px;
-    color: rgba(255,255,255,0.74);
-    font-size: .86rem;
-    line-height: 1.55;
-  }
-  .hp-pr-actions {
-    margin-top: 14px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  /* CTA */
-  .hp-cta { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; }
-  @media(max-width:768px){ .hp-cta{ grid-template-columns:1fr; gap:36px; } }
-  .hp-ctr { display: flex; flex-direction: column; gap: 20px; }
-  .hp-cnt { display: flex; flex-direction: column; gap: 3px; text-decoration: none !important; transition: opacity .2s; padding: 10px 12px; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; background: rgba(255,255,255,.02); }
-  .hp-cnt:hover { opacity: .7; }
-  .hp-cl { font-family: 'Courier New', monospace !important; font-size: .62rem; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,0.4); }
-  .hp-cv { font-size: 1.08rem !important; font-weight: 700 !important; color: #fff !important; font-family: inherit !important; }
-
-  /* База знаний */
-  .hp-knowledge { position: relative; }
-  .hp-kgrid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-  }
-  .hp-kcard {
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hp-kcard::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity .24s ease;
-    background: radial-gradient(320px circle at 10% 0%, rgba(130, 205, 255, 0.16), transparent 62%);
-  }
-  .hp-kcard:hover::after {
-    opacity: 1;
-  }
-  .hp-ktitle {
-    margin: 0;
-    font-size: 1.02rem !important;
+  .hp-wt {
+    font-size: 0.9rem !important;
     font-weight: 700 !important;
     color: #fff !important;
+    margin-bottom: 7px;
     font-family: inherit !important;
     text-transform: none !important;
   }
-  .hp-klist,
-  .hp-kpoints {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 8px;
-  }
-  .hp-klist li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    font-size: .88rem !important;
-    color: rgba(255,255,255,0.82) !important;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    padding-bottom: 7px;
-  }
-  .hp-klist li strong {
-    font-family: 'Courier New', monospace;
-    font-size: .74rem;
-    color: #00b3ff;
-    letter-spacing: .06em;
-  }
-  .hp-kpoints li {
-    position: relative;
-    padding-left: 12px;
-    font-size: .85rem !important;
-    line-height: 1.5 !important;
-    color: rgba(255,255,255,0.74) !important;
-  }
-  .hp-kpoints li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.58em;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: rgba(90, 212, 255, 0.9);
-    box-shadow: 0 0 10px rgba(90, 212, 255, 0.45);
-  }
-  .hp-kspots {
-    display: grid;
-    gap: 10px;
-  }
-  .hp-kspot {
-    display: block;
-    text-decoration: none !important;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    background: rgba(255,255,255,0.02);
-    padding: 12px;
-    transition: border-color .22s ease, background .22s ease, transform .22s ease, box-shadow .22s ease;
-  }
-  .hp-kspot:hover {
-    border-color: rgba(90, 212, 255, 0.35);
-    background: rgba(255,255,255,0.04);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.28);
-  }
-  .hp-kspot-title {
-    font-size: .88rem !important;
-    font-weight: 700 !important;
-    color: #fff !important;
-    margin-bottom: 4px;
-  }
-  .hp-kspot-desc {
-    font-size: .78rem !important;
-    line-height: 1.5 !important;
-    color: rgba(255,255,255,0.68) !important;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hp-kcard::after,
-    .hp-kspot {
-      transition: none !important;
-    }
-    .hp-kspot:hover {
-      transform: none;
-      box-shadow: none;
-    }
-  }
-  @media(max-width:900px){
-    .hp-hd { margin-bottom: 28px; }
-    .hp-battle-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .hp-battle-grid { grid-template-columns: 1fr; }
-    .hp-battle-steps { grid-template-columns: 1fr; }
-    .hp-wr { grid-template-columns: 1fr; }
-    .hp-cbody { padding: 18px; }
-    .hp-sec { padding-block: clamp(52px, 10vw, 76px); }
-    .hp-cnt { padding: 10px 0; }
-    .hp-pr-grid { grid-template-columns: 1fr; }
-    .hp-kgrid { grid-template-columns: 1fr; }
-    .hp-kcard { padding: 18px; }
+  .hp-wd {
+    font-size: 0.83rem !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+    line-height: 1.6;
+    font-family: inherit !important;
+    font-weight: normal !important;
   }
 
+  /* CTA */
+  .hp-cta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 42px;
+    align-items: center;
+    position: relative;
+  }
+  @media (max-width: 768px) {
+    .hp-cta {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+  }
+  .hp-ctr {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .hp-cnt {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    text-decoration: none !important;
+    transition: opacity 0.2s;
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .hp-cnt:hover {
+    opacity: 0.7;
+  }
+  .hp-cl {
+    font-family: "Courier New", monospace !important;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.4);
+  }
+  .hp-cv {
+    font-size: 1.08rem !important;
+    font-weight: 700 !important;
+    color: #fff !important;
+    font-family: inherit !important;
+  }
+
+  @media (max-width: 900px) {
+    .hp-hd {
+      margin-bottom: 28px;
+    }
+    .hp-battle-metrics {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .hp-battle-grid {
+      grid-template-columns: 1fr;
+    }
+    .hp-battle-steps {
+      grid-template-columns: 1fr;
+    }
+    .hp-wr {
+      grid-template-columns: 1fr;
+    }
+    .hp-sec {
+      padding-block: clamp(38px, 9vw, 58px);
+    }
+    .hp-cnt {
+      padding: 10px 0;
+    }
+  }
 </style>

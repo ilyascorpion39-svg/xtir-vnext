@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { SITE, withBase } from "@/site";
 
 const navItems = [
-  { name: 'Главная', href: '/' },
-  { name: 'Мишенные системы', href: '/products/' },
-  { name: 'Документы', href: '/docs/' },
-  { name: 'Наше фото', href: '/gallery/' },
-  { name: 'Партнёры', href: '/partners/' },
-  { name: 'О компании', href: '/about/' },
-  { name: 'Контакты', href: '/contact/' },
+  { name: "Главная", href: "/" },
+  { name: "Мишенные системы", href: "/products/" },
+  { name: "Документы", href: "/docs/" },
+  { name: "Наше фото", href: "/gallery/" },
+  { name: "Партнёры", href: "/partners/" },
+  { name: "О компании", href: "/about/" },
+  { name: "Контакты", href: "/contact/" },
 ];
 
 const socialLinks = [
@@ -39,7 +38,6 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState("/");
-  const reduceMotion = useReducedMotion();
   const mobileMenuId = "xtir-mobile-menu";
 
   useEffect(() => {
@@ -69,20 +67,20 @@ export default function Header() {
   }, []);
 
   return (
-    <motion.header
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-dark-900/90 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,0.24)]"
           : "bg-dark-900/70 backdrop-blur-lg"
       }`}
-      initial={false}
-      animate={reduceMotion ? undefined : { y: 0 }}
-      transition={reduceMotion ? { duration: 0 } : { duration: 0.6 }}
     >
       <nav className="xtir-container" aria-label="Основная навигация">
         <div className="flex items-center justify-between h-[74px] md:h-20 gap-4">
           {/* Logo */}
-          <a href={withBase("/")} className="flex shrink-0 items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-lg">
+          <a
+            href={withBase("/")}
+            className="flex shrink-0 items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-lg"
+          >
             <img
               src={withBase("/images/logo.png")}
               srcSet={`${withBase("/images/logo.png")} 1x, ${withBase("/images/xtir-logo@2x.png")} 2x`}
@@ -97,13 +95,14 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex flex-1 items-center justify-center gap-7 xl:gap-8">
-            {navItems.map((item) => (
+            {navItems.map((item) =>
               (() => {
                 const href = withBase(item.href);
                 const normalizedHref = href.replace(/\/+$/, "") || "/";
                 const isActive =
                   currentPath === normalizedHref ||
-                  (normalizedHref !== "/" && currentPath.startsWith(`${normalizedHref}/`));
+                  (normalizedHref !== "/" &&
+                    currentPath.startsWith(`${normalizedHref}/`));
 
                 return (
                   <a
@@ -115,20 +114,18 @@ export default function Header() {
                     aria-current={isActive ? "page" : undefined}
                   >
                     {item.name}
-                    <span className={`absolute bottom-[10px] left-0 h-0.5 bg-primary-300 transition-all duration-300 ${
-                      isActive ? "w-full" : "w-0 group-hover:w-full"
-                    }`}></span>
+                    <span className="absolute bottom-[10px] left-0 h-0.5 w-0 bg-primary-300 transition-all duration-300 group-hover:w-full"></span>
                   </a>
                 );
-              })()
-            ))}
+              })(),
+            )}
           </div>
 
           {/* Actions (social + CTA) */}
           <div className="hidden lg:flex shrink-0 items-center gap-2">
             <div className="flex items-center gap-2">
               {socialLinks.map((s) => (
-                <motion.a
+                <a
                   key={s.name}
                   href={s.href}
                   target="_blank"
@@ -136,8 +133,6 @@ export default function Header() {
                   className="w-10 h-10 rounded-xl xtir-card xtir-card--hover flex items-center justify-center hover:border-primary-400 transition-all group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400"
                   aria-label={s.name}
                   title={s.name}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
                 >
                   <svg
                     className="w-5 h-5 text-white/70 group-hover:text-primary-300 transition-colors"
@@ -147,7 +142,7 @@ export default function Header() {
                   >
                     <path d={s.icon} />
                   </svg>
-                </motion.a>
+                </a>
               ))}
             </div>
             <a
@@ -159,18 +154,23 @@ export default function Header() {
           </div>
 
           {/* Mobile Menu Button */}
-          <motion.button
+          <button
             className="lg:hidden w-11 h-11 flex flex-col items-center justify-center space-y-1.5 group rounded-lg border border-white/10 bg-white/[0.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            whileTap={{ scale: 0.95 }}
             aria-label="Открыть меню"
             aria-expanded={isMobileMenuOpen}
             aria-controls={mobileMenuId}
           >
-            <span className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
-            <span className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`}></span>
-            <span className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}></span>
-          </motion.button>
+            <span
+              className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}
+            ></span>
+            <span
+              className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`}
+            ></span>
+            <span
+              className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+            ></span>
+          </button>
         </div>
       </nav>
       <div
@@ -189,51 +189,50 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            id={mobileMenuId}
-            className="lg:hidden absolute top-full left-0 right-0 bg-dark-900/97 backdrop-blur-xl border-t border-white/12"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <nav className="xtir-container py-5 space-y-3">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={withBase(item.href)}
-                  className="block py-3 text-base text-white/82 hover:text-white transition-colors border-b border-white/10 last:border-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </a>
-              ))}
-              <div className="pt-4 space-y-3">
-                <div className="flex items-center justify-center gap-3">
-                  {socialLinks.map((s) => (
-                    <a
-                      key={s.name}
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={s.name}
-                      title={s.name}
-                      className="w-11 h-11 rounded-xl xtir-card xtir-card--hover flex items-center justify-center hover:border-primary-400 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400"
-                      onClick={() => setIsMobileMenuOpen(false)}
+      {isMobileMenuOpen && (
+        <div
+          id={mobileMenuId}
+          className="lg:hidden absolute top-full left-0 right-0 bg-dark-900/97 backdrop-blur-xl border-t border-white/12"
+        >
+          <nav className="xtir-container py-5 space-y-3">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={withBase(item.href)}
+                className="block py-3 text-base text-white/82 hover:text-white transition-colors border-b border-white/10 last:border-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.name}
+              </a>
+            ))}
+            <div className="pt-4 space-y-3">
+              <div className="flex items-center justify-center gap-3">
+                {socialLinks.map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.name}
+                    title={s.name}
+                    className="w-11 h-11 rounded-xl xtir-card xtir-card--hover flex items-center justify-center hover:border-primary-400 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <svg
+                      className="w-5 h-5 text-white/80"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
                     >
-                      <svg className="w-5 h-5 text-white/80" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d={s.icon} />
-                      </svg>
-                    </a>
-                  ))}
-                </div>
+                      <path d={s.icon} />
+                    </svg>
+                  </a>
+                ))}
               </div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+            </div>
+          </nav>
+        </div>
+      )}
+    </header>
   );
 }
