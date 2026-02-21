@@ -86,14 +86,12 @@ async function main() {
   const optimized = results.filter((r) => !r.skipped);
   const skipped = results.filter((r) => r.skipped);
 
-  // eslint-disable-next-line no-console
   console.log(
     `[optimize-images] done. optimized=${optimized.length} skipped=${skipped.length}`,
   );
 }
 
 main().catch((err) => {
-  // eslint-disable-next-line no-console
   console.error(err);
   process.exit(1);
 });

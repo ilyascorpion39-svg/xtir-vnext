@@ -21,7 +21,41 @@ export type SiteConfig = {
   galleryUrl: string;
 };
 
+type MaybeString = string | undefined;
+
+const trimOrFallback = (value: MaybeString, fallback: string): string => {
+  const normalized = value?.trim();
+  return normalized && normalized.length > 0 ? normalized : fallback;
+};
+
+const trimOptional = (value: MaybeString): string | undefined => {
+  const normalized = value?.trim();
+  return normalized && normalized.length > 0 ? normalized : undefined;
+};
+
+const stripTrailingSlash = (value: string): string => value.replace(/\/+$/, "");
+
 export const BASE_URL = (import.meta.env.BASE_URL ?? "/") as string;
+
+const WEBSITE_URL = stripTrailingSlash(
+  trimOrFallback(import.meta.env.PUBLIC_SITE_URL, "https://x-tir.ru"),
+);
+const TELEGRAM_URL = trimOrFallback(
+  import.meta.env.PUBLIC_TELEGRAM_CHANNEL_URL ?? import.meta.env.PUBLIC_TELEGRAM,
+  "https://t.me/xtirofficial",
+);
+const VK_URL = trimOrFallback(
+  import.meta.env.PUBLIC_VK_CHANNEL_URL ?? import.meta.env.PUBLIC_VK,
+  "https://vk.com/xtirofficial",
+);
+const YOUTUBE_URL = trimOrFallback(
+  import.meta.env.PUBLIC_YOUTUBE_CHANNEL_URL ?? import.meta.env.PUBLIC_YOUTUBE,
+  "https://youtube.com/@XTIRofficial",
+);
+const RUTUBE_URL = trimOrFallback(
+  import.meta.env.PUBLIC_RUTUBE_CHANNEL_URL,
+  "https://rutube.ru/channel/61475514/",
+);
 
 export function withBase(path: string): string {
   if (!path) return BASE_URL;
@@ -48,24 +82,26 @@ export function toWebp(path: string): string {
 export const SITE: SiteConfig = {
   name: "XTIR",
   tagline: "Точность технологий",
-  description:
+  description: trimOrFallback(
+    import.meta.env.PUBLIC_SITE_DESCRIPTION,
     "Разработка и производство электронно-механического оборудования для стрельбы. Современные решения для профессиональной подготовки.",
+  ),
   locale: "ru-RU",
 
-  websiteUrl: "https://x-tir.ru",
-  contactEmail: "info@xtir.ru",
-  phonePrimary: "+7 (915) 425-00-95",
-  phoneSecondary: "+7 (916) 296-24-69",
+  websiteUrl: WEBSITE_URL,
+  contactEmail: trimOrFallback(import.meta.env.PUBLIC_CONTACT_EMAIL, "info@xtir.ru"),
+  phonePrimary: trimOrFallback(import.meta.env.PUBLIC_CONTACT_PHONE_1, "+7 (915) 425-00-95"),
+  phoneSecondary: trimOptional(import.meta.env.PUBLIC_CONTACT_PHONE_2) ?? "+7 (916) 296-24-69",
 
-  telegramChannelUrl: "https://t.me/xtirofficial",
-  vkChannelUrl: "https://vk.com/xtirofficial",
-  youtubeChannelUrl: "https://youtube.com/@XTIRofficial",
-  rutubeChannelUrl: "https://rutube.ru/channel/61475514/",
+  telegramChannelUrl: TELEGRAM_URL,
+  vkChannelUrl: VK_URL,
+  youtubeChannelUrl: YOUTUBE_URL,
+  rutubeChannelUrl: RUTUBE_URL,
 
   orderCtaText: "Обсудить проект",
   orderCtaHref: "/contact/",
 
-  partnersHubUrl: "/partners",
-  galleryUrl: "/gallery",
+  partnersHubUrl: "/partners/",
+  galleryUrl: "/gallery/",
 };
 

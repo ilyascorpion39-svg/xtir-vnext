@@ -4,8 +4,8 @@
 
 ## Технологии
 
-- **Astro 4** — статическая генерация
-- **React 18** — интерактивные компоненты
+- **Astro 5** — статическая генерация
+- **React 19** — интерактивные компоненты
 - **TypeScript** — типизация
 - **Tailwind CSS** — стили
 - **Framer Motion** — анимации
@@ -57,7 +57,7 @@ scripts/
 
 GitHub Actions → GitHub Pages автоматически при push в `main`.
 
-Продакшн: **https://xtir.ru**
+Продакшн: **https://x-tir.ru**
 
 ### Прод-деплой на x-tir.ru (SSH)
 

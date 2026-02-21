@@ -92,9 +92,30 @@ async function run() {
     }
 
     await page.goto(`${BASE_URL}/`, { waitUntil: "networkidle" });
-    const stripes = await page.locator('header div[aria-hidden="true"] > span').count();
-    if (stripes !== 3) {
-      throw new Error(`Header tricolor check failed. Expected 3 stripes, got ${stripes}`);
+    const stripeContainer = page.locator('header div[aria-hidden="true"]');
+    if ((await stripeContainer.count()) !== 1) {
+      throw new Error("Header tricolor container is missing");
+    }
+
+    const stripeSegments = page.locator('header div[aria-hidden="true"] > span');
+    const segmentCount = await stripeSegments.count();
+    if (segmentCount === 3) {
+      // Legacy implementation: 3 explicit stripe segments
+    } else if (segmentCount === 1) {
+      // Current implementation: one span with tricolor gradient
+      const gradient = await stripeSegments.first().evaluate((el) =>
+        window.getComputedStyle(el).backgroundImage,
+      );
+      const hasGradient = gradient.includes("linear-gradient");
+      const hasBlue = gradient.includes("121, 152, 220");
+      const hasRed = gradient.includes("170, 84, 94");
+      if (!(hasGradient && hasBlue && hasRed)) {
+        throw new Error(`Header tricolor gradient check failed: ${gradient}`);
+      }
+    } else {
+      throw new Error(
+        `Header tricolor check failed. Expected 1 or 3 stripe spans, got ${segmentCount}`,
+      );
     }
 
     const skipLinkCount = await page.locator('a[href="#main-content"]').count();

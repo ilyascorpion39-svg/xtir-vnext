@@ -1,11 +1,13 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SITE, withBase } from '@/site';
 
-const SITE_URL = 'https://ilyascorpion39-svg.github.io/xtir-vnext';
+const SITE_URL = (import.meta.env.SITE as string | undefined) ?? SITE.websiteUrl;
 
 function getFileUrl(file: string, type: string): string {
-  if (type === 'PDF') return file;
-  return `https://docs.google.com/viewer?url=${encodeURIComponent(SITE_URL + file)}&embedded=true`;
+  const assetUrl = new URL(withBase(file), SITE_URL).toString();
+  if (type === 'PDF') return withBase(file);
+  return `https://docs.google.com/viewer?url=${encodeURIComponent(assetUrl)}&embedded=true`;
 }
 
 const categories = [
@@ -142,7 +144,7 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
                   ) : (
                     <button
                       class="doc-btn doc-btn--request"
-                      onclick={`openRequest('${doc.title}')`}
+                      onclick={`openRequest(${JSON.stringify(doc.title)})`}
                     >
                       Запросить
                     </button>
@@ -204,13 +206,21 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
   </main>
 </BaseLayout>
 
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
-  <div class="modal" data-stop-propagation>
-    <button class="modal-close" onclick="closeModal()">✕</button>
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()" aria-hidden="true">
+  <div
+    class="modal"
+    data-stop-propagation
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+    aria-describedby="modal-description"
+    tabindex="-1"
+  >
+    <button class="modal-close" onclick="closeModal()" aria-label="Закрыть окно">✕</button>
     <div class="modal-icon" aria-hidden="true"></div>
-    <h3 class="modal-title">Запрос документа</h3>
+    <h3 class="modal-title" id="modal-title">Запрос документа</h3>
     <p class="modal-doc" id="modal-doc-name"></p>
-    <p class="modal-text">Введите email — пришлём документ в течение суток.</p>
+    <p class="modal-text" id="modal-description">Введите email — пришлём документ в течение суток.</p>
     <input type="email" class="form-input" id="modal-email" placeholder="your@email.ru"/>
     <button class="form-submit" onclick="submitQuickRequest()" style="width:100%;margin-top:12px;">
       <span>Получить документ</span>
@@ -219,17 +229,81 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
 </div>
 
 <script>
-  function openRequest(docName: string) {
+  let lastFocusedElement: HTMLElement | null = null;
+
+  const getModalParts = () => {
     const overlay = document.getElementById('modal-overlay');
+    const modal = overlay?.querySelector('.modal') as HTMLElement | null;
+    return { overlay, modal };
+  };
+
+  const getFocusableElements = (root: Element): HTMLElement[] =>
+    Array.from(
+      root.querySelectorAll<HTMLElement>(
+        'a[href], area[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ),
+    );
+
+  const trapModalFocus = (event: KeyboardEvent) => {
+    const { overlay } = getModalParts();
+    if (!overlay?.classList.contains('active')) return;
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeModal();
+      return;
+    }
+
+    if (event.key !== 'Tab') return;
+    const focusable = getFocusableElements(overlay);
+    if (focusable.length === 0) {
+      event.preventDefault();
+      return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const active = document.activeElement as HTMLElement | null;
+
+    if (event.shiftKey && active === first) {
+      event.preventDefault();
+      last.focus();
+      return;
+    }
+
+    if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
+
+  function openRequest(docName: string) {
+    const { overlay, modal } = getModalParts();
     const docNameEl = document.getElementById('modal-doc-name');
     const docInput = document.getElementById('doc-name') as HTMLInputElement | null;
     if (docNameEl) docNameEl.textContent = '«' + docName + '»';
     if (docInput) docInput.value = docName;
-    if (overlay) overlay.classList.add('active');
+    if (!overlay) return;
+
+    lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    overlay.classList.add('active');
+    overlay.setAttribute('aria-hidden', 'false');
+
+    const emailInput = document.getElementById('modal-email') as HTMLInputElement | null;
+    setTimeout(() => {
+      if (emailInput) emailInput.focus();
+      else modal?.focus();
+    }, 0);
   }
+
   function closeModal() {
-    document.getElementById('modal-overlay')?.classList.remove('active');
+    const { overlay } = getModalParts();
+    if (!overlay) return;
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden', 'true');
+    lastFocusedElement?.focus();
   }
+
   function submitQuickRequest() {
     const email = (document.getElementById('modal-email') as HTMLInputElement)?.value;
     if (!email) { alert('Введите email'); return; }
@@ -251,22 +325,23 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
   w.openRequest = openRequest;
   w.closeModal = closeModal;
   w.submitQuickRequest = submitQuickRequest;
-  document.getElementById('doc-request-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    showToast('✓ Запрос отправлен! Ответим в течение суток.');
-  });
-</script>
 
-<script is:inline>
-  (() => {
-    const init = () => {
-      document.querySelectorAll('[data-stop-propagation]').forEach((el) => {
-        el.addEventListener('click', (ev) => ev.stopPropagation());
-      });
-    };
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
-    else init();
-  })();
+  const init = () => {
+    document.querySelectorAll('[data-stop-propagation]').forEach((el) => {
+      el.addEventListener('click', (ev) => ev.stopPropagation());
+    });
+    document.addEventListener('keydown', trapModalFocus);
+    document.getElementById('doc-request-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      showToast('✓ Запрос отправлен! Ответим в течение суток.');
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
 </script>
 
 <style>
