@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/sections/Hero.astro';
+import TacticalProductGrid from '@/components/sections/TacticalProductGrid.astro';
 import { withBase } from '@/site';
 import { PRODUCTS, PRODUCT_CATEGORIES } from '@/data/products';
 import { deriveProductSpecs } from '@/utils/productSpecs';
@@ -131,6 +132,7 @@ const executionSteps = [
 >
 
 <Hero />
+<TacticalProductGrid />
 
 <section class="hp-sec hp-battle home-section cv-auto">
   <div class="hp-wrap home-container" data-reveal>

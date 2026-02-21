@@ -19,7 +19,7 @@
     --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.45);
     --xtir-container: 1200px;
     --xtir-gutter: 24px;
-    --xtir-section-space-y: clamp(56px, 8vw, 96px);
+    --xtir-section-space-y: clamp(38px, 5.2vw, 66px);
     --xtir-h1: clamp(2rem, 4vw, 3.4rem);
     --xtir-h2: clamp(1.65rem, 3vw, 2.6rem);
     --xtir-body: clamp(1rem, 1.25vw, 1.08rem);
@@ -77,11 +77,21 @@
   }
 
   body .hp-hero {
-    min-height: calc(100vh - var(--xtir-header-offset));
+    min-height: clamp(620px, 84vh, 820px);
   }
 
   body .hp-hero .hp-body {
-    padding-top: clamp(10px, 2vh, 20px);
+    padding-top: clamp(16px, 3vh, 30px);
+  }
+
+  @media (max-width: 640px) {
+    body .hp-hero {
+      min-height: clamp(520px, 72vh, 680px);
+    }
+
+    body .hp-hero .hp-body {
+      padding-top: clamp(12px, 2.4vh, 20px);
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -522,7 +532,7 @@
   @media (max-width: 640px) {
     :root {
       --xtir-gutter: 16px;
-      --xtir-section-space-y: clamp(42px, 9vw, 64px);
+      --xtir-section-space-y: clamp(30px, 8vw, 48px);
     }
 
     .xtir-btn,
