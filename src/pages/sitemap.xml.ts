@@ -24,20 +24,24 @@ const staticRoutes = [
 
 const productRoutes = PRODUCTS.map((p) => `/products/${p.slug}/`);
 
-const partnerRoutes = [
-  "/partners/reb-zont/",
-  ...partners
-    .map((p) => p.slug)
-    .filter((slug) => slug && slug !== "reb-zont")
-    .map((slug) => `/partners/${slug}/`),
-];
+const partnerRoutes = Array.from(
+  new Set(
+    partners
+      .map(
+        (partner) => partner.pageHref?.trim() || `/partners/${partner.slug}/`,
+      )
+      .filter(Boolean),
+  ),
+);
 
-const SITE_ORIGIN = (import.meta.env.SITE as string | undefined) ?? SITE.websiteUrl;
+const SITE_ORIGIN =
+  (import.meta.env.SITE as string | undefined) ?? SITE.websiteUrl;
 const toUrl = (path: string) => new URL(path, SITE_ORIGIN).toString();
 
 const urls = [...staticRoutes, ...productRoutes, ...partnerRoutes].map(toUrl);
 
-const body = `<?xml version="1.0" encoding="UTF-8"?>\n` +
+const body =
+  `<?xml version="1.0" encoding="UTF-8"?>\n` +
   `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
   urls.map((loc) => `  <url><loc>${loc}</loc></url>`).join("\n") +
   `\n</urlset>\n`;

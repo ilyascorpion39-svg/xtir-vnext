@@ -4,7 +4,7 @@ import { SITE, withBase } from "@/site";
 const navItems = [
   { name: "Главная", href: "/" },
   { name: "Мишенные установки", href: "/products/" },
-  { name: "Партнёры", href: "/partners/" },
+  { name: "Партнёры", href: "/partners/reb-zont/" },
   { name: "Наше фото", href: "/gallery/" },
   { name: "Документы", href: "/docs/" },
   { name: "О компании", href: "/about/" },

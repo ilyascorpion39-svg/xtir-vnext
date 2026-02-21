@@ -1,49 +1,93 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import { SITE, withBase } from '@/site';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { withBase } from "@/site";
 
 // Файлы партнёра из архива
 const photos = [
-  { src: '/xtir-archive/Партнеры/Войсковая часть 45377.jpg', caption: 'Войсковая часть 45377' },
-  { src: '/xtir-archive/Партнеры/детектор-рэб-рюкзак (2).jpeg', caption: 'Детектор РЭБ — рюкзачный вариант' },
-  { src: '/xtir-archive/Партнеры/ЗОНТ на танке.jpg', caption: 'ЗОНТ на танке' },
-  { src: '/xtir-archive/Партнеры/крепление на автомобиль (2).jpeg', caption: 'Крепление на автомобиль' },
-  { src: '/xtir-archive/Партнеры/направленный с фоном.jpg', caption: 'Направленный комплекс' },
-  { src: '/xtir-archive/Партнеры/направленный+детекция+xxxl.jpg', caption: 'Направленный + детекция XXXL' },
-  { src: '/xtir-archive/Партнеры/новый рюкзак с детекцией.jpeg', caption: 'Новый рюкзак с детекцией' },
-  { src: '/xtir-archive/Партнеры/От отряда спецназа гвардии.jpg', caption: 'Отзыв отряда спецназа гвардии' },
+  {
+    src: "/xtir-archive/Партнеры/Войсковая часть 45377.jpg",
+    caption: "Войсковая часть 45377",
+  },
+  {
+    src: "/xtir-archive/Партнеры/детектор-рэб-рюкзак (2).jpeg",
+    caption: "Детектор РЭБ — рюкзачный вариант",
+  },
+  { src: "/xtir-archive/Партнеры/ЗОНТ на танке.jpg", caption: "ЗОНТ на танке" },
+  {
+    src: "/xtir-archive/Партнеры/крепление на автомобиль (2).jpeg",
+    caption: "Крепление на автомобиль",
+  },
+  {
+    src: "/xtir-archive/Партнеры/направленный с фоном.jpg",
+    caption: "Направленный комплекс",
+  },
+  {
+    src: "/xtir-archive/Партнеры/направленный+детекция+xxxl.jpg",
+    caption: "Направленный + детекция XXXL",
+  },
+  {
+    src: "/xtir-archive/Партнеры/новый рюкзак с детекцией.jpeg",
+    caption: "Новый рюкзак с детекцией",
+  },
+  {
+    src: "/xtir-archive/Партнеры/От отряда спецназа гвардии.jpg",
+    caption: "Отзыв отряда спецназа гвардии",
+  },
 ];
 
 const docs = [
-  { src: '/xtir-archive/Партнеры/каталог (2).pdf', title: 'Каталог продукции', icon: 'catalog' },
-  { src: '/xtir-archive/Партнеры/Письмо ВПК Доскалов.pdf', title: 'Письмо ВПК Доскалов', icon: 'letter' },
-  { src: '/xtir-archive/Партнеры/презентация_БТ -ЗОНТ.pdf', title: 'Презентация БТ-ЗОНТ', icon: 'presentation' },
-  { src: '/xtir-archive/Партнеры/РЭБ_ЗОНТ_ИТОГОВЫЙ_ПРОТОКОЛ_НИИИ_РЭБ_г_ВОРОНЕЖ.pdf', title: 'Протокол испытаний НИИИ РЭБ, г. Воронеж', icon: 'protocol' },
-  { src: '/xtir-archive/Партнеры/Сертификат_соответствия_РЭБ_ЗОНТ.pdf', title: 'Сертификат соответствия', icon: 'cert' },
+  {
+    src: "/xtir-archive/Партнеры/каталог (2).pdf",
+    title: "Каталог продукции",
+    icon: "catalog",
+  },
+  {
+    src: "/xtir-archive/Партнеры/Письмо ВПК Доскалов.pdf",
+    title: "Письмо ВПК Доскалов",
+    icon: "letter",
+  },
+  {
+    src: "/xtir-archive/Партнеры/презентация_БТ -ЗОНТ.pdf",
+    title: "Презентация БТ-ЗОНТ",
+    icon: "presentation",
+  },
+  {
+    src: "/xtir-archive/Партнеры/РЭБ_ЗОНТ_ИТОГОВЫЙ_ПРОТОКОЛ_НИИИ_РЭБ_г_ВОРОНЕЖ.pdf",
+    title: "Протокол испытаний НИИИ РЭБ, г. Воронеж",
+    icon: "protocol",
+  },
+  {
+    src: "/xtir-archive/Партнеры/Сертификат_соответствия_РЭБ_ЗОНТ.pdf",
+    title: "Сертификат соответствия",
+    icon: "cert",
+  },
 ];
 
-const photosWithBase = photos.map((photo) => ({ ...photo, src: withBase(photo.src) }));
+const photosWithBase = photos.map((photo) => ({
+  ...photo,
+  src: withBase(photo.src),
+}));
 const docsWithBase = docs.map((doc) => ({ ...doc, src: withBase(doc.src) }));
 const photoCount = photosWithBase.length;
 const docsCount = docsWithBase.length;
 const proofDocs = docsWithBase.filter((doc) =>
-  /протокол|сертификат|впк/i.test(doc.title)
+  /протокол|сертификат|впк/i.test(doc.title),
 );
 const scenarioCards = [
   {
-    title: 'Защита бронетехники',
-    text: 'Интеграция комплексов на бронеплатформах для подавления каналов управления и навигации БПЛА.',
-    tag: 'Техника',
+    title: "Защита бронетехники",
+    text: "Интеграция комплексов на бронеплатформах для подавления каналов управления и навигации БПЛА.",
+    tag: "Техника",
   },
   {
-    title: 'Мобильные группы',
-    text: 'Рюкзачные и автомобильные конфигурации для оперативного развёртывания в полевых условиях.',
-    tag: 'Мобильность',
+    title: "Мобильные группы",
+    text: "Рюкзачные и автомобильные конфигурации для оперативного развёртывания в полевых условиях.",
+    tag: "Мобильность",
   },
   {
-    title: 'Стационарные объекты',
-    text: 'Купольная защита инфраструктуры с адаптацией мощности и диапазонов под профиль объекта.',
-    tag: 'Инфраструктура',
+    title: "Стационарные объекты",
+    text: "Купольная защита инфраструктуры с адаптацией мощности и диапазонов под профиль объекта.",
+    tag: "Инфраструктура",
   },
 ];
 ---
@@ -53,7 +97,6 @@ const scenarioCards = [
   description="Система радиоэлектронной борьбы РЭБ ЗОНТ. Защита техники и личного состава от БПЛА. Сертифицированное оборудование."
 >
   <main class="reb-page">
-
     <!-- Герой -->
     <section class="hero">
       <div class="hero__noise"></div>
@@ -77,7 +120,7 @@ const scenarioCards = [
               <span class="hero__divider-line"></span>
             </div>
             <p class="hero__tagline">
-              Система радиоэлектронной борьбы<br/>
+              Система радиоэлектронной борьбы<br />
               для защиты техники и личного состава от БПЛА
             </p>
             <div class="hero__tags">
@@ -88,8 +131,13 @@ const scenarioCards = [
               <span class="tag">Документы: {docsCount}</span>
             </div>
             <div class="hero__actions">
-              <a href="#docs" class="hero__action hero__action--ghost">Смотреть документы</a>
-              <a href={withBase("/contact/")} class="hero__action hero__action--primary">Оставить заявку</a>
+              <a href="#docs" class="hero__action hero__action--ghost"
+                >Смотреть документы</a
+              >
+              <a
+                href={withBase("/contact/")}
+                class="hero__action hero__action--primary">Оставить заявку</a
+              >
             </div>
           </div>
           <div class="hero-stage" id="reb-stage">
@@ -121,46 +169,77 @@ const scenarioCards = [
       <div class="ops-grid">
         <div class="ops-brief">
           <div class="about-text">
-            <p>РЭБ ЗОНТ — российский производитель комплексов радиоэлектронной борьбы для защиты от беспилотных летательных аппаратов. Система прошла официальные испытания в НИИИ РЭБ г. Воронеж и имеет сертификат соответствия.</p>
-            <p>Оборудование применяется для защиты бронетехники, автомобилей, а также личного состава в полевых условиях. Комплекс выпускается в нескольких конфигурациях — от носимого рюкзачного варианта до стационарных систем.</p>
-            <p>Компания XTIR выступает партнёром по распространению и демонстрации оборудования РЭБ ЗОНТ. Связь с производителем — через форму на сайте XTIR.</p>
+            <p>
+              РЭБ ЗОНТ — российский производитель комплексов радиоэлектронной
+              борьбы для защиты от беспилотных летательных аппаратов. Система
+              прошла официальные испытания в НИИИ РЭБ г. Воронеж и имеет
+              сертификат соответствия.
+            </p>
+            <p>
+              Оборудование применяется для защиты бронетехники, автомобилей, а
+              также личного состава в полевых условиях. Комплекс выпускается в
+              нескольких конфигурациях — от носимого рюкзачного варианта до
+              стационарных систем.
+            </p>
+            <p>
+              Компания XTIR выступает партнёром по распространению и
+              демонстрации оборудования РЭБ ЗОНТ. Связь с производителем — через
+              форму на сайте XTIR.
+            </p>
           </div>
           <div class="proof-strip">
-            {proofDocs.map((doc) => (
-              <a href={doc.src} target="_blank" rel="noopener" class="proof-chip">
-                <span class="proof-chip__tag">VERIFIED</span>
-                <span class="proof-chip__title">{doc.title}</span>
-              </a>
-            ))}
+            {
+              proofDocs.map((doc) => (
+                <a
+                  href={doc.src}
+                  target="_blank"
+                  rel="noopener"
+                  class="proof-chip"
+                >
+                  <span class="proof-chip__tag">VERIFIED</span>
+                  <span class="proof-chip__title">{doc.title}</span>
+                </a>
+              ))
+            }
           </div>
           <div class="scenario-grid">
-            {scenarioCards.map((item) => (
-              <article class="scenario-card">
-                <div class="scenario-card__tag">{item.tag}</div>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </article>
-            ))}
+            {
+              scenarioCards.map((item) => (
+                <article class="scenario-card">
+                  <div class="scenario-card__tag">{item.tag}</div>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              ))
+            }
           </div>
         </div>
         <aside class="about-stats">
           <div class="stat-card">
-            <span class="stat-card__icon stat-card__icon--shield" aria-hidden="true"></span>
+            <span
+              class="stat-card__icon stat-card__icon--shield"
+              aria-hidden="true"></span>
             <div class="stat-card__value">НИИИ РЭБ</div>
             <div class="stat-card__label">Официальные испытания</div>
           </div>
           <div class="stat-card">
-            <span class="stat-card__icon stat-card__icon--doc" aria-hidden="true"></span>
+            <span
+              class="stat-card__icon stat-card__icon--doc"
+              aria-hidden="true"></span>
             <div class="stat-card__value">Сертификат</div>
             <div class="stat-card__label">Соответствия</div>
           </div>
           <div class="stat-card">
-            <span class="stat-card__icon stat-card__icon--cfg" aria-hidden="true"></span>
+            <span
+              class="stat-card__icon stat-card__icon--cfg"
+              aria-hidden="true"></span>
             <div class="stat-card__value">3+ конф.</div>
             <div class="stat-card__label">Варианта исполнения</div>
           </div>
           <div class="stat-card">
-            <span class="stat-card__icon stat-card__icon--loc" aria-hidden="true"></span>
+            <span
+              class="stat-card__icon stat-card__icon--loc"
+              aria-hidden="true"></span>
             <div class="stat-card__value">Россия</div>
             <div class="stat-card__label">Производство</div>
           </div>
@@ -176,71 +255,81 @@ const scenarioCards = [
       </div>
       <div class="intel-grid">
         <div class="intel-board">
-          <p class="intel-note">Фотофиксация и реальные кейсы применения в полевых условиях.</p>
+          <p class="intel-note">
+            Фотофиксация и реальные кейсы применения в полевых условиях.
+          </p>
           <div class="recon-grid">
-            {photosWithBase.map((photo, i) => (
-              <article
-                class:list={[
-                  "recon-card",
-                  i === 0 && "recon-card--hero",
-                  i === 3 && "recon-card--tall",
-                  i === 5 && "recon-card--wide",
-                ]}
-                style={`--delay:${i * 50}ms;`}
-              >
-                <picture>
-                  <source srcset={photo.src.replace(/\.(png|jpe?g)$/i, ".webp")} type="image/webp" />
-                  <img
-                    src={photo.src}
-                    alt={photo.caption}
-                    loading="lazy"
-                    decoding="async"
-                    sizes="(min-width: 900px) 40vw, 90vw"
-                    class="recon-card__img"
-                  />
-                </picture>
-                <div class="recon-card__hud">
-                  <span>{photo.caption}</span>
-                  <em>{String(i + 1).padStart(2, '0')}</em>
-                </div>
-              </article>
-            ))}
+            {
+              photosWithBase.map((photo, i) => (
+                <article
+                  class:list={[
+                    "recon-card",
+                    i === 0 && "recon-card--hero",
+                    i === 3 && "recon-card--tall",
+                    i === 5 && "recon-card--wide",
+                  ]}
+                  style={`--delay:${i * 50}ms;`}
+                >
+                  <picture>
+                    <source
+                      srcset={photo.src.replace(/\.(png|jpe?g)$/i, ".webp")}
+                      type="image/webp"
+                    />
+                    <img
+                      src={photo.src}
+                      alt={photo.caption}
+                      loading="lazy"
+                      decoding="async"
+                      sizes="(min-width: 900px) 40vw, 90vw"
+                      class="recon-card__img"
+                    />
+                  </picture>
+                  <div class="recon-card__hud">
+                    <span>{photo.caption}</span>
+                    <em>{String(i + 1).padStart(2, "0")}</em>
+                  </div>
+                </article>
+              ))
+            }
           </div>
         </div>
         <aside class="intel-side">
           <div class="intel-side__block" id="docs">
             <h3>Документация</h3>
-            <p>Официальные материалы для проверки характеристик и статуса изделия.</p>
+            <p>
+              Официальные материалы для проверки характеристик и статуса
+              изделия.
+            </p>
             <div class="doc-stack">
-              {docsWithBase.map((doc) => (
-                <a href={doc.src} target="_blank" rel="noopener" class="doc-mini">
-                  <span class="doc-mini__name">{doc.title}</span>
-                  <span class="doc-mini__go">PDF →</span>
-                </a>
-              ))}
+              {
+                docsWithBase.map((doc) => (
+                  <a
+                    href={doc.src}
+                    target="_blank"
+                    rel="noopener"
+                    class="doc-mini"
+                  >
+                    <span class="doc-mini__name">{doc.title}</span>
+                    <span class="doc-mini__go">PDF →</span>
+                  </a>
+                ))
+              }
             </div>
           </div>
           <div class="intel-side__block">
-            <h3>Видеоматериалы</h3>
-            <p>Видео о системе РЭБ ЗОНТ размещены на официальных каналах XTIR.</p>
-            <div class="video-links">
-              <a href={SITE.youtubeChannelUrl} target="_blank" rel="noopener" class="video-link video-link--yt">
-                <svg class="video-link__icon" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-                <div>
-                  <div class="video-link__platform">YouTube</div>
-                  <div class="video-link__label">Канал XTIR</div>
-                </div>
+            <h3>Материалы на сайте XTIR</h3>
+            <p>
+              Все материалы по партнёру размещены внутри сайта XTIR без внешних
+              переходов.
+            </p>
+            <div class="doc-stack">
+              <a href={withBase("/gallery/")} class="doc-mini">
+                <span class="doc-mini__name">Фотораздел XTIR</span>
+                <span class="doc-mini__go">Открыть →</span>
               </a>
-              <a href={SITE.rutubeChannelUrl} target="_blank" rel="noopener" class="video-link video-link--rt">
-                <svg class="video-link__icon" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8.4 6.7A2 2 0 0 0 6 8.6v6.8a2 2 0 0 0 3 1.7l6.2-3.4a2 2 0 0 0 0-3.4L9 7a2 2 0 0 0-.6-.3z"/>
-                </svg>
-                <div>
-                  <div class="video-link__platform">RuTube</div>
-                  <div class="video-link__label">Канал XTIR</div>
-                </div>
+              <a href={withBase("/docs/")} class="doc-mini">
+                <span class="doc-mini__name">Библиотека документов XTIR</span>
+                <span class="doc-mini__go">Открыть →</span>
               </a>
             </div>
           </div>
@@ -258,21 +347,29 @@ const scenarioCards = [
       <div class="container">
         <div class="cta-inner">
           <h2 class="cta-title">Связаться с партнёром</h2>
-          <p class="cta-text">Вопросы по оборудованию РЭБ ЗОНТ — через форму обратной связи XTIR. Ответим и передадим производителю.</p>
+          <p class="cta-text">
+            Вопросы по оборудованию РЭБ ЗОНТ — через форму обратной связи XTIR.
+            Ответим и передадим производителю.
+          </p>
           <div class="cta-btns">
-            <a href={withBase("/contact/")} class="cta-btn cta-btn--primary">Оставить заявку</a>
-            <a href={withBase("/partners/")} class="cta-btn cta-btn--ghost">← Все партнёры</a>
+            <a href={withBase("/contact/")} class="cta-btn cta-btn--primary"
+              >Оставить заявку</a
+            >
+            <a href={withBase("/partners/")} class="cta-btn cta-btn--ghost"
+              >← Все партнёры</a
+            >
           </div>
         </div>
       </div>
     </section>
-
   </main>
 </BaseLayout>
 
 <script is:inline>
   (() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     const canvas = document.getElementById("reb-radar");
     const stage = document.getElementById("reb-stage");
     if (!(canvas instanceof HTMLCanvasElement)) return;
@@ -340,20 +437,26 @@ const scenarioCards = [
     window.addEventListener("resize", resize, { passive: true });
 
     if (stage && !reduce) {
-      stage.addEventListener("pointermove", (event) => {
-        const rect = stage.getBoundingClientRect();
-        const px = (event.clientX - rect.left) / rect.width;
-        const py = (event.clientY - rect.top) / rect.height;
-        const rx = (0.5 - py) * 6;
-        const ry = (px - 0.5) * 6;
-        stage.style.transform = `perspective(1000px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
-      }, { passive: true });
+      stage.addEventListener(
+        "pointermove",
+        (event) => {
+          const rect = stage.getBoundingClientRect();
+          const px = (event.clientX - rect.left) / rect.width;
+          const py = (event.clientY - rect.top) / rect.height;
+          const rx = (0.5 - py) * 6;
+          const ry = (px - 0.5) * 6;
+          stage.style.transform = `perspective(1000px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+        },
+        { passive: true },
+      );
       stage.addEventListener("pointerleave", () => {
         stage.style.transform = "";
       });
     }
 
-    window.addEventListener("beforeunload", () => cancelAnimationFrame(raf), { once: true });
+    window.addEventListener("beforeunload", () => cancelAnimationFrame(raf), {
+      once: true,
+    });
   })();
 </script>
 
@@ -362,20 +465,28 @@ const scenarioCards = [
      ПЕРЕМЕННЫЕ — военная палитра + триколор
   ══════════════════════════════════════════════ */
   .reb-page {
-    --white:   #FFFFFF;
-    --blue:    #003DA5;
-    --red:     #CC0000;
-    --bg:      #0a0c0e;
-    --bg2:     #0f1215;
+    --white: #ffffff;
+    --blue: #003da5;
+    --red: #cc0000;
+    --bg: #0a0c0e;
+    --bg2: #0f1215;
     --surface: #141820;
-    --border:  rgba(255,255,255,0.08);
-    --text:    rgba(255,255,255,0.88);
-    --muted:   rgba(255,255,255,0.45);
-    --accent:  #CC0000;
+    --border: rgba(255, 255, 255, 0.08);
+    --text: rgba(255, 255, 255, 0.88);
+    --muted: rgba(255, 255, 255, 0.45);
+    --accent: #cc0000;
 
     background:
-      radial-gradient(860px 420px at 12% 0%, rgba(84, 156, 255, 0.08), transparent 62%),
-      radial-gradient(760px 360px at 88% 10%, rgba(160, 40, 40, 0.08), transparent 64%),
+      radial-gradient(
+        860px 420px at 12% 0%,
+        rgba(84, 156, 255, 0.08),
+        transparent 62%
+      ),
+      radial-gradient(
+        760px 360px at 88% 10%,
+        rgba(160, 40, 40, 0.08),
+        transparent 64%
+      ),
       linear-gradient(180deg, #070d16 0%, #050a12 100%);
     color: var(--text);
     font-family: inherit;
@@ -400,14 +511,16 @@ const scenarioCards = [
       rgba(93, 126, 205, 0.82) 58%,
       rgba(163, 71, 71, 0.78) 100%
     );
-    opacity: .72;
+    opacity: 0.72;
   }
   .tricolor-bar__white,
   .tricolor-bar__blue,
   .tricolor-bar__red {
     display: none;
   }
-  .tricolor-bar--bottom { margin-top: 0; }
+  .tricolor-bar--bottom {
+    margin-top: 0;
+  }
 
   /* ══ ГЕРОЙ ══ */
   .hero {
@@ -420,15 +533,19 @@ const scenarioCards = [
     background: transparent;
   }
   .hero__noise {
-    position: absolute; inset: 0; opacity: .04;
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size: 200px;
   }
   .hero__grid {
-    position: absolute; inset: 0; opacity: .06;
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
     background-image:
-      linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.15) 1px, transparent 1px);
+      linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
     background-size: 48px 48px;
   }
   .hero__radar {
@@ -437,7 +554,7 @@ const scenarioCards = [
     width: 100%;
     height: 100%;
     pointer-events: none;
-    opacity: .32;
+    opacity: 0.32;
     z-index: 0;
   }
   .hero__blend {
@@ -446,27 +563,43 @@ const scenarioCards = [
     right: 0;
     bottom: -1px;
     height: 120px;
-    background: linear-gradient(180deg, rgba(7, 12, 18, 0) 0%, rgba(7, 12, 18, 0.92) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(7, 12, 18, 0) 0%,
+      rgba(7, 12, 18, 0.92) 100%
+    );
     pointer-events: none;
     z-index: 1;
   }
   /* Красный градиент сбоку */
   .hero::before {
-    content: '';
+    content: "";
     position: absolute;
-    right: -100px; top: 50%;
+    right: -100px;
+    top: 50%;
     transform: translateY(-50%);
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(204,0,0,.18) 0%, transparent 70%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(
+      circle,
+      rgba(204, 0, 0, 0.18) 0%,
+      transparent 70%
+    );
     pointer-events: none;
   }
   /* Синий градиент */
   .hero::after {
-    content: '';
+    content: "";
     position: absolute;
-    left: -80px; bottom: -80px;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(0,61,165,.15) 0%, transparent 70%);
+    left: -80px;
+    bottom: -80px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(
+      circle,
+      rgba(0, 61, 165, 0.15) 0%,
+      transparent 70%
+    );
     pointer-events: none;
   }
 
@@ -482,9 +615,12 @@ const scenarioCards = [
     max-width: 640px;
   }
   .hero__badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: 'Courier New', monospace;
-    font-size: .75rem; letter-spacing: .2em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Courier New", monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
     color: var(--muted);
     border: 1px solid var(--border);
     padding: 6px 14px;
@@ -493,16 +629,17 @@ const scenarioCards = [
     text-transform: uppercase;
   }
   .hero__badge-dot {
-    width: 6px; height: 6px;
+    width: 6px;
+    height: 6px;
     background: var(--red);
     border-radius: 50%;
-    box-shadow: 0 0 8px rgba(204, 0, 0, .35);
+    box-shadow: 0 0 8px rgba(204, 0, 0, 0.35);
   }
   .hero__title {
     font-family: inherit;
     font-size: clamp(64px, 10vw, 120px);
     font-weight: 800;
-    line-height: .9;
+    line-height: 0.9;
     margin: 0 0 24px;
     letter-spacing: -0.03em;
   }
@@ -516,35 +653,47 @@ const scenarioCards = [
   }
 
   .hero__divider {
-    display: flex; align-items: center; gap: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     margin-bottom: 24px;
   }
   .hero__divider-line {
-    height: 1px; flex: 1; max-width: 120px;
+    height: 1px;
+    flex: 1;
+    max-width: 120px;
     background: linear-gradient(90deg, var(--red), transparent);
   }
   .hero__divider-diamond {
-    width: 8px; height: 8px;
+    width: 8px;
+    height: 8px;
     background: var(--red);
     transform: rotate(45deg);
     flex-shrink: 0;
   }
 
   .hero__tagline {
-    font-size: 1.15rem; line-height: 1.6;
-    color: rgba(255,255,255,.7);
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
     margin: 0 0 28px;
     max-width: 540px;
   }
 
-  .hero__tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .hero__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
   .tag {
-    font-family: 'Courier New', monospace;
-    font-size: .7rem; letter-spacing: .1em;
+    font-family: "Courier New", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--muted);
-    border: 1px solid rgba(255,255,255,.12);
-    padding: 5px 12px; border-radius: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 5px 12px;
+    border-radius: 2px;
   }
   .hero__actions {
     margin-top: 20px;
@@ -559,34 +708,44 @@ const scenarioCards = [
     min-height: 42px;
     padding: 10px 18px;
     border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     text-decoration: none;
-    font-size: .86rem;
+    font-size: 0.86rem;
     font-weight: 600;
-    transition: border-color .2s, background .2s, transform .2s;
+    transition:
+      border-color 0.2s,
+      background 0.2s,
+      transform 0.2s;
   }
   .hero__action--primary {
     color: #06131f;
     border-color: rgba(112, 204, 255, 0.62);
     background: linear-gradient(180deg, #7fd0ff 0%, #56b9ff 65%, #2d9de6 100%);
   }
-  .hero__action--primary:hover { transform: translateY(-1px); filter: brightness(1.04); }
+  .hero__action--primary:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.04);
+  }
   .hero__action--ghost {
-    color: rgba(255,255,255,0.92);
-    background: rgba(255,255,255,0.04);
+    color: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.04);
   }
   .hero__action--ghost:hover {
-    border-color: rgba(255,255,255,0.34);
-    background: rgba(255,255,255,0.08);
+    border-color: rgba(255, 255, 255, 0.34);
+    background: rgba(255, 255, 255, 0.08);
   }
   .hero-stage {
     position: relative;
     min-height: 340px;
     display: grid;
     place-items: center;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 18px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.01)
+    );
     transform-style: preserve-3d;
     perspective: 1000px;
   }
@@ -594,7 +753,11 @@ const scenarioCards = [
     position: absolute;
     inset: 24px;
     border-radius: 16px;
-    background: radial-gradient(circle at 50% 45%, rgba(100, 184, 255, 0.22), rgba(100, 184, 255, 0));
+    background: radial-gradient(
+      circle at 50% 45%,
+      rgba(100, 184, 255, 0.22),
+      rgba(100, 184, 255, 0)
+    );
     pointer-events: none;
   }
   .hero-stage__device {
@@ -602,7 +765,7 @@ const scenarioCards = [
     width: 180px;
     height: 180px;
     transform-style: preserve-3d;
-    transition: transform .25s ease;
+    transition: transform 0.25s ease;
   }
   .hero-stage__top {
     position: absolute;
@@ -612,7 +775,11 @@ const scenarioCards = [
     height: 32px;
     border-radius: 10px;
     border: 1px solid rgba(176, 224, 255, 0.6);
-    background: linear-gradient(180deg, rgba(145, 214, 255, 0.34), rgba(145, 214, 255, 0.08));
+    background: linear-gradient(
+      180deg,
+      rgba(145, 214, 255, 0.34),
+      rgba(145, 214, 255, 0.08)
+    );
     transform: translateZ(20px);
   }
   .hero-stage__core {
@@ -623,7 +790,11 @@ const scenarioCards = [
     height: 74px;
     border-radius: 14px;
     border: 1px solid rgba(176, 224, 255, 0.55);
-    background: linear-gradient(180deg, rgba(97, 186, 255, 0.3), rgba(97, 186, 255, 0.06));
+    background: linear-gradient(
+      180deg,
+      rgba(97, 186, 255, 0.3),
+      rgba(97, 186, 255, 0.06)
+    );
     box-shadow: inset 0 0 26px rgba(97, 186, 255, 0.22);
     transform: translateZ(28px);
   }
@@ -633,11 +804,20 @@ const scenarioCards = [
     width: 54px;
     height: 10px;
     border-radius: 6px;
-    background: linear-gradient(90deg, rgba(145, 214, 255, 0.7), rgba(145, 214, 255, 0.18));
+    background: linear-gradient(
+      90deg,
+      rgba(145, 214, 255, 0.7),
+      rgba(145, 214, 255, 0.18)
+    );
     transform: translateZ(16px);
   }
-  .hero-stage__arm--left { left: -6px; }
-  .hero-stage__arm--right { right: -6px; transform: translateZ(16px) scaleX(-1); }
+  .hero-stage__arm--left {
+    left: -6px;
+  }
+  .hero-stage__arm--right {
+    right: -6px;
+    transform: translateZ(16px) scaleX(-1);
+  }
   .hero-stage__wave {
     position: absolute;
     border-radius: 999px;
@@ -659,14 +839,20 @@ const scenarioCards = [
     bottom: 14px;
     display: flex;
     justify-content: space-between;
-    font-family: 'Courier New', monospace;
-    font-size: .62rem;
-    letter-spacing: .12em;
+    font-family: "Courier New", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
     color: rgba(168, 214, 255, 0.72);
   }
   @keyframes wavePulse {
-    0% { opacity: .75; transform: scale(.84) translateZ(2px); }
-    100% { opacity: 0; transform: scale(1.15) translateZ(2px); }
+    0% {
+      opacity: 0.75;
+      transform: scale(0.84) translateZ(2px);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.15) translateZ(2px);
+    }
   }
 
   /* ══ ЗАГОЛОВКИ СЕКЦИЙ ══ */
@@ -678,23 +864,27 @@ const scenarioCards = [
     padding-top: 28px;
   }
   .section-header__num {
-    font-family: 'Courier New', monospace;
-    font-size: .75rem;
+    font-family: "Courier New", monospace;
+    font-size: 0.75rem;
     color: var(--red);
-    opacity: .88;
+    opacity: 0.88;
     flex-shrink: 0;
-    letter-spacing: .16em;
+    letter-spacing: 0.16em;
   }
   .section-header__title {
     font-size: clamp(1.32rem, 2vw, 1.7rem);
     font-weight: 700;
-    letter-spacing: -.01em;
+    letter-spacing: -0.01em;
     margin: 0;
   }
   .section-header__line {
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, .14), rgba(255, 255, 255, .02));
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.14),
+      rgba(255, 255, 255, 0.02)
+    );
   }
 
   /* ══ ОПЕРАТИВНЫЙ БЛОК ══ */
@@ -703,7 +893,7 @@ const scenarioCards = [
   }
   .ops-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.55fr) minmax(280px, .95fr);
+    grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.95fr);
     gap: 14px;
     align-items: start;
   }
@@ -713,11 +903,15 @@ const scenarioCards = [
   }
   .about-text {
     padding: 16px 18px;
-    border: 1px solid rgba(255, 255, 255, .1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 14px;
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, .028), rgba(255, 255, 255, .01)),
-      linear-gradient(120deg, rgba(63, 115, 188, .06), transparent 36%);
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.028),
+        rgba(255, 255, 255, 0.01)
+      ),
+      linear-gradient(120deg, rgba(63, 115, 188, 0.06), transparent 36%);
     position: relative;
     overflow: hidden;
   }
@@ -727,16 +921,20 @@ const scenarioCards = [
     inset: 0;
     pointer-events: none;
     background:
-      linear-gradient(110deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,0) 18%),
-      linear-gradient(transparent 97%, rgba(183, 77, 77, .08) 100%);
+      linear-gradient(
+        110deg,
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(255, 255, 255, 0) 18%
+      ),
+      linear-gradient(transparent 97%, rgba(183, 77, 77, 0.08) 100%);
     mix-blend-mode: soft-light;
-    opacity: .5;
+    opacity: 0.5;
   }
   .about-text p {
-    color: rgba(255,255,255,.74);
+    color: rgba(255, 255, 255, 0.74);
     line-height: 1.65;
     margin: 0 0 10px;
-    font-size: .96rem;
+    font-size: 0.96rem;
   }
   .about-text p:last-child {
     margin-bottom: 0;
@@ -752,31 +950,38 @@ const scenarioCards = [
     gap: 8px;
     text-decoration: none;
     color: var(--text);
-    border: 1px solid rgba(255,255,255,.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 12px 13px;
-    background: linear-gradient(180deg, rgba(255,255,255,.022), rgba(255,255,255,.01));
-    transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.022),
+      rgba(255, 255, 255, 0.01)
+    );
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
   }
   .proof-chip:hover {
-    border-color: rgba(121, 186, 255, .45);
+    border-color: rgba(121, 186, 255, 0.45);
     transform: translateY(-2px);
-    box-shadow: 0 10px 22px rgba(0, 0, 0, .24);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
   }
   .proof-chip__tag {
     justify-self: start;
-    font-family: 'Courier New', monospace;
-    font-size: .55rem;
-    letter-spacing: .15em;
-    color: rgba(170, 221, 255, .9);
+    font-family: "Courier New", monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: rgba(170, 221, 255, 0.9);
     padding: 2px 7px;
-    border: 1px solid rgba(130, 194, 255, .35);
+    border: 1px solid rgba(130, 194, 255, 0.35);
     border-radius: 999px;
   }
   .proof-chip__title {
-    font-size: .84rem;
+    font-size: 0.84rem;
     line-height: 1.35;
-    color: rgba(255,255,255,.85);
+    color: rgba(255, 255, 255, 0.85);
   }
 
   .scenario-grid {
@@ -786,30 +991,34 @@ const scenarioCards = [
   }
   .scenario-card {
     padding: 14px;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     background:
-      linear-gradient(180deg, rgba(255,255,255,0.024), rgba(255,255,255,0.01)),
-      linear-gradient(160deg, rgba(177, 62, 62, .05), transparent 38%);
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.024),
+        rgba(255, 255, 255, 0.01)
+      ),
+      linear-gradient(160deg, rgba(177, 62, 62, 0.05), transparent 38%);
   }
   .scenario-card__tag {
-    font-family: 'Courier New', monospace;
-    font-size: .55rem;
-    letter-spacing: .13em;
+    font-family: "Courier New", monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
     color: rgba(169, 216, 255, 0.86);
     margin-bottom: 6px;
   }
   .scenario-card h3 {
     margin: 0 0 6px;
-    font-size: .98rem;
+    font-size: 0.98rem;
     line-height: 1.3;
   }
   .scenario-card p {
     margin: 0;
-    font-size: .84rem;
+    font-size: 0.84rem;
     line-height: 1.5;
-    color: rgba(255,255,255,.67);
+    color: rgba(255, 255, 255, 0.67);
   }
 
   .about-stats {
@@ -819,16 +1028,22 @@ const scenarioCards = [
   }
   .stat-card {
     background:
-      linear-gradient(180deg, rgba(255,255,255,.032), rgba(255,255,255,.01)),
-      linear-gradient(160deg, rgba(82, 136, 205, .08), transparent 48%);
-    border: 1px solid rgba(255,255,255,.12);
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.032),
+        rgba(255, 255, 255, 0.01)
+      ),
+      linear-gradient(160deg, rgba(82, 136, 205, 0.08), transparent 48%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 12px;
     padding: 14px 10px;
     text-align: center;
-    transition: border-color .2s ease, transform .2s ease;
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease;
   }
   .stat-card:hover {
-    border-color: rgba(129, 195, 255, .45);
+    border-color: rgba(129, 195, 255, 0.45);
     transform: translateY(-2px);
   }
   .stat-card__icon {
@@ -837,7 +1052,11 @@ const scenarioCards = [
     margin: 0 auto 8px;
     border-radius: 8px;
     border: 1px solid rgba(138, 201, 255, 0.42);
-    background: linear-gradient(180deg, rgba(103, 164, 223, 0.2), rgba(103, 164, 223, 0.04));
+    background: linear-gradient(
+      180deg,
+      rgba(103, 164, 223, 0.2),
+      rgba(103, 164, 223, 0.04)
+    );
     position: relative;
     display: block;
   }
@@ -858,7 +1077,9 @@ const scenarioCards = [
     background: rgba(186, 225, 255, 0.9);
     top: 7px;
     left: 8px;
-    box-shadow: 0 5px 0 rgba(150, 206, 255, 0.7), 0 10px 0 rgba(120, 186, 255, 0.65);
+    box-shadow:
+      0 5px 0 rgba(150, 206, 255, 0.7),
+      0 10px 0 rgba(120, 186, 255, 0.65);
   }
   .stat-card__icon--cfg::before {
     inset: 7px;
@@ -890,11 +1111,11 @@ const scenarioCards = [
   }
   .stat-card__value {
     font-weight: 700;
-    font-size: .92rem;
+    font-size: 0.92rem;
     margin-bottom: 4px;
   }
   .stat-card__label {
-    font-size: .74rem;
+    font-size: 0.74rem;
     color: var(--muted);
   }
 
@@ -904,17 +1125,21 @@ const scenarioCards = [
   }
   .intel-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.52fr) minmax(280px, .85fr);
+    grid-template-columns: minmax(0, 1.52fr) minmax(280px, 0.85fr);
     gap: 14px;
     align-items: start;
   }
   .intel-board {
-    border: 1px solid rgba(255,255,255,.11);
+    border: 1px solid rgba(255, 255, 255, 0.11);
     border-radius: 14px;
     padding: 14px;
     background:
-      linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.01)),
-      linear-gradient(180deg, rgba(44, 80, 133, .08), transparent 30%);
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.025),
+        rgba(255, 255, 255, 0.01)
+      ),
+      linear-gradient(180deg, rgba(44, 80, 133, 0.08), transparent 30%);
     position: relative;
     overflow: hidden;
   }
@@ -925,21 +1150,36 @@ const scenarioCards = [
     top: 0;
     width: 58%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(140, 204, 255, .7), transparent);
-    filter: blur(.3px);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(140, 204, 255, 0.7),
+      transparent
+    );
+    filter: blur(0.3px);
     animation: scanSweep 6.2s linear infinite;
     pointer-events: none;
   }
   @keyframes scanSweep {
-    0% { transform: translateY(6px); opacity: 0; }
-    8% { opacity: .9; }
-    80% { opacity: .9; }
-    100% { transform: translateY(520px); opacity: 0; }
+    0% {
+      transform: translateY(6px);
+      opacity: 0;
+    }
+    8% {
+      opacity: 0.9;
+    }
+    80% {
+      opacity: 0.9;
+    }
+    100% {
+      transform: translateY(520px);
+      opacity: 0;
+    }
   }
   .intel-note {
     margin: 0 0 12px;
-    font-size: .88rem;
-    color: rgba(255,255,255,.58);
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.58);
     font-style: italic;
   }
   .recon-grid {
@@ -954,9 +1194,9 @@ const scenarioCards = [
     position: relative;
     border-radius: 10px;
     overflow: hidden;
-    border: 1px solid rgba(255,255,255,.12);
-    background: rgba(15, 19, 27, .8);
-    animation: reconAppear .45s ease both;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(15, 19, 27, 0.8);
+    animation: reconAppear 0.45s ease both;
     animation-delay: var(--delay, 0ms);
   }
   .recon-card--hero {
@@ -971,15 +1211,23 @@ const scenarioCards = [
     grid-column: span 5;
   }
   @keyframes reconAppear {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   .recon-card__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     filter: saturate(1.07) contrast(1.03);
-    transition: transform .35s ease, filter .35s ease;
+    transition:
+      transform 0.35s ease,
+      filter 0.35s ease;
   }
   .recon-card__hud {
     position: absolute;
@@ -989,17 +1237,17 @@ const scenarioCards = [
     justify-content: space-between;
     gap: 8px;
     align-items: flex-end;
-    background: linear-gradient(180deg, transparent, rgba(4, 7, 13, .86) 65%);
-    font-size: .76rem;
+    background: linear-gradient(180deg, transparent, rgba(4, 7, 13, 0.86) 65%);
+    font-size: 0.76rem;
     line-height: 1.28;
-    color: rgba(255,255,255,.9);
+    color: rgba(255, 255, 255, 0.9);
   }
   .recon-card__hud em {
     font-style: normal;
-    font-family: 'Courier New', monospace;
-    color: rgba(213, 67, 67, .9);
-    font-size: .66rem;
-    letter-spacing: .08em;
+    font-family: "Courier New", monospace;
+    color: rgba(213, 67, 67, 0.9);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
     flex-shrink: 0;
   }
   .recon-card:hover .recon-card__img {
@@ -1015,11 +1263,15 @@ const scenarioCards = [
     align-self: start;
   }
   .intel-side__block {
-    border: 1px solid rgba(255,255,255,.12);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 12px;
     background:
-      linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.012)),
-      linear-gradient(160deg, rgba(98, 147, 214, .07), transparent 46%);
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.03),
+        rgba(255, 255, 255, 0.012)
+      ),
+      linear-gradient(160deg, rgba(98, 147, 214, 0.07), transparent 46%);
     padding: 14px;
   }
   .intel-side__block h3 {
@@ -1028,8 +1280,8 @@ const scenarioCards = [
   }
   .intel-side__block p {
     margin: 0 0 10px;
-    color: rgba(255,255,255,.62);
-    font-size: .83rem;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.83rem;
     line-height: 1.45;
   }
   .doc-stack {
@@ -1041,26 +1293,28 @@ const scenarioCards = [
     justify-content: space-between;
     gap: 8px;
     align-items: baseline;
-    border: 1px solid rgba(255,255,255,.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 9px 10px;
     text-decoration: none;
     color: var(--text);
-    background: rgba(255,255,255,.015);
-    transition: border-color .2s ease, transform .2s ease;
+    background: rgba(255, 255, 255, 0.015);
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease;
   }
   .doc-mini:hover {
-    border-color: rgba(122, 189, 255, .44);
+    border-color: rgba(122, 189, 255, 0.44);
     transform: translateX(2px);
   }
   .doc-mini__name {
-    font-size: .78rem;
+    font-size: 0.78rem;
     line-height: 1.3;
   }
   .doc-mini__go {
-    font-family: 'Courier New', monospace;
-    font-size: .64rem;
-    color: rgba(161, 219, 255, .88);
+    font-family: "Courier New", monospace;
+    font-size: 0.64rem;
+    color: rgba(161, 219, 255, 0.88);
     white-space: nowrap;
   }
   .video-links {
@@ -1076,17 +1330,20 @@ const scenarioCards = [
     border-radius: 8px;
     text-decoration: none;
     color: var(--text);
-    background: rgba(255,255,255,.015);
-    transition: border-color .2s ease, transform .2s ease, background .2s ease;
+    background: rgba(255, 255, 255, 0.015);
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease,
+      background 0.2s ease;
   }
   .video-link--yt:hover {
-    border-color: rgba(255, 63, 63, .7);
-    background: rgba(255, 0, 0, .06);
+    border-color: rgba(255, 63, 63, 0.7);
+    background: rgba(255, 0, 0, 0.06);
     transform: translateX(2px);
   }
   .video-link--rt:hover {
-    border-color: rgba(62, 125, 229, .7);
-    background: rgba(26, 111, 196, .08);
+    border-color: rgba(62, 125, 229, 0.7);
+    background: rgba(26, 111, 196, 0.08);
     transform: translateX(2px);
   }
   .video-link__icon {
@@ -1102,10 +1359,10 @@ const scenarioCards = [
   }
   .video-link__platform {
     font-weight: 700;
-    font-size: .95rem;
+    font-size: 0.95rem;
   }
   .video-link__label {
-    font-size: .76rem;
+    font-size: 0.76rem;
     color: var(--muted);
   }
 
@@ -1117,33 +1374,55 @@ const scenarioCards = [
   .cta-inner {
     padding: 42px 0 46px;
     text-align: center;
-    max-width: 600px; margin: 0 auto;
+    max-width: 600px;
+    margin: 0 auto;
   }
-  .cta-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
-  .cta-text { color: rgba(255,255,255,.58); line-height: 1.58; margin-bottom: 20px; }
-  .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .cta-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .cta-text {
+    color: rgba(255, 255, 255, 0.58);
+    line-height: 1.58;
+    margin-bottom: 20px;
+  }
+  .cta-btns {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
   .cta-btn {
-    padding: 12px 24px; border-radius: 8px;
-    font-weight: 600; font-size: .92rem;
-    text-decoration: none; transition: all .2s;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+    transition: all 0.2s;
   }
   .cta-btn--primary {
-    background: var(--red); color: #fff;
+    background: var(--red);
+    color: #fff;
     border: 1px solid var(--red);
   }
-  .cta-btn--primary:hover { background: #aa0000; border-color: #aa0000; }
+  .cta-btn--primary:hover {
+    background: #aa0000;
+    border-color: #aa0000;
+  }
   .cta-btn--ghost {
-    background: transparent; color: rgba(255,255,255,.92);
-    border: 1px solid rgba(255,255,255,.22);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.22);
   }
   .cta-btn--ghost:hover {
-    border-color: rgba(255,255,255,.36);
-    background: rgba(255,255,255,.03);
+    border-color: rgba(255, 255, 255, 0.36);
+    background: rgba(255, 255, 255, 0.03);
   }
 
   .cta-section .tricolor-bar {
-    opacity: .34;
-    filter: saturate(.82);
+    opacity: 0.34;
+    filter: saturate(0.82);
   }
 
   @media (max-width: 900px) {
@@ -1208,7 +1487,7 @@ const scenarioCards = [
     }
     .hero-stage__wave {
       animation: none !important;
-      opacity: .18;
+      opacity: 0.18;
     }
     .recon-card,
     .intel-board::after {

@@ -1,65 +1,18 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import { SITE, withBase } from '@/site';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { availableDocs, docCategories, totalDocs } from "@/data/docs";
+import { SITE, withBase } from "@/site";
 
-const SITE_URL = (import.meta.env.SITE as string | undefined) ?? SITE.websiteUrl;
+const SITE_URL =
+  (import.meta.env.SITE as string | undefined) ?? SITE.websiteUrl;
 
 function getFileUrl(file: string, type: string): string {
   const assetUrl = new URL(withBase(file), SITE_URL).toString();
-  if (type === 'PDF') return withBase(file);
+  if (type === "PDF") return withBase(file);
   return `https://docs.google.com/viewer?url=${encodeURIComponent(assetUrl)}&embedded=true`;
 }
 
-const categories = [
-  {
-    id: 'manuals',
-    title: 'Инструкции и паспорта',
-    icon: '📋',
-    docs: [
-      { title: 'Пума 35М — Инструкция', tags: ['Мишени', 'Эксплуатация'], file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/Инструкция Пума 35М.docx', available: true, type: 'DOCX' },
-      { title: 'ПМУ-35 — Инструкция-паспорт', tags: ['Подъёмники', 'Паспорт'], file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/ПМУ 35  Инструкция-паспорт.doc', available: true, type: 'DOC' },
-      { title: 'ПМУ-53 — Инструкция по эксплуатации', tags: ['Подъёмники', 'Эксплуатация'], file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/ПМУ53 Инструкция по эксплуатации (1).docx', available: true, type: 'DOCX' },
-      { title: 'Работа с программой ПМУ-300', tags: ['Подъёмники', 'Программное обеспечение'], file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/Работа с программой ПМУ300.docx', available: true, type: 'DOCX' },
-      { title: 'Стойка Саггитар — Документация', tags: ['Оснащение', 'Эксплуатация'], file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/Стойка саггитар.doc', available: true, type: 'DOC' },
-      { title: 'ПМУ-7М — Инструкция по эксплуатации', tags: ['Подъёмники', 'Эксплуатация'], file: null, available: false, type: 'DOC' },
-      { title: 'ПМУ-90 — Инструкция по эксплуатации', tags: ['Подъёмники', 'Эксплуатация'], file: null, available: false, type: 'DOC' },
-    ]
-  },
-  {
-    id: 'technical',
-    title: 'Технические материалы',
-    icon: '⚙️',
-    docs: [
-      { title: 'Монтаж монорельса на основе уголков 50×50×5 мм', tags: ['Монтаж', 'Инфраструктура'], file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/Монтаж монорельса на основе уголков_ 50х50х5 мм.doc', available: true, type: 'DOC' },
-      { title: 'Печатный узел блока управления УМУ-С-127', tags: ['Электроника', 'Компоненты'], file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/Печатный узел блока управления мишенной установки типа УМУ-С-127.pptx', available: true, type: 'PPTX' },
-      { title: 'Точность определения координат удара', tags: ['Технологии', 'Сенсоры'], file: null, available: false, type: 'PDF' },
-      { title: 'Выбор способа управления мишенными установками', tags: ['Технологии', 'Управление'], file: null, available: false, type: 'PDF' },
-    ]
-  },
-  {
-    id: 'solutions',
-    title: 'Решения и проекты',
-    icon: '🎯',
-    docs: [
-      { title: 'Комплекс управления мишенным оборудованием войскового стрельбища', tags: ['Военные', 'Комплексные решения'], file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/Комплекс управления мишенным оборудованием войскового стрельбища.pptx', available: true, type: 'PPTX' },
-      { title: 'Новая жизнь стрелковому тиру — DIY кейс', tags: ['Кейсы', 'Реализация'], file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/Новая жизнь стрелковому тиру.docx', available: true, type: 'DOCX' },
-      { title: 'Оснащение открытого тира', tags: ['Проекты', 'Комплексные решения'], file: null, available: false, type: 'DOC' },
-      { title: 'Комплект для переделки GAN2', tags: ['Модернизация', 'Компоненты'], file: null, available: false, type: 'PDF' },
-    ]
-  },
-  {
-    id: 'international',
-    title: 'Международные стандарты',
-    icon: '🌐',
-    docs: [
-      { title: 'CR-2 Target Retrieval System — PDS', tags: ['Международные', 'Стандарты'], file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/CR-2-Target-Retrieval-System-PDS.pdf', available: true, type: 'PDF' },
-      { title: 'CR-2TL Master Range Control — PDS', tags: ['Международные', 'Управление'], file: '/xtir-archive/XTIR_ASSETS_PACK/02_docs/CR-2TL-Master-Range-Control-PDS.pdf', available: true, type: 'PDF' },
-    ]
-  },
-];
-
-const totalDocs = categories.reduce((acc, c) => acc + c.docs.length, 0);
-const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.available).length, 0);
+const categories = docCategories;
 ---
 
 <BaseLayout
@@ -67,17 +20,18 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
   description="Техническая документация, инструкции и материалы по оборудованию XTIR."
 >
   <main class="docs-page content-main">
-
     <section class="docs-hero">
       <div class="docs-hero__bg"></div>
       <div class="xtir-container">
         <div class="docs-hero__inner">
           <div class="docs-hero__label">ТЕХНИЧЕСКАЯ БИБЛИОТЕКА</div>
-          <h1 class="docs-hero__title">Документация<br/><span>XTIR</span></h1>
+          <h1 class="docs-hero__title">Документация<br /><span>XTIR</span></h1>
           <p class="docs-hero__sub">
-            Инструкции, паспорта, технические материалы и проектная документация.
-            Документы с кнопкой <strong class="docs-hero__open">Открыть</strong> — просматриваются прямо в браузере через Google Docs Viewer.
-            Остальные — по запросу, бесплатно.
+            Инструкции, паспорта, технические материалы и проектная
+            документация. Документы с кнопкой <strong class="docs-hero__open"
+              >Открыть</strong
+            > — просматриваются прямо в браузере через Google Docs Viewer. Остальные
+            — по запросу, бесплатно.
           </p>
           <div class="docs-hero__stats">
             <div class="docs-stat">
@@ -100,61 +54,93 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
     </section>
 
     <section class="docs-catalog xtir-container cv-auto">
-      {categories.map((cat) => (
-        <div class="doc-category">
-          <div class="doc-category__header">
-            <span class={`doc-category__icon doc-category__icon--${cat.id}`} aria-hidden="true"></span>
-            <h2 class="doc-category__title">{cat.title}</h2>
-            <span class="doc-category__count">
-              {cat.docs.filter((doc) => doc.available).length}/{cat.docs.length}
-            </span>
-          </div>
-          <div class="doc-list">
-            {cat.docs.map((doc, i) => (
-              <div class={`doc-item ${doc.available ? 'doc-item--available' : ''}`}>
-                <div class="doc-item__num">{String(i + 1).padStart(2, '0')}</div>
-                <div class="doc-item__icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-                    <path stroke-linecap="round" d="M12 3v6h6"/>
-                  </svg>
-                </div>
-                <div class="doc-item__info">
-                  <div class="doc-item__title">{doc.title}</div>
-                  <div class="doc-item__tags">
-                    <span class={`doc-type doc-type--${doc.type.toLowerCase()}`}>{doc.type}</span>
-                    {doc.tags.map(tag => (
-                      <span class="doc-tag">{tag}</span>
-                    ))}
+      {
+        categories.map((cat) => (
+          <div class="doc-category">
+            <div class="doc-category__header">
+              <span
+                class={`doc-category__icon doc-category__icon--${cat.id}`}
+                aria-hidden="true"
+              />
+              <h2 class="doc-category__title">{cat.title}</h2>
+              <span class="doc-category__count">
+                {cat.docs.filter((doc) => doc.available).length}/
+                {cat.docs.length}
+              </span>
+            </div>
+            <div class="doc-list">
+              {cat.docs.map((doc, i) => (
+                <div
+                  class={`doc-item ${doc.available ? "doc-item--available" : ""}`}
+                >
+                  <div class="doc-item__num">
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <div class="doc-item__icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                      />
+                      <path stroke-linecap="round" d="M12 3v6h6" />
+                    </svg>
+                  </div>
+                  <div class="doc-item__info">
+                    <div class="doc-item__title">{doc.title}</div>
+                    <div class="doc-item__tags">
+                      <span
+                        class={`doc-type doc-type--${doc.type.toLowerCase()}`}
+                      >
+                        {doc.type}
+                      </span>
+                      {doc.tags.map((tag) => (
+                        <span class="doc-tag">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div class="doc-item__actions">
+                    {doc.available && doc.file ? (
+                      <a
+                        href={getFileUrl(doc.file, doc.type)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="doc-btn doc-btn--open"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          />
+                        </svg>
+                        Открыть
+                      </a>
+                    ) : (
+                      <button
+                        class="doc-btn doc-btn--request"
+                        onclick={`openRequest(${JSON.stringify(doc.title)})`}
+                      >
+                        Запросить
+                      </button>
+                    )}
                   </div>
                 </div>
-                <div class="doc-item__actions">
-                  {doc.available && doc.file ? (
-                    <a
-                      href={getFileUrl(doc.file, doc.type)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="doc-btn doc-btn--open"
-                    >
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                      </svg>
-                      Открыть
-                    </a>
-                  ) : (
-                    <button
-                      class="doc-btn doc-btn--request"
-                      onclick={`openRequest(${JSON.stringify(doc.title)})`}
-                    >
-                      Запросить
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </section>
 
     <section class="request-section cv-auto" id="request-form">
@@ -162,15 +148,38 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
         <div class="request-inner">
           <div class="request-left">
             <div class="request-label">ЗАПРОС ДОКУМЕНТА</div>
-            <h2 class="request-title">Нужен<br/>документ?</h2>
-            <p class="request-desc">Укажите, что именно нужно — пришлём на email в течение суток. Бесплатно.</p>
+            <h2 class="request-title">Нужен<br />документ?</h2>
+            <p class="request-desc">
+              Укажите, что именно нужно — пришлём на email в течение суток.
+              Бесплатно.
+            </p>
             <div class="request-contacts">
               <a href="mailto:info@xtir.ru" class="request-contact">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  ></path></svg
+                >
                 info@xtir.ru
               </a>
               <a href="tel:+79154250095" class="request-contact">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                  ></path></svg
+                >
                 +7 (915) 425-00-95
               </a>
             </div>
@@ -179,34 +188,67 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
             <form class="request-form" id="doc-request-form">
               <div class="form-group">
                 <label class="form-label">Название документа</label>
-                <input type="text" id="doc-name" class="form-input" placeholder="Например: Инструкция ПМУ-7М"/>
+                <input
+                  type="text"
+                  id="doc-name"
+                  class="form-input"
+                  placeholder="Например: Инструкция ПМУ-7М"
+                />
               </div>
               <div class="form-group">
                 <label class="form-label">Ваше имя</label>
-                <input type="text" class="form-input" placeholder="Как к вам обращаться"/>
+                <input
+                  type="text"
+                  id="doc-request-name"
+                  class="form-input"
+                  placeholder="Как к вам обращаться"
+                />
               </div>
               <div class="form-group">
                 <label class="form-label">Email *</label>
-                <input type="email" class="form-input" placeholder="your@email.ru" required/>
+                <input
+                  type="email"
+                  id="doc-request-email"
+                  class="form-input"
+                  placeholder="your@email.ru"
+                  required
+                />
               </div>
               <div class="form-group">
                 <label class="form-label">Комментарий</label>
-                <textarea class="form-input form-textarea" placeholder="Уточните задачу или что именно нужно" rows="3"></textarea>
+                <textarea
+                  id="doc-request-message"
+                  class="form-input form-textarea"
+                  placeholder="Уточните задачу или что именно нужно"
+                  rows="3"></textarea>
               </div>
               <button type="submit" class="form-submit">
                 <span>Отправить запрос</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg
+                >
               </button>
             </form>
           </div>
         </div>
       </div>
     </section>
-
   </main>
 </BaseLayout>
 
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal()" aria-hidden="true">
+<div
+  class="modal-overlay"
+  id="modal-overlay"
+  onclick="closeModal()"
+  aria-hidden="true"
+>
   <div
     class="modal"
     data-stop-propagation
@@ -216,24 +258,46 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
     aria-describedby="modal-description"
     tabindex="-1"
   >
-    <button class="modal-close" onclick="closeModal()" aria-label="Закрыть окно">✕</button>
+    <button class="modal-close" onclick="closeModal()" aria-label="Закрыть окно"
+      >✕</button
+    >
     <div class="modal-icon" aria-hidden="true"></div>
     <h3 class="modal-title" id="modal-title">Запрос документа</h3>
     <p class="modal-doc" id="modal-doc-name"></p>
-    <p class="modal-text" id="modal-description">Введите email — пришлём документ в течение суток.</p>
-    <input type="email" class="form-input" id="modal-email" placeholder="your@email.ru"/>
-    <button class="form-submit" onclick="submitQuickRequest()" style="width:100%;margin-top:12px;">
+    <p class="modal-text" id="modal-description">
+      Введите email — пришлём документ в течение суток.
+    </p>
+    <input
+      type="email"
+      class="form-input"
+      id="modal-email"
+      placeholder="your@email.ru"
+    />
+    <button
+      class="form-submit"
+      onclick="submitQuickRequest()"
+      style="width:100%;margin-top:12px;"
+    >
       <span>Получить документ</span>
     </button>
   </div>
 </div>
 
 <script>
+  const targetEmail = (
+    (
+      document.querySelector(
+        '.request-contact[href^="mailto:"]',
+      ) as HTMLAnchorElement | null
+    )?.getAttribute("href") || "mailto:info@xtir.ru"
+  )
+    .replace(/^mailto:/, "")
+    .trim();
   let lastFocusedElement: HTMLElement | null = null;
 
   const getModalParts = () => {
-    const overlay = document.getElementById('modal-overlay');
-    const modal = overlay?.querySelector('.modal') as HTMLElement | null;
+    const overlay = document.getElementById("modal-overlay");
+    const modal = overlay?.querySelector(".modal") as HTMLElement | null;
     return { overlay, modal };
   };
 
@@ -246,15 +310,15 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
 
   const trapModalFocus = (event: KeyboardEvent) => {
     const { overlay } = getModalParts();
-    if (!overlay?.classList.contains('active')) return;
+    if (!overlay?.classList.contains("active")) return;
 
-    if (event.key === 'Escape') {
+    if (event.key === "Escape") {
       event.preventDefault();
       closeModal();
       return;
     }
 
-    if (event.key !== 'Tab') return;
+    if (event.key !== "Tab") return;
     const focusable = getFocusableElements(overlay);
     if (focusable.length === 0) {
       event.preventDefault();
@@ -279,17 +343,24 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
 
   function openRequest(docName: string) {
     const { overlay, modal } = getModalParts();
-    const docNameEl = document.getElementById('modal-doc-name');
-    const docInput = document.getElementById('doc-name') as HTMLInputElement | null;
-    if (docNameEl) docNameEl.textContent = '«' + docName + '»';
+    const docNameEl = document.getElementById("modal-doc-name");
+    const docInput = document.getElementById(
+      "doc-name",
+    ) as HTMLInputElement | null;
+    if (docNameEl) docNameEl.textContent = "«" + docName + "»";
     if (docInput) docInput.value = docName;
     if (!overlay) return;
 
-    lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    overlay.classList.add('active');
-    overlay.setAttribute('aria-hidden', 'false');
+    lastFocusedElement =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    overlay.classList.add("active");
+    overlay.setAttribute("aria-hidden", "false");
 
-    const emailInput = document.getElementById('modal-email') as HTMLInputElement | null;
+    const emailInput = document.getElementById(
+      "modal-email",
+    ) as HTMLInputElement | null;
     setTimeout(() => {
       if (emailInput) emailInput.focus();
       else modal?.focus();
@@ -299,23 +370,102 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
   function closeModal() {
     const { overlay } = getModalParts();
     if (!overlay) return;
-    overlay.classList.remove('active');
-    overlay.setAttribute('aria-hidden', 'true');
+    overlay.classList.remove("active");
+    overlay.setAttribute("aria-hidden", "true");
     lastFocusedElement?.focus();
   }
 
-  function submitQuickRequest() {
-    const email = (document.getElementById('modal-email') as HTMLInputElement)?.value;
-    if (!email) { alert('Введите email'); return; }
+  const buildRequestPayload = ({
+    docName,
+    requesterEmail,
+    requesterName,
+    message,
+    source,
+  }: {
+    docName: string;
+    requesterEmail: string;
+    requesterName?: string;
+    message?: string;
+    source: string;
+  }) => {
+    const subject = `XTIR — запрос документа: ${docName || "без названия"}`;
+    const lines = [
+      "Здравствуйте!",
+      "",
+      `Прошу предоставить документ: ${docName || "не указано"}`,
+      `Email для ответа: ${requesterEmail || "не указан"}`,
+      requesterName ? `Имя: ${requesterName}` : "",
+      `Источник запроса: ${source}`,
+      "",
+      message?.trim() || "Комментарий: не указан",
+      "",
+      "Спасибо!",
+    ].filter(Boolean);
+    const body = lines.join("\n");
+    return {
+      subject,
+      body,
+      plainText: [`Кому: ${targetEmail}`, `Тема: ${subject}`, "", body].join(
+        "\n",
+      ),
+      mailtoHref: `mailto:${encodeURIComponent(targetEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
+    };
+  };
+
+  const copyToClipboard = async (text: string) => {
+    if (!navigator.clipboard?.writeText) return false;
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const sendByEmailClient = async (
+    payload: ReturnType<typeof buildRequestPayload>,
+  ) => {
+    const copied = await copyToClipboard(payload.plainText);
+    window.location.href = payload.mailtoHref;
+    showToast(
+      copied
+        ? "Черновик письма открыт. Текст заявки также скопирован в буфер."
+        : "Черновик письма открыт. Если нужно, скопируйте текст заявки вручную из формы.",
+    );
+  };
+
+  async function submitQuickRequest() {
+    const email = (
+      document.getElementById("modal-email") as HTMLInputElement
+    )?.value?.trim();
+    const docNameText = (
+      document.getElementById("modal-doc-name")?.textContent || ""
+    )
+      .replace(/[«»]/g, "")
+      .trim();
+    if (!email) {
+      showToast("Укажите email для ответа.");
+      return;
+    }
+    const payload = buildRequestPayload({
+      docName: docNameText,
+      requesterEmail: email,
+      source: "Модальное окно /docs",
+    });
     closeModal();
-    showToast('✓ Запрос отправлен! Ответим в течение суток.');
+    await sendByEmailClient(payload);
   }
+
   function showToast(msg: string) {
-    const t = document.createElement('div');
-    t.className = 'toast'; t.textContent = msg;
+    const t = document.createElement("div");
+    t.className = "toast";
+    t.textContent = msg;
     document.body.appendChild(t);
-    setTimeout(() => t.classList.add('show'), 10);
-    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3500);
+    setTimeout(() => t.classList.add("show"), 10);
+    setTimeout(() => {
+      t.classList.remove("show");
+      setTimeout(() => t.remove(), 300);
+    }, 3500);
   }
   const w = window as unknown as Window & {
     openRequest: typeof openRequest;
@@ -327,18 +477,53 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
   w.submitQuickRequest = submitQuickRequest;
 
   const init = () => {
-    document.querySelectorAll('[data-stop-propagation]').forEach((el) => {
-      el.addEventListener('click', (ev) => ev.stopPropagation());
+    document.querySelectorAll("[data-stop-propagation]").forEach((el) => {
+      el.addEventListener("click", (ev) => ev.stopPropagation());
     });
-    document.addEventListener('keydown', trapModalFocus);
-    document.getElementById('doc-request-form')?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      showToast('✓ Запрос отправлен! Ответим в течение суток.');
-    });
+    document.addEventListener("keydown", trapModalFocus);
+    document
+      .getElementById("doc-request-form")
+      ?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const docName =
+          (
+            document.getElementById("doc-name") as HTMLInputElement | null
+          )?.value?.trim() || "";
+        const requesterName =
+          (
+            document.getElementById(
+              "doc-request-name",
+            ) as HTMLInputElement | null
+          )?.value?.trim() || "";
+        const requesterEmail =
+          (
+            document.getElementById(
+              "doc-request-email",
+            ) as HTMLInputElement | null
+          )?.value?.trim() || "";
+        const message =
+          (
+            document.getElementById(
+              "doc-request-message",
+            ) as HTMLTextAreaElement | null
+          )?.value?.trim() || "";
+        if (!requesterEmail) {
+          showToast("Укажите email для ответа.");
+          return;
+        }
+        const payload = buildRequestPayload({
+          docName,
+          requesterEmail,
+          requesterName,
+          message,
+          source: "Форма /docs",
+        });
+        void sendByEmailClient(payload);
+      });
   };
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
   } else {
     init();
   }
@@ -346,103 +531,386 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
 
 <style>
   .docs-page {
-    --bg: #0f141a; --bg2: #0b0e13; --surface: #141a22;
-    --border: rgba(255,255,255,0.07); --accent: #00b3ff;
-    --text: rgba(255,255,255,0.88); --muted: rgba(255,255,255,0.42);
+    --bg: #0f141a;
+    --bg2: #0b0e13;
+    --surface: #141a22;
+    --border: rgba(255, 255, 255, 0.07);
+    --accent: #00b3ff;
+    --text: rgba(255, 255, 255, 0.88);
+    --muted: rgba(255, 255, 255, 0.42);
     background:
-      radial-gradient(860px 420px at 18% 0%, rgba(84, 156, 255, 0.09), transparent 62%),
-      radial-gradient(760px 360px at 86% 8%, rgba(88, 116, 228, 0.08), transparent 64%),
+      radial-gradient(
+        860px 420px at 18% 0%,
+        rgba(84, 156, 255, 0.09),
+        transparent 62%
+      ),
+      radial-gradient(
+        760px 360px at 86% 8%,
+        rgba(88, 116, 228, 0.08),
+        transparent 64%
+      ),
       linear-gradient(180deg, #070d16 0%, #050a12 100%);
-    color: var(--text); min-height: 100vh; padding-bottom: clamp(56px, 7vw, 90px);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: clamp(56px, 7vw, 90px);
   }
-  .docs-hero { position: relative; padding: clamp(56px, 8vw, 96px) 0 56px; overflow: hidden; background: linear-gradient(180deg, rgba(255,255,255,0.016), rgba(255,255,255,0.006)); border-bottom: 1px solid var(--border); }
+  .docs-hero {
+    position: relative;
+    padding: clamp(56px, 8vw, 96px) 0 56px;
+    overflow: hidden;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.016),
+      rgba(255, 255, 255, 0.006)
+    );
+    border-bottom: 1px solid var(--border);
+  }
   .docs-hero__bg {
-    position: absolute; inset: 0;
+    position: absolute;
+    inset: 0;
     background:
-      radial-gradient(ellipse 600px 400px at 80% 50%, rgba(0,179,255,0.06) 0%, transparent 70%),
+      radial-gradient(
+        ellipse 600px 400px at 80% 50%,
+        rgba(0, 179, 255, 0.06) 0%,
+        transparent 70%
+      ),
       linear-gradient(rgba(120, 176, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(120, 176, 255, 0.024) 1px, transparent 1px);
-    background-size: auto, 56px 56px, 56px 56px;
-    mask-image: linear-gradient(180deg, transparent 0%, black 18%, black 88%, transparent 100%);
+    background-size:
+      auto,
+      56px 56px,
+      56px 56px;
+    mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      black 18%,
+      black 88%,
+      transparent 100%
+    );
   }
-  .docs-hero__inner { position: relative; z-index: 2; }
-  .docs-hero__label { font-family: 'Courier New', monospace; font-size: .72rem; letter-spacing: .2em; color: var(--accent); opacity: .7; margin-bottom: 20px; }
-  .docs-hero__title { font-size: clamp(2.2rem, 5.5vw, 4.6rem); font-weight: 700; line-height: .95; margin: 0 0 24px; letter-spacing: -.02em; }
-  .docs-hero__title span { color: rgba(118, 189, 255, 0.95); }
-  .docs-hero__open { color: #63c7ff; }
-  .docs-hero__sub { font-size: var(--xtir-body); line-height: 1.7; color: rgba(255,255,255,0.66); max-width: 66ch; margin: 0 0 36px; }
-  .docs-hero__stats { display: flex; align-items: center; gap: 32px; }
-  .docs-stat__num { font-size: 2rem; font-weight: 700; color: var(--accent); line-height: 1; }
-  .docs-stat__label { font-size: .78rem; color: var(--muted); font-family: 'Courier New', monospace; text-transform: uppercase; letter-spacing: .08em; }
-  .docs-stat__divider { width: 1px; height: 40px; background: var(--border); }
-  .docs-catalog { padding: clamp(34px, 5vw, 56px) 0; }
-  .doc-category { margin-bottom: 52px; }
-  .doc-category__header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .docs-hero__inner {
+    position: relative;
+    z-index: 2;
+  }
+  .docs-hero__label {
+    font-family: "Courier New", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    opacity: 0.7;
+    margin-bottom: 20px;
+  }
+  .docs-hero__title {
+    font-size: clamp(2.2rem, 5.5vw, 4.6rem);
+    font-weight: 700;
+    line-height: 0.95;
+    margin: 0 0 24px;
+    letter-spacing: -0.02em;
+  }
+  .docs-hero__title span {
+    color: rgba(118, 189, 255, 0.95);
+  }
+  .docs-hero__open {
+    color: #63c7ff;
+  }
+  .docs-hero__sub {
+    font-size: var(--xtir-body);
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.66);
+    max-width: 66ch;
+    margin: 0 0 36px;
+  }
+  .docs-hero__stats {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .docs-stat__num {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .docs-stat__label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-family: "Courier New", monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .docs-stat__divider {
+    width: 1px;
+    height: 40px;
+    background: var(--border);
+  }
+  .docs-catalog {
+    padding: clamp(34px, 5vw, 56px) 0;
+  }
+  .doc-category {
+    margin-bottom: 52px;
+  }
+  .doc-category__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
   .doc-category__icon {
     width: 22px;
     height: 22px;
     border-radius: 7px;
     border: 1px solid rgba(138, 201, 255, 0.4);
-    background: linear-gradient(180deg, rgba(103, 164, 223, 0.2), rgba(103, 164, 223, 0.04));
+    background: linear-gradient(
+      180deg,
+      rgba(103, 164, 223, 0.2),
+      rgba(103, 164, 223, 0.04)
+    );
     position: relative;
     flex-shrink: 0;
   }
   .doc-category__icon::before,
-  .doc-category__icon::after { content: ""; position: absolute; }
+  .doc-category__icon::after {
+    content: "";
+    position: absolute;
+  }
   .doc-category__icon--manuals::before {
-    width: 10px; height: 2px; background: rgba(186, 225, 255, 0.9); top: 6px; left: 5px;
-    box-shadow: 0 4px 0 rgba(150, 206, 255, 0.7), 0 8px 0 rgba(120, 186, 255, 0.65);
+    width: 10px;
+    height: 2px;
+    background: rgba(186, 225, 255, 0.9);
+    top: 6px;
+    left: 5px;
+    box-shadow:
+      0 4px 0 rgba(150, 206, 255, 0.7),
+      0 8px 0 rgba(120, 186, 255, 0.65);
   }
   .doc-category__icon--technical::before {
-    inset: 5px; border: 1px solid rgba(184, 226, 255, 0.86); border-radius: 99px;
+    inset: 5px;
+    border: 1px solid rgba(184, 226, 255, 0.86);
+    border-radius: 99px;
   }
   .doc-category__icon--technical::after {
-    width: 6px; height: 6px; border-radius: 99px; background: rgba(173, 222, 255, 0.9); left: 8px; top: 8px;
+    width: 6px;
+    height: 6px;
+    border-radius: 99px;
+    background: rgba(173, 222, 255, 0.9);
+    left: 8px;
+    top: 8px;
   }
   .doc-category__icon--solutions::before,
   .doc-category__icon--solutions::after {
-    width: 7px; height: 7px; border: 1px solid rgba(182, 226, 255, 0.9); border-radius: 99px; top: 7px;
+    width: 7px;
+    height: 7px;
+    border: 1px solid rgba(182, 226, 255, 0.9);
+    border-radius: 99px;
+    top: 7px;
   }
-  .doc-category__icon--solutions::before { left: 3px; }
-  .doc-category__icon--solutions::after { right: 3px; }
+  .doc-category__icon--solutions::before {
+    left: 3px;
+  }
+  .doc-category__icon--solutions::after {
+    right: 3px;
+  }
   .doc-category__icon--international::before {
-    inset: 5px; border: 1px solid rgba(184, 226, 255, 0.86); border-top: 0;
+    inset: 5px;
+    border: 1px solid rgba(184, 226, 255, 0.86);
+    border-top: 0;
   }
   .doc-category__icon--international::after {
-    left: 5px; right: 5px; top: 5px; height: 2px; background: rgba(174, 222, 255, 0.84);
+    left: 5px;
+    right: 5px;
+    top: 5px;
+    height: 2px;
+    background: rgba(174, 222, 255, 0.84);
   }
-  .doc-category__title { font-size: 1.15rem; font-weight: 700; margin: 0; flex: 1; }
-  .doc-category__count { font-family: 'Courier New', monospace; font-size: .75rem; color: var(--accent); background: rgba(0,179,255,0.08); border: 1px solid rgba(0,179,255,0.2); padding: 3px 10px; border-radius: 20px; }
-  .doc-list { display: flex; flex-direction: column; gap: 2px; }
-  .doc-item { display: flex; align-items: center; gap: 16px; padding: 14px 16px; background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012)); border: 1px solid var(--border); border-radius: 14px; transition: border-color .2s, background .2s, transform .2s; box-shadow: inset 0 1px 0 rgba(255,255,255,0.03); }
-  .doc-item:hover { transform: translateY(-2px); }
-  .doc-item--available:hover { border-color: rgba(0,179,255,0.25); background: rgba(0,179,255,0.03); }
-  .doc-item__num { font-family: 'Courier New', monospace; font-size: .65rem; color: var(--muted); width: 20px; flex-shrink: 0; text-align: right; }
-  .doc-item__icon { width: 28px; height: 28px; flex-shrink: 0; color: var(--muted); }
-  .doc-item__icon svg { width: 100%; height: 100%; }
-  .doc-item__info { flex: 1; min-width: 0; }
-  .doc-item__title { font-size: .92rem; font-weight: 600; margin-bottom: 5px; line-height: 1.3; }
-  .doc-item__tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-  .doc-type { font-family: 'Courier New', monospace; font-size: .6rem; font-weight: 700; padding: 2px 7px; border-radius: 2px; letter-spacing: .05em; }
-  .doc-type--pdf { background: rgba(220,50,50,0.15); color: #ff6b6b; border: 1px solid rgba(220,50,50,0.25); }
-  .doc-type--doc, .doc-type--docx { background: rgba(0,100,220,0.15); color: #6b9fff; border: 1px solid rgba(0,100,220,0.25); }
-  .doc-type--pptx { background: rgba(220,100,0,0.15); color: #ffaa6b; border: 1px solid rgba(220,100,0,0.25); }
-  .doc-tag { font-family: 'Courier New', monospace; font-size: .62rem; letter-spacing: .06em; color: var(--muted); text-transform: uppercase; background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 2px 8px; border-radius: 2px; }
-  .doc-item__actions { flex-shrink: 0; }
-  .doc-btn { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; font-weight: 600; padding: 9px 16px; border-radius: 10px; cursor: pointer; white-space: nowrap; transition: all .2s; font-family: inherit; text-decoration: none; border: 1px solid; min-height: 42px; }
-  .doc-btn svg { width: 14px; height: 14px; }
-  .doc-btn--open { color: var(--accent); background: rgba(0,179,255,0.08); border-color: rgba(0,179,255,0.3); }
-  .doc-btn--open:hover { background: rgba(0,179,255,0.18); border-color: rgba(0,179,255,0.6); }
-  .doc-btn--request { color: var(--muted); background: rgba(255,255,255,0.04); border-color: var(--border); }
-  .doc-btn--request:hover { color: var(--text); background: rgba(255,255,255,0.08); }
-  .request-section { background: linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.008)); padding: clamp(46px, 7vw, 78px) 0 clamp(54px, 8vw, 94px); border-top: 1px solid var(--border); }
-  .request-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .doc-category__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    flex: 1;
+  }
+  .doc-category__count {
+    font-family: "Courier New", monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: rgba(0, 179, 255, 0.08);
+    border: 1px solid rgba(0, 179, 255, 0.2);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .doc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .doc-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.012)
+    );
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    transition:
+      border-color 0.2s,
+      background 0.2s,
+      transform 0.2s;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+  .doc-item:hover {
+    transform: translateY(-2px);
+  }
+  .doc-item--available:hover {
+    border-color: rgba(0, 179, 255, 0.25);
+    background: rgba(0, 179, 255, 0.03);
+  }
+  .doc-item__num {
+    font-family: "Courier New", monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    width: 20px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .doc-item__icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    color: var(--muted);
+  }
+  .doc-item__icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  .doc-item__info {
+    flex: 1;
+    min-width: 0;
+  }
+  .doc-item__title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
+  .doc-item__tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .doc-type {
+    font-family: "Courier New", monospace;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+  .doc-type--pdf {
+    background: rgba(220, 50, 50, 0.15);
+    color: #ff6b6b;
+    border: 1px solid rgba(220, 50, 50, 0.25);
+  }
+  .doc-type--doc,
+  .doc-type--docx {
+    background: rgba(0, 100, 220, 0.15);
+    color: #6b9fff;
+    border: 1px solid rgba(0, 100, 220, 0.25);
+  }
+  .doc-type--pptx {
+    background: rgba(220, 100, 0, 0.15);
+    color: #ffaa6b;
+    border: 1px solid rgba(220, 100, 0, 0.25);
+  }
+  .doc-tag {
+    font-family: "Courier New", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+  .doc-item__actions {
+    flex-shrink: 0;
+  }
+  .doc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 9px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-family: inherit;
+    text-decoration: none;
+    border: 1px solid;
+    min-height: 42px;
+  }
+  .doc-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+  .doc-btn--open {
+    color: var(--accent);
+    background: rgba(0, 179, 255, 0.08);
+    border-color: rgba(0, 179, 255, 0.3);
+  }
+  .doc-btn--open:hover {
+    background: rgba(0, 179, 255, 0.18);
+    border-color: rgba(0, 179, 255, 0.6);
+  }
+  .doc-btn--request {
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--border);
+  }
+  .doc-btn--request:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .request-section {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.018),
+      rgba(255, 255, 255, 0.008)
+    );
+    padding: clamp(46px, 7vw, 78px) 0 clamp(54px, 8vw, 94px);
+    border-top: 1px solid var(--border);
+  }
+  .request-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
   @media (max-width: 768px) {
-    .docs-hero__stats { gap: 18px; }
-    .docs-stat__num { font-size: 1.6rem; }
-    .docs-stat__divider { height: 26px; }
-    .docs-catalog { padding-top: 28px; }
-    .request-inner { grid-template-columns: 1fr; gap: 34px; }
+    .docs-hero__stats {
+      gap: 18px;
+    }
+    .docs-stat__num {
+      font-size: 1.6rem;
+    }
+    .docs-stat__divider {
+      height: 26px;
+    }
+    .docs-catalog {
+      padding-top: 28px;
+    }
+    .request-inner {
+      grid-template-columns: 1fr;
+      gap: 34px;
+    }
     .doc-item {
       display: grid;
       grid-template-columns: 20px 24px 1fr;
@@ -459,36 +927,176 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
       justify-content: center;
     }
   }
-  .request-label { font-family: 'Courier New', monospace; font-size: .7rem; letter-spacing: .2em; color: var(--accent); opacity: .7; margin-bottom: 16px; }
-  .request-title { font-size: clamp(32px, 4vw, 52px); font-weight: 700; line-height: .95; letter-spacing: -.02em; margin: 0 0 20px; }
-  .request-desc { font-size: .95rem; line-height: 1.7; color: var(--muted); margin: 0 0 32px; }
-  .request-contacts { display: flex; flex-direction: column; gap: 12px; }
-  .request-contact { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--muted); text-decoration: none; transition: color .2s; }
-  .request-contact svg { width: 18px; height: 18px; flex-shrink: 0; }
-  .request-contact:hover { color: var(--text); }
-  .request-form { display: flex; flex-direction: column; gap: 16px; }
-  .form-group { display: flex; flex-direction: column; gap: 6px; }
-  .form-label { font-size: .78rem; color: var(--muted); font-family: 'Courier New', monospace; text-transform: uppercase; letter-spacing: .08em; }
-  .form-input { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; color: var(--text); font-size: .92rem; font-family: inherit; width: 100%; box-sizing: border-box; transition: border-color .2s, box-shadow .2s; outline: none; }
-  .form-input:focus { border-color: rgba(0,179,255,0.4); }
-  .form-input::placeholder { color: var(--muted); }
-  .form-textarea { resize: vertical; min-height: 80px; }
-  .form-submit { display: flex; align-items: center; justify-content: center; gap: 10px; background: linear-gradient(180deg, #5ad4ff 0%, #00b3ff 72%, #0091d9 100%); color: #05131a; border: none; border-radius: 12px; padding: 14px 28px; font-size: .95rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: all .2s; min-height: 46px; }
-  .form-submit svg { width: 18px; height: 18px; }
-  .form-submit:hover { background: #00c8ff; transform: translateY(-1px); }
-  .modal-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s; }
-  .modal-overlay.active { opacity: 1; pointer-events: all; }
-  .modal { background: #141a22; border: 1px solid rgba(0,179,255,0.2); border-radius: 12px; padding: 40px; max-width: 420px; width: 90%; position: relative; transform: translateY(20px); transition: transform .25s; text-align: center; }
-  .modal-overlay.active .modal { transform: translateY(0); }
-  .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--muted); font-size: 1.1rem; cursor: pointer; padding: 4px 8px; border-radius: 4px; transition: color .2s; font-family: inherit; }
-  .modal-close:hover { color: var(--text); }
+  .request-label {
+    font-family: "Courier New", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    opacity: 0.7;
+    margin-bottom: 16px;
+  }
+  .request-title {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin: 0 0 20px;
+  }
+  .request-desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--muted);
+    margin: 0 0 32px;
+  }
+  .request-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .request-contact {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .request-contact svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  .request-contact:hover {
+    color: var(--text);
+  }
+  .request-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-family: "Courier New", monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .form-input {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-size: 0.92rem;
+    font-family: inherit;
+    width: 100%;
+    box-sizing: border-box;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+    outline: none;
+  }
+  .form-input:focus {
+    border-color: rgba(0, 179, 255, 0.4);
+  }
+  .form-input::placeholder {
+    color: var(--muted);
+  }
+  .form-textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  .form-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(180deg, #5ad4ff 0%, #00b3ff 72%, #0091d9 100%);
+    color: #05131a;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 28px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    min-height: 46px;
+  }
+  .form-submit svg {
+    width: 18px;
+    height: 18px;
+  }
+  .form-submit:hover {
+    background: #00c8ff;
+    transform: translateY(-1px);
+  }
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .modal {
+    background: #141a22;
+    border: 1px solid rgba(0, 179, 255, 0.2);
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 420px;
+    width: 90%;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.25s;
+    text-align: center;
+  }
+  .modal-overlay.active .modal {
+    transform: translateY(0);
+  }
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: color 0.2s;
+    font-family: inherit;
+  }
+  .modal-close:hover {
+    color: var(--text);
+  }
   .modal-icon {
     width: 38px;
     height: 38px;
     margin: 0 auto 16px;
     border-radius: 10px;
     border: 1px solid rgba(145, 214, 255, 0.58);
-    background: linear-gradient(180deg, rgba(96, 175, 239, 0.26), rgba(96, 175, 239, 0.08));
+    background: linear-gradient(
+      180deg,
+      rgba(96, 175, 239, 0.26),
+      rgba(96, 175, 239, 0.08)
+    );
     position: relative;
   }
   .modal-icon::before {
@@ -499,13 +1107,46 @@ const availableDocs = categories.reduce((acc, c) => acc + c.docs.filter(d => d.a
     background: rgba(186, 225, 255, 0.92);
     top: 10px;
     left: 11px;
-    box-shadow: 0 6px 0 rgba(150, 206, 255, 0.7), 0 12px 0 rgba(120, 186, 255, 0.65);
+    box-shadow:
+      0 6px 0 rgba(150, 206, 255, 0.7),
+      0 12px 0 rgba(120, 186, 255, 0.65);
   }
-  .modal-title { font-size: 1.3rem; font-weight: 700; margin: 0 0 8px; }
-  .modal-doc { font-size: .85rem; color: var(--accent); margin: 0 0 8px; line-height: 1.4; }
-  .modal-text { font-size: .88rem; color: var(--muted); margin: 0 0 20px; }
-  .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1a2a1a; border: 1px solid rgba(0,200,100,0.4); color: rgba(0,220,120,1); padding: 14px 24px; border-radius: 8px; font-size: .9rem; font-weight: 600; z-index: 9999; opacity: 0; transition: all .3s; }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .modal-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  .modal-doc {
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin: 0 0 8px;
+    line-height: 1.4;
+  }
+  .modal-text {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin: 0 0 20px;
+  }
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1a2a1a;
+    border: 1px solid rgba(0, 200, 100, 0.4);
+    color: rgba(0, 220, 120, 1);
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
   @media (prefers-reduced-motion: reduce) {
     .doc-item,
     .doc-btn,

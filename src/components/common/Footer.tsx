@@ -4,7 +4,7 @@ const footerLinks = {
   company: [
     { name: "О компании", href: "/about/" },
     { name: "Технологии", href: "/technologies/" },
-    { name: "Партнёры", href: "/partners/" },
+    { name: "Партнёры", href: "/partners/reb-zont/" },
     { name: "Карьера", href: "/careers/" },
   ],
   products: [
@@ -68,7 +68,10 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <div>
-              <a href={withBase("/")} className="mb-6 inline-flex items-center gap-3 rounded-lg group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400">
+              <a
+                href={withBase("/")}
+                className="mb-6 inline-flex items-center gap-3 rounded-lg group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400"
+              >
                 <img
                   src={withBase("/images/logo.png")}
                   srcSet={`${withBase("/images/logo.png")} 1x, ${withBase("/images/xtir-logo@2x.png")} 2x`}
@@ -79,17 +82,25 @@ export default function Footer() {
                   decoding="async"
                   className="h-10 w-auto"
                 />
-                <span className="text-xs text-white/64">Точность технологий</span>
+                <span className="text-xs text-white/64">
+                  Точность технологий
+                </span>
               </a>
 
               <p className="xtir-lead mb-6 max-w-sm">
                 Разработка и производство электронно-механического оборудования
-                для стрельбы. Современные технологии для профессиональной подготовки.
+                для стрельбы. Современные технологии для профессиональной
+                подготовки.
               </p>
 
               <div className="space-y-3 text-sm text-white/74">
                 <div className="xtir-card flex items-center space-x-3 rounded-xl px-3 py-2.5">
-                  <svg className="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-5 h-5 text-primary-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -97,13 +108,21 @@ export default function Footer() {
                       d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                     />
                   </svg>
-                  <a href={withBase("/contact/")} className="transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm">
-                    info@xtir.ru
+                  <a
+                    href={`mailto:${SITE.contactEmail}`}
+                    className="transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm"
+                  >
+                    {SITE.contactEmail}
                   </a>
                 </div>
 
                 <div className="xtir-card flex items-center space-x-3 rounded-xl px-3 py-2.5">
-                  <svg className="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-5 h-5 text-primary-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -112,10 +131,16 @@ export default function Footer() {
                     />
                   </svg>
                   <div>
-                    <a href="tel:+79154250095" className="block transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm">
+                    <a
+                      href="tel:+79154250095"
+                      className="block transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm"
+                    >
                       +7 (915) 425-00-95
                     </a>
-                    <a href="tel:+79162962469" className="block transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm">
+                    <a
+                      href="tel:+79162962469"
+                      className="block transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 rounded-sm"
+                    >
                       +7 (916) 296-24-69
                     </a>
                   </div>
@@ -126,9 +151,7 @@ export default function Footer() {
 
           {/* Links Columns */}
           {Object.entries(footerLinks).map(([category, links]) => (
-            <div
-              key={category}
-            >
+            <div key={category}>
               <h3 className="mb-4 text-base font-semibold text-white">
                 {categoryNames[category]}
               </h3>

@@ -7,7 +7,15 @@ import { chromium } from "playwright";
 const HOST = "127.0.0.1";
 const PORT = 4323;
 const BASE_URL = `http://${HOST}:${PORT}`;
-const ROUTES = ["/", "/products/", "/gallery/", "/contact/"];
+const ROUTES = [
+  "/",
+  "/products/",
+  "/products/pmu-100/",
+  "/gallery/",
+  "/docs/",
+  "/partners/reb-zont/",
+  "/contact/",
+];
 
 function contentType(filePath) {
   const ext = path.extname(filePath).toLowerCase();
@@ -68,7 +76,9 @@ async function run() {
 
   try {
     const browser = await chromium.launch({ headless: true });
-    const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const context = await browser.newContext({
+      viewport: { width: 1440, height: 900 },
+    });
     const page = await context.newPage();
 
     for (const route of ROUTES) {
@@ -87,7 +97,40 @@ async function run() {
       const canonical = page.locator('link[rel="canonical"]');
       const canonicalHref = await canonical.getAttribute("href");
       if (!canonicalHref?.startsWith("https://x-tir.ru")) {
-        throw new Error(`Route ${route} has invalid canonical: ${canonicalHref}`);
+        throw new Error(
+          `Route ${route} has invalid canonical: ${canonicalHref}`,
+        );
+      }
+    }
+
+    const sitemapResponse = await fetch(`${BASE_URL}/sitemap.xml`);
+    if (!sitemapResponse.ok) {
+      throw new Error(`Sitemap is not accessible: ${sitemapResponse.status}`);
+    }
+
+    const sitemapXml = await sitemapResponse.text();
+    const sitemapLocs = Array.from(
+      sitemapXml.matchAll(/<loc>(.*?)<\/loc>/g),
+      (match) => match[1],
+    );
+
+    if (sitemapLocs.length === 0) {
+      throw new Error("Sitemap has no <loc> entries");
+    }
+
+    for (const loc of sitemapLocs) {
+      let pathName;
+      try {
+        pathName = new URL(loc).pathname;
+      } catch {
+        throw new Error(`Sitemap contains invalid URL: ${loc}`);
+      }
+
+      const response = await page.request.get(`${BASE_URL}${pathName}`);
+      if (response.status() !== 200) {
+        throw new Error(
+          `Sitemap URL failed (${response.status()}): ${pathName}`,
+        );
       }
     }
 
@@ -97,15 +140,17 @@ async function run() {
       throw new Error("Header tricolor container is missing");
     }
 
-    const stripeSegments = page.locator('header div[aria-hidden="true"] > span');
+    const stripeSegments = page.locator(
+      'header div[aria-hidden="true"] > span',
+    );
     const segmentCount = await stripeSegments.count();
     if (segmentCount === 3) {
       // Legacy implementation: 3 explicit stripe segments
     } else if (segmentCount === 1) {
       // Current implementation: one span with tricolor gradient
-      const gradient = await stripeSegments.first().evaluate((el) =>
-        globalThis.getComputedStyle(el).backgroundImage,
-      );
+      const gradient = await stripeSegments
+        .first()
+        .evaluate((el) => globalThis.getComputedStyle(el).backgroundImage);
       const hasGradient = gradient.includes("linear-gradient");
       const hasBlue = gradient.includes("121, 152, 220");
       const hasRed = gradient.includes("170, 84, 94");

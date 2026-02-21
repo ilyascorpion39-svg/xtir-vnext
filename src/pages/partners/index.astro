@@ -1,12 +1,95 @@
 ---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { partners } from "@/data/partners";
+import { withBase } from "@/site";
+
+const sortedPartners = [...partners].sort((a, b) => {
+  const featuredDelta =
+    Number(Boolean(b.featured)) - Number(Boolean(a.featured));
+  if (featuredDelta !== 0) return featuredDelta;
+  return a.name.localeCompare(b.name, "ru");
+});
+
+const resolvePartnerHref = (slug: string, pageHref?: string) =>
+  pageHref?.trim() || `/partners/${slug}/`;
 ---
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=reb-zont/">
-  <link rel="canonical" href="reb-zont/"/>
-  <script>window.location.replace('reb-zont/');</script>
-</head>
-<body></body>
-</html>
+
+<BaseLayout
+  title="Партнёры XTIR"
+  description="Партнёры XTIR и совместные решения в области мишенных систем и специального оборудования."
+>
+  <main class="xtir-section min-h-screen">
+    <section class="xtir-container">
+      <p class="kicker">Партнёрская сеть</p>
+      <h1 class="xtir-title">Партнёры XTIR</h1>
+      <p class="xtir-lead mt-3 max-w-[72ch]">
+        На этой странице собраны компании, с которыми XTIR реализует совместные
+        проекты, интеграции и поставки профильного оборудования.
+      </p>
+
+      {
+        sortedPartners.length > 0 ? (
+          <div class="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {sortedPartners.map((partner) => (
+              <article class="xtir-card flex h-full flex-col rounded-2xl p-5">
+                <div class="mb-4 flex items-center gap-4">
+                  <img
+                    src={withBase(
+                      partner.logoSrc || "/images/products/placeholder.svg",
+                    )}
+                    alt={partner.name}
+                    class="h-14 w-14 rounded-xl bg-black/30 object-contain p-2"
+                    loading="lazy"
+                    decoding="async"
+                    width="56"
+                    height="56"
+                  />
+                  <div>
+                    <h2 class="text-xl font-semibold text-white">
+                      {partner.name}
+                    </h2>
+                    <p class="mt-1 text-sm text-white/62">{partner.tagline}</p>
+                  </div>
+                </div>
+
+                <p class="text-sm leading-6 text-white/78">
+                  {partner.description}
+                </p>
+
+                {partner.location ? (
+                  <p class="mt-3 text-xs uppercase tracking-wider text-white/45">
+                    География: {partner.location}
+                  </p>
+                ) : null}
+
+                <div class="mt-5 flex flex-wrap gap-2">
+                  <a
+                    href={withBase(
+                      resolvePartnerHref(partner.slug, partner.pageHref),
+                    )}
+                    class="xtir-btn xtir-btn--primary text-sm"
+                  >
+                    Открыть страницу
+                  </a>
+                  <a
+                    href={withBase("/contact/")}
+                    class="xtir-btn xtir-btn--secondary text-sm"
+                  >
+                    Связаться
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div class="xtir-card mt-8 rounded-2xl p-8 text-center md:p-10">
+            <p class="text-lg text-white/92">Раздел партнёров обновляется</p>
+            <p class="xtir-lead mt-2">
+              Карточки партнёров будут опубликованы в ближайшее время.
+            </p>
+          </div>
+        )
+      }
+    </section>
+  </main>
+</BaseLayout>
