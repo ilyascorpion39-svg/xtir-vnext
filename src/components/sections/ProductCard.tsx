@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import type { Product } from "@/data/products";
 import clsx from "clsx";
 import { toWebp, withBase } from "@/site";
@@ -71,16 +70,12 @@ export default function ProductCard({ product, categoryName }: Props) {
   const featurePreview = product.features.slice(0, 2);
 
   return (
-    <motion.a
+    <a
       href={withBase(`/products/${product.slug}/`)}
       className={clsx(
         "group xtir-card xtir-card--hover flex h-full flex-col overflow-hidden",
         meta.borderHoverClass,
       )}
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.45 }}
     >
       <div className="relative aspect-[16/9] overflow-hidden bg-dark-900/70">
         <div
@@ -151,6 +146,6 @@ export default function ProductCard({ product, categoryName }: Props) {
           </span>
         </div>
       </div>
-    </motion.a>
+    </a>
   );
 }

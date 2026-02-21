@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
 import { PRODUCTS, PRODUCT_CATEGORIES } from "@/data/products";
 import ProductCard from "./ProductCard";
 
@@ -156,12 +155,7 @@ export default function ProductCatalog() {
                   />
                 )}
                 <h2 className="mb-5 text-2xl font-semibold text-white">{category}</h2>
-                <motion.div
-                  className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:grid-cols-4 auto-rows-fr"
-                  initial="hidden"
-                  animate="visible"
-                  variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
-                >
+                <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:grid-cols-4 auto-rows-fr">
                   {products.map((product) => (
                     <ProductCard
                       key={product.id}
@@ -169,7 +163,7 @@ export default function ProductCatalog() {
                       categoryName={catNameById.get(product.categoryId)}
                     />
                   ))}
-                </motion.div>
+                </div>
               </section>
             ))}
           </div>

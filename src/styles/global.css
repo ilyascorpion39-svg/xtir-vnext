@@ -417,8 +417,8 @@
   }
 
   .cv-auto {
-    content-visibility: auto;
-    contain-intrinsic-size: 1000px;
+    content-visibility: visible;
+    contain-intrinsic-size: auto;
   }
 
   .content-body ul,
@@ -575,14 +575,13 @@
   .animate-delay-500 { animation-delay: 500ms; }
 
   .js-reveal [data-reveal] {
-    opacity: 0;
-    transform: translateY(14px);
-    filter: saturate(0.92);
+    opacity: 1;
+    transform: none;
+    filter: none;
     transition:
       opacity 520ms ease,
       transform 520ms ease,
       filter 520ms ease;
-    will-change: opacity, transform, filter;
   }
 
   .js-reveal [data-reveal].is-inview {
