@@ -11,6 +11,24 @@ import TechField from "@/components/visual/TechField";
     <div class="hp-grid"></div>
   </div>
 
+  <div class="hp-stats">
+    <div class="hp-stat">
+      <div class="hp-sn">20+</div><div class="hp-sl">лет в отрасли</div>
+    </div>
+    <div class="hp-sdiv"></div>
+    <div class="hp-stat">
+      <div class="hp-sn">30+</div><div class="hp-sl">позиций каталога</div>
+    </div>
+    <div class="hp-sdiv"></div>
+    <div class="hp-stat">
+      <div class="hp-sn">РФ</div><div class="hp-sl">производство</div>
+    </div>
+    <div class="hp-sdiv"></div>
+    <div class="hp-stat">
+      <div class="hp-sn">24/7</div><div class="hp-sl">поддержка</div>
+    </div>
+  </div>
+
   <div class="hp-body home-container">
     <div class="hp-center">
       <div class="hp-slogan hp-headline">
@@ -29,24 +47,6 @@ import TechField from "@/components/visual/TechField";
           >Смотреть каталог →</a
         >
       </div>
-    </div>
-  </div>
-
-  <div class="hp-stats">
-    <div class="hp-stat">
-      <div class="hp-sn">20+</div><div class="hp-sl">лет в отрасли</div>
-    </div>
-    <div class="hp-sdiv"></div>
-    <div class="hp-stat">
-      <div class="hp-sn">30+</div><div class="hp-sl">позиций каталога</div>
-    </div>
-    <div class="hp-sdiv"></div>
-    <div class="hp-stat">
-      <div class="hp-sn">РФ</div><div class="hp-sl">производство</div>
-    </div>
-    <div class="hp-sdiv"></div>
-    <div class="hp-stat">
-      <div class="hp-sn">24/7</div><div class="hp-sl">поддержка</div>
     </div>
   </div>
 </section>
@@ -191,21 +191,27 @@ import TechField from "@/components/visual/TechField";
   .hp-stats {
     position: relative;
     z-index: 3;
+    margin-top: 74px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(
+      180deg,
+      rgba(4, 10, 18, 0.88),
+      rgba(4, 10, 18, 0.66)
+    );
+    backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 36px;
-    padding: 14px 20px;
+    gap: 26px;
+    padding: 9px 14px;
     flex-wrap: wrap;
   }
   .hp-stat {
     text-align: center;
   }
   .hp-sn {
-    font-size: 1.65rem;
+    font-size: 1.22rem;
     font-weight: 800;
     color: #00b3ff !important;
     line-height: 1;
@@ -213,7 +219,7 @@ import TechField from "@/components/visual/TechField";
   }
   .hp-sl {
     font-family: "Courier New", monospace !important;
-    font-size: 0.6rem;
+    font-size: 0.56rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: rgba(255, 255, 255, 0.45);
@@ -221,7 +227,7 @@ import TechField from "@/components/visual/TechField";
   }
   .hp-sdiv {
     width: 1px;
-    height: 34px;
+    height: 24px;
     background: rgba(255, 255, 255, 0.07);
   }
   @media (max-width: 600px) {
@@ -232,6 +238,14 @@ import TechField from "@/components/visual/TechField";
   @media (max-width: 640px) {
     .hp-hero {
       min-height: 500px;
+    }
+    .hp-stats {
+      margin-top: 72px;
+      gap: 12px;
+      padding: 8px 10px;
+    }
+    .hp-sn {
+      font-size: 1.08rem;
     }
     .hp-slogan {
       align-items: flex-start;
